@@ -1,0 +1,7 @@
+{
+  "HomePage": {
+    "title": "Witaj w LaunchDesk",
+    "description": "To jest minimalna przykładowa strona wyświetlana po polsku. Aktywny język jest przechowywany w cookie, więc nie pojawia się w adresie URL.",
+    "switchLanguage": "Język"
+  }
+}
