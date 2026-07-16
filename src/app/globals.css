@@ -1,3 +1,16 @@
+:root {
+  --color-active-overlay: rgb(255 255 255 / 16%);
+  --color-avatar-fallback-bg: #3a3f4b;
+  --color-avatar-fallback-text: #e4e6eb;
+  --color-border: rgb(255 255 255 / 8%);
+  --color-hover-overlay: rgb(255 255 255 / 8%);
+  --color-surface: #16181d;
+  --color-text-muted: #9a9ea6;
+  --color-text-primary: #f2f2f2;
+  --color-text-secondary: #d6d8dc;
+  --color-text-strong: #ffffff;
+}
+
 html {
   height: 100%;
 }
