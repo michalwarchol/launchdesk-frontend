@@ -1,7 +1,7 @@
-import React from "react";
 import { NextIntlClientProvider } from "next-intl";
 
 import enMessages from "../messages/en.json";
+import "../src/app/globals.css";
 
 import type { Preview } from "@storybook/nextjs-vite";
 
