@@ -1,22 +1,50 @@
 "use client";
 
+import Link from "next/link";
+import { useTranslations } from "next-intl";
+
 import Avatar from "@/components/Avatar";
 
 import styles from "./Sidebar.module.scss";
 
-// TODO: replace with the real navigation items.
-const NAV_ITEMS = ["Dashboard", "Projects", "Tasks", "Settings"];
+const NAV_ITEMS = [
+  {
+    label: "dashboard",
+    href: "/",
+  },
+  {
+    label: "users",
+    href: "/users",
+  },
+  {
+    label: "tasks",
+    href: "/tasks",
+  },
+  {
+    label: "settings",
+    href: "/settings",
+  },
+];
 
 export default function Sidebar() {
+  const t = useTranslations("Sidebar");
+
+  const items = NAV_ITEMS.map((item) => ({
+    label: t(item.label),
+    href: item.href,
+  }));
+
   return (
     <aside className={styles.sidebar}>
       <nav className={styles.nav}>
         <ul className={styles.navList}>
-          {NAV_ITEMS.map((item) => (
-            <li key={item}>
-              <button type="button" className={styles.navItem}>
-                {item}
-              </button>
+          {items.map((item) => (
+            <li key={item.label}>
+              <Link href={item.href}>
+                <button type="button" className={styles.navItem}>
+                  {item.label}
+                </button>
+              </Link>
             </li>
           ))}
         </ul>
