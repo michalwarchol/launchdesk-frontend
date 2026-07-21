@@ -4,6 +4,10 @@
   --color-avatar-fallback-text: #e4e6eb;
   --color-border: rgb(255 255 255 / 8%);
   --color-hover-overlay: rgb(255 255 255 / 8%);
+  --color-primary: #f5c26b;
+  --color-primary-active: #d99f3f;
+  --color-primary-hover: #f7cd83;
+  --color-primary-text: #1a1205;
   --color-surface: #16181d;
   --color-text-muted: #9a9ea6;
   --color-text-primary: #f2f2f2;
