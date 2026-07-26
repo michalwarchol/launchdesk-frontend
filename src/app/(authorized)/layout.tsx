@@ -10,7 +10,7 @@ export default function RootLayout({
   return (
     <div className={styles.page}>
       <Sidebar />
-      {children}
+      <div className={styles.content}>{children}</div>
     </div>
   );
 }
