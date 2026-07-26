@@ -9,5 +9,13 @@
     "users": "Użytkownicy",
     "tasks": "Zadania",
     "settings": "Ustawienia"
+  },
+  "Table": {
+    "loading": "Ładowanie…",
+    "empty": "Brak danych do wyświetlenia",
+    "filterAll": "Wszystkie",
+    "pageInfo": "Strona {page} z {pageCount}",
+    "prev": "Poprzednia",
+    "next": "Następna"
   }
 }

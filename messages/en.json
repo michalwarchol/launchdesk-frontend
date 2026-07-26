@@ -9,5 +9,13 @@
     "users": "Users",
     "tasks": "Tasks",
     "settings": "Settings"
+  },
+  "Table": {
+    "loading": "Loading…",
+    "empty": "No data to display",
+    "filterAll": "All",
+    "pageInfo": "Page {page} of {pageCount}",
+    "prev": "Prev",
+    "next": "Next"
   }
 }
