@@ -1,0 +1,12 @@
+.page {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  .content {
+    background-color: var(--color-background);
+    margin-left: 280px;
+    min-height: 100vh;
+    padding: 24px;
+  }
+}

@@ -1,0 +1,16 @@
+.topbar {
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding: 16px 24px;
+  width: 100%;
+}
+
+.title {
+  color: var(--color-primary-text);
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
