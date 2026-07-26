@@ -17,5 +17,12 @@
     "pageInfo": "Strona {page} z {pageCount}",
     "prev": "Poprzednia",
     "next": "Następna"
+  },
+  "UsersPage": {
+    "title": "Użytkownicy",
+    "addUser": "Dodaj użytkownika",
+    "columnName": "Imię i nazwisko",
+    "columnEmail": "Email",
+    "columnCreatedAt": "Utworzono"
   }
 }

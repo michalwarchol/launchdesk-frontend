@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 import Avatar from "@/components/Avatar";
 import Table, { Column } from "@/components/Table";
 import Topbar from "@/components/Topbar";
@@ -8,34 +10,36 @@ import Topbar from "@/components/Topbar";
 import mockData from "./mockData";
 import { User } from "./types";
 
-const columns: Column<User>[] = [
-  {
-    key: "name",
-    header: "Name",
-    render: (row) => (
-      <Avatar
-        src={row.avatar}
-        title={`${row.firstName} ${row.lastName}`}
-        size="sm"
-        subtitle={row.role}
-      />
-    ),
-  },
-  { key: "email", header: "Email" },
-  {
-    key: "createdAt",
-    header: "Created At",
-    render: (row) => <div>{new Date(row.createdAt).toLocaleDateString()}</div>,
-  },
-];
-
 export default function Users() {
+  const t = useTranslations("UsersPage");
+
+  const columns: Column<User>[] = [
+    {
+      key: "name",
+      header: t("columnName"),
+      render: (row) => (
+        <Avatar
+          src={row.avatar}
+          title={`${row.firstName} ${row.lastName}`}
+          size="sm"
+          subtitle={row.role}
+        />
+      ),
+    },
+    { key: "email", header: t("columnEmail") },
+    {
+      key: "createdAt",
+      header: t("columnCreatedAt"),
+      render: (row) => <div>{new Date(row.createdAt).toLocaleDateString()}</div>,
+    },
+  ];
+
   return (
     <div>
       <Topbar
-        title="Users"
+        title={t("title")}
         onPrimaryClick={() => console.log("clicked")}
-        primaryButtonLabel="Add User"
+        primaryButtonLabel={t("addUser")}
       />
       <Table data={mockData} columns={columns} getRowId={(row) => row.id} />
     </div>

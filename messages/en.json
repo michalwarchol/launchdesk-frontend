@@ -17,5 +17,12 @@
     "pageInfo": "Page {page} of {pageCount}",
     "prev": "Prev",
     "next": "Next"
+  },
+  "UsersPage": {
+    "title": "Users",
+    "addUser": "Add User",
+    "columnName": "Name",
+    "columnEmail": "Email",
+    "columnCreatedAt": "Created At"
   }
 }
