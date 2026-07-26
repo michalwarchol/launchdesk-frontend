@@ -1,11 +1,31 @@
 import { NextIntlClientProvider } from "next-intl";
 
 import enMessages from "../messages/en.json";
+import plMessages from "../messages/pl.json";
 import "../src/app/globals.css";
 
 import type { Preview } from "@storybook/nextjs-vite";
 
+const messagesByLocale = {
+  en: enMessages,
+  pl: plMessages,
+} as const;
+
 const preview: Preview = {
+  globalTypes: {
+    locale: {
+      description: "Locale",
+      toolbar: {
+        title: "Locale",
+        icon: "globe",
+        items: [
+          { value: "en", title: "English" },
+          { value: "pl", title: "Polski" },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
   parameters: {
     controls: {
       matchers: {
@@ -30,13 +50,18 @@ const preview: Preview = {
   },
   initialGlobals: {
     backgrounds: { value: "default" },
+    locale: "en",
   },
   decorators: [
-    (Story) => (
-      <NextIntlClientProvider locale="en" messages={enMessages}>
-        <Story />
-      </NextIntlClientProvider>
-    ),
+    (Story, context) => {
+      const locale = (context.globals.locale as keyof typeof messagesByLocale) ?? "en";
+
+      return (
+        <NextIntlClientProvider locale={locale} messages={messagesByLocale[locale]}>
+          <Story />
+        </NextIntlClientProvider>
+      );
+    },
   ],
 };
 
