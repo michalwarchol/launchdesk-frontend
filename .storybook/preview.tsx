@@ -20,6 +20,16 @@ const preview: Preview = {
       // 'off' - skip a11y checks entirely
       test: "todo",
     },
+
+    backgrounds: {
+      options: {
+        default: { name: "Default", value: "#121419" },
+        light: { name: "Light", value: "#fff" },
+      },
+    },
+  },
+  initialGlobals: {
+    backgrounds: { value: "default" },
   },
   decorators: [
     (Story) => (
