@@ -53,5 +53,13 @@
       "spreadsheet": "Arkusz",
       "image": "Zdjęcie"
     }
+  },
+  "TasksPage": {
+    "title": "Zadania",
+    "addTask": "Dodaj nowe zadanie",
+    "empty": "Brak zadań do wyświetlenia",
+    "columnName": "Nazwa",
+    "columnDescription": "Opis",
+    "columnStepsCount": "Liczba kroków"
   }
 }
