@@ -53,5 +53,13 @@
       "spreadsheet": "Spreadsheet",
       "image": "Image"
     }
+  },
+  "TasksPage": {
+    "title": "Tasks",
+    "addTask": "Add new task",
+    "empty": "No tasks to display",
+    "columnName": "Name",
+    "columnDescription": "Description",
+    "columnStepsCount": "Steps"
   }
 }
