@@ -7,6 +7,7 @@
   "Sidebar": {
     "dashboard": "Dashboard",
     "users": "Użytkownicy",
+    "documents": "Dokumenty",
     "tasks": "Zadania",
     "settings": "Ustawienia"
   },
@@ -18,11 +19,39 @@
     "prev": "Poprzednia",
     "next": "Następna"
   },
+  "Modal": {
+    "cancel": "Anuluj",
+    "submit": "Zapisz",
+    "close": "Zamknij"
+  },
+  "Dropzone": {
+    "hint": "Przeciągnij i upuść pliki tutaj",
+    "hintDragActive": "Upuść pliki, aby je dodać",
+    "browse": "lub kliknij, aby wybrać",
+    "remove": "Usuń plik",
+    "selectedFiles": "Wybrane pliki"
+  },
   "UsersPage": {
     "title": "Użytkownicy",
     "addUser": "Dodaj użytkownika",
     "columnName": "Imię i nazwisko",
     "columnEmail": "Email",
     "columnCreatedAt": "Utworzono"
+  },
+  "DocumentsPage": {
+    "title": "Dokumenty",
+    "upload": "Prześlij",
+    "uploadModalTitle": "Prześlij dokumenty",
+    "uploadSubmit": "Prześlij",
+    "empty": "Brak dokumentów do wyświetlenia",
+    "columnName": "Nazwa",
+    "columnType": "Typ",
+    "columnExtension": "Rozszerzenie",
+    "columnSize": "Rozmiar",
+    "documentType": {
+      "text": "Tekstowy",
+      "spreadsheet": "Arkusz",
+      "image": "Zdjęcie"
+    }
   }
 }

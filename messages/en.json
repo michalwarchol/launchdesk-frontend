@@ -7,6 +7,7 @@
   "Sidebar": {
     "dashboard": "Dashboard",
     "users": "Users",
+    "documents": "Documents",
     "tasks": "Tasks",
     "settings": "Settings"
   },
@@ -18,11 +19,39 @@
     "prev": "Prev",
     "next": "Next"
   },
+  "Modal": {
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "close": "Close"
+  },
+  "Dropzone": {
+    "hint": "Drag and drop files here",
+    "hintDragActive": "Drop the files to add them",
+    "browse": "or click to browse",
+    "remove": "Remove file",
+    "selectedFiles": "Selected files"
+  },
   "UsersPage": {
     "title": "Users",
     "addUser": "Add User",
     "columnName": "Name",
     "columnEmail": "Email",
     "columnCreatedAt": "Created At"
+  },
+  "DocumentsPage": {
+    "title": "Documents",
+    "upload": "Upload",
+    "uploadModalTitle": "Upload documents",
+    "uploadSubmit": "Upload",
+    "empty": "No documents to display",
+    "columnName": "Name",
+    "columnType": "Type",
+    "columnExtension": "Extension",
+    "columnSize": "Size",
+    "documentType": {
+      "text": "Text",
+      "spreadsheet": "Spreadsheet",
+      "image": "Image"
+    }
   }
 }
