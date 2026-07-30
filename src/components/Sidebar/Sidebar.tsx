@@ -17,6 +17,10 @@ const NAV_ITEMS = [
     href: "/users",
   },
   {
+    label: "documents",
+    href: "/documents",
+  },
+  {
     label: "tasks",
     href: "/tasks",
   },
