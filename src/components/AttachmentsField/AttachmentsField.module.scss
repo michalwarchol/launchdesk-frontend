@@ -1,0 +1,120 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tile {
+  align-items: center;
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  display: flex;
+  gap: 12px;
+  padding: 8px 12px;
+}
+
+.tileIcon {
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.tileName {
+  color: var(--color-primary-text);
+  flex: 1;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tileSize {
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  font-size: 13px;
+}
+
+.newBadge {
+  background-color: var(--color-primary);
+  border-radius: 6px;
+  color: var(--color-primary-text);
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+}
+
+.removeButton {
+  align-items: center;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-size: 20px;
+  height: 28px;
+  justify-content: center;
+  line-height: 1;
+  width: 28px;
+
+  &:hover {
+    background-color: var(--color-hover-overlay);
+    color: var(--color-text-strong);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.addButton {
+  align-items: center;
+  align-self: flex-start;
+  background: none;
+  border: 1px dashed var(--color-border);
+  border-radius: 8px;
+  color: var(--color-secondary-text);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  gap: 8px;
+  padding: 8px 14px;
+  transition:
+    border-color 0.18s ease,
+    color 0.18s ease;
+
+  &:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
