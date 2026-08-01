@@ -20,12 +20,15 @@ export const newTaskSchema = z.object({
 export type NewTaskFormValues = z.infer<typeof newTaskSchema>;
 export type StepFormValues = z.infer<typeof stepSchema>;
 
-export function createEmptyStep(): StepFormValues {
+function generateStepKey(): string {
+  return typeof crypto !== "undefined" && "randomUUID" in crypto
+    ? crypto.randomUUID()
+    : String(Date.now() + Math.random());
+}
+
+export function createEmptyStep(key: string = generateStepKey()): StepFormValues {
   return {
-    key:
-      typeof crypto !== "undefined" && "randomUUID" in crypto
-        ? crypto.randomUUID()
-        : String(Date.now() + Math.random()),
+    key,
     name: "",
     description: "",
     attachments: [],

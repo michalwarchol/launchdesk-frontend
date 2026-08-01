@@ -14,6 +14,8 @@ import styles from "./NewTaskForm.module.scss";
 import { createEmptyStep, NewTaskFormValues, newTaskSchema } from "./schema";
 import TaskStepsField from "./TaskStepsField";
 
+const INITIAL_STEP_KEY = "step-initial";
+
 export default function NewTaskForm() {
   const t = useTranslations("NewTaskPage");
   const router = useRouter();
@@ -25,7 +27,7 @@ export default function NewTaskForm() {
     defaultValues: {
       name: "",
       description: "",
-      steps: [createEmptyStep()],
+      steps: [createEmptyStep(INITIAL_STEP_KEY)],
     },
   });
 
@@ -38,9 +40,7 @@ export default function NewTaskForm() {
 
   const { fields, append, remove } = useFieldArray({ control, name: "steps" });
 
-  const [expandedIds, setExpandedIds] = useState<string[]>(() =>
-    fields[0] ? [fields[0].key] : [],
-  );
+  const [expandedIds, setExpandedIds] = useState<string[]>([INITIAL_STEP_KEY]);
 
   const errorText = (key?: string) => (key ? t(`validation.${key}`) : undefined);
 

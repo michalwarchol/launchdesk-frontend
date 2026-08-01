@@ -46,10 +46,10 @@ export default function Accordion({
 
   return (
     <div className={[styles.accordion, className].filter(Boolean).join(" ")}>
-      {items.map((item) => {
+      {items.map((item, index) => {
         const isExpanded = expandedIds.includes(item.id);
-        const headerId = `${baseId}-${item.id}-header`;
-        const panelId = `${baseId}-${item.id}-panel`;
+        const headerId = `${baseId}-${index}-header`;
+        const panelId = `${baseId}-${index}-panel`;
 
         const itemClassName = [styles.item, item.hasError ? styles.itemError : ""]
           .filter(Boolean)
