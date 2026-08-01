@@ -61,5 +61,71 @@
     "columnName": "Nazwa",
     "columnDescription": "Opis",
     "columnStepsCount": "Liczba kroków"
+  },
+  "PageHeader": {
+    "back": "Wróć"
+  },
+  "Accordion": {
+    "remove": "Usuń"
+  },
+  "RichTextEditor": {
+    "toolbar": "Formatowanie tekstu",
+    "bold": "Pogrubienie",
+    "italic": "Kursywa",
+    "strike": "Przekreślenie",
+    "code": "Kod w linii",
+    "heading2": "Nagłówek 2",
+    "heading3": "Nagłówek 3",
+    "bulletList": "Lista punktowana",
+    "orderedList": "Lista numerowana",
+    "blockquote": "Cytat",
+    "codeBlock": "Blok kodu",
+    "link": "Link",
+    "undo": "Cofnij",
+    "redo": "Ponów",
+    "linkPrompt": "Podaj adres URL"
+  },
+  "Attachments": {
+    "addAttachments": "Dodaj załączniki",
+    "remove": "Usuń załącznik",
+    "newBadge": "Nowy",
+    "pickerTitle": "Dodaj załączniki",
+    "add": "Dodaj",
+    "tabLibrary": "Biblioteka",
+    "tabUpload": "Wgraj nowy",
+    "searchPlaceholder": "Szukaj dokumentów",
+    "libraryEmpty": "Nie znaleziono dokumentów",
+    "alreadyAdded": "Dodano",
+    "filter": {
+      "all": "Wszystkie",
+      "text": "Tekstowy",
+      "spreadsheet": "Arkusz",
+      "image": "Zdjęcie"
+    }
+  },
+  "NewTaskPage": {
+    "title": "Nowe zadanie",
+    "subtitle": "Podziel zadanie na dokładnie opisane kroki.",
+    "nameLabel": "Nazwa zadania",
+    "namePlaceholder": "Zadanie bez nazwy",
+    "descriptionLabel": "Opis",
+    "descriptionPlaceholder": "Krótko opisz, czego dotyczy to zadanie",
+    "stepsTitle": "Kroki",
+    "addStep": "Dodaj krok",
+    "stepFallbackName": "Krok {index}",
+    "stepNameLabel": "Nazwa kroku",
+    "stepNamePlaceholder": "np. Przygotuj dokumenty",
+    "stepDescriptionLabel": "Opis kroku",
+    "stepDescriptionPlaceholder": "Opisz ten krok szczegółowo…",
+    "stepAttachmentsLabel": "Załączniki",
+    "cancel": "Anuluj",
+    "submit": "Utwórz zadanie",
+    "validation": {
+      "nameRequired": "Nazwa zadania jest wymagana",
+      "nameTooLong": "Nazwa zadania jest za długa",
+      "descriptionRequired": "Opis jest wymagany",
+      "stepNameRequired": "Nazwa kroku jest wymagana",
+      "stepsRequired": "Dodaj co najmniej jeden krok"
+    }
   }
 }
