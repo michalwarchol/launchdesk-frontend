@@ -61,5 +61,71 @@
     "columnName": "Name",
     "columnDescription": "Description",
     "columnStepsCount": "Steps"
+  },
+  "PageHeader": {
+    "back": "Go back"
+  },
+  "Accordion": {
+    "remove": "Remove"
+  },
+  "RichTextEditor": {
+    "toolbar": "Text formatting",
+    "bold": "Bold",
+    "italic": "Italic",
+    "strike": "Strikethrough",
+    "code": "Inline code",
+    "heading2": "Heading 2",
+    "heading3": "Heading 3",
+    "bulletList": "Bullet list",
+    "orderedList": "Numbered list",
+    "blockquote": "Quote",
+    "codeBlock": "Code block",
+    "link": "Link",
+    "undo": "Undo",
+    "redo": "Redo",
+    "linkPrompt": "Enter a URL"
+  },
+  "Attachments": {
+    "addAttachments": "Add attachments",
+    "remove": "Remove attachment",
+    "newBadge": "New",
+    "pickerTitle": "Add attachments",
+    "add": "Add",
+    "tabLibrary": "Library",
+    "tabUpload": "Upload new",
+    "searchPlaceholder": "Search documents",
+    "libraryEmpty": "No documents found",
+    "alreadyAdded": "Added",
+    "filter": {
+      "all": "All",
+      "text": "Text",
+      "spreadsheet": "Spreadsheet",
+      "image": "Image"
+    }
+  },
+  "NewTaskPage": {
+    "title": "Create new task",
+    "subtitle": "Break the task down into clearly described steps.",
+    "nameLabel": "Task name",
+    "namePlaceholder": "Untitled task",
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "Briefly describe what this task is about",
+    "stepsTitle": "Steps",
+    "addStep": "Add step",
+    "stepFallbackName": "Step {index}",
+    "stepNameLabel": "Step name",
+    "stepNamePlaceholder": "e.g. Prepare documents",
+    "stepDescriptionLabel": "Step description",
+    "stepDescriptionPlaceholder": "Describe this step in detail…",
+    "stepAttachmentsLabel": "Attachments",
+    "cancel": "Cancel",
+    "submit": "Create task",
+    "validation": {
+      "nameRequired": "Task name is required",
+      "nameTooLong": "Task name is too long",
+      "descriptionRequired": "Description is required",
+      "stepNameRequired": "Step name is required",
+      "stepsRequired": "Add at least one step"
+    }
   }
 }
