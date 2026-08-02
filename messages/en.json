@@ -74,6 +74,7 @@
     "italic": "Italic",
     "strike": "Strikethrough",
     "code": "Inline code",
+    "heading1": "Heading 1",
     "heading2": "Heading 2",
     "heading3": "Heading 3",
     "bulletList": "Bullet list",
@@ -83,7 +84,12 @@
     "link": "Link",
     "undo": "Undo",
     "redo": "Redo",
-    "linkPrompt": "Enter a URL"
+    "linkModalTitle": "Add link",
+    "linkUrlLabel": "URL",
+    "linkUrlPlaceholder": "https://example.com",
+    "linkTextLabel": "Display text",
+    "linkTextPlaceholder": "Text shown in the editor",
+    "linkRemove": "Remove link"
   },
   "Attachments": {
     "addAttachments": "Add attachments",

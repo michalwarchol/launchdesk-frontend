@@ -1,5 +1,6 @@
 "use client";
 
+import { Link } from "@tiptap/extension-link";
 import { Placeholder } from "@tiptap/extension-placeholder";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -35,9 +36,10 @@ export default function RichTextEditor({
     editable: !disabled,
     extensions: [
       StarterKit.configure({
-        heading: { levels: [2, 3] },
-        link: { openOnClick: false },
+        heading: { levels: [1, 2, 3] },
+        link: false,
       }),
+      Link.extend({ inclusive: false }).configure({ openOnClick: true }),
       Placeholder.configure({ placeholder: placeholder ?? "" }),
     ],
     content: value,
