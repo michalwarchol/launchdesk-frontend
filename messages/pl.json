@@ -74,6 +74,7 @@
     "italic": "Kursywa",
     "strike": "Przekreślenie",
     "code": "Kod w linii",
+    "heading1": "Nagłówek 1",
     "heading2": "Nagłówek 2",
     "heading3": "Nagłówek 3",
     "bulletList": "Lista punktowana",
@@ -81,9 +82,12 @@
     "blockquote": "Cytat",
     "codeBlock": "Blok kodu",
     "link": "Link",
-    "undo": "Cofnij",
-    "redo": "Ponów",
-    "linkPrompt": "Podaj adres URL"
+    "linkModalTitle": "Dodaj link",
+    "linkUrlLabel": "Adres URL",
+    "linkUrlPlaceholder": "https://przyklad.pl",
+    "linkTextLabel": "Wyświetlany tekst",
+    "linkTextPlaceholder": "Tekst widoczny w edytorze",
+    "linkRemove": "Usuń link"
   },
   "Attachments": {
     "addAttachments": "Dodaj załączniki",
