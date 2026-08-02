@@ -82,8 +82,6 @@
     "blockquote": "Cytat",
     "codeBlock": "Blok kodu",
     "link": "Link",
-    "undo": "Cofnij",
-    "redo": "Ponów",
     "linkModalTitle": "Dodaj link",
     "linkUrlLabel": "Adres URL",
     "linkUrlPlaceholder": "https://przyklad.pl",

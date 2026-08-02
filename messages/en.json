@@ -82,8 +82,6 @@
     "blockquote": "Quote",
     "codeBlock": "Code block",
     "link": "Link",
-    "undo": "Undo",
-    "redo": "Redo",
     "linkModalTitle": "Add link",
     "linkUrlLabel": "URL",
     "linkUrlPlaceholder": "https://example.com",

@@ -208,23 +208,6 @@ export default function Toolbar({ editor, disabled }: ToolbarProps) {
         >
           &#128279;
         </ToolbarButton>
-
-        <span className={styles.toolbarDivider} aria-hidden="true" />
-
-        <ToolbarButton
-          label={t("undo")}
-          disabled={disabled || !editor.can().undo()}
-          onClick={() => editor.chain().focus().undo().run()}
-        >
-          &#8630;
-        </ToolbarButton>
-        <ToolbarButton
-          label={t("redo")}
-          disabled={disabled || !editor.can().redo()}
-          onClick={() => editor.chain().focus().redo().run()}
-        >
-          &#8631;
-        </ToolbarButton>
       </div>
       <LinkModal
         isOpen={isLinkModalOpen}
