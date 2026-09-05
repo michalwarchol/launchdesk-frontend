@@ -37,6 +37,16 @@ export const WithContent: Story = {
   },
 };
 
+export const WithLinkInCodeBlock: Story = {
+  render: function WithLinkInCodeBlockStory() {
+    const [value, setValue] = useState(
+      '<pre><code>curl <a href="https://example.com">https://example.com</a></code></pre><p>Zobacz <code><a href="https://example.com">API</a></code>.</p>',
+    );
+
+    return <RichTextEditor value={value} onChange={setValue} />;
+  },
+};
+
 export const WithError: Story = {
   render: function WithErrorStory() {
     const [value, setValue] = useState("");

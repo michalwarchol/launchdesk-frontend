@@ -1,5 +1,7 @@
 "use client";
 
+import { Code } from "@tiptap/extension-code";
+import { CodeBlock } from "@tiptap/extension-code-block";
 import { Link } from "@tiptap/extension-link";
 import { Placeholder } from "@tiptap/extension-placeholder";
 import { EditorContent, useEditor } from "@tiptap/react";
@@ -38,7 +40,11 @@ export default function RichTextEditor({
       StarterKit.configure({
         heading: { levels: [1, 2, 3] },
         link: false,
+        code: false,
+        codeBlock: false,
       }),
+      Code.extend({ excludes: "bold italic strike underline code" }),
+      CodeBlock.extend({ marks: "link" }),
       Link.extend({ inclusive: false }).configure({ openOnClick: true }),
       Placeholder.configure({ placeholder: placeholder ?? "" }),
     ],

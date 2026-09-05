@@ -169,6 +169,12 @@
         background: none;
         padding: 0;
       }
+
+      a {
+        color: var(--color-primary);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
     }
 
     p.is-editor-empty:first-child::before {
