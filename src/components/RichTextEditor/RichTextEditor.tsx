@@ -43,9 +43,6 @@ export default function RichTextEditor({
         code: false,
         codeBlock: false,
       }),
-      // The default Code/CodeBlock schemas exclude all other marks, which strips
-      // links when text is turned into inline code or a code block. Re-add them
-      // here with an explicit exception for the link mark.
       Code.extend({ excludes: "bold italic strike underline code" }),
       CodeBlock.extend({ marks: "link" }),
       Link.extend({ inclusive: false }).configure({ openOnClick: true }),
