@@ -74,6 +74,12 @@
   "AvatarGroup": {
     "moreLabel": "Jeszcze {count}"
   },
+  "Autocomplete": {
+    "noOptions": "Nie znaleziono opcji",
+    "loading": "Ładowanie…",
+    "clear": "Wyczyść wybór",
+    "removeOption": "Usuń {name}"
+  },
   "PageHeader": {
     "back": "Wróć"
   },
@@ -142,6 +148,20 @@
       "descriptionRequired": "Opis jest wymagany",
       "stepNameRequired": "Nazwa kroku jest wymagana",
       "stepsRequired": "Dodaj co najmniej jeden krok"
+    }
+  },
+  "NewAssignmentPage": {
+    "title": "Nowe przypisanie",
+    "subtitle": "Przypisz zadanie do jednej lub kilku osób.",
+    "taskLabel": "Zadanie",
+    "taskPlaceholder": "Szukaj zadania",
+    "assigneesLabel": "Przypisani",
+    "assigneesPlaceholder": "Szukaj osób",
+    "cancel": "Anuluj",
+    "submit": "Utwórz przypisanie",
+    "validation": {
+      "taskRequired": "Zadanie jest wymagane",
+      "assigneesRequired": "Dodaj co najmniej jedną osobę"
     }
   }
 }
