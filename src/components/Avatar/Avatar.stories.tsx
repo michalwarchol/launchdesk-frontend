@@ -35,3 +35,7 @@ export const Clickable: Story = {
 export const NoImageFallback: Story = {
   args: { size: "md", src: undefined },
 };
+
+export const HiddenText: Story = {
+  args: { size: "sm", hideText: true },
+};

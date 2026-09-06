@@ -10,6 +10,11 @@
   width: 100%;
 }
 
+.textHidden {
+  padding: 0;
+  width: auto;
+}
+
 .clickable {
   cursor: pointer;
   transition: background-color 0.2s ease;

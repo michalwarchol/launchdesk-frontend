@@ -1,0 +1,41 @@
+.group {
+  align-items: center;
+  display: inline-flex;
+}
+
+.item {
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--color-surface);
+  flex-shrink: 0;
+
+  &:not(:first-child) {
+    margin-left: -8px;
+  }
+}
+
+.overflow {
+  align-items: center;
+  background-color: var(--color-avatar-fallback-bg);
+  color: var(--color-avatar-fallback-text);
+  display: flex;
+  font-weight: 600;
+  justify-content: center;
+}
+
+.sm {
+  font-size: 11px;
+  height: 32px;
+  width: 32px;
+}
+
+.md {
+  font-size: 13px;
+  height: 44px;
+  width: 44px;
+}
+
+.lg {
+  font-size: 15px;
+  height: 60px;
+  width: 60px;
+}
