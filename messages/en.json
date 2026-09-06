@@ -74,6 +74,12 @@
   "AvatarGroup": {
     "moreLabel": "{count} more"
   },
+  "Autocomplete": {
+    "noOptions": "No options found",
+    "loading": "Loading…",
+    "clear": "Clear selection",
+    "removeOption": "Remove {name}"
+  },
   "PageHeader": {
     "back": "Go back"
   },
@@ -142,6 +148,20 @@
       "descriptionRequired": "Description is required",
       "stepNameRequired": "Step name is required",
       "stepsRequired": "Add at least one step"
+    }
+  },
+  "NewAssignmentPage": {
+    "title": "Create new assignment",
+    "subtitle": "Assign a task to one or more people.",
+    "taskLabel": "Task",
+    "taskPlaceholder": "Search for a task",
+    "assigneesLabel": "Assignees",
+    "assigneesPlaceholder": "Search for people",
+    "cancel": "Cancel",
+    "submit": "Create assignment",
+    "validation": {
+      "taskRequired": "Task is required",
+      "assigneesRequired": "Add at least one assignee"
     }
   }
 }
