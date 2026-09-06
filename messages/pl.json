@@ -9,6 +9,7 @@
     "users": "Użytkownicy",
     "documents": "Dokumenty",
     "tasks": "Zadania",
+    "assignments": "Przypisania",
     "settings": "Ustawienia"
   },
   "Table": {
@@ -61,6 +62,17 @@
     "columnName": "Nazwa",
     "columnDescription": "Opis",
     "columnStepsCount": "Liczba kroków"
+  },
+  "AssignmentsPage": {
+    "title": "Przypisania",
+    "addAssignment": "Dodaj przypisanie",
+    "empty": "Brak przypisań do wyświetlenia",
+    "columnTask": "Zadanie",
+    "columnAssignees": "Przypisani",
+    "columnProgress": "Postęp"
+  },
+  "AvatarGroup": {
+    "moreLabel": "Jeszcze {count}"
   },
   "PageHeader": {
     "back": "Wróć"

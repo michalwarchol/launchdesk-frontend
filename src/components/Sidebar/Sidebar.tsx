@@ -25,6 +25,10 @@ const NAV_ITEMS = [
     href: "/tasks",
   },
   {
+    label: "assignments",
+    href: "/assignments",
+  },
+  {
     label: "settings",
     href: "/settings",
   },
