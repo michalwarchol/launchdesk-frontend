@@ -10,7 +10,75 @@
     "documents": "Dokumenty",
     "tasks": "Zadania",
     "assignments": "Przypisania",
-    "settings": "Ustawienia"
+    "settings": "Ustawienia",
+    "signOut": "Wyloguj się"
+  },
+  "LoginPage": {
+    "title": "Zaloguj się do LaunchDesk",
+    "subtitle": "Użyj służbowego adresu e-mail lub kontynuuj z połączonym kontem.",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "ty@firma.com",
+    "passwordLabel": "Hasło",
+    "passwordPlaceholder": "Twoje hasło",
+    "forgotPassword": "Nie pamiętasz hasła?",
+    "submit": "Zaloguj się",
+    "submitting": "Logowanie…",
+    "or": "lub",
+    "noAccountHint": "Konta tworzy administrator Twojej organizacji.",
+    "validation": {
+      "emailRequired": "E-mail jest wymagany",
+      "emailInvalid": "Podaj poprawny adres e-mail",
+      "passwordRequired": "Hasło jest wymagane"
+    },
+    "errors": {
+      "invalidCredentials": "Nieprawidłowy e-mail lub hasło.",
+      "invitePending": "Twoje zaproszenie czeka na potwierdzenie. Otwórz link z wiadomości e-mail, aby ustawić hasło.",
+      "oauthOnly": "To konto loguje się przez Google lub GitHub. Skorzystaj z przycisków poniżej.",
+      "noAccount": "To konto nie należy do żadnej organizacji. Poproś administratora o zaproszenie.",
+      "providerFailed": "Nie udało się zalogować przez tego dostawcę. Spróbuj ponownie."
+    }
+  },
+  "AcceptInvitePage": {
+    "title": "Skonfiguruj swoje konto",
+    "subtitle": "Wybierz hasło, aby zakończyć konfigurację konta.",
+    "emailLabel": "E-mail",
+    "passwordLabel": "Hasło",
+    "passwordPlaceholder": "Co najmniej {min} znaków",
+    "confirmPasswordLabel": "Potwierdź hasło",
+    "confirmPasswordPlaceholder": "Powtórz hasło",
+    "submit": "Ustaw hasło i kontynuuj",
+    "submitting": "Konfigurowanie…",
+    "or": "lub",
+    "providerHint": "Jeśli zamiast tego połączysz konto dostawcy, zaloguj się adresem {email}, abyśmy mogli dopasować zaproszenie.",
+    "backToLogin": "Powrót do logowania",
+    "validation": {
+      "passwordTooShort": "Użyj co najmniej 8 znaków",
+      "confirmPasswordRequired": "Potwierdź hasło",
+      "passwordsMismatch": "Hasła nie są takie same"
+    },
+    "errors": {
+      "invalidToken": "Ten link z zaproszeniem jest nieprawidłowy. Poproś administratora o nowy.",
+      "tokenUsed": "To zaproszenie zostało już wykorzystane. Zaloguj się swoim hasłem."
+    }
+  },
+  "ForgotPasswordPage": {
+    "title": "Zresetuj hasło",
+    "subtitle": "Wyślemy Ci e-mail z linkiem do ustawienia nowego hasła.",
+    "sentSubtitle": "Sprawdź swoją skrzynkę, aby kontynuować.",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "ty@firma.com",
+    "submit": "Wyślij link",
+    "submitting": "Wysyłanie…",
+    "sent": "Jeśli adres {email} należy do konta, link do resetu hasła jest już w drodze.",
+    "backToLogin": "Powrót do logowania",
+    "validation": {
+      "emailRequired": "E-mail jest wymagany",
+      "emailInvalid": "Podaj poprawny adres e-mail"
+    }
+  },
+  "OAuthButtons": {
+    "google": "Kontynuuj z Google",
+    "github": "Kontynuuj z GitHub"
   },
   "Table": {
     "loading": "Ładowanie…",
