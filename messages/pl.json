@@ -69,6 +69,7 @@
     "empty": "Brak przypisań do wyświetlenia",
     "columnTask": "Zadanie",
     "columnAssignees": "Przypisani",
+    "columnDueDate": "Termin",
     "columnProgress": "Postęp"
   },
   "AvatarGroup": {
@@ -79,6 +80,12 @@
     "loading": "Ładowanie…",
     "clear": "Wyczyść wybór",
     "removeOption": "Usuń {name}"
+  },
+  "DatePicker": {
+    "empty": "Nie wybrano daty",
+    "previousMonth": "Poprzedni miesiąc",
+    "nextMonth": "Następny miesiąc",
+    "clear": "Wyczyść datę"
   },
   "PageHeader": {
     "back": "Wróć"
@@ -157,11 +164,14 @@
     "taskPlaceholder": "Szukaj zadania",
     "assigneesLabel": "Przypisani",
     "assigneesPlaceholder": "Szukaj osób",
+    "dueDateLabel": "Termin",
+    "dueDatePlaceholder": "Wybierz datę",
     "cancel": "Anuluj",
     "submit": "Utwórz przypisanie",
     "validation": {
       "taskRequired": "Zadanie jest wymagane",
-      "assigneesRequired": "Dodaj co najmniej jedną osobę"
+      "assigneesRequired": "Dodaj co najmniej jedną osobę",
+      "dueDateRequired": "Termin jest wymagany"
     }
   }
 }
