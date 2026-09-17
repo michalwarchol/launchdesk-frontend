@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { useTransition } from "react";
 
+import { logout } from "@/app/actions/auth";
 import Avatar from "@/components/Avatar";
 
 import styles from "./Sidebar.module.scss";
@@ -34,8 +36,19 @@ const NAV_ITEMS = [
   },
 ];
 
-export default function Sidebar() {
+export interface SidebarUser {
+  name: string;
+  email: string;
+  avatar?: string;
+}
+
+interface SidebarProps {
+  user: SidebarUser;
+}
+
+export default function Sidebar({ user }: SidebarProps) {
   const t = useTranslations("Sidebar");
+  const [isSigningOut, startSignOut] = useTransition();
 
   const items = NAV_ITEMS.map((item) => ({
     label: t(item.label),
@@ -58,14 +71,15 @@ export default function Sidebar() {
         </ul>
       </nav>
       <div className={styles.footer}>
-        <Avatar
-          size="sm"
-          title="Jane Doe"
-          subtitle="jane.doe@example.com"
-          onClick={() => {
-            /* TODO: add menu bar*/
-          }}
-        />
+        <Avatar size="sm" src={user.avatar} title={user.name} subtitle={user.email} />
+        <button
+          type="button"
+          className={styles.signOut}
+          disabled={isSigningOut}
+          onClick={() => startSignOut(() => logout())}
+        >
+          {t("signOut")}
+        </button>
       </div>
     </aside>
   );

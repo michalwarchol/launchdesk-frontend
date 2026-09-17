@@ -8,6 +8,7 @@ export interface TextFieldProps {
   label?: string;
   placeholder?: string;
   size?: "sm" | "md" | "lg";
+  type?: "text" | "email" | "password";
   multiline?: boolean;
   rows?: number;
   error?: string;
@@ -28,6 +29,7 @@ export default function TextField({
   label,
   placeholder,
   size = "md",
+  type = "text",
   multiline = false,
   rows = 4,
   error,
@@ -83,7 +85,7 @@ export default function TextField({
       ) : (
         <input
           {...sharedProps}
-          type="text"
+          type={type}
           autoComplete={autoComplete}
           ref={ref as React.Ref<HTMLInputElement>}
         />

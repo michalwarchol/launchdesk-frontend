@@ -10,7 +10,75 @@
     "documents": "Documents",
     "tasks": "Tasks",
     "assignments": "Assignments",
-    "settings": "Settings"
+    "settings": "Settings",
+    "signOut": "Sign out"
+  },
+  "LoginPage": {
+    "title": "Sign in to LaunchDesk",
+    "subtitle": "Use your work email or continue with a connected account.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@company.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Your password",
+    "forgotPassword": "Forgot your password?",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "or": "or",
+    "noAccountHint": "Accounts are created by your organization admin.",
+    "validation": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Enter a valid email address",
+      "passwordRequired": "Password is required"
+    },
+    "errors": {
+      "invalidCredentials": "Invalid email or password.",
+      "invitePending": "Your invitation is still waiting. Open the link we emailed you to set a password.",
+      "oauthOnly": "This account signs in with Google or GitHub. Use one of the buttons below.",
+      "noAccount": "That account is not a member of any organization. Ask your admin for an invitation.",
+      "providerFailed": "We could not complete the sign-in with that provider. Please try again."
+    }
+  },
+  "AcceptInvitePage": {
+    "title": "Set up your account",
+    "subtitle": "Choose a password to finish setting up your account.",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "At least {min} characters",
+    "confirmPasswordLabel": "Confirm password",
+    "confirmPasswordPlaceholder": "Repeat your password",
+    "submit": "Set password and continue",
+    "submitting": "Setting up…",
+    "or": "or",
+    "providerHint": "If you connect a provider instead, sign in with {email} so we can match your invitation.",
+    "backToLogin": "Back to sign in",
+    "validation": {
+      "passwordTooShort": "Use at least 8 characters",
+      "confirmPasswordRequired": "Confirm your password",
+      "passwordsMismatch": "Passwords do not match"
+    },
+    "errors": {
+      "invalidToken": "This invitation link is not valid. Ask your admin to send a new one.",
+      "tokenUsed": "This invitation has already been used. Sign in with your password instead."
+    }
+  },
+  "ForgotPasswordPage": {
+    "title": "Reset your password",
+    "subtitle": "We will email you a link to choose a new password.",
+    "sentSubtitle": "Check your inbox to continue.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@company.com",
+    "submit": "Send reset link",
+    "submitting": "Sending…",
+    "sent": "If {email} belongs to an account, a reset link is on its way.",
+    "backToLogin": "Back to sign in",
+    "validation": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Enter a valid email address"
+    }
+  },
+  "OAuthButtons": {
+    "google": "Continue with Google",
+    "github": "Continue with GitHub"
   },
   "Table": {
     "loading": "Loading…",

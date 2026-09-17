@@ -1,0 +1,19 @@
+.alert {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 10px 12px;
+}
+
+.error {
+  background-color: rgb(229 72 77 / 12%);
+  border-color: #e5484d;
+  color: #ff6369;
+}
+
+.info {
+  background-color: var(--color-hover-overlay);
+  border-color: var(--color-border);
+  color: var(--color-secondary-text);
+}
