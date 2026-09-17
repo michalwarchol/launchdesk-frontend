@@ -43,6 +43,24 @@ export const Multiline: Story = {
   },
 };
 
+export const Password: Story = {
+  args: {
+    label: "Password",
+    type: "password",
+    placeholder: "Enter your password",
+    autoComplete: "current-password",
+  },
+};
+
+export const Email: Story = {
+  args: {
+    label: "Email",
+    type: "email",
+    placeholder: "you@company.com",
+    autoComplete: "email",
+  },
+};
+
 export const WithError: Story = {
   args: {
     label: "Task name",
