@@ -1,12 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 
 import AvatarGroup from "@/components/AvatarGroup";
 import ProgressBar from "@/components/ProgressBar";
 import Table, { Column } from "@/components/Table";
 import Topbar from "@/components/Topbar";
+import { parseISODate } from "@/utils/isoDate";
 
 // TODO: Replace with actual data from the API
 import mockData from "./mockData";
@@ -14,7 +15,14 @@ import { Assignment } from "./types";
 
 export default function Assignments() {
   const t = useTranslations("AssignmentsPage");
+  const format = useFormatter();
   const router = useRouter();
+
+  const formatDueDate = (dueDate: string) => {
+    const parsed = parseISODate(dueDate);
+
+    return parsed ? format.dateTime(parsed, { dateStyle: "medium" }) : dueDate;
+  };
 
   const columns: Column<Assignment>[] = [
     { key: "taskName", header: t("columnTask") },
@@ -30,6 +38,12 @@ export default function Assignments() {
           }))}
         />
       ),
+    },
+    {
+      key: "dueDate",
+      header: t("columnDueDate"),
+      width: "140px",
+      render: (row) => <div>{formatDueDate(row.dueDate)}</div>,
     },
     {
       key: "progress",

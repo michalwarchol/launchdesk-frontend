@@ -69,6 +69,7 @@
     "empty": "No assignments to display",
     "columnTask": "Task",
     "columnAssignees": "Assignees",
+    "columnDueDate": "Due date",
     "columnProgress": "Progress"
   },
   "AvatarGroup": {
@@ -79,6 +80,12 @@
     "loading": "Loading…",
     "clear": "Clear selection",
     "removeOption": "Remove {name}"
+  },
+  "DatePicker": {
+    "empty": "No date selected",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "clear": "Clear date"
   },
   "PageHeader": {
     "back": "Go back"
@@ -157,11 +164,14 @@
     "taskPlaceholder": "Search for a task",
     "assigneesLabel": "Assignees",
     "assigneesPlaceholder": "Search for people",
+    "dueDateLabel": "Due date",
+    "dueDatePlaceholder": "Select a date",
     "cancel": "Cancel",
     "submit": "Create assignment",
     "validation": {
       "taskRequired": "Task is required",
-      "assigneesRequired": "Add at least one assignee"
+      "assigneesRequired": "Add at least one assignee",
+      "dueDateRequired": "Due date is required"
     }
   }
 }

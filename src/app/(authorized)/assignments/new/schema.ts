@@ -16,10 +16,17 @@ export const newAssignmentSchema = z
   .object({
     task: taskOptionSchema.nullable(),
     assignees: z.array(assigneeOptionSchema).min(1, "assigneesRequired"),
+    dueDate: z
+      .string()
+      .regex(/^\d{4}-\d{2}-\d{2}$/, "dueDateRequired")
+      .nullable(),
   })
   .superRefine((data, ctx) => {
     if (!data.task) {
       ctx.addIssue({ code: z.ZodIssueCode.custom, message: "taskRequired", path: ["task"] });
+    }
+    if (!data.dueDate) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "dueDateRequired", path: ["dueDate"] });
     }
   });
 

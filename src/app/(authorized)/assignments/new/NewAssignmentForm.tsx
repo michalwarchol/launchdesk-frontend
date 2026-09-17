@@ -11,6 +11,7 @@ import usersMockData from "@/app/(authorized)/users/mockData";
 import Autocomplete from "@/components/Autocomplete";
 import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
+import DatePicker from "@/components/DatePicker";
 import PageHeader from "@/components/PageHeader";
 
 import styles from "./NewAssignmentForm.module.scss";
@@ -31,6 +32,7 @@ export default function NewAssignmentForm() {
     defaultValues: {
       task: null,
       assignees: [],
+      dueDate: null,
     },
   });
 
@@ -126,6 +128,21 @@ export default function NewAssignmentForm() {
                   {user.firstName} {user.lastName}
                 </>
               )}
+            />
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="dueDate"
+          render={({ field }) => (
+            <DatePicker
+              label={t("dueDateLabel")}
+              placeholder={t("dueDatePlaceholder")}
+              value={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={errorText(errors.dueDate?.message)}
             />
           )}
         />
