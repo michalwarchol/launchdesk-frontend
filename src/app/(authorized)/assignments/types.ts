@@ -11,5 +11,6 @@ export interface Assignment {
   taskName: string;
   assignees: AssignmentAssignee[];
   progress: number;
+  dueDate: string;
   createdAt: string;
 }

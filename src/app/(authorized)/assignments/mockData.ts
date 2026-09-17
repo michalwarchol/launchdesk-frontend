@@ -31,6 +31,7 @@ const mockData: Assignment[] = [
       },
     ],
     progress: 0.65,
+    dueDate: "2026-02-10",
     createdAt: "2026-01-12",
   },
   {
@@ -53,6 +54,7 @@ const mockData: Assignment[] = [
       },
     ],
     progress: 1,
+    dueDate: "2026-02-20",
     createdAt: "2026-01-29",
   },
   {
@@ -68,6 +70,7 @@ const mockData: Assignment[] = [
       },
     ],
     progress: 0,
+    dueDate: "2026-03-15",
     createdAt: "2026-02-15",
   },
   {
@@ -79,6 +82,7 @@ const mockData: Assignment[] = [
       { id: "11", firstName: "Ethan", lastName: "Lewandowski" },
     ],
     progress: 0.3,
+    dueDate: "2026-04-01",
     createdAt: "2026-03-03",
   },
   {
@@ -102,6 +106,7 @@ const mockData: Assignment[] = [
       },
     ],
     progress: 0.5,
+    dueDate: "2026-04-18",
     createdAt: "2026-03-21",
   },
 ];
