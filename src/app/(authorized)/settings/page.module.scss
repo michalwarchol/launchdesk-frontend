@@ -1,0 +1,31 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0 auto;
+  max-width: 720px;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title {
+  color: var(--color-text-strong);
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.subtitle {
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

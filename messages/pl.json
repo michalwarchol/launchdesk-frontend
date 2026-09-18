@@ -1,8 +1,7 @@
 {
   "HomePage": {
     "title": "Witaj w LaunchDesk",
-    "description": "To jest minimalna przykładowa strona wyświetlana po polsku. Aktywny język jest przechowywany w cookie, więc nie pojawia się w adresie URL.",
-    "switchLanguage": "Język"
+    "description": "To jest minimalna przykładowa strona wyświetlana po polsku. Język możesz zmienić w ustawieniach."
   },
   "Sidebar": {
     "dashboard": "Dashboard",
@@ -173,6 +172,56 @@
     "columnDueDate": "Termin",
     "columnProgress": "Postęp"
   },
+  "SettingsPage": {
+    "title": "Ustawienia",
+    "subtitle": "Zarządzaj swoim profilem, hasłem i językiem.",
+    "profileTitle": "Profil",
+    "profileDescription": "Twoje imię i zdjęcie są widoczne dla wszystkich w organizacji.",
+    "profileSaved": "Twój profil został zaktualizowany.",
+    "avatarLabel": "Zdjęcie",
+    "firstNameLabel": "Imię",
+    "firstNamePlaceholder": "Anna",
+    "lastNameLabel": "Nazwisko",
+    "lastNamePlaceholder": "Kowalska",
+    "emailLabel": "E-mail",
+    "emailLockedHint": "Twój adres e-mail jest stały i nie można go zmienić.",
+    "save": "Zapisz zmiany",
+    "saving": "Zapisywanie…",
+    "passwordTitle": "Hasło",
+    "passwordDescription": "Wybierz nowe hasło do logowania adresem e-mail.",
+    "passwordSaved": "Twoje hasło zostało zmienione.",
+    "currentPasswordLabel": "Aktualne hasło",
+    "currentPasswordPlaceholder": "Twoje aktualne hasło",
+    "newPasswordLabel": "Nowe hasło",
+    "newPasswordPlaceholder": "Co najmniej {min} znaków",
+    "confirmNewPasswordLabel": "Potwierdź nowe hasło",
+    "confirmNewPasswordPlaceholder": "Powtórz nowe hasło",
+    "passwordSubmit": "Zmień hasło",
+    "passwordSubmitting": "Zmienianie hasła…",
+    "languageTitle": "Język",
+    "languageDescription": "Język interfejsu jest przechowywany w cookie, więc nie pojawia się w adresie URL.",
+    "languageLabel": "Język interfejsu",
+    "languages": {
+      "en": "English",
+      "pl": "Polski"
+    },
+    "validation": {
+      "firstNameRequired": "Imię jest wymagane",
+      "lastNameRequired": "Nazwisko jest wymagane",
+      "avatarTooLarge": "Wybierz obraz mniejszy niż 2 MB",
+      "currentPasswordRequired": "Aktualne hasło jest wymagane",
+      "passwordTooShort": "Użyj co najmniej 8 znaków",
+      "confirmPasswordRequired": "Potwierdź nowe hasło",
+      "passwordsMismatch": "Hasła nie są takie same"
+    },
+    "errors": {
+      "notAuthenticated": "Twoja sesja wygasła. Zaloguj się ponownie, aby zapisać zmiany.",
+      "avatarInvalid": "Ten plik nie jest prawidłowym obrazem.",
+      "wrongPassword": "Aktualne hasło jest nieprawidłowe.",
+      "sameAsCurrent": "Nowe hasło musi różnić się od aktualnego.",
+      "oauthOnly": "To konto loguje się przez Google lub GitHub, więc nie ma hasła do zmiany."
+    }
+  },
   "AvatarGroup": {
     "moreLabel": "Jeszcze {count}"
   },
@@ -181,6 +230,9 @@
     "loading": "Ładowanie…",
     "clear": "Wyczyść wybór",
     "removeOption": "Usuń {name}"
+  },
+  "Select": {
+    "noOptions": "Brak dostępnych opcji"
   },
   "DatePicker": {
     "empty": "Nie wybrano daty",

@@ -1,8 +1,7 @@
 {
   "HomePage": {
     "title": "Welcome to LaunchDesk",
-    "description": "This is a minimal example page rendered in English. The active language is stored in a cookie, so it never appears in the URL.",
-    "switchLanguage": "Language"
+    "description": "This is a minimal example page rendered in English. You can change the language in settings."
   },
   "Sidebar": {
     "dashboard": "Dashboard",
@@ -173,6 +172,56 @@
     "columnDueDate": "Due date",
     "columnProgress": "Progress"
   },
+  "SettingsPage": {
+    "title": "Settings",
+    "subtitle": "Manage your profile, password and language.",
+    "profileTitle": "Profile",
+    "profileDescription": "Your name and photo are visible to everyone in your organization.",
+    "profileSaved": "Your profile has been updated.",
+    "avatarLabel": "Photo",
+    "firstNameLabel": "First name",
+    "firstNamePlaceholder": "Jane",
+    "lastNameLabel": "Last name",
+    "lastNamePlaceholder": "Doe",
+    "emailLabel": "Email",
+    "emailLockedHint": "Your email is permanent and cannot be changed.",
+    "save": "Save changes",
+    "saving": "Saving…",
+    "passwordTitle": "Password",
+    "passwordDescription": "Choose a new password for signing in with your email.",
+    "passwordSaved": "Your password has been changed.",
+    "currentPasswordLabel": "Current password",
+    "currentPasswordPlaceholder": "Your current password",
+    "newPasswordLabel": "New password",
+    "newPasswordPlaceholder": "At least {min} characters",
+    "confirmNewPasswordLabel": "Confirm new password",
+    "confirmNewPasswordPlaceholder": "Repeat your new password",
+    "passwordSubmit": "Change password",
+    "passwordSubmitting": "Changing password…",
+    "languageTitle": "Language",
+    "languageDescription": "The interface language is stored in a cookie, so it never appears in the URL.",
+    "languageLabel": "Interface language",
+    "languages": {
+      "en": "English",
+      "pl": "Polski"
+    },
+    "validation": {
+      "firstNameRequired": "First name is required",
+      "lastNameRequired": "Last name is required",
+      "avatarTooLarge": "Pick an image smaller than 2 MB",
+      "currentPasswordRequired": "Current password is required",
+      "passwordTooShort": "Use at least 8 characters",
+      "confirmPasswordRequired": "Confirm your new password",
+      "passwordsMismatch": "Passwords do not match"
+    },
+    "errors": {
+      "notAuthenticated": "Your session has expired. Sign in again to save your changes.",
+      "avatarInvalid": "That file is not a valid image.",
+      "wrongPassword": "Your current password is incorrect.",
+      "sameAsCurrent": "The new password must be different from the current one.",
+      "oauthOnly": "This account signs in with Google or GitHub, so it has no password to change."
+    }
+  },
   "AvatarGroup": {
     "moreLabel": "{count} more"
   },
@@ -181,6 +230,9 @@
     "loading": "Loading…",
     "clear": "Clear selection",
     "removeOption": "Remove {name}"
+  },
+  "Select": {
+    "noOptions": "No options available"
   },
   "DatePicker": {
     "empty": "No date selected",

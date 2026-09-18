@@ -1,5 +1,6 @@
 import usersMockData from "@/app/(authorized)/users/mockData";
 import { User } from "@/app/(authorized)/users/types";
+import { toISODate } from "@/utils/isoDate";
 
 // TODO: Delete this file once the auth API is available. Everything here stands in for endpoints
 // the backend will own: credential checks, account state and invite tokens. State is kept in module
@@ -46,6 +47,27 @@ export function findAccountByEmail(email: string): MockAccount | undefined {
 
 export function findAccountByInviteToken(token: string): MockAccount | undefined {
   return accounts.find((account) => account.inviteToken === token);
+}
+
+export function findAccountByUserId(userId: string): MockAccount | undefined {
+  return accounts.find((account) => account.userId === userId);
+}
+
+/** Replaces the credential of an already active account, as the settings page does. */
+export function setAccountPassword(account: MockAccount, password: string): void {
+  account.password = password;
+}
+
+export type UserProfilePatch = Partial<Pick<User, "firstName" | "lastName" | "avatar">>;
+
+export function updateUserProfile(userId: string, patch: UserProfilePatch): User | undefined {
+  const user = usersMockData.find((candidate) => candidate.id === userId);
+
+  if (!user) return undefined;
+
+  Object.assign(user, patch, { updatedAt: toISODate(new Date()) });
+
+  return user;
 }
 
 export function activateAccountWithPassword(account: MockAccount, password: string): void {

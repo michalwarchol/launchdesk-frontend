@@ -1,0 +1,95 @@
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  color: var(--color-text-strong);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.description {
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.avatarField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.avatarRow {
+  align-items: center;
+  display: flex;
+  gap: 20px;
+
+  @media (width <= 560px) {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+.avatarUpload {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.nameRow {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+
+  @media (width <= 560px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.emailField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hint {
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.error {
+  color: #ff6369;
+  font-size: 13px;
+}
+
+.submit {
+  align-self: flex-start;
+}
