@@ -1,4 +1,4 @@
-.login {
+.register {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -24,41 +24,39 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
 }
 
-.forgotLink {
-  align-self: flex-end;
-  color: var(--color-primary);
-  font-size: 13px;
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 
-  &:hover {
-    color: var(--color-primary-hover);
-    text-decoration: underline;
-    text-underline-offset: 3px;
+  /* Field labels already use the small uppercase treatment, so sections are separated by a rule. */
+  & + & {
+    border-top: 1px solid var(--color-border);
+    padding-top: 20px;
+  }
+}
+
+.sectionTitle {
+  color: var(--color-text-strong);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.nameRow {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+
+  @media (width <= 360px) {
+    grid-template-columns: 1fr;
   }
 }
 
 .submit {
   width: 100%;
-}
-
-.separator {
-  align-items: center;
-  color: var(--color-text-muted);
-  display: flex;
-  font-size: 12px;
-  gap: 12px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-
-  &::before,
-  &::after {
-    background-color: var(--color-border);
-    content: "";
-    flex: 1;
-    height: 1px;
-  }
 }
 
 .hint {

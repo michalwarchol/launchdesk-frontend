@@ -2,10 +2,12 @@ export const SESSION_COOKIE = "ld_session";
 
 export const LOGIN_PATH = "/login";
 
+export const REGISTER_PATH = "/register";
+
 export const AFTER_LOGIN_PATH = "/";
 
 /** Routes reachable without a session. Everything else requires one. */
-export const PUBLIC_PATHS = ["/login", "/invite", "/forgot-password"];
+export const PUBLIC_PATHS = ["/login", "/register", "/invite", "/forgot-password"];
 
 export function isPublicPath(pathname: string): boolean {
   return PUBLIC_PATHS.some((path) => pathname === path || pathname.startsWith(`${path}/`));

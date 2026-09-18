@@ -94,7 +94,12 @@ export default function LoginForm({ next, initialError }: LoginFormProps) {
 
       <OAuthButtons next={next} disabled={isSubmitting} />
 
-      <p className={styles.hint}>{t("noAccountHint")}</p>
+      <p className={styles.hint}>
+        {t("noAccountHint")}{" "}
+        <Link className={styles.hintLink} href="/register">
+          {t("registerLink")}
+        </Link>
+      </p>
     </div>
   );
 }
