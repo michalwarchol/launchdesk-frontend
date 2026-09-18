@@ -24,7 +24,8 @@
     "submit": "Zaloguj się",
     "submitting": "Logowanie…",
     "or": "lub",
-    "noAccountHint": "Konta tworzy administrator Twojej organizacji.",
+    "noAccountHint": "Nie masz konta?",
+    "registerLink": "Utwórz je",
     "validation": {
       "emailRequired": "E-mail jest wymagany",
       "emailInvalid": "Podaj poprawny adres e-mail",
@@ -36,6 +37,38 @@
       "oauthOnly": "To konto loguje się przez Google lub GitHub. Skorzystaj z przycisków poniżej.",
       "noAccount": "To konto nie należy do żadnej organizacji. Poproś administratora o zaproszenie.",
       "providerFailed": "Nie udało się zalogować przez tego dostawcę. Spróbuj ponownie."
+    }
+  },
+  "RegisterPage": {
+    "title": "Utwórz konto w LaunchDesk",
+    "subtitle": "Skonfiguruj swoje konto i organizację w jednym kroku.",
+    "userSectionTitle": "Twoje dane",
+    "organizationSectionTitle": "Organizacja",
+    "firstNameLabel": "Imię",
+    "firstNamePlaceholder": "Anna",
+    "lastNameLabel": "Nazwisko",
+    "lastNamePlaceholder": "Kowalska",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "ty@firma.com",
+    "passwordLabel": "Hasło",
+    "passwordPlaceholder": "Co najmniej {min} znaków",
+    "confirmPasswordLabel": "Potwierdź hasło",
+    "confirmPasswordPlaceholder": "Powtórz hasło",
+    "organizationNameLabel": "Nazwa organizacji",
+    "organizationNamePlaceholder": "Acme Sp. z o.o.",
+    "submit": "Utwórz konto",
+    "submitting": "Tworzenie konta…",
+    "haveAccountHint": "Masz już konto?",
+    "signInLink": "Zaloguj się",
+    "validation": {
+      "firstNameRequired": "Imię jest wymagane",
+      "lastNameRequired": "Nazwisko jest wymagane",
+      "emailRequired": "E-mail jest wymagany",
+      "emailInvalid": "Podaj poprawny adres e-mail",
+      "passwordTooShort": "Użyj co najmniej 8 znaków",
+      "confirmPasswordRequired": "Potwierdź hasło",
+      "passwordsMismatch": "Hasła nie są takie same",
+      "organizationNameRequired": "Nazwa organizacji jest wymagana"
     }
   },
   "AcceptInvitePage": {

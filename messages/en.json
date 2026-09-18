@@ -24,7 +24,8 @@
     "submit": "Sign in",
     "submitting": "Signing in…",
     "or": "or",
-    "noAccountHint": "Accounts are created by your organization admin.",
+    "noAccountHint": "Don't have an account?",
+    "registerLink": "Create one",
     "validation": {
       "emailRequired": "Email is required",
       "emailInvalid": "Enter a valid email address",
@@ -36,6 +37,38 @@
       "oauthOnly": "This account signs in with Google or GitHub. Use one of the buttons below.",
       "noAccount": "That account is not a member of any organization. Ask your admin for an invitation.",
       "providerFailed": "We could not complete the sign-in with that provider. Please try again."
+    }
+  },
+  "RegisterPage": {
+    "title": "Create your LaunchDesk account",
+    "subtitle": "Set up your account and your organization in one step.",
+    "userSectionTitle": "Your details",
+    "organizationSectionTitle": "Organization",
+    "firstNameLabel": "First name",
+    "firstNamePlaceholder": "Jane",
+    "lastNameLabel": "Last name",
+    "lastNamePlaceholder": "Doe",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@company.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "At least {min} characters",
+    "confirmPasswordLabel": "Confirm password",
+    "confirmPasswordPlaceholder": "Repeat your password",
+    "organizationNameLabel": "Organization name",
+    "organizationNamePlaceholder": "Acme Inc.",
+    "submit": "Create account",
+    "submitting": "Creating account…",
+    "haveAccountHint": "Already have an account?",
+    "signInLink": "Sign in",
+    "validation": {
+      "firstNameRequired": "First name is required",
+      "lastNameRequired": "Last name is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Enter a valid email address",
+      "passwordTooShort": "Use at least 8 characters",
+      "confirmPasswordRequired": "Confirm your password",
+      "passwordsMismatch": "Passwords do not match",
+      "organizationNameRequired": "Organization name is required"
     }
   },
   "AcceptInvitePage": {

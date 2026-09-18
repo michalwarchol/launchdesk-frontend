@@ -1,5 +1,3 @@
-import LanguageSwitcher from "@/components/LanguageSwitcher";
-
 import styles from "./layout.module.scss";
 
 export default function AuthLayout({
@@ -10,9 +8,6 @@ export default function AuthLayout({
   return (
     <div className={styles.page}>
       <main className={styles.panel}>{children}</main>
-      <footer className={styles.footer}>
-        <LanguageSwitcher />
-      </footer>
     </div>
   );
 }
