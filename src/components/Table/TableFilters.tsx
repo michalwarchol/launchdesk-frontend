@@ -1,5 +1,8 @@
 import { useTranslations } from "next-intl";
 
+import Select from "@/components/Select";
+import TextField from "@/components/TextField";
+
 import styles from "./Table.module.scss";
 
 import type { FilterConfig } from "./types";
@@ -20,28 +23,22 @@ export default function TableFilters({ filters, filterValues, onFilterChange }: 
 
         return (
           <div key={filter.key} className={styles.filterField}>
-            <label className={styles.filterLabel} htmlFor={`table-filter-${filter.key}`}>
-              {filter.label}
-            </label>
             {filter.type === "select" ? (
-              <select
+              <Select
                 id={`table-filter-${filter.key}`}
-                className={styles.filterInput}
+                size="sm"
+                label={filter.label}
+                // Clearing a filter has to stay reachable, so "all" is a real option rather than
+                // just a placeholder.
+                options={[{ value: "", label: t("filterAll") }, ...(filter.options ?? [])]}
                 value={value}
-                onChange={(event) => onFilterChange?.(filter.key, event.target.value)}
-              >
-                <option value="">{t("filterAll")}</option>
-                {filter.options?.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
+                onChange={(next) => onFilterChange?.(filter.key, next)}
+              />
             ) : (
-              <input
+              <TextField
                 id={`table-filter-${filter.key}`}
-                type="text"
-                className={styles.filterInput}
+                size="sm"
+                label={filter.label}
                 value={value}
                 onChange={(event) => onFilterChange?.(filter.key, event.target.value)}
               />
