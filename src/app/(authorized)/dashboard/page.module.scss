@@ -1,0 +1,30 @@
+.kpis {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 16px;
+
+  @media (width <= 960px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (width <= 560px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.charts {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+  margin-bottom: 16px;
+
+  @media (width <= 960px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.deadlines {
+  display: flex;
+  flex-direction: column;
+}

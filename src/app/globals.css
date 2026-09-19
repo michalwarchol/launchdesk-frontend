@@ -13,6 +13,11 @@
   --color-primary-text: #f2f2f2;
   --color-secondary-text: #d6d8dc;
   --color-text-strong: #ffffff;
+  --color-danger: #e5484d;
+  --color-danger-text: #ff6369;
+  --color-success: #4cc38a;
+  --color-info: #6ba8f5;
+  --color-neutral: #6b7280;
 }
 
 html {

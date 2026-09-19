@@ -1,5 +1,13 @@
 const ISO_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 
+/** Returns the ISO date string for `date` shifted by `days` calendar days. */
+export function addDaysISO(date: Date, days: number): string {
+  const next = new Date(date);
+  next.setDate(next.getDate() + days);
+
+  return toISODate(next);
+}
+
 export function toISODate(date: Date): string {
   const year = `${date.getFullYear()}`.padStart(4, "0");
   const month = `${date.getMonth() + 1}`.padStart(2, "0");

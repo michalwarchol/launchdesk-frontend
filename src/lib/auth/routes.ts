@@ -4,7 +4,7 @@ export const LOGIN_PATH = "/login";
 
 export const REGISTER_PATH = "/register";
 
-export const AFTER_LOGIN_PATH = "/";
+export const AFTER_LOGIN_PATH = "/dashboard";
 
 /** Routes reachable without a session. Everything else requires one. */
 export const PUBLIC_PATHS = ["/login", "/register", "/invite", "/forgot-password"];
