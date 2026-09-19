@@ -12,7 +12,7 @@ import styles from "./Sidebar.module.scss";
 const NAV_ITEMS = [
   {
     label: "dashboard",
-    href: "/",
+    href: "/dashboard",
   },
   {
     label: "users",
