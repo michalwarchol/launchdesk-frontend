@@ -13,4 +13,5 @@ export interface Assignment {
   progress: number;
   dueDate: string;
   createdAt: string;
+  completedAt?: string | null;
 }
