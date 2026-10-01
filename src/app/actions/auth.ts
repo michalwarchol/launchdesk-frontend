@@ -2,13 +2,11 @@
 
 import { redirect } from "next/navigation";
 
-import {
-  activateAccountWithPassword,
-  findAccountByEmail,
-  findAccountByInviteToken,
-} from "@/lib/auth/mockData";
+import { isApiError } from "@/lib/api/errors";
+import { apiServer } from "@/lib/api/server";
+import type { AuthTokens } from "@/lib/api/types";
 import { LOGIN_PATH, safeNextPath } from "@/lib/auth/routes";
-import { createSession, destroySession } from "@/lib/auth/session";
+import { clearTokens, getRefreshToken, setTokens } from "@/lib/auth/tokens";
 
 export type LoginError = "invalidCredentials" | "invitePending" | "oauthOnly";
 
@@ -26,26 +24,34 @@ interface LoginInput {
   next?: string;
 }
 
-// TODO: replace the mock account lookups with API calls once the auth backend is available.
 export async function login({
   email,
   password,
   next,
 }: LoginInput): Promise<ActionResult<LoginError>> {
-  const account = findAccountByEmail(email);
+  let tokens: AuthTokens;
 
-  if (!account) return { error: "invalidCredentials", ok: false };
+  try {
+    tokens = await apiServer<AuthTokens>({
+      path: "/auth/login",
+      method: "POST",
+      body: { email, password },
+    });
+  } catch (error) {
+    if (isApiError(error)) {
+      if (
+        error.code === "invalidCredentials" ||
+        error.code === "invitePending" ||
+        error.code === "oauthOnly"
+      ) {
+        return { error: error.code, ok: false };
+      }
+    }
 
-  // The admin added this user but they have not opened their invite link yet, so there are no
-  // credentials to check against.
-  if (account.status === "invited") return { error: "invitePending", ok: false };
+    throw error;
+  }
 
-  // The account was activated through Google or GitHub and never got a password.
-  if (account.password === null) return { error: "oauthOnly", ok: false };
-
-  if (account.password !== password) return { error: "invalidCredentials", ok: false };
-
-  await createSession(account.userId);
+  await setTokens(tokens.accessToken, tokens.refreshToken);
   redirect(safeNextPath(next));
 }
 
@@ -60,14 +66,29 @@ export async function acceptInvite({
   password,
   next,
 }: AcceptInviteInput): Promise<ActionResult<AcceptInviteError>> {
-  const account = findAccountByInviteToken(token);
+  let tokens: AuthTokens;
 
-  if (!account) return { error: "invalidToken", ok: false };
-  if (account.status === "active") return { error: "tokenUsed", ok: false };
+  try {
+    tokens = await apiServer<AuthTokens>({
+      path: "/auth/invite/accept",
+      method: "POST",
+      body: { token, password },
+    });
+  } catch (error) {
+    if (isApiError(error)) {
+      if (error.code === "invalidToken") {
+        return { error: "invalidToken", ok: false };
+      }
 
-  activateAccountWithPassword(account, password);
+      if (error.code === "tokenUsed") {
+        return { error: "tokenUsed", ok: false };
+      }
+    }
 
-  await createSession(account.userId);
+    throw error;
+  }
+
+  await setTokens(tokens.accessToken, tokens.refreshToken);
   redirect(safeNextPath(next));
 }
 
@@ -75,11 +96,32 @@ export async function acceptInvite({
  * Always reports success so the response cannot be used to discover which emails have an account.
  */
 export async function requestPasswordReset(email: string): Promise<void> {
-  // TODO: call the API to send the reset email once the backend is available.
-  console.info("Password reset requested for:", email);
+  try {
+    await apiServer({
+      path: "/auth/forgot-password",
+      method: "POST",
+      body: { email },
+    });
+  } catch {
+    // Intentionally swallow errors to avoid email enumeration.
+  }
 }
 
 export async function logout(): Promise<void> {
-  await destroySession();
+  const refreshToken = await getRefreshToken();
+
+  if (refreshToken) {
+    try {
+      await apiServer({
+        path: "/auth/logout",
+        method: "POST",
+        body: { refreshToken },
+      });
+    } catch {
+      // Clear local session even when the backend rejects the token.
+    }
+  }
+
+  await clearTokens();
   redirect(LOGIN_PATH);
 }

@@ -4,13 +4,19 @@ import {
   AFTER_LOGIN_PATH,
   isPublicPath,
   LOGIN_PATH,
+  PATHNAME_HEADER,
   REGISTER_PATH,
-  SESSION_COOKIE,
 } from "@/lib/auth/routes";
+import { REFRESH_COOKIE } from "@/lib/auth/tokens";
 
 export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
-  const hasSession = Boolean(request.cookies.get(SESSION_COOKIE)?.value);
+
+  if (pathname.startsWith("/api/")) {
+    return NextResponse.next();
+  }
+
+  const hasSession = Boolean(request.cookies.get(REFRESH_COOKIE)?.value);
 
   if (isPublicPath(pathname)) {
     // Nothing to do on the login or register screen when already signed in. Invite acceptance stays
@@ -26,7 +32,14 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  if (hasSession) return NextResponse.next();
+  if (hasSession) {
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set(PATHNAME_HEADER, `${pathname}${search}`);
+
+    return NextResponse.next({
+      request: { headers: requestHeaders },
+    });
+  }
 
   // Route groups such as `(authorized)` are invisible here because they never appear in the URL, so
   // every non-public path is treated as protected.
