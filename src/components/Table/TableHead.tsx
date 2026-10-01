@@ -6,6 +6,7 @@ interface TableHeadProps<T> {
   columns: Column<T>[];
   sort?: SortState;
   onSortChange?: (key: string, direction: SortDirection) => void;
+  disabled?: boolean;
 }
 
 const alignClassName = (align?: "center" | "left" | "right") => {
@@ -14,7 +15,7 @@ const alignClassName = (align?: "center" | "left" | "right") => {
   return "";
 };
 
-export default function TableHead<T>({ columns, sort, onSortChange }: TableHeadProps<T>) {
+export default function TableHead<T>({ columns, sort, onSortChange, disabled }: TableHeadProps<T>) {
   const handleSortClick = (column: Column<T>) => {
     if (!onSortChange) return;
 
@@ -49,6 +50,7 @@ export default function TableHead<T>({ columns, sort, onSortChange }: TableHeadP
                 <button
                   type="button"
                   className={styles.sortableHeader}
+                  disabled={disabled}
                   onClick={() => handleSortClick(column)}
                 >
                   {column.header}

@@ -10,7 +10,52 @@
   border: 1px solid var(--color-border);
   border-radius: 8px;
   overflow-x: auto;
+  position: relative;
   width: 100%;
+}
+
+.tableContainerLoadingEmpty {
+  min-height: 240px;
+}
+
+.loadingOverlay {
+  align-items: center;
+  background-color: rgb(28 31 38 / 75%);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 64px 16px;
+  pointer-events: all;
+  position: absolute;
+  z-index: 1;
+}
+
+.spinner {
+  animation: tableSpinner 0.7s linear infinite;
+  border: 3px solid var(--color-border);
+  border-radius: 50%;
+  border-top-color: var(--color-primary);
+  height: 32px;
+  width: 32px;
+}
+
+@keyframes tableSpinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.visuallyHidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
 
 .table {
@@ -56,6 +101,15 @@
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    &:hover {
+      color: inherit;
+    }
+  }
 }
 
 .sortIndicator {
@@ -95,6 +149,10 @@
   color: var(--color-text-muted);
   padding: 32px 16px;
   text-align: center;
+}
+
+.statusCellError {
+  padding: 64px 16px;
 }
 
 .filters {

@@ -7,9 +7,10 @@ import type { PaginationState } from "./types";
 interface PaginationProps {
   pagination: PaginationState;
   onPageChange?: (page: number) => void;
+  disabled?: boolean;
 }
 
-export default function Pagination({ pagination, onPageChange }: PaginationProps) {
+export default function Pagination({ pagination, onPageChange, disabled }: PaginationProps) {
   const t = useTranslations("Table");
   const { page, pageSize, total } = pagination;
   const pageCount = Math.max(1, Math.ceil(total / pageSize));
@@ -22,7 +23,7 @@ export default function Pagination({ pagination, onPageChange }: PaginationProps
       <button
         type="button"
         className={styles.pageButton}
-        disabled={page <= 1}
+        disabled={disabled || page <= 1}
         onClick={() => onPageChange?.(page - 1)}
       >
         {t("prev")}
@@ -40,6 +41,7 @@ export default function Pagination({ pagination, onPageChange }: PaginationProps
             key={pageNumber}
             type="button"
             className={pageButtonClassName}
+            disabled={disabled}
             onClick={() => onPageChange?.(pageNumber)}
           >
             {pageNumber}
@@ -49,7 +51,7 @@ export default function Pagination({ pagination, onPageChange }: PaginationProps
       <button
         type="button"
         className={styles.pageButton}
-        disabled={page >= pageCount}
+        disabled={disabled || page >= pageCount}
         onClick={() => onPageChange?.(page + 1)}
       >
         {t("next")}
