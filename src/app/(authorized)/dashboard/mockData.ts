@@ -1,11 +1,14 @@
 import { getFormatter } from "next-intl/server";
 
 import assignmentsMockData from "@/app/(authorized)/assignments/mockData";
-import tasksMockData from "@/app/(authorized)/tasks/mockData";
 import usersMockData from "@/app/(authorized)/users/mockData";
 
 import { buildDashboardStats } from "./stats";
 import { DashboardStats } from "./types";
+
+import type { Task } from "@/lib/api/types";
+
+const tasksMockData: Task[] = [];
 
 // TODO: Replace with actual data from the API. Swap the body of this function
 // for a `fetch` call returning the same `DashboardStats` shape.
