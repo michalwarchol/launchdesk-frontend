@@ -1,7 +1,1 @@
-export interface Task {
-  id: string;
-  name: string;
-  description: string;
-  stepsCount: number;
-  createdAt: string;
-}
+export type { Task } from "@/lib/api/types";

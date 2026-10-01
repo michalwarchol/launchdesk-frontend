@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
-import tasksMockData from "@/app/(authorized)/tasks/mockData";
+import { useTasksQuery } from "@/app/(authorized)/tasks/api";
 import usersMockData from "@/app/(authorized)/users/mockData";
 import Autocomplete from "@/components/Autocomplete";
 import Avatar from "@/components/Avatar";
@@ -38,13 +38,14 @@ export default function NewAssignmentForm() {
 
   const [taskQuery, setTaskQuery] = useState("");
   const [assigneeQuery, setAssigneeQuery] = useState("");
+  const { data: tasksResponse } = useTasksQuery({ pageSize: 100 });
 
   const taskOptions: TaskOption[] = useMemo(
     () =>
-      tasksMockData
+      (tasksResponse?.data ?? [])
         .filter((task) => task.name.toLowerCase().includes(taskQuery.trim().toLowerCase()))
         .map((task) => ({ id: task.id, name: task.name })),
-    [taskQuery],
+    [taskQuery, tasksResponse?.data],
   );
 
   const assigneeOptions: AssigneeOption[] = useMemo(

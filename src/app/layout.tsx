@@ -4,6 +4,8 @@ import { getLocale } from "next-intl/server";
 
 import type { Metadata, Viewport } from "next";
 
+import Providers from "./providers";
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -45,7 +47,9 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <Providers>{children}</Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

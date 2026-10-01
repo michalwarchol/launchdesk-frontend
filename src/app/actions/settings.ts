@@ -2,7 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 
-import { findAccountByUserId, setAccountPassword, updateUserProfile } from "@/lib/auth/mockData";
+import { isApiError } from "@/lib/api/errors";
+import { apiServer } from "@/lib/api/server";
 import { getSession } from "@/lib/auth/session";
 
 export type UpdateProfileError = "notAuthenticated" | "avatarInvalid";
@@ -22,7 +23,6 @@ interface UpdateProfileInput {
   avatar?: string;
 }
 
-// TODO: replace the mock mutations with API calls once the account backend is available.
 export async function updateProfile({
   firstName,
   lastName,
@@ -32,22 +32,31 @@ export async function updateProfile({
 
   if (!session) return { error: "notAuthenticated", ok: false };
 
-  // The avatar arrives as a client-encoded data URL, so it cannot be trusted to be an image.
   if (avatar !== undefined && !avatar.startsWith("data:image/")) {
     return { error: "avatarInvalid", ok: false };
   }
 
-  updateUserProfile(session.userId, {
-    firstName: firstName.trim(),
-    lastName: lastName.trim(),
-    ...(avatar === undefined ? {} : { avatar }),
-  });
+  try {
+    await apiServer({
+      path: "/users/me",
+      method: "PATCH",
+      body: {
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        ...(avatar === undefined ? {} : { avatar }),
+      },
+    });
 
-  // The sidebar renders the name and avatar from the authorized layout, so the whole tree has to
-  // be revalidated rather than just this page.
-  revalidatePath("/", "layout");
+    revalidatePath("/", "layout");
 
-  return { ok: true };
+    return { ok: true };
+  } catch (error) {
+    if (isApiError(error) && error.code === "avatarInvalid") {
+      return { error: "avatarInvalid", ok: false };
+    }
+
+    throw error;
+  }
 }
 
 interface ChangePasswordInput {
@@ -63,18 +72,25 @@ export async function changePassword({
 
   if (!session) return { error: "notAuthenticated", ok: false };
 
-  const account = findAccountByUserId(session.userId);
+  try {
+    await apiServer({
+      path: "/users/me/change-password",
+      method: "POST",
+      body: { currentPassword, newPassword },
+    });
 
-  if (!account) return { error: "notAuthenticated", ok: false };
+    return { ok: true };
+  } catch (error) {
+    if (isApiError(error)) {
+      if (
+        error.code === "oauthOnly" ||
+        error.code === "wrongPassword" ||
+        error.code === "sameAsCurrent"
+      ) {
+        return { error: error.code, ok: false };
+      }
+    }
 
-  // The account was activated through Google or GitHub and never got a password.
-  if (account.password === null) return { error: "oauthOnly", ok: false };
-
-  if (account.password !== currentPassword) return { error: "wrongPassword", ok: false };
-
-  if (account.password === newPassword) return { error: "sameAsCurrent", ok: false };
-
-  setAccountPassword(account, newPassword);
-
-  return { ok: true };
+    throw error;
+  }
 }

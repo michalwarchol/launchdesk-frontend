@@ -1,8 +1,10 @@
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import Sidebar from "@/components/Sidebar";
-import { LOGIN_PATH } from "@/lib/auth/routes";
+import { AFTER_LOGIN_PATH, LOGIN_PATH, PATHNAME_HEADER } from "@/lib/auth/routes";
 import { getSession } from "@/lib/auth/session";
+import { getRefreshToken } from "@/lib/auth/tokens";
 
 import styles from "./layout.module.scss";
 
@@ -11,11 +13,20 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Middleware already redirects unauthenticated requests; this is the boundary that actually
-  // guarantees no authorized page renders without a session.
+  // The proxy only checks that a refresh cookie exists. When the access token has expired, renew
+  // it before giving up, otherwise the proxy sends `/login` straight back here.
   const session = await getSession();
 
-  if (!session) redirect(LOGIN_PATH);
+  if (!session) {
+    const refreshToken = await getRefreshToken();
+
+    if (!refreshToken) redirect(LOGIN_PATH);
+
+    const headerStore = await headers();
+    const next = headerStore.get(PATHNAME_HEADER) ?? AFTER_LOGIN_PATH;
+
+    redirect(`/api/auth/refresh-session?next=${encodeURIComponent(next)}`);
+  }
 
   const { user } = session;
 

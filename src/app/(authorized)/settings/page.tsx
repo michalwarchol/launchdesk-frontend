@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
-import { findAccountByUserId } from "@/lib/auth/mockData";
 import { LOGIN_PATH } from "@/lib/auth/routes";
 import { getSession } from "@/lib/auth/session";
 
@@ -17,7 +16,6 @@ export default async function SettingsPage() {
   if (!session) redirect(LOGIN_PATH);
 
   const { user } = session;
-  const account = findAccountByUserId(session.userId);
 
   return (
     <div className={styles.settings}>
@@ -28,7 +26,7 @@ export default async function SettingsPage() {
 
       <div className={styles.sections}>
         <ProfileForm user={user} />
-        <PasswordForm hasPassword={account?.password !== null} />
+        <PasswordForm hasPassword />
         <LanguageSection />
       </div>
     </div>

@@ -1,43 +1,33 @@
-import { cookies } from "next/headers";
+import { cache } from "react";
 
-import { User } from "@/app/(authorized)/users/types";
+import { isApiError } from "@/lib/api/errors";
+import { apiServer } from "@/lib/api/server";
+import type { User } from "@/lib/api/types";
 
-import { findUserById } from "./mockData";
-import { SESSION_COOKIE } from "./routes";
-
-const SESSION_MAX_AGE = 60 * 60 * 24 * 7;
+import { getRefreshToken } from "./tokens";
 
 export interface Session {
   userId: string;
   user: User;
 }
 
-// TODO: the cookie holds a bare user id because there is no backend to issue a signed token yet.
-// Once the API exists it should set the session cookie itself and this becomes a read-only helper.
-export async function getSession(): Promise<Session | null> {
-  const store = await cookies();
-  const userId = store.get(SESSION_COOKIE)?.value;
+export const getSession = cache(async (): Promise<Session | null> => {
+  const refreshToken = await getRefreshToken();
 
-  if (!userId) return null;
+  if (!refreshToken) return null;
 
-  const user = findUserById(userId);
+  try {
+    const user = await apiServer<User>({
+      path: "/auth/me",
+      method: "GET",
+    });
 
-  return user ? { userId, user } : null;
-}
+    return { userId: user.id, user };
+  } catch (error) {
+    if (isApiError(error) && error.status === 401) {
+      return null;
+    }
 
-export async function createSession(userId: string): Promise<void> {
-  const store = await cookies();
-
-  store.set(SESSION_COOKIE, userId, {
-    httpOnly: true,
-    maxAge: SESSION_MAX_AGE,
-    path: "/",
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-  });
-}
-
-export async function destroySession(): Promise<void> {
-  const store = await cookies();
-  store.delete(SESSION_COOKIE);
-}
+    throw error;
+  }
+});

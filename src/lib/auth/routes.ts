@@ -1,10 +1,11 @@
-export const SESSION_COOKIE = "ld_session";
-
 export const LOGIN_PATH = "/login";
 
 export const REGISTER_PATH = "/register";
 
 export const AFTER_LOGIN_PATH = "/dashboard";
+
+/** Request header set by the proxy so protected layouts know which URL they are rendering. */
+export const PATHNAME_HEADER = "x-pathname";
 
 /** Routes reachable without a session. Everything else requires one. */
 export const PUBLIC_PATHS = ["/login", "/register", "/invite", "/forgot-password"];

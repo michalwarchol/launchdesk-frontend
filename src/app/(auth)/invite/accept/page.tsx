@@ -14,7 +14,7 @@ interface AcceptInvitePageProps {
 export default async function AcceptInvitePage({ searchParams }: AcceptInvitePageProps) {
   const { next, token } = await searchParams;
   const t = await getTranslations("AcceptInvitePage");
-  const invite = lookupInvite(token);
+  const invite = await lookupInvite(token);
 
   if (invite.status !== "valid") {
     return (
