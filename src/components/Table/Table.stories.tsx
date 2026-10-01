@@ -161,6 +161,23 @@ export const Loading: Story = {
   render: () => <Table columns={columns} data={[]} getRowId={(row) => row.id} isLoading />,
 };
 
+export const LoadingWithData: Story = {
+  render: () => (
+    <Table columns={columns} data={USERS} getRowId={(row) => row.id} isLoading onRowClick={() => {}} />
+  ),
+};
+
+export const Error: Story = {
+  render: () => (
+    <Table
+      columns={columns}
+      data={USERS}
+      getRowId={(row) => row.id}
+      error="Could not load data."
+    />
+  ),
+};
+
 export const Empty: Story = {
   render: () => (
     <Table columns={columns} data={[]} getRowId={(row) => row.id} emptyMessage="No users found" />

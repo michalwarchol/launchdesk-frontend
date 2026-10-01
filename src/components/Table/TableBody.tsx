@@ -11,6 +11,7 @@ interface TableBodyProps<T> {
   getRowId: (row: T) => number | string;
   onRowClick?: (row: T) => void;
   isLoading?: boolean;
+  error?: string;
   emptyMessage?: string;
 }
 
@@ -20,23 +21,24 @@ export default function TableBody<T>({
   getRowId,
   onRowClick,
   isLoading,
+  error,
   emptyMessage,
 }: TableBodyProps<T>) {
   const t = useTranslations("Table");
 
-  if (isLoading) {
+  if (error) {
     return (
       <tbody>
         <tr>
-          <td className={styles.statusCell} colSpan={columns.length}>
-            {t("loading")}
+          <td className={[styles.statusCell, styles.statusCellError].join(" ")} colSpan={columns.length} role="alert">
+            {error}
           </td>
         </tr>
       </tbody>
     );
   }
 
-  if (data.length === 0) {
+  if (!isLoading && data.length === 0) {
     return (
       <tbody>
         <tr>

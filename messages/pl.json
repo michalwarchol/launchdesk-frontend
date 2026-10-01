@@ -193,7 +193,7 @@
     "addTask": "Dodaj nowe zadanie",
     "empty": "Brak zadań do wyświetlenia",
     "loading": "Ładowanie zadań…",
-    "loadError": "Nie udało się załadować zadań. Spróbuj ponownie.",
+    "loadError": "Nie udało się załadować zadań.",
     "columnName": "Nazwa",
     "columnDescription": "Opis",
     "columnStepsCount": "Liczba kroków"

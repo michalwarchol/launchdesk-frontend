@@ -193,7 +193,7 @@
     "addTask": "Add new task",
     "empty": "No tasks to display",
     "loading": "Loading tasks…",
-    "loadError": "Could not load tasks. Please try again.",
+    "loadError": "Could not load tasks.",
     "columnName": "Name",
     "columnDescription": "Description",
     "columnStepsCount": "Steps"

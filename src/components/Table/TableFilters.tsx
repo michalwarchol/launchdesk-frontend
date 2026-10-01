@@ -11,9 +11,15 @@ interface TableFiltersProps {
   filters: FilterConfig[];
   filterValues?: Record<string, string>;
   onFilterChange?: (key: string, value: string) => void;
+  disabled?: boolean;
 }
 
-export default function TableFilters({ filters, filterValues, onFilterChange }: TableFiltersProps) {
+export default function TableFilters({
+  filters,
+  filterValues,
+  onFilterChange,
+  disabled,
+}: TableFiltersProps) {
   const t = useTranslations("Table");
 
   return (
@@ -27,6 +33,7 @@ export default function TableFilters({ filters, filterValues, onFilterChange }: 
               <Select
                 id={`table-filter-${filter.key}`}
                 size="sm"
+                disabled={disabled}
                 label={filter.label}
                 // Clearing a filter has to stay reachable, so "all" is a real option rather than
                 // just a placeholder.
@@ -38,6 +45,7 @@ export default function TableFilters({ filters, filterValues, onFilterChange }: 
               <TextField
                 id={`table-filter-${filter.key}`}
                 size="sm"
+                disabled={disabled}
                 label={filter.label}
                 value={value}
                 onChange={(event) => onFilterChange?.(filter.key, event.target.value)}
