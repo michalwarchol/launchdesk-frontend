@@ -7,12 +7,15 @@ import { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import { useTasksQuery } from "@/app/(authorized)/tasks/api";
-import usersMockData from "@/app/(authorized)/users/mockData";
+import { useUsersQuery } from "@/app/(authorized)/users/api";
+import Alert from "@/components/Alert";
 import Autocomplete from "@/components/Autocomplete";
 import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
 import DatePicker from "@/components/DatePicker";
 import PageHeader from "@/components/PageHeader";
+
+import { useCreateAssignmentMutation } from "../api";
 
 import styles from "./NewAssignmentForm.module.scss";
 import { AssigneeOption, NewAssignmentFormValues, newAssignmentSchema, TaskOption } from "./schema";
@@ -39,6 +42,8 @@ export default function NewAssignmentForm() {
   const [taskQuery, setTaskQuery] = useState("");
   const [assigneeQuery, setAssigneeQuery] = useState("");
   const { data: tasksResponse } = useTasksQuery({ pageSize: 100 });
+  const { data: usersResponse } = useUsersQuery({ pageSize: 100 });
+  const createAssignment = useCreateAssignmentMutation();
 
   const taskOptions: TaskOption[] = useMemo(
     () =>
@@ -50,7 +55,7 @@ export default function NewAssignmentForm() {
 
   const assigneeOptions: AssigneeOption[] = useMemo(
     () =>
-      usersMockData
+      (usersResponse?.data ?? [])
         .filter((user) =>
           `${user.firstName} ${user.lastName}`
             .toLowerCase()
@@ -62,14 +67,24 @@ export default function NewAssignmentForm() {
           lastName: user.lastName,
           avatar: user.avatar,
         })),
-    [assigneeQuery],
+    [assigneeQuery, usersResponse?.data],
   );
 
   const errorText = (key?: string) => (key ? t(`validation.${key}`) : undefined);
 
-  const onSubmit = (values: NewAssignmentFormValues) => {
-    // TODO: replace with API call once the backend is available
-    console.info("New assignment:", values);
+  const onSubmit = async (values: NewAssignmentFormValues) => {
+    if (!values.task || !values.dueDate) return;
+
+    try {
+      await createAssignment.mutateAsync({
+        taskId: values.task.id,
+        assigneeIds: values.assignees.map((assignee) => assignee.id),
+        dueDate: values.dueDate,
+      });
+    } catch {
+      return;
+    }
+
     router.push("/assignments");
   };
 
@@ -78,6 +93,8 @@ export default function NewAssignmentForm() {
       <PageHeader title={t("title")} subtitle={t("subtitle")} backHref="/assignments" />
 
       <div className={styles.body}>
+        {createAssignment.isError ? <Alert>{t("submitError")}</Alert> : null}
+
         <Controller
           control={control}
           name="task"
@@ -153,8 +170,8 @@ export default function NewAssignmentForm() {
         <Button variant="outline" onClick={() => router.push("/assignments")}>
           {t("cancel")}
         </Button>
-        <Button type="submit" variant="primary">
-          {t("submit")}
+        <Button type="submit" variant="primary" disabled={createAssignment.isPending}>
+          {createAssignment.isPending ? t("submitting") : t("submit")}
         </Button>
       </footer>
     </form>

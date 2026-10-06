@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
-import Table, { Column } from "@/components/Table";
+import Table, { Column, useTableQueryParams } from "@/components/Table";
 import Topbar from "@/components/Topbar";
 
 import { useTasksQuery } from "./api";
@@ -12,10 +12,11 @@ import { Task } from "./types";
 export default function Tasks() {
   const t = useTranslations("TasksPage");
   const router = useRouter();
-  const { data, isPending, error } = useTasksQuery();
+  const { params, getTableProps } = useTableQueryParams();
+  const { data, isPending, error } = useTasksQuery(params);
 
   const columns: Column<Task>[] = [
-    { key: "name", header: t("columnName") },
+    { key: "name", header: t("columnName"), sortable: true },
     { key: "description", header: t("columnDescription") },
     { key: "stepsCount", header: t("columnStepsCount"), align: "right" },
   ];
@@ -28,6 +29,7 @@ export default function Tasks() {
         primaryButtonLabel={t("addTask")}
       />
       <Table
+        {...getTableProps(data?.meta.total)}
         data={data?.data ?? []}
         columns={columns}
         getRowId={(row) => row.id}

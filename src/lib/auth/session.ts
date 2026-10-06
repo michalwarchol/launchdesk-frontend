@@ -2,13 +2,14 @@ import { cache } from "react";
 
 import { isApiError } from "@/lib/api/errors";
 import { apiServer } from "@/lib/api/server";
-import type { User } from "@/lib/api/types";
 
 import { getRefreshToken } from "./tokens";
 
+import type { AuthUser } from "@/lib/api/types";
+
 export interface Session {
   userId: string;
-  user: User;
+  user: AuthUser;
 }
 
 export const getSession = cache(async (): Promise<Session | null> => {
@@ -17,7 +18,7 @@ export const getSession = cache(async (): Promise<Session | null> => {
   if (!refreshToken) return null;
 
   try {
-    const user = await apiServer<User>({
+    const user = await apiServer<AuthUser>({
       path: "/auth/me",
       method: "GET",
     });

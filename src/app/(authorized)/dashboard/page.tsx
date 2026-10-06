@@ -1,21 +1,34 @@
-import { getTranslations } from "next-intl/server";
+import { getFormatter, getTranslations } from "next-intl/server";
 
 import Card from "@/components/Card";
 import StatCard from "@/components/StatCard";
 import Topbar from "@/components/Topbar";
 
+import { getDashboardStats } from "./api";
 import AssignmentActivityChart from "./charts/AssignmentActivityChart";
 import AssignmentStatusChart from "./charts/AssignmentStatusChart";
 import TeamWorkloadChart from "./charts/TeamWorkloadChart";
 import TopTasksChart from "./charts/TopTasksChart";
-import { getDashboardStats } from "./mockData";
 import styles from "./page.module.scss";
 import { AssignmentStatus } from "./types";
 import UpcomingDeadlines from "./UpcomingDeadlines";
 
 export default async function DashboardPage() {
   const t = await getTranslations("DashboardPage");
-  const stats = await getDashboardStats();
+  const format = await getFormatter();
+  const rawStats = await getDashboardStats();
+
+  const stats = {
+    ...rawStats,
+    monthlyActivity: rawStats.monthlyActivity.map((item) => {
+      const [year, month] = item.monthKey.split("-").map(Number);
+
+      return {
+        ...item,
+        monthLabel: format.dateTime(new Date(year, month - 1, 1), { month: "short" }),
+      };
+    }),
+  };
 
   const statusLabels: Record<AssignmentStatus, string> = {
     completed: t("statusCompleted"),

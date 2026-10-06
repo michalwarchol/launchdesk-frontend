@@ -1,17 +1,21 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 import Avatar from "@/components/Avatar";
-import Table, { Column } from "@/components/Table";
+import Table, { Column, useTableQueryParams } from "@/components/Table";
 import Topbar from "@/components/Topbar";
 
-// TODO: Replace with actual data from the API
-import mockData from "./mockData";
+import { useUsersQuery } from "./api";
+import InviteUserModal from "./InviteUserModal";
 import { User } from "./types";
 
 export default function Users() {
   const t = useTranslations("UsersPage");
+  const [isInviteOpen, setIsInviteOpen] = useState(false);
+  const { params, getTableProps } = useTableQueryParams();
+  const { data, isPending, error } = useUsersQuery(params);
 
   const columns: Column<User>[] = [
     {
@@ -26,10 +30,11 @@ export default function Users() {
         />
       ),
     },
-    { key: "email", header: t("columnEmail") },
+    { key: "email", header: t("columnEmail"), sortable: true },
     {
       key: "createdAt",
       header: t("columnCreatedAt"),
+      sortable: true,
       render: (row) => <div>{new Date(row.createdAt).toLocaleDateString()}</div>,
     },
   ];
@@ -38,10 +43,19 @@ export default function Users() {
     <div>
       <Topbar
         title={t("title")}
-        onPrimaryClick={() => console.log("clicked")}
+        onPrimaryClick={() => setIsInviteOpen(true)}
         primaryButtonLabel={t("addUser")}
       />
-      <Table data={mockData} columns={columns} getRowId={(row) => row.id} />
+      <Table
+        {...getTableProps(data?.meta.total)}
+        data={data?.data ?? []}
+        columns={columns}
+        getRowId={(row) => row.id}
+        emptyMessage={t("empty")}
+        isLoading={isPending}
+        error={error ? t("loadError") : undefined}
+      />
+      <InviteUserModal isOpen={isInviteOpen} onClose={() => setIsInviteOpen(false)} />
     </div>
   );
 }

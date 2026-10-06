@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { User } from "@/app/(authorized)/users/types";
 import { updateProfile, UpdateProfileError } from "@/app/actions/settings";
 import Alert from "@/components/Alert";
 import Avatar from "@/components/Avatar";
@@ -15,6 +14,8 @@ import TextField from "@/components/TextField";
 
 import styles from "./ProfileForm.module.scss";
 import { ProfileFormValues, profileSchema } from "./schema";
+
+import type { User } from "@/lib/api/types";
 
 /** Avatars travel inside the server action payload as base64, so they have to stay small. */
 const MAX_AVATAR_BYTES = 2 * 1024 * 1024;

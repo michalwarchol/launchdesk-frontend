@@ -1,7 +1,10 @@
+import { QueryClientProvider } from "@tanstack/react-query";
 import { NextIntlClientProvider } from "next-intl";
+import { useState } from "react";
 
 import enMessages from "../messages/en.json";
 import plMessages from "../messages/pl.json";
+import { makeQueryClient } from "../src/lib/api/query-client";
 import "../src/app/globals.css";
 
 import type { Preview } from "@storybook/nextjs-vite";
@@ -54,12 +57,15 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
+      const [queryClient] = useState(() => makeQueryClient());
       const locale = (context.globals.locale as keyof typeof messagesByLocale) ?? "en";
 
       return (
-        <NextIntlClientProvider locale={locale} messages={messagesByLocale[locale]}>
-          <Story />
-        </NextIntlClientProvider>
+        <QueryClientProvider client={queryClient}>
+          <NextIntlClientProvider locale={locale} messages={messagesByLocale[locale]}>
+            <Story />
+          </NextIntlClientProvider>
+        </QueryClientProvider>
       );
     },
   ],

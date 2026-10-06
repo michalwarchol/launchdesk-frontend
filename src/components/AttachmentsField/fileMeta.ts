@@ -1,4 +1,4 @@
-import { DocumentType } from "@/app/(authorized)/documents/types";
+import { DocumentType } from "@/lib/api/types";
 
 const IMAGE_EXTENSIONS = ["png", "jpg", "jpeg", "webp", "gif", "svg"];
 const SPREADSHEET_EXTENSIONS = ["xls", "xlsx", "csv"];

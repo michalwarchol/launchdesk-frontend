@@ -26,7 +26,7 @@ export default async function SettingsPage() {
 
       <div className={styles.sections}>
         <ProfileForm user={user} />
-        <PasswordForm hasPassword />
+        <PasswordForm hasPassword={user.hasPassword} />
         <LanguageSection />
       </div>
     </div>

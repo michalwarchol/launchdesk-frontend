@@ -1,4 +1,4 @@
-import { DocumentType } from "@/app/(authorized)/documents/types";
+import { DocumentType } from "@/lib/api/types";
 
 interface AttachmentBase {
   id: string;
