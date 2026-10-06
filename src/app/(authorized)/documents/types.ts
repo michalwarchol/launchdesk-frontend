@@ -1,10 +1,1 @@
-export type DocumentType = "image" | "spreadsheet" | "text";
-
-export interface Document {
-  id: string;
-  name: string;
-  type: DocumentType;
-  extension: string;
-  size: number;
-  createdAt: string;
-}
+export type { Document, DocumentType } from "@/lib/api/types";

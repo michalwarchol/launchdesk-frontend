@@ -50,6 +50,8 @@ export default function Sidebar({ user }: SidebarProps) {
   const t = useTranslations("Sidebar");
   const [isSigningOut, startSignOut] = useTransition();
 
+  console.log(user.avatar);
+
   const items = NAV_ITEMS.map((item) => ({
     label: t(item.label),
     href: item.href,

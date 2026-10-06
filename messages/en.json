@@ -170,7 +170,31 @@
     "addUser": "Add User",
     "columnName": "Name",
     "columnEmail": "Email",
-    "columnCreatedAt": "Created At"
+    "columnCreatedAt": "Created At",
+    "empty": "No users to display",
+    "loadError": "Could not load users.",
+    "inviteModalTitle": "Invite user",
+    "inviteSubmit": "Send invite",
+    "inviteSubmitting": "Sending…",
+    "firstNameLabel": "First name",
+    "lastNameLabel": "Last name",
+    "emailLabel": "Email",
+    "roleLabel": "Role",
+    "role": {
+      "user": "User",
+      "admin": "Admin"
+    },
+    "validation": {
+      "firstNameRequired": "First name is required",
+      "lastNameRequired": "Last name is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Enter a valid email address"
+    },
+    "inviteErrors": {
+      "emailTaken": "A user with this email already exists.",
+      "forbidden": "Only admins can invite users.",
+      "generic": "Could not send the invite. Try again."
+    }
   },
   "DocumentsPage": {
     "title": "Documents",
@@ -186,7 +210,10 @@
       "text": "Text",
       "spreadsheet": "Spreadsheet",
       "image": "Image"
-    }
+    },
+    "loadError": "Could not load documents.",
+    "invalidFileType": "One of the files has an unsupported type.",
+    "uploadError": "Could not upload the documents. Try again."
   },
   "TasksPage": {
     "title": "Tasks",
@@ -205,7 +232,15 @@
     "columnTask": "Task",
     "columnAssignees": "Assignees",
     "columnDueDate": "Due date",
-    "columnProgress": "Progress"
+    "columnProgress": "Progress",
+    "loadError": "Could not load assignments.",
+    "filterStatus": "Status",
+    "status": {
+      "notStarted": "Not started",
+      "inProgress": "In progress",
+      "overdue": "Overdue",
+      "completed": "Completed"
+    }
   },
   "SettingsPage": {
     "title": "Settings",
@@ -318,7 +353,9 @@
       "text": "Text",
       "spreadsheet": "Spreadsheet",
       "image": "Image"
-    }
+    },
+    "libraryLoading": "Loading documents…",
+    "libraryError": "Could not load documents."
   },
   "NewTaskPage": {
     "title": "Create new task",
@@ -343,7 +380,9 @@
       "descriptionRequired": "Description is required",
       "stepNameRequired": "Step name is required",
       "stepsRequired": "Add at least one step"
-    }
+    },
+    "submitting": "Creating…",
+    "submitError": "Could not create the task. Try again."
   },
   "NewAssignmentPage": {
     "title": "Create new assignment",
@@ -360,6 +399,8 @@
       "taskRequired": "Task is required",
       "assigneesRequired": "Add at least one assignee",
       "dueDateRequired": "Due date is required"
-    }
+    },
+    "submitting": "Creating…",
+    "submitError": "Could not create the assignment. Try again."
   }
 }

@@ -3,11 +3,11 @@
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 
+import { useDocumentsQuery } from "@/app/(authorized)/documents/api";
 import { ACCEPTED_EXTENSIONS } from "@/app/(authorized)/documents/constants";
-import mockData from "@/app/(authorized)/documents/mockData";
-import { DocumentType } from "@/app/(authorized)/documents/types";
 import Dropzone from "@/components/Dropzone";
 import Modal from "@/components/Modal";
+import { DocumentType } from "@/lib/api/types";
 import { formatFileSize } from "@/utils/formatFileSize";
 
 import styles from "./AttachmentPickerModal.module.scss";
@@ -34,7 +34,12 @@ export default function AttachmentPickerModal({
   existingIds,
 }: AttachmentPickerModalProps) {
   const t = useTranslations("Attachments");
-  const documents = mockData;
+  const {
+    data: documentsResponse,
+    isPending,
+    error,
+  } = useDocumentsQuery({ pageSize: 100 }, { enabled: isOpen });
+  const documents = useMemo(() => documentsResponse?.data ?? [], [documentsResponse?.data]);
 
   const [tab, setTab] = useState<Tab>("library");
   const [search, setSearch] = useState("");
@@ -83,7 +88,7 @@ export default function AttachmentPickerModal({
         documentType: document.type,
       }));
 
-    // TODO: upload to storage / add to /documents once the API is available
+    // Picked files are only uploaded once the form that owns them is submitted.
     const uploadAttachments: Attachment[] = uploadFiles.map((file) => {
       const extension = getExtension(file.name);
 
@@ -166,7 +171,11 @@ export default function AttachmentPickerModal({
             ))}
           </div>
 
-          {filteredDocuments.length === 0 ? (
+          {isPending && isOpen ? (
+            <p className={styles.empty}>{t("libraryLoading")}</p>
+          ) : error ? (
+            <p className={styles.empty}>{t("libraryError")}</p>
+          ) : filteredDocuments.length === 0 ? (
             <p className={styles.empty}>{t("libraryEmpty")}</p>
           ) : (
             <ul className={styles.docList}>

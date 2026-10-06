@@ -1,17 +1,6 @@
-export interface AssignmentAssignee {
-  id: string;
-  firstName: string;
-  lastName: string;
-  avatar?: string;
-}
-
-export interface Assignment {
-  id: string;
-  taskId: string;
-  taskName: string;
-  assignees: AssignmentAssignee[];
-  progress: number;
-  dueDate: string;
-  createdAt: string;
-  completedAt?: string | null;
-}
+export type {
+  Assignment,
+  AssignmentAssignee,
+  AssignmentQueryParams,
+  AssignmentStatus,
+} from "@/lib/api/types";

@@ -6,9 +6,12 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { FormProvider, SubmitErrorHandler, useFieldArray, useForm } from "react-hook-form";
 
+import Alert from "@/components/Alert";
 import Button from "@/components/Button";
 import PageHeader from "@/components/PageHeader";
 import TextField from "@/components/TextField";
+
+import { useCreateTaskMutation } from "../api";
 
 import styles from "./NewTaskForm.module.scss";
 import { createEmptyStep, NewTaskFormValues, newTaskSchema } from "./schema";
@@ -19,6 +22,7 @@ const INITIAL_STEP_KEY = "step-initial";
 export default function NewTaskForm() {
   const t = useTranslations("NewTaskPage");
   const router = useRouter();
+  const createTask = useCreateTaskMutation();
 
   const methods = useForm<NewTaskFormValues>({
     resolver: zodResolver(newTaskSchema),
@@ -55,9 +59,13 @@ export default function NewTaskForm() {
     setExpandedIds((previous) => previous.filter((id) => id !== key));
   };
 
-  const onSubmit = (values: NewTaskFormValues) => {
-    // TODO: replace with API call once the backend is available
-    console.info("New task:", values);
+  const onSubmit = async (values: NewTaskFormValues) => {
+    try {
+      await createTask.mutateAsync(values);
+    } catch {
+      return;
+    }
+
     router.push("/tasks");
   };
 
@@ -80,6 +88,8 @@ export default function NewTaskForm() {
         <PageHeader title={t("title")} subtitle={t("subtitle")} backHref="/tasks" />
 
         <div className={styles.body}>
+          {createTask.isError ? <Alert>{t("submitError")}</Alert> : null}
+
           <TextField
             label={t("nameLabel")}
             hideLabel
@@ -111,8 +121,8 @@ export default function NewTaskForm() {
           <Button variant="outline" onClick={() => router.push("/tasks")}>
             {t("cancel")}
           </Button>
-          <Button type="submit" variant="primary">
-            {t("submit")}
+          <Button type="submit" variant="primary" disabled={createTask.isPending}>
+            {createTask.isPending ? t("submitting") : t("submit")}
           </Button>
         </footer>
       </form>

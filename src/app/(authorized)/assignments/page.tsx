@@ -5,18 +5,31 @@ import { useFormatter, useTranslations } from "next-intl";
 
 import AvatarGroup from "@/components/AvatarGroup";
 import ProgressBar from "@/components/ProgressBar";
-import Table, { Column } from "@/components/Table";
+import Table, { Column, FilterConfig, useTableQueryParams } from "@/components/Table";
 import Topbar from "@/components/Topbar";
 import { parseISODate } from "@/utils/isoDate";
 
-// TODO: Replace with actual data from the API
-import mockData from "./mockData";
-import { Assignment } from "./types";
+import { useAssignmentsQuery } from "./api";
+import { Assignment, AssignmentQueryParams, AssignmentStatus } from "./types";
+
+const STATUSES: AssignmentStatus[] = ["notStarted", "inProgress", "overdue", "completed"];
+const FILTER_KEYS = ["status"] as const;
 
 export default function Assignments() {
   const t = useTranslations("AssignmentsPage");
   const format = useFormatter();
   const router = useRouter();
+  const { params, getTableProps } = useTableQueryParams(FILTER_KEYS);
+  const { data, isPending, error } = useAssignmentsQuery(params as AssignmentQueryParams);
+
+  const filters: FilterConfig[] = [
+    {
+      key: "status",
+      label: t("filterStatus"),
+      type: "select",
+      options: STATUSES.map((status) => ({ value: status, label: t(`status.${status}`) })),
+    },
+  ];
 
   const formatDueDate = (dueDate: string) => {
     const parsed = parseISODate(dueDate);
@@ -43,12 +56,14 @@ export default function Assignments() {
       key: "dueDate",
       header: t("columnDueDate"),
       width: "140px",
+      sortable: true,
       render: (row) => <div>{formatDueDate(row.dueDate)}</div>,
     },
     {
       key: "progress",
       header: t("columnProgress"),
       width: "220px",
+      sortable: true,
       render: (row) => <ProgressBar value={row.progress} />,
     },
   ];
@@ -61,11 +76,15 @@ export default function Assignments() {
         primaryButtonLabel={t("addAssignment")}
       />
       <Table
-        data={mockData}
+        {...getTableProps(data?.meta.total)}
+        filters={filters}
+        data={data?.data ?? []}
         columns={columns}
         getRowId={(row) => row.id}
         onRowClick={(row) => router.push(`/assignments/${row.id}`)}
         emptyMessage={t("empty")}
+        isLoading={isPending}
+        error={error ? t("loadError") : undefined}
       />
     </div>
   );

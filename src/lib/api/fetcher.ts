@@ -42,7 +42,13 @@ function buildHeaders(
     headers.set("Authorization", `Bearer ${accessToken}`);
   }
 
-  if (body !== undefined && body !== null && !headers.has("Content-Type")) {
+  // `FormData` bodies must not get a Content-Type so the runtime can add the multipart boundary.
+  if (
+    body !== undefined &&
+    body !== null &&
+    !(body instanceof FormData) &&
+    !headers.has("Content-Type")
+  ) {
     headers.set("Content-Type", "application/json");
   }
 
@@ -61,7 +67,7 @@ export async function fetchJson<T>({
   const response = await fetch(buildUrl(baseUrl, path, searchParams), {
     ...init,
     headers: buildHeaders(init.headers, accessToken, hasJsonBody ? body : undefined),
-    body: hasJsonBody ? JSON.stringify(body) : undefined,
+    body: hasJsonBody ? (body instanceof FormData ? body : JSON.stringify(body)) : undefined,
   });
 
   if (response.status === 204) {

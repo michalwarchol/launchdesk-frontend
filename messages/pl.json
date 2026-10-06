@@ -170,7 +170,31 @@
     "addUser": "Dodaj użytkownika",
     "columnName": "Imię i nazwisko",
     "columnEmail": "Email",
-    "columnCreatedAt": "Utworzono"
+    "columnCreatedAt": "Utworzono",
+    "empty": "Brak użytkowników do wyświetlenia",
+    "loadError": "Nie udało się wczytać użytkowników.",
+    "inviteModalTitle": "Zaproś użytkownika",
+    "inviteSubmit": "Wyślij zaproszenie",
+    "inviteSubmitting": "Wysyłanie…",
+    "firstNameLabel": "Imię",
+    "lastNameLabel": "Nazwisko",
+    "emailLabel": "Email",
+    "roleLabel": "Rola",
+    "role": {
+      "user": "Użytkownik",
+      "admin": "Administrator"
+    },
+    "validation": {
+      "firstNameRequired": "Imię jest wymagane",
+      "lastNameRequired": "Nazwisko jest wymagane",
+      "emailRequired": "Email jest wymagany",
+      "emailInvalid": "Podaj poprawny adres email"
+    },
+    "inviteErrors": {
+      "emailTaken": "Użytkownik z tym adresem email już istnieje.",
+      "forbidden": "Tylko administratorzy mogą zapraszać użytkowników.",
+      "generic": "Nie udało się wysłać zaproszenia. Spróbuj ponownie."
+    }
   },
   "DocumentsPage": {
     "title": "Dokumenty",
@@ -186,7 +210,10 @@
       "text": "Tekstowy",
       "spreadsheet": "Arkusz",
       "image": "Zdjęcie"
-    }
+    },
+    "loadError": "Nie udało się wczytać dokumentów.",
+    "invalidFileType": "Jeden z plików ma nieobsługiwany typ.",
+    "uploadError": "Nie udało się przesłać dokumentów. Spróbuj ponownie."
   },
   "TasksPage": {
     "title": "Zadania",
@@ -205,7 +232,15 @@
     "columnTask": "Zadanie",
     "columnAssignees": "Przypisani",
     "columnDueDate": "Termin",
-    "columnProgress": "Postęp"
+    "columnProgress": "Postęp",
+    "loadError": "Nie udało się wczytać przypisań.",
+    "filterStatus": "Status",
+    "status": {
+      "notStarted": "Nie rozpoczęto",
+      "inProgress": "W trakcie",
+      "overdue": "Po terminie",
+      "completed": "Ukończone"
+    }
   },
   "SettingsPage": {
     "title": "Ustawienia",
@@ -318,7 +353,9 @@
       "text": "Tekstowy",
       "spreadsheet": "Arkusz",
       "image": "Zdjęcie"
-    }
+    },
+    "libraryLoading": "Wczytywanie dokumentów…",
+    "libraryError": "Nie udało się wczytać dokumentów."
   },
   "NewTaskPage": {
     "title": "Nowe zadanie",
@@ -343,7 +380,9 @@
       "descriptionRequired": "Opis jest wymagany",
       "stepNameRequired": "Nazwa kroku jest wymagana",
       "stepsRequired": "Dodaj co najmniej jeden krok"
-    }
+    },
+    "submitting": "Tworzenie…",
+    "submitError": "Nie udało się utworzyć zadania. Spróbuj ponownie."
   },
   "NewAssignmentPage": {
     "title": "Nowe przypisanie",
@@ -360,6 +399,8 @@
       "taskRequired": "Zadanie jest wymagane",
       "assigneesRequired": "Dodaj co najmniej jedną osobę",
       "dueDateRequired": "Termin jest wymagany"
-    }
+    },
+    "submitting": "Tworzenie…",
+    "submitError": "Nie udało się utworzyć przypisania. Spróbuj ponownie."
   }
 }
