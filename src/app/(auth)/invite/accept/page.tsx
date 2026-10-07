@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
 import Alert from "@/components/Alert";
+import { API_BASE } from "@/lib/api/config";
 import { lookupInvite } from "@/lib/auth/invite";
 
 import styles from "./AcceptInvite.module.scss";
@@ -32,5 +33,7 @@ export default async function AcceptInvitePage({ searchParams }: AcceptInvitePag
     );
   }
 
-  return <AcceptInviteForm token={invite.token} email={invite.email} next={next} />;
+  return (
+    <AcceptInviteForm token={invite.token} email={invite.email} apiBase={API_BASE} next={next} />
+  );
 }

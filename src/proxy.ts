@@ -21,7 +21,10 @@ export function proxy(request: NextRequest) {
   if (isPublicPath(pathname)) {
     // Nothing to do on the login or register screen when already signed in. Invite acceptance stays
     // reachable so that a signed-in user can still accept an invite addressed to another account.
-    if (hasSession && (pathname === LOGIN_PATH || pathname === REGISTER_PATH)) {
+    // `/login?code=` is the return from Google / GitHub and must reach the code exchange.
+    const isOAuthReturn = pathname === LOGIN_PATH && request.nextUrl.searchParams.has("code");
+
+    if (hasSession && !isOAuthReturn && (pathname === LOGIN_PATH || pathname === REGISTER_PATH)) {
       const target = request.nextUrl.clone();
       target.pathname = AFTER_LOGIN_PATH;
       target.search = "";

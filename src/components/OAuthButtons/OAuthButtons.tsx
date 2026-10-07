@@ -10,21 +10,21 @@ import { GithubIcon, GoogleIcon } from "./ProviderIcon";
 export type OAuthProvider = "github" | "google";
 
 interface OAuthButtonsProps {
-  /** Path to return to once the provider has authenticated the user. */
+  apiBase: string;
   next?: string;
   disabled?: boolean;
   className?: string;
 }
 
-export default function OAuthButtons({ next, disabled, className }: OAuthButtonsProps) {
+export default function OAuthButtons({ apiBase, next, disabled, className }: OAuthButtonsProps) {
   const t = useTranslations("OAuthButtons");
 
   const start = (provider: OAuthProvider) => {
-    // TODO: redirect to `GET {API}/auth/{provider}?next={next}` once the backend owns the OAuth
-    // flow. The backend performs the provider handshake, matches the provider email to an existing
-    // organization member and sets the session cookie. An unknown email must fail (no self-signup)
-    // and redirect back to `/login?error=noAccount`.
-    console.info("OAuth sign-in requested:", { provider, next });
+    const url = new URL(`${apiBase.replace(/\/$/, "")}/auth/${provider}`, window.location.origin);
+
+    if (next) url.searchParams.set("next", next);
+
+    window.location.assign(url.toString());
   };
 
   return (
