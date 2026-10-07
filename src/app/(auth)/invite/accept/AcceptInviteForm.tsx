@@ -18,10 +18,11 @@ interface AcceptInviteFormProps {
   token: string;
   /** Comes from the invite token, so it is shown read-only and cannot be changed here. */
   email: string;
+  apiBase: string;
   next?: string;
 }
 
-export default function AcceptInviteForm({ token, email, next }: AcceptInviteFormProps) {
+export default function AcceptInviteForm({ token, email, apiBase, next }: AcceptInviteFormProps) {
   const t = useTranslations("AcceptInvitePage");
   const [formError, setFormError] = useState<AcceptInviteError | undefined>();
 
@@ -89,7 +90,7 @@ export default function AcceptInviteForm({ token, email, next }: AcceptInviteFor
         <span>{t("or")}</span>
       </div>
 
-      <OAuthButtons next={next} disabled={isSubmitting} />
+      <OAuthButtons apiBase={apiBase} next={next} disabled={isSubmitting} />
 
       <p className={styles.hint}>{t("providerHint", { email })}</p>
     </div>

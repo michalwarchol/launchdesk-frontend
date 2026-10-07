@@ -18,11 +18,12 @@ import { LoginFormValues, loginSchema, OAuthCallbackError } from "./schema";
 type FormError = LoginError | OAuthCallbackError;
 
 interface LoginFormProps {
+  apiBase: string;
   next?: string;
   initialError?: OAuthCallbackError;
 }
 
-export default function LoginForm({ next, initialError }: LoginFormProps) {
+export default function LoginForm({ apiBase, next, initialError }: LoginFormProps) {
   const t = useTranslations("LoginPage");
   const [formError, setFormError] = useState<FormError | undefined>(initialError);
 
@@ -92,7 +93,7 @@ export default function LoginForm({ next, initialError }: LoginFormProps) {
         <span>{t("or")}</span>
       </div>
 
-      <OAuthButtons next={next} disabled={isSubmitting} />
+      <OAuthButtons apiBase={apiBase} next={next} disabled={isSubmitting} />
 
       <p className={styles.hint}>
         {t("noAccountHint")}{" "}
