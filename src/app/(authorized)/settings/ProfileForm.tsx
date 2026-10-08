@@ -34,7 +34,11 @@ interface ProfileFormProps {
   user: User;
 }
 
+// Opted out of the React Compiler: it caches the `register()` output, so after `reset()` the
+// inputs are never re-registered and later edits are dropped from the next submit.
 export default function ProfileForm({ user }: ProfileFormProps) {
+  "use no memo";
+
   const t = useTranslations("SettingsPage");
   const [files, setFiles] = useState<File[]>([]);
   const [pendingAvatar, setPendingAvatar] = useState<string>();
