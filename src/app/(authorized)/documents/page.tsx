@@ -8,11 +8,13 @@ import Dropzone from "@/components/Dropzone";
 import Modal from "@/components/Modal";
 import Table, { Column, useTableQueryParams } from "@/components/Table";
 import Topbar from "@/components/Topbar";
-import { isApiError } from "@/lib/api/errors";
+import { BFF_BASE } from "@/lib/api/config";
+import { isApiError, parseApiError } from "@/lib/api/errors";
 import { formatFileSize } from "@/utils/formatFileSize";
 
 import { useDocumentsQuery, useUploadDocumentsMutation } from "./api";
 import { ACCEPTED_EXTENSIONS } from "./constants";
+import styles from "./page.module.scss";
 import { Document } from "./types";
 
 export default function Documents() {
@@ -22,6 +24,43 @@ export default function Documents() {
   const { params, getTableProps } = useTableQueryParams();
   const { data, isPending, error } = useDocumentsQuery(params);
   const upload = useUploadDocumentsMutation();
+  const [downloadError, setDownloadError] = useState<string | null>(null);
+
+  const handleDownloadClick = async (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    row: Document,
+  ) => {
+    event.stopPropagation();
+
+    // Let the browser handle modified clicks (new tab, new window, etc.) natively.
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+      return;
+    }
+
+    event.preventDefault();
+    setDownloadError(null);
+
+    const href = `${BFF_BASE}/documents/${row.id}/download`;
+
+    try {
+      const response = await fetch(href, { redirect: "manual" });
+
+      // The backend only redirects (to the storage URL) when the file exists.
+      if (response.type === "opaqueredirect") {
+        window.location.assign(href);
+        return;
+      }
+
+      const body = await response.json().catch(() => null);
+      const apiError = parseApiError(response.status, body);
+
+      setDownloadError(
+        t(apiError.code === "fileMissing" ? "fileMissing" : "downloadError", { name: row.name }),
+      );
+    } catch {
+      setDownloadError(t("downloadError", { name: row.name }));
+    }
+  };
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -60,6 +99,37 @@ export default function Documents() {
       align: "right",
       render: (row) => formatFileSize(row.size),
     },
+    {
+      key: "download",
+      header: "",
+      align: "center",
+      width: "64px",
+      render: (row) => (
+        <a
+          className={styles.downloadLink}
+          href={`${BFF_BASE}/documents/${row.id}/download`}
+          aria-label={t("download", { name: row.name })}
+          title={t("download", { name: row.name })}
+          onClick={(event) => void handleDownloadClick(event, row)}
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+        </a>
+      ),
+    },
   ];
 
   return (
@@ -69,6 +139,7 @@ export default function Documents() {
         onPrimaryClick={() => setIsModalOpen(true)}
         primaryButtonLabel={t("upload")}
       />
+      {downloadError ? <Alert className={styles.downloadAlert}>{downloadError}</Alert> : null}
       <Table
         {...getTableProps(data?.meta.total)}
         data={data?.data ?? []}

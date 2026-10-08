@@ -206,6 +206,9 @@
     "columnType": "Type",
     "columnExtension": "Extension",
     "columnSize": "Size",
+    "download": "Download {name}",
+    "fileMissing": "The file \"{name}\" is no longer available in storage.",
+    "downloadError": "Could not download \"{name}\". Try again.",
     "documentType": {
       "text": "Text",
       "spreadsheet": "Spreadsheet",

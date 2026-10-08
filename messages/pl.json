@@ -206,6 +206,9 @@
     "columnType": "Typ",
     "columnExtension": "Rozszerzenie",
     "columnSize": "Rozmiar",
+    "download": "Pobierz {name}",
+    "fileMissing": "Plik \"{name}\" nie jest już dostępny w magazynie.",
+    "downloadError": "Nie udało się pobrać pliku \"{name}\". Spróbuj ponownie.",
     "documentType": {
       "text": "Tekstowy",
       "spreadsheet": "Arkusz",
