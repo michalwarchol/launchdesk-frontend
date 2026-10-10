@@ -441,6 +441,33 @@
     "submitting": "Creating…",
     "submitError": "Could not create the task. Try again."
   },
+  "TaskDetailsPage": {
+    "loadError": "Could not load this task.",
+    "notFound": "Task not found.",
+    "edit": "Edit",
+    "delete": "Delete task",
+    "deleteModalTitle": "Delete task",
+    "deleteModalBody": "This will remove \"{name}\" and all of its assignments. This action cannot be undone.",
+    "deleteConfirm": "Delete",
+    "deleteSubmitting": "Deleting…",
+    "deleteErrors": {
+      "forbidden": "Only admins can delete tasks.",
+      "generic": "Could not delete this task. Try again."
+    }
+  },
+  "EditTaskPage": {
+    "title": "Edit task",
+    "subtitle": "Update the task name, description, and steps.",
+    "save": "Save changes",
+    "saving": "Saving…",
+    "loadError": "Could not load this task.",
+    "notFound": "Task not found.",
+    "cancel": "Cancel",
+    "saveErrors": {
+      "forbidden": "Only admins can edit tasks.",
+      "generic": "Could not save changes. Try again."
+    }
+  },
   "NewAssignmentPage": {
     "title": "Create new assignment",
     "subtitle": "Assign a task to one or more people.",

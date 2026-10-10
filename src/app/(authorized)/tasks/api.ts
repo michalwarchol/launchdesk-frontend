@@ -12,6 +12,7 @@ import type {
   PaginationParams,
   Task,
   TaskDetail,
+  UpdateTaskInput,
 } from "@/lib/api/types";
 
 export async function fetchTasks(params: PaginationParams = {}) {
@@ -29,6 +30,19 @@ export function useTasksQuery(params: PaginationParams = {}) {
   });
 }
 
+export async function fetchTask(id: string) {
+  return apiClient<TaskDetail>({
+    path: `/tasks/${id}`,
+  });
+}
+
+export function useTaskQuery(id: string) {
+  return useQuery({
+    queryKey: queryKeys.tasks.detail(id),
+    queryFn: () => fetchTask(id),
+  });
+}
+
 export interface CreateTaskStepValues {
   name: string;
   description: string;
@@ -41,7 +55,7 @@ export interface CreateTaskValues {
   steps: CreateTaskStepValues[];
 }
 
-export async function createTask(values: CreateTaskValues) {
+async function buildTaskInput(values: CreateTaskValues): Promise<CreateTaskInput> {
   const uploads = values.steps.flatMap((step) =>
     step.attachments.filter(
       (attachment): attachment is Extract<Attachment, { kind: "upload" }> =>
@@ -59,7 +73,7 @@ export async function createTask(values: CreateTaskValues) {
     });
   }
 
-  const input: CreateTaskInput = {
+  return {
     name: values.name.trim(),
     description: values.description.trim(),
     steps: values.steps.map((step) => ({
@@ -72,6 +86,10 @@ export async function createTask(values: CreateTaskValues) {
       ),
     })),
   };
+}
+
+export async function createTask(values: CreateTaskValues) {
+  const input = await buildTaskInput(values);
 
   return apiClient<TaskDetail>({
     path: "/tasks",
@@ -90,5 +108,45 @@ export function useCreateTaskMutation() {
         queryClient.invalidateQueries({ queryKey: queryKeys.tasks.all }),
         queryClient.invalidateQueries({ queryKey: queryKeys.documents.all }),
       ]),
+  });
+}
+
+export async function updateTask(id: string, values: CreateTaskValues) {
+  const input: UpdateTaskInput = await buildTaskInput(values);
+
+  return apiClient<TaskDetail>({
+    path: `/tasks/${id}`,
+    method: "PATCH",
+    body: input,
+  });
+}
+
+export function useUpdateTaskMutation(id: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (values: CreateTaskValues) => updateTask(id, values),
+    onSuccess: () =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: queryKeys.tasks.all }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.tasks.detail(id) }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.documents.all }),
+      ]),
+  });
+}
+
+export async function deleteTask(id: string) {
+  return apiClient<void>({
+    path: `/tasks/${id}`,
+    method: "DELETE",
+  });
+}
+
+export function useDeleteTaskMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteTask,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.tasks.all }),
   });
 }

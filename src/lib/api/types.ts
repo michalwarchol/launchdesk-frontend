@@ -194,3 +194,5 @@ export interface CreateTaskInput {
   description: string;
   steps: CreateTaskStepInput[];
 }
+
+export type UpdateTaskInput = CreateTaskInput;

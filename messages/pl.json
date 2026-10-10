@@ -441,6 +441,33 @@
     "submitting": "Tworzenie…",
     "submitError": "Nie udało się utworzyć zadania. Spróbuj ponownie."
   },
+  "TaskDetailsPage": {
+    "loadError": "Nie udało się wczytać zadania.",
+    "notFound": "Nie znaleziono zadania.",
+    "edit": "Edytuj",
+    "delete": "Usuń zadanie",
+    "deleteModalTitle": "Usuń zadanie",
+    "deleteModalBody": "Spowoduje to usunięcie zadania „{name}” oraz wszystkich jego przypisań. Tej operacji nie można cofnąć.",
+    "deleteConfirm": "Usuń",
+    "deleteSubmitting": "Usuwanie…",
+    "deleteErrors": {
+      "forbidden": "Tylko administratorzy mogą usuwać zadania.",
+      "generic": "Nie udało się usunąć zadania. Spróbuj ponownie."
+    }
+  },
+  "EditTaskPage": {
+    "title": "Edytuj zadanie",
+    "subtitle": "Zmień nazwę, opis i kroki zadania.",
+    "save": "Zapisz zmiany",
+    "saving": "Zapisywanie…",
+    "loadError": "Nie udało się wczytać zadania.",
+    "notFound": "Nie znaleziono zadania.",
+    "cancel": "Anuluj",
+    "saveErrors": {
+      "forbidden": "Tylko administratorzy mogą edytować zadania.",
+      "generic": "Nie udało się zapisać zmian. Spróbuj ponownie."
+    }
+  },
   "NewAssignmentPage": {
     "title": "Nowe przypisanie",
     "subtitle": "Przypisz zadanie do jednej lub kilku osób.",
