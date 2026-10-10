@@ -63,8 +63,18 @@
 }
 
 .body {
+  color: var(--color-secondary-text);
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 12px;
+  line-height: 1.5;
   overflow-y: auto;
   padding: 20px;
+
+  p {
+    margin: 0;
+  }
 }
 
 .footer {

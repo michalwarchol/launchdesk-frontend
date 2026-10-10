@@ -196,6 +196,60 @@
       "generic": "Nie udało się wysłać zaproszenia. Spróbuj ponownie."
     }
   },
+  "UserDetailsPage": {
+    "loadError": "Nie udało się wczytać użytkownika.",
+    "notFound": "Nie znaleziono użytkownika.",
+    "edit": "Edytuj",
+    "delete": "Usuń użytkownika",
+    "deleteModalTitle": "Usuń użytkownika",
+    "deleteModalBody": "Spowoduje to usunięcie użytkownika {name} z organizacji. Tej operacji nie można cofnąć.",
+    "deleteConfirm": "Usuń",
+    "deleteSubmitting": "Usuwanie…",
+    "profileTitle": "Profil",
+    "emailLabel": "Email",
+    "roleLabel": "Rola",
+    "createdAtLabel": "W organizacji od",
+    "assignmentsTitle": "Przypisania",
+    "assignmentsEmpty": "Brak przypisań dla tego użytkownika.",
+    "assignmentsLoadError": "Nie udało się wczytać przypisań.",
+    "deleteErrors": {
+      "cannotDeleteSelf": "Nie możesz usunąć własnego konta.",
+      "forbidden": "Tylko administratorzy mogą usuwać użytkowników.",
+      "generic": "Nie udało się usunąć użytkownika. Spróbuj ponownie."
+    }
+  },
+  "EditUserPage": {
+    "title": "Edytuj użytkownika",
+    "subtitle": "Zmień imię, nazwisko i rolę lub usuń użytkownika z przypisań.",
+    "save": "Zapisz zmiany",
+    "saving": "Zapisywanie…",
+    "loadError": "Nie udało się wczytać użytkownika.",
+    "notFound": "Nie znaleziono użytkownika.",
+    "firstNameLabel": "Imię",
+    "lastNameLabel": "Nazwisko",
+    "roleLabel": "Rola",
+    "assignmentsTitle": "Przypisania",
+    "assignmentsEmpty": "Brak przypisań dla tego użytkownika.",
+    "assignmentsLoadError": "Nie udało się wczytać przypisań.",
+    "cancel": "Anuluj",
+    "unassign": "Usuń z przypisania",
+    "unassignModalTitle": "Usuń z przypisania",
+    "unassignModalBody": "Usunąć użytkownika {name} z przypisania „{task}”?",
+    "unassignConfirm": "Usuń z przypisania",
+    "unassignSubmitting": "Usuwanie…",
+    "saveErrors": {
+      "forbidden": "Tylko administratorzy mogą edytować użytkowników.",
+      "generic": "Nie udało się zapisać zmian. Spróbuj ponownie."
+    },
+    "unassignErrors": {
+      "forbidden": "Tylko administratorzy mogą usuwać przypisania.",
+      "generic": "Nie udało się usunąć przypisania. Spróbuj ponownie."
+    },
+    "validation": {
+      "firstNameRequired": "Imię jest wymagane",
+      "lastNameRequired": "Nazwisko jest wymagane"
+    }
+  },
   "DocumentsPage": {
     "title": "Dokumenty",
     "upload": "Prześlij",

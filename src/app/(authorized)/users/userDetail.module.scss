@@ -1,0 +1,39 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 24px;
+}
+
+.profileGrid {
+  display: grid;
+  gap: 16px 24px;
+  grid-template-columns: auto 1fr;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.profileAvatar {
+  grid-row: span 3;
+}
+
+.fieldLabel {
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+  margin: 0 0 4px;
+}
+
+.fieldValue {
+  color: var(--color-secondary-text);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.headerActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

@@ -41,3 +41,20 @@ export function useCreateAssignmentMutation() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.assignments.all }),
   });
 }
+
+export async function unassignUserFromAssignment(assignmentId: string, userId: string) {
+  return apiClient<void>({
+    path: `/assignments/${assignmentId}/assignees/${userId}`,
+    method: "DELETE",
+  });
+}
+
+export function useUnassignUserFromAssignmentMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ assignmentId, userId }: { assignmentId: string; userId: string }) =>
+      unassignUserFromAssignment(assignmentId, userId),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.assignments.all }),
+  });
+}

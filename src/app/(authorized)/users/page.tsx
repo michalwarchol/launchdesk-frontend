@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
@@ -13,6 +14,7 @@ import { User } from "./types";
 
 export default function Users() {
   const t = useTranslations("UsersPage");
+  const router = useRouter();
   const [isInviteOpen, setIsInviteOpen] = useState(false);
   const { params, getTableProps } = useTableQueryParams();
   const { data, isPending, error } = useUsersQuery(params);
@@ -51,6 +53,7 @@ export default function Users() {
         data={data?.data ?? []}
         columns={columns}
         getRowId={(row) => row.id}
+        onRowClick={(row) => router.push(`/users/${row.id}`)}
         emptyMessage={t("empty")}
         isLoading={isPending}
         error={error ? t("loadError") : undefined}

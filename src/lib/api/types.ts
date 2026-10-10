@@ -170,6 +170,12 @@ export interface CreateUserInput {
   role: UserRole;
 }
 
+export interface UpdateUserInput {
+  firstName?: string;
+  lastName?: string;
+  role?: UserRole;
+}
+
 export interface CreateAssignmentInput {
   taskId: string;
   assigneeIds: string[];

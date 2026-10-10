@@ -10,3 +10,11 @@ export const inviteUserSchema = z.object({
 });
 
 export type InviteUserFormValues = z.infer<typeof inviteUserSchema>;
+
+export const editUserSchema = z.object({
+  firstName: z.string().trim().min(1, "firstNameRequired"),
+  lastName: z.string().trim().min(1, "lastNameRequired"),
+  role: z.enum(USER_ROLES),
+});
+
+export type EditUserFormValues = z.infer<typeof editUserSchema>;
