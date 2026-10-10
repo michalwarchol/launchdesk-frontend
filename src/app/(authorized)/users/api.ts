@@ -3,7 +3,13 @@ import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tansta
 import { apiClient } from "@/lib/api/client";
 import { queryKeys } from "@/lib/api/query-keys";
 
-import type { CreateUserInput, PaginatedResponse, PaginationParams, User } from "@/lib/api/types";
+import type {
+  CreateUserInput,
+  PaginatedResponse,
+  PaginationParams,
+  UpdateUserInput,
+  User,
+} from "@/lib/api/types";
 
 export async function fetchUsers(params: PaginationParams = {}) {
   return apiClient<PaginatedResponse<User>>({
@@ -33,6 +39,55 @@ export function useCreateUserMutation() {
 
   return useMutation({
     mutationFn: createUser,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.users.all }),
+  });
+}
+
+export async function fetchUser(id: string) {
+  return apiClient<User>({
+    path: `/users/${id}`,
+  });
+}
+
+export function useUserQuery(id: string) {
+  return useQuery({
+    queryKey: queryKeys.users.detail(id),
+    queryFn: () => fetchUser(id),
+  });
+}
+
+export async function updateUser(id: string, input: UpdateUserInput) {
+  return apiClient<User>({
+    path: `/users/${id}`,
+    method: "PATCH",
+    body: input,
+  });
+}
+
+export function useUpdateUserMutation(id: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (input: UpdateUserInput) => updateUser(id, input),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.users.all });
+      queryClient.invalidateQueries({ queryKey: queryKeys.users.detail(id) });
+    },
+  });
+}
+
+export async function deleteUser(id: string) {
+  return apiClient<void>({
+    path: `/users/${id}`,
+    method: "DELETE",
+  });
+}
+
+export function useDeleteUserMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteUser,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.users.all }),
   });
 }

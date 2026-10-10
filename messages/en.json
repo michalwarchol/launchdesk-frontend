@@ -196,6 +196,60 @@
       "generic": "Could not send the invite. Try again."
     }
   },
+  "UserDetailsPage": {
+    "loadError": "Could not load this user.",
+    "notFound": "User not found.",
+    "edit": "Edit",
+    "delete": "Delete user",
+    "deleteModalTitle": "Delete user",
+    "deleteModalBody": "This will remove {name} from your organization. This action cannot be undone.",
+    "deleteConfirm": "Delete",
+    "deleteSubmitting": "Deleting…",
+    "profileTitle": "Profile",
+    "emailLabel": "Email",
+    "roleLabel": "Role",
+    "createdAtLabel": "Member since",
+    "assignmentsTitle": "Assignments",
+    "assignmentsEmpty": "No assignments for this user.",
+    "assignmentsLoadError": "Could not load assignments.",
+    "deleteErrors": {
+      "cannotDeleteSelf": "You cannot delete your own account.",
+      "forbidden": "Only admins can delete users.",
+      "generic": "Could not delete this user. Try again."
+    }
+  },
+  "EditUserPage": {
+    "title": "Edit user",
+    "subtitle": "Update name and role, or remove this user from assignments.",
+    "save": "Save changes",
+    "saving": "Saving…",
+    "loadError": "Could not load this user.",
+    "notFound": "User not found.",
+    "firstNameLabel": "First name",
+    "lastNameLabel": "Last name",
+    "roleLabel": "Role",
+    "assignmentsTitle": "Assignments",
+    "assignmentsEmpty": "No assignments for this user.",
+    "assignmentsLoadError": "Could not load assignments.",
+    "cancel": "Cancel",
+    "unassign": "Unassign",
+    "unassignModalTitle": "Remove from assignment",
+    "unassignModalBody": "Remove {name} from \"{task}\"?",
+    "unassignConfirm": "Unassign",
+    "unassignSubmitting": "Removing…",
+    "saveErrors": {
+      "forbidden": "Only admins can edit users.",
+      "generic": "Could not save changes. Try again."
+    },
+    "unassignErrors": {
+      "forbidden": "Only admins can unassign users.",
+      "generic": "Could not remove this assignment. Try again."
+    },
+    "validation": {
+      "firstNameRequired": "First name is required",
+      "lastNameRequired": "Last name is required"
+    }
+  },
   "DocumentsPage": {
     "title": "Documents",
     "upload": "Upload",
