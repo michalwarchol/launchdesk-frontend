@@ -8,7 +8,14 @@ import TableBody from "./TableBody";
 import TableFilters from "./TableFilters";
 import TableHead from "./TableHead";
 
-import type { Column, FilterConfig, PaginationState, SortDirection, SortState } from "./types";
+import type {
+  Column,
+  FilterConfig,
+  PaginationState,
+  SortDirection,
+  SortState,
+  TableSelectionState,
+} from "./types";
 
 export interface TableProps<T> {
   columns: Column<T>[];
@@ -23,6 +30,7 @@ export interface TableProps<T> {
   onRowClick?: (row: T) => void;
   pagination?: PaginationState;
   onPageChange?: (page: number) => void;
+  selection?: TableSelectionState;
   isLoading?: boolean;
   error?: string;
   emptyMessage?: string;
@@ -41,6 +49,7 @@ export default function Table<T>({
   onRowClick,
   pagination,
   onPageChange,
+  selection,
   isLoading,
   error,
   emptyMessage,
@@ -77,8 +86,11 @@ export default function Table<T>({
         <table className={styles.table}>
           <TableHead
             columns={columns}
+            data={data}
+            getRowId={getRowId}
             sort={sort}
             onSortChange={onSortChange}
+            selection={selection}
             disabled={isInteractionDisabled}
           />
           <TableBody
@@ -86,6 +98,7 @@ export default function Table<T>({
             columns={columns}
             getRowId={getRowId}
             onRowClick={isInteractionDisabled ? undefined : onRowClick}
+            selection={selection}
             isLoading={isLoading}
             error={error}
             emptyMessage={emptyMessage}

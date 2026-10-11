@@ -73,6 +73,25 @@
   white-space: nowrap;
 }
 
+.selectionHeaderCell,
+.selectionCell {
+  padding-left: 12px;
+  padding-right: 8px;
+  width: 44px;
+}
+
+.selectionCheckbox {
+  accent-color: var(--color-primary);
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
 .alignCenter {
   text-align: center;
 }

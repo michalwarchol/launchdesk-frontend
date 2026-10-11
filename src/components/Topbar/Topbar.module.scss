@@ -14,3 +14,10 @@
   font-weight: 600;
   margin: 0;
 }
+
+.actions {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+}

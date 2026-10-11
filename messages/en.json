@@ -151,7 +151,9 @@
     "filterAll": "All",
     "pageInfo": "Page {page} of {pageCount}",
     "prev": "Prev",
-    "next": "Next"
+    "next": "Next",
+    "selectAll": "Select all rows on this page",
+    "selectRow": "Select row"
   },
   "Modal": {
     "cancel": "Cancel",
@@ -270,7 +272,14 @@
     },
     "loadError": "Could not load documents.",
     "invalidFileType": "One of the files has an unsupported type.",
-    "uploadError": "Could not upload the documents. Try again."
+    "uploadError": "Could not upload the documents. Try again.",
+    "delete": "Delete",
+    "deleteModalTitle": "Delete documents",
+    "deleteModalBody": "This will permanently delete \"{name}\" and remove it from every task that uses it. This cannot be undone.",
+    "deleteModalBodyMany": "This will permanently delete {count} documents and remove them from every task that uses them. This cannot be undone.",
+    "deleteConfirm": "Delete",
+    "deleteSubmitting": "Deleting…",
+    "deleteError": "Could not delete the documents. Try again."
   },
   "TasksPage": {
     "title": "Tasks",
