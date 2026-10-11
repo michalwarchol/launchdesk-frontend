@@ -124,6 +124,24 @@ export const WithFilters: Story = {
   },
 };
 
+export const WithSelection: Story = {
+  render: function WithSelectionStory() {
+    const [selectedIds, setSelectedIds] = useState<(string | number)[]>([]);
+
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        <Table
+          columns={columns}
+          data={USERS}
+          getRowId={(row) => row.id}
+          selection={{ selectedIds, onSelectedIdsChange: setSelectedIds }}
+        />
+        <p>Selected ids: {selectedIds.length ? selectedIds.join(", ") : "none"}</p>
+      </div>
+    );
+  },
+};
+
 export const Clickable: Story = {
   render: function ClickableStory() {
     const [selected, setSelected] = useState<User | null>(null);

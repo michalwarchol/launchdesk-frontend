@@ -1,13 +1,19 @@
+import { useTranslations } from "next-intl";
+import { useEffect, useRef } from "react";
+
 import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRestore";
 
 import styles from "./Table.module.scss";
 
-import type { Column, SortDirection, SortState } from "./types";
+import type { Column, SortDirection, SortState, TableSelectionState } from "./types";
 
 interface TableHeadProps<T> {
   columns: Column<T>[];
+  data: T[];
+  getRowId: (row: T) => number | string;
   sort?: SortState;
   onSortChange?: (key: string, direction: SortDirection) => void;
+  selection?: TableSelectionState;
   disabled?: boolean;
 }
 
@@ -17,7 +23,46 @@ const alignClassName = (align?: "center" | "left" | "right") => {
   return "";
 };
 
-export default function TableHead<T>({ columns, sort, onSortChange, disabled }: TableHeadProps<T>) {
+export default function TableHead<T>({
+  columns,
+  data,
+  getRowId,
+  sort,
+  onSortChange,
+  selection,
+  disabled,
+}: TableHeadProps<T>) {
+  const t = useTranslations("Table");
+  const selectAllRef = useRef<HTMLInputElement>(null);
+
+  const visibleIds = data.map(getRowId);
+  const selectedSet = new Set(selection?.selectedIds ?? []);
+  const allVisibleSelected =
+    visibleIds.length > 0 && visibleIds.every((id) => selectedSet.has(id));
+  const someVisibleSelected =
+    visibleIds.some((id) => selectedSet.has(id)) && !allVisibleSelected;
+
+  useEffect(() => {
+    if (selectAllRef.current) {
+      selectAllRef.current.indeterminate = someVisibleSelected;
+    }
+  }, [someVisibleSelected]);
+
+  const handleSelectAllChange = () => {
+    if (!selection) return;
+
+    const { selectedIds, onSelectedIdsChange } = selection;
+
+    if (allVisibleSelected) {
+      const visibleSet = new Set(visibleIds);
+      onSelectedIdsChange(selectedIds.filter((id) => !visibleSet.has(id)));
+      return;
+    }
+
+    const merged = new Set([...selectedIds, ...visibleIds]);
+    onSelectedIdsChange([...merged]);
+  };
+
   const handleSortClick = (column: Column<T>) => {
     if (!onSortChange) return;
 
@@ -30,6 +75,19 @@ export default function TableHead<T>({ columns, sort, onSortChange, disabled }: 
   return (
     <thead>
       <tr>
+        {selection ? (
+          <th className={[styles.headerCell, styles.selectionHeaderCell].join(" ")}>
+            <input
+              ref={selectAllRef}
+              type="checkbox"
+              className={styles.selectionCheckbox}
+              checked={allVisibleSelected}
+              disabled={disabled || visibleIds.length === 0}
+              aria-label={t("selectAll")}
+              onChange={handleSelectAllChange}
+            />
+          </th>
+        ) : null}
         {columns.map((column) => {
           const isActive = sort?.key === column.key;
           const ariaSort = isActive

@@ -33,3 +33,8 @@ export type PaginationState = {
   pageSize: number;
   total: number;
 };
+
+export type TableSelectionState = {
+  selectedIds: (string | number)[];
+  onSelectedIdsChange: (ids: (string | number)[]) => void;
+};
