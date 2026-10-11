@@ -151,7 +151,9 @@
     "filterAll": "Wszystkie",
     "pageInfo": "Strona {page} z {pageCount}",
     "prev": "Poprzednia",
-    "next": "Następna"
+    "next": "Następna",
+    "selectAll": "Zaznacz wszystkie wiersze na tej stronie",
+    "selectRow": "Zaznacz wiersz"
   },
   "Modal": {
     "cancel": "Anuluj",
@@ -270,7 +272,14 @@
     },
     "loadError": "Nie udało się wczytać dokumentów.",
     "invalidFileType": "Jeden z plików ma nieobsługiwany typ.",
-    "uploadError": "Nie udało się przesłać dokumentów. Spróbuj ponownie."
+    "uploadError": "Nie udało się przesłać dokumentów. Spróbuj ponownie.",
+    "delete": "Usuń",
+    "deleteModalTitle": "Usuń dokumenty",
+    "deleteModalBody": "Spowoduje to trwałe usunięcie pliku \"{name}\" oraz usunięcie go ze wszystkich zadań, w których jest używany. Tej operacji nie można cofnąć.",
+    "deleteModalBodyMany": "Spowoduje to trwałe usunięcie {count} dokumentów oraz usunięcie ich ze wszystkich zadań, w których są używane. Tej operacji nie można cofnąć.",
+    "deleteConfirm": "Usuń",
+    "deleteSubmitting": "Usuwanie…",
+    "deleteError": "Nie udało się usunąć dokumentów. Spróbuj ponownie."
   },
   "TasksPage": {
     "title": "Zadania",

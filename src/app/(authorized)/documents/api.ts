@@ -46,3 +46,24 @@ export function useUploadDocumentsMutation() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.documents.all }),
   });
 }
+
+export async function deleteDocuments(ids: string[]) {
+  return apiClient<void>({
+    path: "/documents",
+    method: "DELETE",
+    body: { ids },
+  });
+}
+
+export function useDeleteDocumentsMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteDocuments,
+    onSuccess: () =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: queryKeys.documents.all }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.tasks.all }),
+      ]),
+  });
+}
