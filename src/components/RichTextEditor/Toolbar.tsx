@@ -3,6 +3,8 @@
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
+import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRestore";
+
 import LinkModal, { type LinkModalValues } from "./LinkModal";
 import styles from "./RichTextEditor.module.scss";
 
@@ -32,6 +34,7 @@ function ToolbarButton({ label, isActive, disabled, onClick, children }: Toolbar
       className={className}
       onClick={onClick}
       disabled={disabled}
+      {...preventFirefoxDisabledRestore}
       aria-pressed={isActive}
       aria-label={label}
       title={label}

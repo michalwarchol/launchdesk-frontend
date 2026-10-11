@@ -3,6 +3,8 @@
 import { useTranslations } from "next-intl";
 import { useEffect, useId, useRef, useState } from "react";
 
+import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRestore";
+
 import styles from "./Select.module.scss";
 
 export interface SelectOption {
@@ -259,6 +261,7 @@ export default function Select({
           role="combobox"
           className={controlClassName}
           disabled={disabled}
+          {...preventFirefoxDisabledRestore}
           aria-haspopup="listbox"
           aria-expanded={isOpen}
           aria-controls={listboxId}

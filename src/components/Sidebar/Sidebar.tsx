@@ -6,6 +6,7 @@ import { useTransition } from "react";
 
 import { logout } from "@/app/actions/auth";
 import Avatar from "@/components/Avatar";
+import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRestore";
 
 import styles from "./Sidebar.module.scss";
 
@@ -76,6 +77,7 @@ export default function Sidebar({ user }: SidebarProps) {
           type="button"
           className={styles.signOut}
           disabled={isSigningOut}
+          {...preventFirefoxDisabledRestore}
           onClick={() => startSignOut(() => logout())}
         >
           {t("signOut")}

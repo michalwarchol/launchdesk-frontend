@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 
 import { parseISODate, toISODate } from "@/utils/isoDate";
+import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRestore";
 
 import {
   addDays,
@@ -262,6 +263,7 @@ export default function DatePicker({
             .filter(Boolean)
             .join(" ")}
           disabled={disabled}
+          {...preventFirefoxDisabledRestore}
           onClick={() => (isOpen ? closeCalendar() : openCalendar())}
           onKeyDown={handleTriggerKeyDown}
           aria-haspopup="dialog"
@@ -277,6 +279,7 @@ export default function DatePicker({
             type="button"
             className={styles.clearButton}
             disabled={disabled}
+            {...preventFirefoxDisabledRestore}
             onClick={() => {
               onChange(null);
               onBlur?.();
@@ -303,6 +306,7 @@ export default function DatePicker({
               type="button"
               className={styles.navButton}
               disabled={isPreviousMonthDisabled}
+              {...preventFirefoxDisabledRestore}
               onClick={() => goToMonth(-1)}
               aria-label={t("previousMonth")}
             >
@@ -315,6 +319,7 @@ export default function DatePicker({
               type="button"
               className={styles.navButton}
               disabled={isNextMonthDisabled}
+              {...preventFirefoxDisabledRestore}
               onClick={() => goToMonth(1)}
               aria-label={t("nextMonth")}
             >
@@ -361,6 +366,7 @@ export default function DatePicker({
                           type="button"
                           className={dayClassName}
                           disabled={isDisabled}
+                          {...preventFirefoxDisabledRestore}
                           data-focused={isSameDay(day, focusedDate) ? "true" : undefined}
                           tabIndex={isSameDay(day, focusedDate) ? 0 : -1}
                           onClick={() => selectDate(day)}

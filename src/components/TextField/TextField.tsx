@@ -86,7 +86,7 @@ export default function TextField({
         <input
           {...sharedProps}
           type={type}
-          autoComplete={autoComplete}
+          autoComplete={autoComplete ?? (disabled ? "off" : undefined)}
           ref={ref as React.Ref<HTMLInputElement>}
         />
       )}

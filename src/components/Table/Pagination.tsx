@@ -1,5 +1,7 @@
 import { useTranslations } from "next-intl";
 
+import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRestore";
+
 import styles from "./Table.module.scss";
 
 import type { PaginationState } from "./types";
@@ -24,6 +26,7 @@ export default function Pagination({ pagination, onPageChange, disabled }: Pagin
         type="button"
         className={styles.pageButton}
         disabled={disabled || page <= 1}
+        {...preventFirefoxDisabledRestore}
         onClick={() => onPageChange?.(page - 1)}
       >
         {t("prev")}
@@ -42,6 +45,7 @@ export default function Pagination({ pagination, onPageChange, disabled }: Pagin
             type="button"
             className={pageButtonClassName}
             disabled={disabled}
+            {...preventFirefoxDisabledRestore}
             onClick={() => onPageChange?.(pageNumber)}
           >
             {pageNumber}
@@ -52,6 +56,7 @@ export default function Pagination({ pagination, onPageChange, disabled }: Pagin
         type="button"
         className={styles.pageButton}
         disabled={disabled || page >= pageCount}
+        {...preventFirefoxDisabledRestore}
         onClick={() => onPageChange?.(page + 1)}
       >
         {t("next")}
