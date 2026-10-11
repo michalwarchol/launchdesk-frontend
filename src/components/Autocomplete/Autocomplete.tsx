@@ -3,6 +3,8 @@
 import { useTranslations } from "next-intl";
 import { useEffect, useId, useRef, useState } from "react";
 
+import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRestore";
+
 import styles from "./Autocomplete.module.scss";
 
 interface AutocompleteBaseProps<T> {
@@ -253,6 +255,7 @@ export default function Autocomplete<T>({
                   onMouseDown={(event) => event.stopPropagation()}
                   onClick={() => removeValue(option)}
                   disabled={disabled}
+                  {...preventFirefoxDisabledRestore}
                   aria-label={t("removeOption", { name: getOptionLabel(option) })}
                 >
                   &times;
@@ -296,6 +299,7 @@ export default function Autocomplete<T>({
             onMouseDown={(event) => event.stopPropagation()}
             onClick={() => removeValue(value)}
             disabled={disabled}
+            {...preventFirefoxDisabledRestore}
             aria-label={t("clear")}
           >
             &times;

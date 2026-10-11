@@ -1,3 +1,5 @@
+import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRestore";
+
 import styles from "./Button.module.scss";
 
 interface ButtonProps {
@@ -24,7 +26,13 @@ export default function Button({
     .join(" ");
 
   return (
-    <button onClick={onClick} disabled={disabled} type={type} className={buttonClassName}>
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      type={type}
+      className={buttonClassName}
+      {...preventFirefoxDisabledRestore}
+    >
       {children}
     </button>
   );

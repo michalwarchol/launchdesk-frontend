@@ -1,3 +1,5 @@
+import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRestore";
+
 import styles from "./Table.module.scss";
 
 import type { Column, SortDirection, SortState } from "./types";
@@ -51,6 +53,7 @@ export default function TableHead<T>({ columns, sort, onSortChange, disabled }: 
                   type="button"
                   className={styles.sortableHeader}
                   disabled={disabled}
+                  {...preventFirefoxDisabledRestore}
                   onClick={() => handleSortClick(column)}
                 >
                   {column.header}

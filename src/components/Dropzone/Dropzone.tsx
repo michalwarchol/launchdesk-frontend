@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 
 import { formatFileSize } from "@/utils/formatFileSize";
+import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRestore";
 
 import styles from "./Dropzone.module.scss";
 
@@ -139,6 +140,7 @@ export default function Dropzone({
                   onClick={() => removeFile(index)}
                   aria-label={t("remove")}
                   disabled={disabled}
+                  {...preventFirefoxDisabledRestore}
                 >
                   &times;
                 </button>

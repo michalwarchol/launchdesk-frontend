@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { formatFileSize } from "@/utils/formatFileSize";
+import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRestore";
 
 import AttachmentPickerModal from "./AttachmentPickerModal";
 import styles from "./AttachmentsField.module.scss";
@@ -57,6 +58,7 @@ export default function AttachmentsField({
                 onClick={() => removeAttachment(attachment.id)}
                 aria-label={t("remove")}
                 disabled={disabled}
+                {...preventFirefoxDisabledRestore}
               >
                 &times;
               </button>
@@ -70,6 +72,7 @@ export default function AttachmentsField({
         className={styles.addButton}
         onClick={() => setIsPickerOpen(true)}
         disabled={disabled}
+        {...preventFirefoxDisabledRestore}
       >
         <svg
           width="16"
