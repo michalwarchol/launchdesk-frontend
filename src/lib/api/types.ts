@@ -183,6 +183,12 @@ export interface CreateAssignmentInput {
   dueDate: string;
 }
 
+export interface UpdateAssignmentInput {
+  assigneeIds?: string[];
+  /** An ISO date, `YYYY-MM-DD`. */
+  dueDate?: string;
+}
+
 export interface CreateTaskStepInput {
   name: string;
   description: string;

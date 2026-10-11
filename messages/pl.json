@@ -468,6 +468,40 @@
       "generic": "Nie udało się zapisać zmian. Spróbuj ponownie."
     }
   },
+  "AssignmentDetailsPage": {
+    "loadError": "Nie udało się wczytać przypisania.",
+    "notFound": "Nie znaleziono przypisania.",
+    "edit": "Edytuj",
+    "delete": "Usuń przypisanie",
+    "detailsTitle": "Szczegóły przypisania",
+    "statusLabel": "Status",
+    "createdAtLabel": "Utworzono",
+    "completedAtLabel": "Ukończono",
+    "deleteModalTitle": "Usuń przypisanie",
+    "deleteModalBody": "Spowoduje to trwałe usunięcie przypisania do „{task}”. Tej operacji nie można cofnąć.",
+    "deleteConfirm": "Usuń",
+    "deleteSubmitting": "Usuwanie…",
+    "deleteErrors": {
+      "forbidden": "Tylko administratorzy mogą usuwać przypisania.",
+      "generic": "Nie udało się usunąć przypisania. Spróbuj ponownie."
+    }
+  },
+  "EditAssignmentPage": {
+    "title": "Edytuj przypisanie",
+    "subtitle": "Zmień termin i przypisanych.",
+    "save": "Zapisz zmiany",
+    "saving": "Zapisywanie…",
+    "loadError": "Nie udało się wczytać przypisania.",
+    "notFound": "Nie znaleziono przypisania.",
+    "cancel": "Anuluj",
+    "saveErrors": {
+      "forbidden": "Tylko administratorzy mogą edytować przypisania.",
+      "generic": "Nie udało się zapisać zmian. Spróbuj ponownie."
+    },
+    "removeStartedAssigneesModalTitle": "Usuń przypisanych z rozpoczętego przypisania",
+    "removeStartedAssigneesModalBody": "To przypisanie jest już w toku. Następujące osoby zostaną usunięte:",
+    "removeStartedAssigneesConfirm": "Zapisz zmiany"
+  },
   "NewAssignmentPage": {
     "title": "Nowe przypisanie",
     "subtitle": "Przypisz zadanie do jednej lub kilku osób.",

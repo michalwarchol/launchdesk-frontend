@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useFormatter, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 
@@ -52,6 +53,7 @@ export default function UserAssignmentsTable({
   const tAssignments = useTranslations("AssignmentsPage");
   const tEdit = useTranslations("EditUserPage");
   const format = useFormatter();
+  const router = useRouter();
   const { params, getTableProps } = useTableQueryParams(FILTER_KEYS);
   const queryParams = useMemo(
     () => ({ ...params, assigneeId: userId }) as AssignmentQueryParams,
@@ -119,17 +121,23 @@ export default function UserAssignmentsTable({
       width: "140px",
       align: "right",
       render: (row) => (
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          onClick={() => {
-            setUnassignError(undefined);
-            setPendingUnassign(row);
-          }}
+        <div
+          onClick={(event) => event.stopPropagation()}
+          onKeyDown={(event) => event.stopPropagation()}
+          role="presentation"
         >
-          {tEdit("unassign")}
-        </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              setUnassignError(undefined);
+              setPendingUnassign(row);
+            }}
+          >
+            {tEdit("unassign")}
+          </Button>
+        </div>
       ),
     });
   }
@@ -167,6 +175,7 @@ export default function UserAssignmentsTable({
         data={data?.data ?? []}
         columns={columns}
         getRowId={(row) => row.id}
+        onRowClick={(row) => router.push(`/assignments/${row.id}`)}
         emptyMessage={emptyMessage}
         isLoading={isPending}
         error={error ? loadErrorMessage : undefined}

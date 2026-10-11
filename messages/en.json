@@ -468,6 +468,40 @@
       "generic": "Could not save changes. Try again."
     }
   },
+  "AssignmentDetailsPage": {
+    "loadError": "Could not load this assignment.",
+    "notFound": "Assignment not found.",
+    "edit": "Edit",
+    "delete": "Delete assignment",
+    "detailsTitle": "Assignment details",
+    "statusLabel": "Status",
+    "createdAtLabel": "Created",
+    "completedAtLabel": "Completed",
+    "deleteModalTitle": "Delete assignment",
+    "deleteModalBody": "This will permanently delete the assignment for \"{task}\". This cannot be undone.",
+    "deleteConfirm": "Delete",
+    "deleteSubmitting": "Deleting…",
+    "deleteErrors": {
+      "forbidden": "Only admins can delete assignments.",
+      "generic": "Could not delete the assignment. Try again."
+    }
+  },
+  "EditAssignmentPage": {
+    "title": "Edit assignment",
+    "subtitle": "Update the due date and assignees.",
+    "save": "Save changes",
+    "saving": "Saving…",
+    "loadError": "Could not load this assignment.",
+    "notFound": "Assignment not found.",
+    "cancel": "Cancel",
+    "saveErrors": {
+      "forbidden": "Only admins can edit assignments.",
+      "generic": "Could not save changes. Try again."
+    },
+    "removeStartedAssigneesModalTitle": "Remove assignees from started assignment",
+    "removeStartedAssigneesModalBody": "This assignment is already in progress. The following people will be removed:",
+    "removeStartedAssigneesConfirm": "Save changes"
+  },
   "NewAssignmentPage": {
     "title": "Create new assignment",
     "subtitle": "Assign a task to one or more people.",
