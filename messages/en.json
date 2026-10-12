@@ -281,6 +281,18 @@
     "deleteSubmitting": "Deleting…",
     "deleteError": "Could not delete the documents. Try again."
   },
+  "DocumentReaderPage": {
+    "loading": "Loading preview…",
+    "loadError": "Could not load this document.",
+    "notFound": "Document not found.",
+    "previewError": "Could not preview this file.",
+    "fileMissing": "The file \"{name}\" is no longer available in storage.",
+    "downloadError": "Could not download \"{name}\". Try again.",
+    "unsupported": "This file type cannot be previewed.",
+    "emptySheet": "This sheet is empty.",
+    "sheetTab": "Sheet {name}",
+    "download": "Download"
+  },
   "TasksPage": {
     "title": "Tasks",
     "addTask": "Add new task",

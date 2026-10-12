@@ -1,6 +1,7 @@
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { apiClient } from "@/lib/api/client";
+import { parseApiError } from "@/lib/api/errors";
 import { queryKeys } from "@/lib/api/query-keys";
 
 import type { Document, PaginatedResponse, PaginationParams } from "@/lib/api/types";
@@ -9,6 +10,38 @@ export async function fetchDocuments(params: PaginationParams = {}) {
   return apiClient<PaginatedResponse<Document>>({
     path: "/documents",
     searchParams: params,
+  });
+}
+
+export async function fetchDocument(id: string) {
+  return apiClient<Document>({
+    path: `/documents/${id}`,
+  });
+}
+
+export function useDocumentQuery(id: string) {
+  return useQuery({
+    queryKey: queryKeys.documents.detail(id),
+    queryFn: () => fetchDocument(id),
+  });
+}
+
+export async function fetchDocumentFile(id: string): Promise<Blob> {
+  const response = await fetch(`/api/documents/${encodeURIComponent(id)}/file`);
+
+  if (!response.ok) {
+    const body = await response.json().catch(() => null);
+    throw parseApiError(response.status, body);
+  }
+
+  return response.blob();
+}
+
+export function useDocumentFileQuery(id: string, options: { enabled?: boolean } = {}) {
+  return useQuery({
+    queryKey: queryKeys.documents.file(id),
+    queryFn: () => fetchDocumentFile(id),
+    enabled: options.enabled,
   });
 }
 

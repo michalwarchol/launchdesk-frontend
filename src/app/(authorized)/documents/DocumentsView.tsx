@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
@@ -11,15 +12,12 @@ import Table, { Column, useTableQueryParams } from "@/components/Table";
 import Topbar from "@/components/Topbar";
 import topbarStyles from "@/components/Topbar/Topbar.module.scss";
 import { BFF_BASE } from "@/lib/api/config";
-import { isApiError, parseApiError } from "@/lib/api/errors";
+import { isApiError } from "@/lib/api/errors";
 import { formatFileSize } from "@/utils/formatFileSize";
 
-import {
-  useDeleteDocumentsMutation,
-  useDocumentsQuery,
-  useUploadDocumentsMutation,
-} from "./api";
+import { useDeleteDocumentsMutation, useDocumentsQuery, useUploadDocumentsMutation } from "./api";
 import { ACCEPTED_EXTENSIONS } from "./constants";
+import { downloadDocument } from "./downloadDocument";
 import styles from "./page.module.scss";
 import { Document } from "./types";
 
@@ -29,6 +27,7 @@ interface DocumentsViewProps {
 
 export default function DocumentsView({ canManage }: DocumentsViewProps) {
   const t = useTranslations("DocumentsPage");
+  const router = useRouter();
   const [isUploadOpen, setIsUploadOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
@@ -54,10 +53,7 @@ export default function DocumentsView({ canManage }: DocumentsViewProps) {
     return t("deleteModalBodyMany", { count: selectedIdStrings.length });
   };
 
-  const handleDownloadClick = async (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    row: Document,
-  ) => {
+  const handleDownloadClick = async (event: React.MouseEvent<HTMLAnchorElement>, row: Document) => {
     event.stopPropagation();
 
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
@@ -67,25 +63,13 @@ export default function DocumentsView({ canManage }: DocumentsViewProps) {
     event.preventDefault();
     setDownloadError(null);
 
-    const href = `${BFF_BASE}/documents/${row.id}/download`;
+    const result = await downloadDocument(row.id);
 
-    try {
-      const response = await fetch(href, { redirect: "manual" });
+    if (result === "ok") return;
 
-      if (response.type === "opaqueredirect") {
-        window.location.assign(href);
-        return;
-      }
-
-      const body = await response.json().catch(() => null);
-      const apiError = parseApiError(response.status, body);
-
-      setDownloadError(
-        t(apiError.code === "fileMissing" ? "fileMissing" : "downloadError", { name: row.name }),
-      );
-    } catch {
-      setDownloadError(t("downloadError", { name: row.name }));
-    }
+    setDownloadError(
+      t(result === "fileMissing" ? "fileMissing" : "downloadError", { name: row.name }),
+    );
   };
 
   const closeUploadModal = () => {
@@ -212,9 +196,8 @@ export default function DocumentsView({ canManage }: DocumentsViewProps) {
         data={documents}
         columns={columns}
         getRowId={(row) => row.id}
-        selection={
-          canManage ? { selectedIds, onSelectedIdsChange: setSelectedIds } : undefined
-        }
+        onRowClick={(row) => router.push(`/documents/${row.id}`)}
+        selection={canManage ? { selectedIds, onSelectedIdsChange: setSelectedIds } : undefined}
         emptyMessage={t("empty")}
         isLoading={isPending}
         error={error ? t("loadError") : undefined}
