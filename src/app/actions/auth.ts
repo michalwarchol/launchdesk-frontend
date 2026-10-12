@@ -11,6 +11,8 @@ import type { AuthTokens } from "@/lib/api/types";
 
 export type LoginError = "invalidCredentials" | "invitePending" | "oauthOnly";
 
+export type RegisterError = "emailTaken";
+
 export type AcceptInviteError = "invalidToken" | "tokenUsed";
 
 /**
@@ -47,6 +49,43 @@ export async function login({
       ) {
         return { error: error.code, ok: false };
       }
+    }
+
+    throw error;
+  }
+
+  await setTokens(tokens.accessToken, tokens.refreshToken);
+  redirect(homePathForRole(tokens.user.role, next));
+}
+
+interface RegisterInput {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  organizationName: string;
+  next?: string;
+}
+
+export async function register({
+  firstName,
+  lastName,
+  email,
+  password,
+  organizationName,
+  next,
+}: RegisterInput): Promise<ActionResult<RegisterError>> {
+  let tokens: AuthTokens;
+
+  try {
+    tokens = await apiServer<AuthTokens>({
+      path: "/auth/register",
+      method: "POST",
+      body: { firstName, lastName, email, password, organizationName },
+    });
+  } catch (error) {
+    if (isApiError(error) && error.code === "emailTaken") {
+      return { error: "emailTaken", ok: false };
     }
 
     throw error;

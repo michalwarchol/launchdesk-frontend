@@ -101,6 +101,9 @@
       "confirmPasswordRequired": "Confirm your password",
       "passwordsMismatch": "Passwords do not match",
       "organizationNameRequired": "Organization name is required"
+    },
+    "errors": {
+      "emailTaken": "An account with that email already exists. Sign in instead."
     }
   },
   "AcceptInvitePage": {
