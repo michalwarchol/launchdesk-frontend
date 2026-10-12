@@ -7,11 +7,7 @@ import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import { useUpdateUserMutation, useUserQuery } from "@/app/(authorized)/users/api";
-import {
-  EditUserFormValues,
-  editUserSchema,
-  USER_ROLES,
-} from "@/app/(authorized)/users/schema";
+import { EditUserFormValues, editUserSchema } from "@/app/(authorized)/users/schema";
 import UserAssignmentsTable from "@/app/(authorized)/users/UserAssignmentsTable";
 import Alert from "@/components/Alert";
 import Button from "@/components/Button";
@@ -19,14 +15,25 @@ import PageHeader from "@/components/PageHeader";
 import Select from "@/components/Select";
 import TextField from "@/components/TextField";
 import { isApiError } from "@/lib/api/errors";
+import { assignableRoles } from "@/lib/auth/roles";
 
 import styles from "./EditUserForm.module.scss";
 
-type SaveUserError = "forbidden" | "generic";
+import type { UserRole } from "@/lib/api/types";
+
+type SaveUserError =
+  | "forbidden"
+  | "cannotAssignOwner"
+  | "cannotModifyOwner"
+  | "lastOwner"
+  | "generic";
 
 function toSaveUserError(error: unknown): SaveUserError {
-  if (isApiError(error) && error.status === 403) {
-    return "forbidden";
+  if (isApiError(error)) {
+    if (error.code === "cannotAssignOwner") return "cannotAssignOwner";
+    if (error.code === "cannotModifyOwner") return "cannotModifyOwner";
+    if (error.code === "lastOwner") return "lastOwner";
+    if (error.status === 403) return "forbidden";
   }
 
   return "generic";
@@ -34,9 +41,11 @@ function toSaveUserError(error: unknown): SaveUserError {
 
 interface EditUserFormProps {
   userId: string;
+  actorRole: UserRole;
+  lockRole: boolean;
 }
 
-export default function EditUserForm({ userId }: EditUserFormProps) {
+export default function EditUserForm({ userId, actorRole, lockRole }: EditUserFormProps) {
   "use no memo";
 
   const t = useTranslations("EditUserPage");
@@ -107,6 +116,13 @@ export default function EditUserForm({ userId }: EditUserFormProps) {
     router.push(`/users/${userId}`);
   };
 
+  const roleOptions = (lockRole ? (["owner"] as const) : assignableRoles(actorRole)).map(
+    (role) => ({
+      value: role,
+      label: tUsers(`role.${role}`),
+    }),
+  );
+
   return (
     <div className={styles.page}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -132,10 +148,8 @@ export default function EditUserForm({ userId }: EditUserFormProps) {
                 label={t("roleLabel")}
                 value={field.value}
                 onChange={field.onChange}
-                options={USER_ROLES.map((role) => ({
-                  value: role,
-                  label: tUsers(`role.${role}`),
-                }))}
+                disabled={lockRole}
+                options={roleOptions}
               />
             )}
           />

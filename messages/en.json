@@ -13,7 +13,7 @@
     "kpiTaskTemplates": "Task templates",
     "kpiTaskTemplatesHint": "avg {avg} steps per task",
     "kpiTeamMembers": "Team members",
-    "kpiTeamMembersHint": "{admins} admins, {active} with active work",
+    "kpiTeamMembersHint": "{owners} owners, {admins} admins, {active} with active work",
     "chartStatusTitle": "Assignment status",
     "chartStatusTotal": "Total",
     "chartActivityTitle": "Created vs completed",
@@ -187,7 +187,8 @@
     "roleLabel": "Role",
     "role": {
       "user": "User",
-      "admin": "Admin"
+      "admin": "Admin",
+      "owner": "Owner"
     },
     "validation": {
       "firstNameRequired": "First name is required",
@@ -197,7 +198,8 @@
     },
     "inviteErrors": {
       "emailTaken": "A user with this email already exists.",
-      "forbidden": "Only admins can invite users.",
+      "cannotAssignOwner": "Only an owner can grant the owner role.",
+      "forbidden": "Only admins and owners can invite users.",
       "generic": "Could not send the invite. Try again."
     }
   },
@@ -219,7 +221,9 @@
     "assignmentsLoadError": "Could not load assignments.",
     "deleteErrors": {
       "cannotDeleteSelf": "You cannot delete your own account.",
-      "forbidden": "Only admins can delete users.",
+      "cannotModifyOwner": "Owners can only be changed by another owner.",
+      "lastOwner": "The last owner of the organization cannot be removed.",
+      "forbidden": "Only admins and owners can delete users.",
       "generic": "Could not delete this user. Try again."
     }
   },
@@ -243,11 +247,14 @@
     "unassignConfirm": "Unassign",
     "unassignSubmitting": "Removing…",
     "saveErrors": {
-      "forbidden": "Only admins can edit users.",
+      "forbidden": "Only admins and owners can edit users.",
+      "cannotAssignOwner": "Only an owner can grant the owner role.",
+      "cannotModifyOwner": "Owners can only be changed by another owner.",
+      "lastOwner": "The last owner of the organization cannot be changed by someone else, and cannot give up the owner role.",
       "generic": "Could not save changes. Try again."
     },
     "unassignErrors": {
-      "forbidden": "Only admins can unassign users.",
+      "forbidden": "Only admins and owners can unassign users.",
       "generic": "Could not remove this assignment. Try again."
     },
     "validation": {
@@ -326,6 +333,10 @@
   "SettingsPage": {
     "title": "Settings",
     "subtitle": "Manage your profile, password and language.",
+    "organizationTitle": "Organization",
+    "organizationDescription": "This name identifies your organization. Only an owner can change it.",
+    "organizationNameLabel": "Organization name",
+    "organizationSaved": "The organization name has been updated.",
     "profileTitle": "Profile",
     "profileDescription": "Your name and photo are visible to everyone in your organization.",
     "profileSaved": "Your profile has been updated.",
@@ -363,14 +374,18 @@
       "currentPasswordRequired": "Current password is required",
       "passwordTooShort": "Use at least 8 characters",
       "confirmPasswordRequired": "Confirm your new password",
-      "passwordsMismatch": "Passwords do not match"
+      "passwordsMismatch": "Passwords do not match",
+      "organizationNameRequired": "Organization name is required",
+      "organizationNameTooLong": "Use at most 255 characters"
     },
     "errors": {
       "notAuthenticated": "Your session has expired. Sign in again to save your changes.",
       "avatarInvalid": "That file is not a valid image.",
       "wrongPassword": "Your current password is incorrect.",
       "sameAsCurrent": "The new password must be different from the current one.",
-      "oauthOnly": "This account signs in with Google or GitHub, so it has no password to change."
+      "oauthOnly": "This account signs in with Google or GitHub, so it has no password to change.",
+      "nameRequired": "Organization name is required.",
+      "generic": "Could not update the organization name. Try again."
     }
   },
   "AvatarGroup": {
@@ -475,7 +490,7 @@
     "deleteConfirm": "Delete",
     "deleteSubmitting": "Deleting…",
     "deleteErrors": {
-      "forbidden": "Only admins can delete tasks.",
+      "forbidden": "Only admins and owners can delete tasks.",
       "generic": "Could not delete this task. Try again."
     }
   },
@@ -488,7 +503,7 @@
     "notFound": "Task not found.",
     "cancel": "Cancel",
     "saveErrors": {
-      "forbidden": "Only admins can edit tasks.",
+      "forbidden": "Only admins and owners can edit tasks.",
       "generic": "Could not save changes. Try again."
     }
   },
@@ -506,7 +521,7 @@
     "deleteConfirm": "Delete",
     "deleteSubmitting": "Deleting…",
     "deleteErrors": {
-      "forbidden": "Only admins can delete assignments.",
+      "forbidden": "Only admins and owners can delete assignments.",
       "generic": "Could not delete the assignment. Try again."
     }
   },
@@ -519,7 +534,7 @@
     "notFound": "Assignment not found.",
     "cancel": "Cancel",
     "saveErrors": {
-      "forbidden": "Only admins can edit assignments.",
+      "forbidden": "Only admins and owners can edit assignments.",
       "generic": "Could not save changes. Try again."
     },
     "removeStartedAssigneesModalTitle": "Remove assignees from started assignment",

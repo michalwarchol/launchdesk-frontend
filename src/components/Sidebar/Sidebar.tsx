@@ -6,6 +6,7 @@ import { useTransition } from "react";
 
 import { logout } from "@/app/actions/auth";
 import Avatar from "@/components/Avatar";
+import { isManagerRole } from "@/lib/auth/roles";
 import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRestore";
 
 import styles from "./Sidebar.module.scss";
@@ -54,7 +55,7 @@ export default function Sidebar({ user, role }: SidebarProps) {
   const t = useTranslations("Sidebar");
   const [isSigningOut, startSignOut] = useTransition();
 
-  const items = NAV_ITEMS.filter((item) => role === "admin" || item.href === "/settings").map(
+  const items = NAV_ITEMS.filter((item) => isManagerRole(role) || item.href === "/settings").map(
     (item) => ({
       label: t(item.label),
       href: item.href,

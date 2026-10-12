@@ -5,6 +5,7 @@ import { LOGIN_PATH } from "@/lib/auth/routes";
 import { getSession } from "@/lib/auth/session";
 
 import LanguageSection from "./LanguageSection";
+import OrganizationForm from "./OrganizationForm";
 import styles from "./page.module.scss";
 import PasswordForm from "./PasswordForm";
 import ProfileForm from "./ProfileForm";
@@ -26,6 +27,9 @@ export default async function SettingsPage() {
 
       <div className={styles.sections}>
         <ProfileForm user={user} />
+        {user.role === "owner" ? (
+          <OrganizationForm organizationName={user.organizationName} />
+        ) : null}
         <PasswordForm hasPassword={user.hasPassword} />
         <LanguageSection />
       </div>

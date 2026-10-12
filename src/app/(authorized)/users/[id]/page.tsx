@@ -15,8 +15,7 @@ export default async function UserDetailsPage({ params }: UserDetailsPageProps) 
 
   if (!session) redirect(LOGIN_PATH);
 
-  const canManage = session.user.role === "admin";
-  const isSelf = session.user.id === id;
-
-  return <UserDetailsView userId={id} canManage={canManage} isSelf={isSelf} />;
+  return (
+    <UserDetailsView userId={id} actorRole={session.user.role} isSelf={session.user.id === id} />
+  );
 }

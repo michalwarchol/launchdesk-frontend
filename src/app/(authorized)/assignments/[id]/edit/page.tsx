@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+import { isManagerRole } from "@/lib/auth/roles";
 import { LOGIN_PATH } from "@/lib/auth/routes";
 import { getSession } from "@/lib/auth/session";
 
@@ -15,7 +16,7 @@ export default async function EditAssignmentPage({ params }: EditAssignmentPageP
 
   if (!session) redirect(LOGIN_PATH);
 
-  if (session.user.role !== "admin") {
+  if (!isManagerRole(session.user.role)) {
     redirect(`/assignments/${id}`);
   }
 

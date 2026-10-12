@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+import { isManagerRole } from "@/lib/auth/roles";
 import { LOGIN_PATH } from "@/lib/auth/routes";
 import { getSession } from "@/lib/auth/session";
 
@@ -15,7 +16,7 @@ export default async function AssignmentDetailsPage({ params }: AssignmentDetail
 
   if (!session) redirect(LOGIN_PATH);
 
-  const canManage = session.user.role === "admin";
+  const canManage = isManagerRole(session.user.role);
 
   return <AssignmentDetailsView assignmentId={id} canManage={canManage} />;
 }

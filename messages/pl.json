@@ -13,7 +13,7 @@
     "kpiTaskTemplates": "Szablony zadań",
     "kpiTaskTemplatesHint": "średnio {avg} kroków na zadanie",
     "kpiTeamMembers": "Członkowie zespołu",
-    "kpiTeamMembersHint": "{admins} administratorów, {active} z aktywną pracą",
+    "kpiTeamMembersHint": "{owners} właścicieli, {admins} administratorów, {active} z aktywną pracą",
     "chartStatusTitle": "Status przypisań",
     "chartStatusTotal": "Razem",
     "chartActivityTitle": "Utworzone a ukończone",
@@ -187,7 +187,8 @@
     "roleLabel": "Rola",
     "role": {
       "user": "Użytkownik",
-      "admin": "Administrator"
+      "admin": "Administrator",
+      "owner": "Właściciel"
     },
     "validation": {
       "firstNameRequired": "Imię jest wymagane",
@@ -197,7 +198,8 @@
     },
     "inviteErrors": {
       "emailTaken": "Użytkownik z tym adresem email już istnieje.",
-      "forbidden": "Tylko administratorzy mogą zapraszać użytkowników.",
+      "cannotAssignOwner": "Tylko właściciel może nadać rolę właściciela.",
+      "forbidden": "Tylko administratorzy i właściciele mogą zapraszać użytkowników.",
       "generic": "Nie udało się wysłać zaproszenia. Spróbuj ponownie."
     }
   },
@@ -219,7 +221,9 @@
     "assignmentsLoadError": "Nie udało się wczytać przypisań.",
     "deleteErrors": {
       "cannotDeleteSelf": "Nie możesz usunąć własnego konta.",
-      "forbidden": "Tylko administratorzy mogą usuwać użytkowników.",
+      "cannotModifyOwner": "Właściciela może zmienić tylko inny właściciel.",
+      "lastOwner": "Nie można usunąć ostatniego właściciela organizacji.",
+      "forbidden": "Tylko administratorzy i właściciele mogą usuwać użytkowników.",
       "generic": "Nie udało się usunąć użytkownika. Spróbuj ponownie."
     }
   },
@@ -243,11 +247,14 @@
     "unassignConfirm": "Usuń z przypisania",
     "unassignSubmitting": "Usuwanie…",
     "saveErrors": {
-      "forbidden": "Tylko administratorzy mogą edytować użytkowników.",
+      "forbidden": "Tylko administratorzy i właściciele mogą edytować użytkowników.",
+      "cannotAssignOwner": "Tylko właściciel może nadać rolę właściciela.",
+      "cannotModifyOwner": "Właściciela może zmienić tylko inny właściciel.",
+      "lastOwner": "Ostatniego właściciela organizacji nie może zmienić ktoś inny i nie może on zrezygnować z tej roli.",
       "generic": "Nie udało się zapisać zmian. Spróbuj ponownie."
     },
     "unassignErrors": {
-      "forbidden": "Tylko administratorzy mogą usuwać przypisania.",
+      "forbidden": "Tylko administratorzy i właściciele mogą usuwać przypisania.",
       "generic": "Nie udało się usunąć przypisania. Spróbuj ponownie."
     },
     "validation": {
@@ -326,6 +333,10 @@
   "SettingsPage": {
     "title": "Ustawienia",
     "subtitle": "Zarządzaj swoim profilem, hasłem i językiem.",
+    "organizationTitle": "Organizacja",
+    "organizationDescription": "Ta nazwa identyfikuje organizację. Może ją zmienić tylko właściciel.",
+    "organizationNameLabel": "Nazwa organizacji",
+    "organizationSaved": "Nazwa organizacji została zaktualizowana.",
     "profileTitle": "Profil",
     "profileDescription": "Twoje imię i zdjęcie są widoczne dla wszystkich w organizacji.",
     "profileSaved": "Twój profil został zaktualizowany.",
@@ -363,14 +374,18 @@
       "currentPasswordRequired": "Aktualne hasło jest wymagane",
       "passwordTooShort": "Użyj co najmniej 8 znaków",
       "confirmPasswordRequired": "Potwierdź nowe hasło",
-      "passwordsMismatch": "Hasła nie są takie same"
+      "passwordsMismatch": "Hasła nie są takie same",
+      "organizationNameRequired": "Nazwa organizacji jest wymagana",
+      "organizationNameTooLong": "Użyj najwyżej 255 znaków"
     },
     "errors": {
       "notAuthenticated": "Twoja sesja wygasła. Zaloguj się ponownie, aby zapisać zmiany.",
       "avatarInvalid": "Ten plik nie jest prawidłowym obrazem.",
       "wrongPassword": "Aktualne hasło jest nieprawidłowe.",
       "sameAsCurrent": "Nowe hasło musi różnić się od aktualnego.",
-      "oauthOnly": "To konto loguje się przez Google lub GitHub, więc nie ma hasła do zmiany."
+      "oauthOnly": "To konto loguje się przez Google lub GitHub, więc nie ma hasła do zmiany.",
+      "nameRequired": "Nazwa organizacji jest wymagana.",
+      "generic": "Nie udało się zaktualizować nazwy organizacji. Spróbuj ponownie."
     }
   },
   "AvatarGroup": {
@@ -475,7 +490,7 @@
     "deleteConfirm": "Usuń",
     "deleteSubmitting": "Usuwanie…",
     "deleteErrors": {
-      "forbidden": "Tylko administratorzy mogą usuwać zadania.",
+      "forbidden": "Tylko administratorzy i właściciele mogą usuwać zadania.",
       "generic": "Nie udało się usunąć zadania. Spróbuj ponownie."
     }
   },
@@ -488,7 +503,7 @@
     "notFound": "Nie znaleziono zadania.",
     "cancel": "Anuluj",
     "saveErrors": {
-      "forbidden": "Tylko administratorzy mogą edytować zadania.",
+      "forbidden": "Tylko administratorzy i właściciele mogą edytować zadania.",
       "generic": "Nie udało się zapisać zmian. Spróbuj ponownie."
     }
   },
@@ -506,7 +521,7 @@
     "deleteConfirm": "Usuń",
     "deleteSubmitting": "Usuwanie…",
     "deleteErrors": {
-      "forbidden": "Tylko administratorzy mogą usuwać przypisania.",
+      "forbidden": "Tylko administratorzy i właściciele mogą usuwać przypisania.",
       "generic": "Nie udało się usunąć przypisania. Spróbuj ponownie."
     }
   },
@@ -519,7 +534,7 @@
     "notFound": "Nie znaleziono przypisania.",
     "cancel": "Anuluj",
     "saveErrors": {
-      "forbidden": "Tylko administratorzy mogą edytować przypisania.",
+      "forbidden": "Tylko administratorzy i właściciele mogą edytować przypisania.",
       "generic": "Nie udało się zapisać zmian. Spróbuj ponownie."
     },
     "removeStartedAssigneesModalTitle": "Usuń przypisanych z rozpoczętego przypisania",
