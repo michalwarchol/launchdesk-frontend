@@ -281,6 +281,18 @@
     "deleteSubmitting": "Usuwanie…",
     "deleteError": "Nie udało się usunąć dokumentów. Spróbuj ponownie."
   },
+  "DocumentReaderPage": {
+    "loading": "Wczytywanie podglądu…",
+    "loadError": "Nie udało się wczytać tego dokumentu.",
+    "notFound": "Nie znaleziono dokumentu.",
+    "previewError": "Nie udało się wyświetlić podglądu tego pliku.",
+    "fileMissing": "Plik \"{name}\" nie jest już dostępny w magazynie.",
+    "downloadError": "Nie udało się pobrać pliku \"{name}\". Spróbuj ponownie.",
+    "unsupported": "Nie można wyświetlić podglądu tego typu pliku.",
+    "emptySheet": "Ten arkusz jest pusty.",
+    "sheetTab": "Arkusz {name}",
+    "download": "Pobierz"
+  },
   "TasksPage": {
     "title": "Zadania",
     "addTask": "Dodaj nowe zadanie",

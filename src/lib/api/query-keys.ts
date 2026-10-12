@@ -21,6 +21,7 @@ export const queryKeys = {
     all: ["documents"] as const,
     list: (params: PaginationParams = {}) => ["documents", "list", params] as const,
     detail: (id: string) => ["documents", "detail", id] as const,
+    file: (id: string) => ["documents", "file", id] as const,
   },
   dashboard: {
     stats: ["dashboard", "stats"] as const,

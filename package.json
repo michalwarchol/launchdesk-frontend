@@ -23,6 +23,7 @@
     "@tiptap/pm": "^3.29.2",
     "@tiptap/react": "^3.29.2",
     "@tiptap/starter-kit": "^3.29.2",
+    "docx-preview": "^0.4.1",
     "next": "16.2.9",
     "next-intl": "^4.13.0",
     "react": "19.2.4",
@@ -30,6 +31,7 @@
     "react-hook-form": "^7.84.0",
     "recharts": "^3.10.1",
     "sass": "^1.101.0",
+    "xlsx": "^0.18.5",
     "zod": "^4.4.3"
   },
   "devDependencies": {
