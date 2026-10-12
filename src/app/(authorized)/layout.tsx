@@ -2,7 +2,13 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import Sidebar from "@/components/Sidebar";
-import { AFTER_LOGIN_PATH, LOGIN_PATH, PATHNAME_HEADER } from "@/lib/auth/routes";
+import {
+  AFTER_LOGIN_PATH,
+  isUserAllowedPath,
+  LOGIN_PATH,
+  PATHNAME_HEADER,
+  USER_HOME_PATH,
+} from "@/lib/auth/routes";
 import { getSession } from "@/lib/auth/session";
 import { getRefreshToken } from "@/lib/auth/tokens";
 
@@ -29,10 +35,17 @@ export default async function RootLayout({
   }
 
   const { user } = session;
+  const headerStore = await headers();
+  const pathname = headerStore.get(PATHNAME_HEADER);
+
+  if (user.role === "user" && pathname && !isUserAllowedPath(pathname)) {
+    redirect(USER_HOME_PATH);
+  }
 
   return (
     <div className={styles.page}>
       <Sidebar
+        role={user.role}
         user={{
           name: `${user.firstName} ${user.lastName}`,
           email: user.email,

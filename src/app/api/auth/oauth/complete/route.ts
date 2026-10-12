@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { API_BASE } from "@/lib/api/config";
-import { LOGIN_PATH, safeNextPath } from "@/lib/auth/routes";
+import { homePathForRole, LOGIN_PATH, safeNextPath } from "@/lib/auth/routes";
 import { applyTokenCookies } from "@/lib/auth/tokens";
 
 import type { AuthTokens } from "@/lib/api/types";
@@ -13,18 +13,19 @@ import type { AuthTokens } from "@/lib/api/types";
  */
 export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get("code");
-  const next = safeNextPath(request.nextUrl.searchParams.get("next"));
+  const requestedNext = request.nextUrl.searchParams.get("next");
 
   if (!code) {
-    return redirectToLogin(request, next);
+    return redirectToLogin(request, safeNextPath(requestedNext));
   }
 
   const tokens = await exchangeCode(code);
 
   if (!tokens) {
-    return redirectToLogin(request, next);
+    return redirectToLogin(request, safeNextPath(requestedNext));
   }
 
+  const next = homePathForRole(tokens.user.role, requestedNext);
   const destination = request.nextUrl.clone();
   const nextUrl = new URL(next, request.url);
   destination.pathname = nextUrl.pathname;
