@@ -1,6 +1,14 @@
 .docx {
   max-height: calc(100vh - 200px);
   overflow: auto;
+
+  :global(.docx-wrapper) {
+    gap: 28px;
+  }
+
+  :global(.docx-wrapper > section.docx) {
+    margin-bottom: 0;
+  }
 }
 
 .frame {
