@@ -101,6 +101,9 @@
       "confirmPasswordRequired": "Potwierdź hasło",
       "passwordsMismatch": "Hasła nie są takie same",
       "organizationNameRequired": "Nazwa organizacji jest wymagana"
+    },
+    "errors": {
+      "emailTaken": "Konto z tym adresem e-mail już istnieje. Zaloguj się."
     }
   },
   "AcceptInvitePage": {

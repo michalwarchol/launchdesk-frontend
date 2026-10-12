@@ -3,16 +3,24 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
+import { register as registerAccount, RegisterError } from "@/app/actions/auth";
+import Alert from "@/components/Alert";
 import Button from "@/components/Button";
 import TextField from "@/components/TextField";
 
 import styles from "./RegisterForm.module.scss";
 import { MIN_PASSWORD_LENGTH, RegisterFormValues, registerSchema } from "./schema";
 
-export default function RegisterForm() {
+interface RegisterFormProps {
+  next?: string;
+}
+
+export default function RegisterForm({ next }: RegisterFormProps) {
   const t = useTranslations("RegisterPage");
+  const [formError, setFormError] = useState<RegisterError | undefined>();
 
   const {
     register,
@@ -34,9 +42,20 @@ export default function RegisterForm() {
 
   const errorText = (key?: string) => (key ? t(`validation.${key}`) : undefined);
 
-  const onSubmit = (values: RegisterFormValues) => {
-    // TODO: replace with the register API call once the backend is available
-    console.info("Register:", values);
+  const onSubmit = async (values: RegisterFormValues) => {
+    setFormError(undefined);
+
+    // `registerAccount` redirects on success, so a returned result always describes a failure.
+    const result = await registerAccount({
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+      password: values.password,
+      organizationName: values.organizationName,
+      next,
+    });
+
+    if (result) setFormError(result.error);
   };
 
   return (
@@ -45,6 +64,8 @@ export default function RegisterForm() {
         <h1 className={styles.title}>{t("title")}</h1>
         <p className={styles.subtitle}>{t("subtitle")}</p>
       </header>
+
+      {formError ? <Alert>{t(`errors.${formError}`)}</Alert> : null}
 
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
         <section className={styles.section}>

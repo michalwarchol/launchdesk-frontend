@@ -1,6 +1,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+import Providers from "@/app/providers";
 import Sidebar from "@/components/Sidebar";
 import {
   AFTER_LOGIN_PATH,
@@ -43,16 +44,18 @@ export default async function RootLayout({
   }
 
   return (
-    <div className={styles.page}>
-      <Sidebar
-        role={user.role}
-        user={{
-          name: `${user.firstName} ${user.lastName}`,
-          email: user.email,
-          avatar: user.avatar,
-        }}
-      />
-      <div className={styles.content}>{children}</div>
-    </div>
+    <Providers>
+      <div className={styles.page}>
+        <Sidebar
+          role={user.role}
+          user={{
+            name: `${user.firstName} ${user.lastName}`,
+            email: user.email,
+            avatar: user.avatar,
+          }}
+        />
+        <div className={styles.content}>{children}</div>
+      </div>
+    </Providers>
   );
 }
