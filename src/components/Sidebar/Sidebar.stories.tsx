@@ -9,6 +9,7 @@ const meta: Meta<typeof Sidebar> = {
     layout: "fullscreen",
   },
   args: {
+    role: "admin",
     user: {
       name: "Jane Smith",
       email: "jane.smith@michalwarchol.com",

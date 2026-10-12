@@ -10,6 +10,8 @@ import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRes
 
 import styles from "./Sidebar.module.scss";
 
+import type { UserRole } from "@/lib/api/types";
+
 const NAV_ITEMS = [
   {
     label: "dashboard",
@@ -45,16 +47,19 @@ export interface SidebarUser {
 
 interface SidebarProps {
   user: SidebarUser;
+  role: UserRole;
 }
 
-export default function Sidebar({ user }: SidebarProps) {
+export default function Sidebar({ user, role }: SidebarProps) {
   const t = useTranslations("Sidebar");
   const [isSigningOut, startSignOut] = useTransition();
 
-  const items = NAV_ITEMS.map((item) => ({
-    label: t(item.label),
-    href: item.href,
-  }));
+  const items = NAV_ITEMS.filter((item) => role === "admin" || item.href === "/settings").map(
+    (item) => ({
+      label: t(item.label),
+      href: item.href,
+    }),
+  );
 
   return (
     <aside className={styles.sidebar}>

@@ -4,9 +4,10 @@ import { redirect } from "next/navigation";
 
 import { isApiError } from "@/lib/api/errors";
 import { apiServer } from "@/lib/api/server";
-import type { AuthTokens } from "@/lib/api/types";
-import { LOGIN_PATH, safeNextPath } from "@/lib/auth/routes";
+import { homePathForRole, LOGIN_PATH } from "@/lib/auth/routes";
 import { clearTokens, getRefreshToken, setTokens } from "@/lib/auth/tokens";
+
+import type { AuthTokens } from "@/lib/api/types";
 
 export type LoginError = "invalidCredentials" | "invitePending" | "oauthOnly";
 
@@ -52,7 +53,7 @@ export async function login({
   }
 
   await setTokens(tokens.accessToken, tokens.refreshToken);
-  redirect(safeNextPath(next));
+  redirect(homePathForRole(tokens.user.role, next));
 }
 
 interface AcceptInviteInput {
@@ -89,7 +90,7 @@ export async function acceptInvite({
   }
 
   await setTokens(tokens.accessToken, tokens.refreshToken);
-  redirect(safeNextPath(next));
+  redirect(homePathForRole(tokens.user.role, next));
 }
 
 /**
