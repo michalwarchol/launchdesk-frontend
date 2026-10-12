@@ -1,4 +1,4 @@
-export type UserRole = "admin" | "user";
+export type UserRole = "admin" | "user" | "owner";
 
 export type DocumentType = "image" | "spreadsheet" | "text";
 
@@ -31,6 +31,8 @@ export interface User {
   lastName: string;
   email: string;
   role: UserRole;
+  /** True when this user is the only owner left in the organization. */
+  isLastOwner: boolean;
   avatar: string;
   createdAt: string;
   updatedAt: string;
@@ -40,6 +42,7 @@ export interface User {
 export interface AuthUser extends User {
   /** `false` for accounts that only ever signed in with Google or GitHub. */
   hasPassword: boolean;
+  organizationName: string;
 }
 
 export interface AuthTokens {
@@ -154,6 +157,7 @@ export interface DashboardStats {
     averageStepsPerTask: number;
     users: number;
     admins: number;
+    owners: number;
     usersWithActiveWork: number;
   };
   statusBreakdown: StatusBreakdownItem[];

@@ -10,16 +10,20 @@ import Modal from "@/components/Modal";
 import Select from "@/components/Select";
 import TextField from "@/components/TextField";
 import { isApiError } from "@/lib/api/errors";
+import { assignableRoles } from "@/lib/auth/roles";
 
 import { useCreateUserMutation } from "./api";
 import styles from "./InviteUserModal.module.scss";
-import { InviteUserFormValues, inviteUserSchema, USER_ROLES } from "./schema";
+import { InviteUserFormValues, inviteUserSchema } from "./schema";
 
-type InviteUserError = "emailTaken" | "forbidden" | "generic";
+import type { UserRole } from "@/lib/api/types";
+
+type InviteUserError = "emailTaken" | "cannotAssignOwner" | "forbidden" | "generic";
 
 function toInviteUserError(error: unknown): InviteUserError {
   if (isApiError(error)) {
     if (error.code === "emailTaken") return "emailTaken";
+    if (error.code === "cannotAssignOwner") return "cannotAssignOwner";
     if (error.status === 403) return "forbidden";
   }
 
@@ -28,10 +32,11 @@ function toInviteUserError(error: unknown): InviteUserError {
 
 interface InviteUserModalProps {
   isOpen: boolean;
+  actorRole: UserRole;
   onClose: () => void;
 }
 
-export default function InviteUserModal({ isOpen, onClose }: InviteUserModalProps) {
+export default function InviteUserModal({ isOpen, actorRole, onClose }: InviteUserModalProps) {
   const t = useTranslations("UsersPage");
   const createUser = useCreateUserMutation();
   const [formError, setFormError] = useState<InviteUserError>();
@@ -114,7 +119,10 @@ export default function InviteUserModal({ isOpen, onClose }: InviteUserModalProp
           render={({ field }) => (
             <Select
               label={t("roleLabel")}
-              options={USER_ROLES.map((role) => ({ value: role, label: t(`role.${role}`) }))}
+              options={assignableRoles(actorRole).map((role) => ({
+                value: role,
+                label: t(`role.${role}`),
+              }))}
               value={field.value}
               onChange={field.onChange}
               onBlur={field.onBlur}

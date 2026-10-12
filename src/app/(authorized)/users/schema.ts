@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const USER_ROLES = ["user", "admin"] as const;
+export const USER_ROLES = ["user", "admin", "owner"] as const;
 
 export const inviteUserSchema = z.object({
   firstName: z.string().trim().min(1, "firstNameRequired"),

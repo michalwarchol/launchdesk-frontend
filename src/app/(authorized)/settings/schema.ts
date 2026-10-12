@@ -11,6 +11,12 @@ export const profileSchema = z.object({
 
 export type ProfileFormValues = z.infer<typeof profileSchema>;
 
+export const organizationSchema = z.object({
+  name: z.string().trim().min(1, "organizationNameRequired").max(255, "organizationNameTooLong"),
+});
+
+export type OrganizationFormValues = z.infer<typeof organizationSchema>;
+
 export const changePasswordSchema = z
   .object({
     currentPassword: z.string().min(1, "currentPasswordRequired"),

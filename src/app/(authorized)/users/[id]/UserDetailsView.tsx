@@ -13,15 +13,25 @@ import Card from "@/components/Card";
 import Modal from "@/components/Modal";
 import PageHeader from "@/components/PageHeader";
 import { isApiError } from "@/lib/api/errors";
+import { isManagerRole } from "@/lib/auth/roles";
 import { parseISODate } from "@/utils/isoDate";
 
 import styles from "../userDetail.module.scss";
 
-type DeleteUserError = "cannotDeleteSelf" | "forbidden" | "generic";
+import type { UserRole } from "@/lib/api/types";
+
+type DeleteUserError =
+  | "cannotDeleteSelf"
+  | "cannotModifyOwner"
+  | "lastOwner"
+  | "forbidden"
+  | "generic";
 
 function toDeleteUserError(error: unknown): DeleteUserError {
   if (isApiError(error)) {
     if (error.code === "cannotDeleteSelf") return "cannotDeleteSelf";
+    if (error.code === "cannotModifyOwner") return "cannotModifyOwner";
+    if (error.code === "lastOwner") return "lastOwner";
     if (error.status === 403) return "forbidden";
   }
 
@@ -30,11 +40,11 @@ function toDeleteUserError(error: unknown): DeleteUserError {
 
 interface UserDetailsViewProps {
   userId: string;
-  canManage: boolean;
+  actorRole: UserRole;
   isSelf: boolean;
 }
 
-export default function UserDetailsView({ userId, canManage, isSelf }: UserDetailsViewProps) {
+export default function UserDetailsView({ userId, actorRole, isSelf }: UserDetailsViewProps) {
   const t = useTranslations("UserDetailsPage");
   const tUsers = useTranslations("UsersPage");
   const format = useFormatter();
@@ -62,6 +72,11 @@ export default function UserDetailsView({ userId, canManage, isSelf }: UserDetai
   }
 
   const displayName = `${user.firstName} ${user.lastName}`;
+  const canEdit =
+    isManagerRole(actorRole) &&
+    !(user.role === "owner" && actorRole !== "owner") &&
+    !(user.isLastOwner && !isSelf);
+  const canDelete = canEdit && !isSelf;
   const createdParsed = parseISODate(user.createdAt);
   const createdLabel = createdParsed
     ? format.dateTime(createdParsed, { dateStyle: "medium" })
@@ -90,12 +105,16 @@ export default function UserDetailsView({ userId, canManage, isSelf }: UserDetai
   return (
     <div className={styles.page}>
       <PageHeader title={displayName} backHref="/users">
-        {canManage ? (
+        {canEdit ? (
           <div className={styles.headerActions}>
-            <Button type="button" variant="outline" onClick={() => router.push(`/users/${userId}/edit`)}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => router.push(`/users/${userId}/edit`)}
+            >
               {t("edit")}
             </Button>
-            {!isSelf ? (
+            {canDelete ? (
               <Button
                 type="button"
                 variant="outline"

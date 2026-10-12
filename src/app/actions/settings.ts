@@ -8,6 +8,8 @@ import { getSession } from "@/lib/auth/session";
 
 export type UpdateProfileError = "notAuthenticated" | "avatarInvalid";
 
+export type UpdateOrganizationError = "notAuthenticated" | "nameRequired" | "generic";
+
 export type ChangePasswordError =
   | "notAuthenticated"
   | "oauthOnly"
@@ -92,5 +94,41 @@ export async function changePassword({
     }
 
     throw error;
+  }
+}
+
+interface UpdateOrganizationInput {
+  name: string;
+}
+
+export async function updateOrganization({
+  name,
+}: UpdateOrganizationInput): Promise<ActionResult<UpdateOrganizationError>> {
+  const session = await getSession();
+
+  if (!session) return { error: "notAuthenticated", ok: false };
+
+  if (session.user.role !== "owner") return { error: "generic", ok: false };
+
+  const trimmed = name.trim();
+
+  if (!trimmed) return { error: "nameRequired", ok: false };
+
+  try {
+    await apiServer({
+      path: "/organizations/me",
+      method: "PATCH",
+      body: { name: trimmed },
+    });
+
+    revalidatePath("/", "layout");
+
+    return { ok: true };
+  } catch (error) {
+    if (isApiError(error) && error.code === "nameRequired") {
+      return { error: "nameRequired", ok: false };
+    }
+
+    return { error: "generic", ok: false };
   }
 }

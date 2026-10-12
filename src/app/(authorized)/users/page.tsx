@@ -1,64 +1,14 @@
-"use client";
+import { redirect } from "next/navigation";
 
-import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { LOGIN_PATH } from "@/lib/auth/routes";
+import { getSession } from "@/lib/auth/session";
 
-import Avatar from "@/components/Avatar";
-import Table, { Column, useTableQueryParams } from "@/components/Table";
-import Topbar from "@/components/Topbar";
+import UsersView from "./UsersView";
 
-import { useUsersQuery } from "./api";
-import InviteUserModal from "./InviteUserModal";
-import { User } from "./types";
+export default async function UsersPage() {
+  const session = await getSession();
 
-export default function Users() {
-  const t = useTranslations("UsersPage");
-  const router = useRouter();
-  const [isInviteOpen, setIsInviteOpen] = useState(false);
-  const { params, getTableProps } = useTableQueryParams();
-  const { data, isPending, error } = useUsersQuery(params);
+  if (!session) redirect(LOGIN_PATH);
 
-  const columns: Column<User>[] = [
-    {
-      key: "name",
-      header: t("columnName"),
-      render: (row) => (
-        <Avatar
-          src={row.avatar}
-          title={`${row.firstName} ${row.lastName}`}
-          size="sm"
-          subtitle={row.role}
-        />
-      ),
-    },
-    { key: "email", header: t("columnEmail"), sortable: true },
-    {
-      key: "createdAt",
-      header: t("columnCreatedAt"),
-      sortable: true,
-      render: (row) => <div>{new Date(row.createdAt).toLocaleDateString()}</div>,
-    },
-  ];
-
-  return (
-    <div>
-      <Topbar
-        title={t("title")}
-        onPrimaryClick={() => setIsInviteOpen(true)}
-        primaryButtonLabel={t("addUser")}
-      />
-      <Table
-        {...getTableProps(data?.meta.total)}
-        data={data?.data ?? []}
-        columns={columns}
-        getRowId={(row) => row.id}
-        onRowClick={(row) => router.push(`/users/${row.id}`)}
-        emptyMessage={t("empty")}
-        isLoading={isPending}
-        error={error ? t("loadError") : undefined}
-      />
-      <InviteUserModal isOpen={isInviteOpen} onClose={() => setIsInviteOpen(false)} />
-    </div>
-  );
+  return <UsersView actorRole={session.user.role} />;
 }

@@ -25,7 +25,7 @@ export function isUserAllowedPath(pathname: string): boolean {
 }
 
 /**
- * Admins keep the requested path. Users are sent to Settings unless that path is already allowed.
+ * Managers keep the requested path. Users are sent to Settings unless that path is already allowed.
  */
 export function homePathForRole(role: UserRole, next?: string | null): string {
   const destination = safeNextPath(next);

@@ -70,6 +70,7 @@ export default async function DashboardPage() {
           label={t("kpiTeamMembers")}
           value={`${stats.totals.users}`}
           hint={t("kpiTeamMembersHint", {
+            owners: stats.totals.owners,
             admins: stats.totals.admins,
             active: stats.totals.usersWithActiveWork,
           })}
