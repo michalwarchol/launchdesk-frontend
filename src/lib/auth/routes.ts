@@ -6,7 +6,9 @@ export const REGISTER_PATH = "/register";
 
 export const AFTER_LOGIN_PATH = "/dashboard";
 
-export const USER_HOME_PATH = "/settings";
+export const USER_HOME_PATH = "/my-tasks";
+
+export const USER_SETTINGS_PATH = "/settings";
 
 /** Request header set by the proxy so protected layouts know which URL they are rendering. */
 export const PATHNAME_HEADER = "x-pathname";
@@ -24,14 +26,16 @@ export function isPublicPath(pathname: string): boolean {
   return PUBLIC_PATHS.some((path) => pathname === path || pathname.startsWith(`${path}/`));
 }
 
-/** The user role can open Settings and nothing else in the app shell. */
+/** The user role can open My Tasks, its detail routes, and Settings. */
 export function isUserAllowedPath(pathname: string): boolean {
   const path = pathname.split("?")[0] ?? "";
-  return path === USER_HOME_PATH;
+  return (
+    path === USER_HOME_PATH || path.startsWith(`${USER_HOME_PATH}/`) || path === USER_SETTINGS_PATH
+  );
 }
 
 /**
- * Managers keep the requested path. Users are sent to Settings unless that path is already allowed.
+ * Managers keep the requested path. Users are sent home unless that path is already allowed.
  */
 export function homePathForRole(role: UserRole, next?: string | null): string {
   const destination = safeNextPath(next);
