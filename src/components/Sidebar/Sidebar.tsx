@@ -17,26 +17,37 @@ const NAV_ITEMS = [
   {
     label: "dashboard",
     href: "/dashboard",
+    managerOnly: true,
+  },
+  {
+    label: "myTasks",
+    href: "/my-tasks",
+    managerOnly: false,
   },
   {
     label: "users",
     href: "/users",
+    managerOnly: true,
   },
   {
     label: "documents",
     href: "/documents",
+    managerOnly: true,
   },
   {
     label: "tasks",
     href: "/tasks",
+    managerOnly: true,
   },
   {
     label: "assignments",
     href: "/assignments",
+    managerOnly: true,
   },
   {
     label: "settings",
     href: "/settings",
+    managerOnly: false,
   },
 ];
 
@@ -55,7 +66,7 @@ export default function Sidebar({ user, role }: SidebarProps) {
   const t = useTranslations("Sidebar");
   const [isSigningOut, startSignOut] = useTransition();
 
-  const items = NAV_ITEMS.filter((item) => isManagerRole(role) || item.href === "/settings").map(
+  const items = NAV_ITEMS.filter((item) => !item.managerOnly || isManagerRole(role)).map(
     (item) => ({
       label: t(item.label),
       href: item.href,

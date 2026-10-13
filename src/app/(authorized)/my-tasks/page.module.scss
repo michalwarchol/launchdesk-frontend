@@ -1,0 +1,47 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.status {
+  color: var(--color-text-muted);
+  margin: 0;
+  padding: 32px 16px;
+  text-align: center;
+}
+
+.statusError {
+  padding: 64px 16px;
+}
+
+.spinner {
+  animation: myTasksSpinner 0.7s linear infinite;
+  border: 3px solid var(--color-border);
+  border-radius: 50%;
+  border-top-color: var(--color-primary);
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+}
+
+.visuallyHidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+@keyframes myTasksSpinner {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -46,6 +46,7 @@
     "users": "Użytkownicy",
     "documents": "Dokumenty",
     "tasks": "Zadania",
+    "myTasks": "Moje zadania",
     "assignments": "Przypisania",
     "settings": "Ustawienia",
     "signOut": "Wyloguj się"
@@ -355,6 +356,13 @@
       "overdue": "Po terminie",
       "completed": "Ukończone"
     }
+  },
+  "MyTasksPage": {
+    "title": "Moje zadania",
+    "dueDateLabel": "Termin",
+    "empty": "Brak zadań do wyświetlenia",
+    "loadError": "Nie udało się wczytać zadań.",
+    "loading": "Wczytywanie zadań…"
   },
   "SettingsPage": {
     "title": "Ustawienia",

@@ -46,6 +46,7 @@
     "users": "Users",
     "documents": "Documents",
     "tasks": "Tasks",
+    "myTasks": "My tasks",
     "assignments": "Assignments",
     "settings": "Settings",
     "signOut": "Sign out"
@@ -355,6 +356,13 @@
       "overdue": "Overdue",
       "completed": "Completed"
     }
+  },
+  "MyTasksPage": {
+    "title": "My tasks",
+    "dueDateLabel": "Due date",
+    "empty": "No tasks to display",
+    "loadError": "Could not load tasks.",
+    "loading": "Loading tasks…"
   },
   "SettingsPage": {
     "title": "Settings",

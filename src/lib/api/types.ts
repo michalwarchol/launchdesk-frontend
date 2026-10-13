@@ -103,6 +103,13 @@ export interface Assignment {
   completedAt?: string | null;
 }
 
+export interface MyAssignment {
+  id: string;
+  name: string;
+  description: string;
+  dueDate: string;
+}
+
 export interface AssignmentQueryParams extends PaginationParams {
   status?: AssignmentStatus;
   taskId?: string;
