@@ -26,6 +26,7 @@ const CREDENTIAL_PATHS = [
   "/auth/login",
   "/auth/register",
   "/auth/forgot-password",
+  "/auth/reset-password",
   "/auth/invite",
   "/auth/logout",
   "/auth/refresh",
