@@ -3,6 +3,11 @@
     "title": "Welcome to LaunchDesk",
     "description": "This is a minimal example page rendered in English. You can change the language in settings."
   },
+  "AuthorizedError": {
+    "title": "Something went wrong",
+    "description": "This page could not be loaded. Try again.",
+    "retry": "Try again"
+  },
   "DashboardPage": {
     "title": "Dashboard",
     "kpiActiveAssignments": "Active assignments",
