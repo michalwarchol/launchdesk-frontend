@@ -3,6 +3,11 @@
     "title": "Witaj w LaunchDesk",
     "description": "To jest minimalna przykładowa strona wyświetlana po polsku. Język możesz zmienić w ustawieniach."
   },
+  "AuthorizedError": {
+    "title": "Coś poszło nie tak",
+    "description": "Nie udało się wczytać tej strony. Spróbuj ponownie.",
+    "retry": "Spróbuj ponownie"
+  },
   "DashboardPage": {
     "title": "Dashboard",
     "kpiActiveAssignments": "Aktywne przypisania",

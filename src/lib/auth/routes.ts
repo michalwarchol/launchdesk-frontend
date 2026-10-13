@@ -39,10 +39,17 @@ export function homePathForRole(role: UserRole, next?: string | null): string {
 
 /**
  * Only same-origin, absolute paths may be used as a redirect target, otherwise the `next` param
- * turns the login page into an open redirect.
+ * turns the login page into an open redirect. `/` is the placeholder outside the app shell, so it
+ * is not a destination either.
  */
 export function safeNextPath(value: string | null | undefined): string {
-  if (!value || !value.startsWith("/") || value.startsWith("//") || value.includes("\\")) {
+  if (
+    !value ||
+    value === "/" ||
+    !value.startsWith("/") ||
+    value.startsWith("//") ||
+    value.includes("\\")
+  ) {
     return AFTER_LOGIN_PATH;
   }
 

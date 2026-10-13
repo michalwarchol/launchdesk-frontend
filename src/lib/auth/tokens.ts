@@ -23,6 +23,29 @@ export async function setTokens(accessToken: string, refreshToken: string): Prom
   store.set(REFRESH_COOKIE, refreshToken, { ...cookieOptions, maxAge: REFRESH_MAX_AGE });
 }
 
+/**
+ * Server Actions can write cookies; the render that follows them cannot. Probing with `set` is the
+ * only public way to tell those phases apart, and it must keep the existing cookie flags.
+ */
+export async function canMutateCookies(): Promise<boolean> {
+  try {
+    const store = await cookies();
+    const current = store.get(ACCESS_COOKIE)?.value;
+
+    if (current) {
+      store.set(ACCESS_COOKIE, current, { ...cookieOptions, maxAge: ACCESS_MAX_AGE });
+    } else {
+      store.set(ACCESS_COOKIE, "", { ...cookieOptions, maxAge: 0 });
+    }
+
+    return true;
+  } catch (error) {
+    if (error instanceof Error && error.name === "ReadonlyRequestCookiesError") return false;
+
+    throw error;
+  }
+}
+
 export async function clearTokens(): Promise<void> {
   const store = await cookies();
 
