@@ -149,6 +149,27 @@
       "emailInvalid": "Podaj poprawny adres e-mail"
     }
   },
+  "ResetPasswordPage": {
+    "title": "Ustaw nowe hasło",
+    "subtitle": "Wpisz nowe hasło do swojego konta.",
+    "successSubtitle": "Możesz zalogować się nowym hasłem.",
+    "passwordLabel": "Nowe hasło",
+    "passwordPlaceholder": "Co najmniej {min} znaków",
+    "confirmPasswordLabel": "Potwierdź hasło",
+    "confirmPasswordPlaceholder": "Powtórz hasło",
+    "submit": "Zapisz hasło",
+    "submitting": "Zapisywanie…",
+    "success": "Hasło zostało zaktualizowane.",
+    "backToLogin": "Powrót do logowania",
+    "validation": {
+      "passwordTooShort": "Użyj co najmniej 8 znaków",
+      "confirmPasswordRequired": "Potwierdź hasło",
+      "passwordsMismatch": "Hasła nie są takie same"
+    },
+    "errors": {
+      "invalidToken": "Ten link do resetu hasła jest nieprawidłowy lub wygasł. Poproś o nowy na stronie logowania."
+    }
+  },
   "OAuthButtons": {
     "google": "Kontynuuj z Google",
     "github": "Kontynuuj z GitHub"

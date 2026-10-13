@@ -149,6 +149,27 @@
       "emailInvalid": "Enter a valid email address"
     }
   },
+  "ResetPasswordPage": {
+    "title": "Choose a new password",
+    "subtitle": "Enter a new password for your account.",
+    "successSubtitle": "You can sign in with your new password.",
+    "passwordLabel": "New password",
+    "passwordPlaceholder": "At least {min} characters",
+    "confirmPasswordLabel": "Confirm password",
+    "confirmPasswordPlaceholder": "Repeat your password",
+    "submit": "Save password",
+    "submitting": "Saving…",
+    "success": "Your password has been updated.",
+    "backToLogin": "Back to sign in",
+    "validation": {
+      "passwordTooShort": "Use at least 8 characters",
+      "confirmPasswordRequired": "Confirm your password",
+      "passwordsMismatch": "Passwords do not match"
+    },
+    "errors": {
+      "invalidToken": "This reset link is not valid or has expired. Request a new one from the sign-in page."
+    }
+  },
   "OAuthButtons": {
     "google": "Continue with Google",
     "github": "Continue with GitHub"

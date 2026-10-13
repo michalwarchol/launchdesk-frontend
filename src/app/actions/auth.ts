@@ -15,6 +15,8 @@ export type RegisterError = "emailTaken";
 
 export type AcceptInviteError = "invalidToken" | "tokenUsed";
 
+export type ResetPasswordError = "invalidToken";
+
 /**
  * Actions that authenticate redirect on success, in which case the caller receives `undefined`
  * because the action never returns.
@@ -130,6 +132,34 @@ export async function acceptInvite({
 
   await setTokens(tokens.accessToken, tokens.refreshToken);
   redirect(homePathForRole(tokens.user.role, next));
+}
+
+interface ResetPasswordInput {
+  token: string;
+  password: string;
+}
+
+/**
+ * Sets a new password from the email link. Success does not start a session: the endpoint returns
+ * 204, so the caller sends the user to sign in.
+ */
+export async function resetPassword({
+  token,
+  password,
+}: ResetPasswordInput): Promise<ActionResult<ResetPasswordError>> {
+  try {
+    await apiServer({
+      path: "/auth/reset-password",
+      method: "POST",
+      body: { token, password },
+    });
+  } catch (error) {
+    if (isApiError(error) && error.code === "invalidToken") {
+      return { error: "invalidToken", ok: false };
+    }
+
+    throw error;
+  }
 }
 
 /**

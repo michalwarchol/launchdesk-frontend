@@ -12,7 +12,13 @@ export const USER_HOME_PATH = "/settings";
 export const PATHNAME_HEADER = "x-pathname";
 
 /** Routes reachable without a session. Everything else requires one. */
-export const PUBLIC_PATHS = ["/login", "/register", "/invite", "/forgot-password"];
+export const PUBLIC_PATHS = [
+  "/login",
+  "/register",
+  "/invite",
+  "/forgot-password",
+  "/reset-password",
+];
 
 export function isPublicPath(pathname: string): boolean {
   return PUBLIC_PATHS.some((path) => pathname === path || pathname.startsWith(`${path}/`));
