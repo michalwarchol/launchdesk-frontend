@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useTransition } from "react";
@@ -72,9 +73,23 @@ export default function Sidebar({ user, role }: SidebarProps) {
       href: item.href,
     }),
   );
+  const homeHref = isManagerRole(role) ? "/dashboard" : "/my-tasks";
 
   return (
     <aside className={styles.sidebar}>
+      <div className={styles.brand}>
+        <Link href={homeHref} className={styles.brandLink}>
+          <Image
+            src="/favicon-32x32.png"
+            width={32}
+            height={32}
+            alt=""
+            priority
+            className={styles.mark}
+          />
+          <span className={styles.wordmark}>Launchdesk</span>
+        </Link>
+      </div>
       <nav className={styles.nav}>
         <ul className={styles.navList}>
           {items.map((item) => (
