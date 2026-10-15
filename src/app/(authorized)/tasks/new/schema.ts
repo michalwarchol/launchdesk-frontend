@@ -8,6 +8,7 @@ const stepSchema = z.object({
   key: z.string(),
   name: z.string().trim().min(1, "stepNameRequired"),
   description: z.string(),
+  notesRequired: z.boolean(),
   attachments: z.array(attachmentSchema),
 });
 
@@ -31,6 +32,7 @@ export function createEmptyStep(key: string = generateStepKey()): StepFormValues
     key,
     name: "",
     description: "",
+    notesRequired: false,
     attachments: [],
   };
 }

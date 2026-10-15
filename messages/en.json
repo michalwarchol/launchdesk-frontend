@@ -364,6 +364,24 @@
     "loadError": "Could not load tasks.",
     "loading": "Loading tasks…"
   },
+  "MyTaskPlayer": {
+    "letsStart": "Let's start!",
+    "markDone": "Mark as done",
+    "markNotDone": "Mark as not done",
+    "back": "Back",
+    "next": "Next",
+    "thanksTitle": "Thanks for participating",
+    "thanksBody": "You have reached the end of this task.",
+    "attachments": "Attachments",
+    "notFound": "This task could not be found.",
+    "loadError": "Could not load this task.",
+    "saveError": "Could not save your progress.",
+    "notesLabel": "Notes",
+    "notesPlaceholder": "Write a note about this step…",
+    "notesRequired": "A note is required before you can mark this step as done.",
+    "loading": "Loading task…",
+    "download": "Download {name}"
+  },
   "SettingsPage": {
     "title": "Settings",
     "subtitle": "Manage your profile, password and language.",
@@ -502,6 +520,7 @@
     "stepDescriptionLabel": "Step description",
     "stepDescriptionPlaceholder": "Describe this step in detail…",
     "stepAttachmentsLabel": "Attachments",
+    "notesRequiredLabel": "Notes are required",
     "cancel": "Cancel",
     "submit": "Create task",
     "validation": {

@@ -1,0 +1,96 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panel {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}
+
+.stepTitle {
+  color: var(--color-text-strong);
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.description {
+  color: var(--color-secondary-text);
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.attachmentsTitle {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+
+.attachments {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.attachment {
+  color: var(--color-primary);
+  font-size: 14px;
+}
+
+.notes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.status {
+  color: var(--color-text-muted);
+  padding: 32px 16px;
+  text-align: center;
+}
+
+.spinner {
+  animation: myTaskSpinner 0.7s linear infinite;
+  border: 3px solid var(--color-border);
+  border-radius: 50%;
+  border-top-color: var(--color-primary);
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+}
+
+.visuallyHidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+@keyframes myTaskSpinner {
+  to {
+    transform: rotate(360deg);
+  }
+}

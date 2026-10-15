@@ -15,6 +15,7 @@ export const queryKeys = {
     all: ["assignments"] as const,
     list: (params: AssignmentQueryParams = {}) => ["assignments", "list", params] as const,
     mine: (params: PaginationParams = {}) => ["assignments", "mine", params] as const,
+    mineDetail: (id: string) => ["assignments", "mine", "detail", id] as const,
     detail: (id: string) => ["assignments", "detail", id] as const,
   },
   documents: {

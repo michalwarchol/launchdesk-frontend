@@ -143,7 +143,7 @@ export default function EditAssignmentForm({ assignmentId }: EditAssignmentFormP
 
     const removed = getRemovedAssignees(assignment.assignees, values.assignees);
 
-    if (assignment.progress > 0 && removed.length > 0) {
+    if (removed.some((assignee) => assignee.progress > 0)) {
       setPendingValues(values);
       setRemovedAssignees(removed);
       return;

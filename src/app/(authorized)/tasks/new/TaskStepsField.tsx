@@ -91,6 +91,22 @@ export default function TaskStepsField({
               )}
             />
           </div>
+
+          <Controller
+            control={control}
+            name={`steps.${index}.notesRequired`}
+            render={({ field: notesField }) => (
+              <label className={styles.checkbox}>
+                <input
+                  type="checkbox"
+                  checked={notesField.value}
+                  onChange={(event) => notesField.onChange(event.target.checked)}
+                  onBlur={notesField.onBlur}
+                />
+                {t("notesRequiredLabel")}
+              </label>
+            )}
+          />
         </div>
       ),
     };
