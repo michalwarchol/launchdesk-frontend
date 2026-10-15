@@ -1,5 +1,7 @@
 import { useTranslations } from "next-intl";
 
+import Checkbox from "@/components/Checkbox";
+
 import styles from "./Table.module.scss";
 
 import type { Column, TableSelectionState } from "./types";
@@ -64,11 +66,9 @@ export default function TableRow<T>({
     >
       {selection ? (
         <td className={[styles.cell, styles.selectionCell].join(" ")}>
-          <input
-            type="checkbox"
-            className={styles.selectionCheckbox}
+          <Checkbox
             checked={isSelected}
-            aria-label={t("selectRow")}
+            ariaLabel={t("selectRow")}
             onClick={(event) => event.stopPropagation()}
             onChange={handleToggleSelect}
           />

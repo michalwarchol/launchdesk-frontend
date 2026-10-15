@@ -6,6 +6,7 @@ import { Controller, FieldArrayWithId, useFormContext } from "react-hook-form";
 import Accordion, { AccordionItemData } from "@/components/Accordion";
 import AttachmentsField from "@/components/AttachmentsField";
 import Button from "@/components/Button";
+import Checkbox from "@/components/Checkbox";
 import RichTextEditor from "@/components/RichTextEditor";
 import TextField from "@/components/TextField";
 
@@ -96,15 +97,12 @@ export default function TaskStepsField({
             control={control}
             name={`steps.${index}.notesRequired`}
             render={({ field: notesField }) => (
-              <label className={styles.checkbox}>
-                <input
-                  type="checkbox"
-                  checked={notesField.value}
-                  onChange={(event) => notesField.onChange(event.target.checked)}
-                  onBlur={notesField.onBlur}
-                />
-                {t("notesRequiredLabel")}
-              </label>
+              <Checkbox
+                label={t("notesRequiredLabel")}
+                checked={notesField.value}
+                onChange={(event) => notesField.onChange(event.target.checked)}
+                onBlur={notesField.onBlur}
+              />
             )}
           />
         </div>

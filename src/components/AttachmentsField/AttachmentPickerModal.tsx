@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 
 import { useDocumentsQuery } from "@/app/(authorized)/documents/api";
 import { ACCEPTED_EXTENSIONS } from "@/app/(authorized)/documents/constants";
+import Checkbox from "@/components/Checkbox";
 import Dropzone from "@/components/Dropzone";
 import Modal from "@/components/Modal";
 import { DocumentType } from "@/lib/api/types";
@@ -190,8 +191,8 @@ export default function AttachmentPickerModal({
                         .filter(Boolean)
                         .join(" ")}
                     >
-                      <input
-                        type="checkbox"
+                      <Checkbox
+                        className={styles.docCheckbox}
                         checked={checked}
                         disabled={alreadyAdded}
                         onChange={() => toggleDoc(document.id)}

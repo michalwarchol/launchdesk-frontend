@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
-import { useEffect, useRef } from "react";
 
+import Checkbox from "@/components/Checkbox";
 import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRestore";
 
 import styles from "./Table.module.scss";
@@ -33,20 +33,11 @@ export default function TableHead<T>({
   disabled,
 }: TableHeadProps<T>) {
   const t = useTranslations("Table");
-  const selectAllRef = useRef<HTMLInputElement>(null);
 
   const visibleIds = data.map(getRowId);
   const selectedSet = new Set(selection?.selectedIds ?? []);
-  const allVisibleSelected =
-    visibleIds.length > 0 && visibleIds.every((id) => selectedSet.has(id));
-  const someVisibleSelected =
-    visibleIds.some((id) => selectedSet.has(id)) && !allVisibleSelected;
-
-  useEffect(() => {
-    if (selectAllRef.current) {
-      selectAllRef.current.indeterminate = someVisibleSelected;
-    }
-  }, [someVisibleSelected]);
+  const allVisibleSelected = visibleIds.length > 0 && visibleIds.every((id) => selectedSet.has(id));
+  const someVisibleSelected = visibleIds.some((id) => selectedSet.has(id)) && !allVisibleSelected;
 
   const handleSelectAllChange = () => {
     if (!selection) return;
@@ -77,13 +68,11 @@ export default function TableHead<T>({
       <tr>
         {selection ? (
           <th className={[styles.headerCell, styles.selectionHeaderCell].join(" ")}>
-            <input
-              ref={selectAllRef}
-              type="checkbox"
-              className={styles.selectionCheckbox}
+            <Checkbox
               checked={allVisibleSelected}
+              indeterminate={someVisibleSelected}
               disabled={disabled || visibleIds.length === 0}
-              aria-label={t("selectAll")}
+              ariaLabel={t("selectAll")}
               onChange={handleSelectAllChange}
             />
           </th>
