@@ -364,6 +364,24 @@
     "loadError": "Nie udało się wczytać zadań.",
     "loading": "Wczytywanie zadań…"
   },
+  "MyTaskPlayer": {
+    "letsStart": "Zaczynamy!",
+    "markDone": "Oznacz jako ukończone",
+    "markNotDone": "Oznacz jako nieukończone",
+    "back": "Wstecz",
+    "next": "Dalej",
+    "thanksTitle": "Dziękujemy za udział",
+    "thanksBody": "To już koniec tego zadania.",
+    "attachments": "Załączniki",
+    "notFound": "Nie znaleziono tego zadania.",
+    "loadError": "Nie udało się wczytać tego zadania.",
+    "saveError": "Nie udało się zapisać postępu.",
+    "notesLabel": "Notatki",
+    "notesPlaceholder": "Napisz notatkę do tego kroku…",
+    "notesRequired": "Notatka jest wymagana, zanim oznaczysz ten krok jako ukończony.",
+    "loading": "Wczytywanie zadania…",
+    "download": "Pobierz {name}"
+  },
   "SettingsPage": {
     "title": "Ustawienia",
     "subtitle": "Zarządzaj swoim profilem, hasłem i językiem.",
@@ -502,6 +520,7 @@
     "stepDescriptionLabel": "Opis kroku",
     "stepDescriptionPlaceholder": "Opisz ten krok szczegółowo…",
     "stepAttachmentsLabel": "Załączniki",
+    "notesRequiredLabel": "Notatki są wymagane",
     "cancel": "Anuluj",
     "submit": "Utwórz zadanie",
     "validation": {

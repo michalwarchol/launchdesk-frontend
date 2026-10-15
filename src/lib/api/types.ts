@@ -78,6 +78,7 @@ export interface TaskStep {
   name: string;
   description: string;
   position: number;
+  notesRequired: boolean;
   attachments: Document[];
 }
 
@@ -90,6 +91,7 @@ export interface AssignmentAssignee {
   firstName: string;
   lastName: string;
   avatar?: string;
+  progress: number;
 }
 
 export interface Assignment {
@@ -108,6 +110,33 @@ export interface MyAssignment {
   name: string;
   description: string;
   dueDate: string;
+}
+
+export interface MyTaskAttachment {
+  id: string;
+  name: string;
+  type: DocumentType;
+  extension: string;
+  size: number;
+}
+
+export interface MyTaskStep {
+  id: string;
+  name: string;
+  description: string;
+  completed: boolean;
+  notesRequired: boolean;
+  notes: string;
+  attachments: MyTaskAttachment[];
+}
+
+export interface MyTask {
+  id: string;
+  name: string;
+  description: string;
+  dueDate: string;
+  progress: number;
+  steps: MyTaskStep[];
 }
 
 export interface AssignmentQueryParams extends PaginationParams {
@@ -204,6 +233,7 @@ export interface CreateTaskStepInput {
   name: string;
   description: string;
   attachmentIds: string[];
+  notesRequired: boolean;
 }
 
 export interface CreateTaskInput {

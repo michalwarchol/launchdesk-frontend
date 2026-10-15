@@ -69,6 +69,7 @@ export default function EditTaskForm({ taskId }: EditTaskFormProps) {
         key: step.id,
         name: step.name,
         description: step.description,
+        notesRequired: step.notesRequired,
         attachments: step.attachments.map((document) => ({
           kind: "document" as const,
           id: document.id,
@@ -92,6 +93,7 @@ export default function EditTaskForm({ taskId }: EditTaskFormProps) {
       key,
       name: "",
       description: "",
+      notesRequired: false,
       attachments: [],
     });
     setExpandedIds((previous) => [...previous, key]);

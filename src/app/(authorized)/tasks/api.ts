@@ -46,6 +46,7 @@ export function useTaskQuery(id: string) {
 export interface CreateTaskStepValues {
   name: string;
   description: string;
+  notesRequired: boolean;
   attachments: Attachment[];
 }
 
@@ -79,6 +80,7 @@ async function buildTaskInput(values: CreateTaskValues): Promise<CreateTaskInput
     steps: values.steps.map((step) => ({
       name: step.name.trim(),
       description: step.description,
+      notesRequired: step.notesRequired,
       attachmentIds: step.attachments.map((attachment) =>
         attachment.kind === "upload"
           ? (uploadedIdsByLocalId.get(attachment.id) as string)

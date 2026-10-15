@@ -70,3 +70,11 @@
   letter-spacing: 0.02em;
   text-transform: uppercase;
 }
+
+.checkbox {
+  align-items: center;
+  color: var(--color-secondary-text);
+  display: flex;
+  font-size: 14px;
+  gap: 8px;
+}
