@@ -89,6 +89,7 @@
   padding-top: 12px;
 }
 
+.report,
 .signOut {
   background: none;
   border: none;
@@ -106,9 +107,9 @@
     background-color: var(--color-hover-overlay);
     color: var(--color-text-strong);
   }
+}
 
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
+.signOut:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }

@@ -49,7 +49,31 @@
     "myTasks": "My tasks",
     "assignments": "Assignments",
     "settings": "Settings",
+    "report": "Get help",
     "signOut": "Sign out"
+  },
+  "ReportPage": {
+    "title": "Tell us what's happened",
+    "subtitle": "Tell us what went wrong or what you would like to see next. The more detailed the better.",
+    "purposeLabel": "What is this about?",
+    "purpose": {
+      "bug": "Bug report",
+      "feature": "Feature request",
+      "other": "Other"
+    },
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "What happened, and what did you expect?",
+    "submit": "Send report",
+    "submitting": "Sending…",
+    "sent": "Thanks. We received your report.",
+    "validation": {
+      "descriptionRequired": "Describe the problem before sending.",
+      "descriptionTooLong": "Keep the description under 5000 characters."
+    },
+    "errors": {
+      "notAuthenticated": "Sign in again to send a report.",
+      "generic": "We could not send your report. Please try again."
+    }
   },
   "LoginPage": {
     "title": "Sign in to LaunchDesk",

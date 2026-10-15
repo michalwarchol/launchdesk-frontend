@@ -8,6 +8,7 @@ import { useTransition } from "react";
 import { logout } from "@/app/actions/auth";
 import Avatar from "@/components/Avatar";
 import { isManagerRole } from "@/lib/auth/roles";
+import { REPORT_PATH } from "@/lib/auth/routes";
 import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRestore";
 
 import styles from "./Sidebar.module.scss";
@@ -105,6 +106,9 @@ export default function Sidebar({ user, role }: SidebarProps) {
       </nav>
       <div className={styles.footer}>
         <Avatar size="sm" src={user.avatar} title={user.name} subtitle={user.email} />
+        <Link href={REPORT_PATH} className={styles.report}>
+          {t("report")}
+        </Link>
         <button
           type="button"
           className={styles.signOut}
