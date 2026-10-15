@@ -49,7 +49,31 @@
     "myTasks": "Moje zadania",
     "assignments": "Przypisania",
     "settings": "Ustawienia",
+    "report": "Uzyskaj pomoc",
     "signOut": "Wyloguj się"
+  },
+  "ReportPage": {
+    "title": "Powiedz nam, co się stało",
+    "subtitle": "Opisz, co nie działa, albo co chciałbyś zobaczyć w aplikacji. Im szczegółowiej, tym lepiej.",
+    "purposeLabel": "Czego dotyczy zgłoszenie?",
+    "purpose": {
+      "bug": "Zgłoszenie błędu",
+      "feature": "Propozycja funkcji",
+      "other": "Inne"
+    },
+    "descriptionLabel": "Opis",
+    "descriptionPlaceholder": "Co się stało i czego się spodziewałeś?",
+    "submit": "Wyślij zgłoszenie",
+    "submitting": "Wysyłanie…",
+    "sent": "Dziękujemy. Otrzymaliśmy Twoje zgłoszenie.",
+    "validation": {
+      "descriptionRequired": "Opisz problem przed wysłaniem.",
+      "descriptionTooLong": "Opis może mieć najwyżej 5000 znaków."
+    },
+    "errors": {
+      "notAuthenticated": "Zaloguj się ponownie, aby wysłać zgłoszenie.",
+      "generic": "Nie udało się wysłać zgłoszenia. Spróbuj ponownie."
+    }
   },
   "LoginPage": {
     "title": "Zaloguj się do LaunchDesk",

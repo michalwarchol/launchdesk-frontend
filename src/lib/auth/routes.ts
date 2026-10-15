@@ -10,6 +10,8 @@ export const USER_HOME_PATH = "/my-tasks";
 
 export const USER_SETTINGS_PATH = "/settings";
 
+export const REPORT_PATH = "/report";
+
 /** Request header set by the proxy so protected layouts know which URL they are rendering. */
 export const PATHNAME_HEADER = "x-pathname";
 
@@ -26,11 +28,14 @@ export function isPublicPath(pathname: string): boolean {
   return PUBLIC_PATHS.some((path) => pathname === path || pathname.startsWith(`${path}/`));
 }
 
-/** The user role can open My Tasks, its detail routes, and Settings. */
+/** The user role can open My Tasks, its detail routes, Settings, and the report form. */
 export function isUserAllowedPath(pathname: string): boolean {
   const path = pathname.split("?")[0] ?? "";
   return (
-    path === USER_HOME_PATH || path.startsWith(`${USER_HOME_PATH}/`) || path === USER_SETTINGS_PATH
+    path === USER_HOME_PATH ||
+    path.startsWith(`${USER_HOME_PATH}/`) ||
+    path === USER_SETTINGS_PATH ||
+    path === REPORT_PATH
   );
 }
 
