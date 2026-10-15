@@ -5,7 +5,11 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
-  sassOptions: {}
+  sassOptions: {},
+  experimental: {
+    turbopackServerFastRefresh: false,
+    turbopackFileSystemCacheForDev: false,
+  }
 };
 
 const withNextIntl = createNextIntlPlugin();
