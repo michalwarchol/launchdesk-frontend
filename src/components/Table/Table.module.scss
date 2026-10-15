@@ -73,23 +73,13 @@
   white-space: nowrap;
 }
 
-.selectionHeaderCell,
-.selectionCell {
-  padding-left: 12px;
-  padding-right: 8px;
+.headerCell.selectionHeaderCell,
+.cell.selectionCell {
+  padding-left: 16px;
+  padding-right: 16px;
+  text-align: left;
+  vertical-align: middle;
   width: 44px;
-}
-
-.selectionCheckbox {
-  accent-color: var(--color-primary);
-  cursor: pointer;
-  height: 16px;
-  width: 16px;
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
 }
 
 .alignCenter {
