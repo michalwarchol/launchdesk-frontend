@@ -1,0 +1,19 @@
+.link {
+  min-height: 44px;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+// The app button uses light text on the amber fill. On a marketing page the CTAs must pass
+// WCAG AA, so they use dark text instead (contrast ~11:1 against the amber).
+.primary {
+  color: var(--color-background);
+
+  &:hover,
+  &:active {
+    color: var(--color-background);
+  }
+}

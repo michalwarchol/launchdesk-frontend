@@ -1,0 +1,500 @@
+// Everything is sized in em against a container-relative base font size, so the mock scales as one
+// block and the reserved aspect ratio never changes between breakpoints.
+
+.frame {
+  aspect-ratio: 16 / 11;
+  container-type: inline-size;
+  max-width: 680px;
+  perspective: 1600px;
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    justify-self: end;
+  }
+}
+
+.window {
+  background-color: var(--color-background);
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 14px;
+  box-shadow:
+    0 32px 64px rgb(0 0 0 / 45%),
+    0 0 0 1px rgb(245 194 107 / 8%);
+  display: grid;
+  font-size: 1.55cqw;
+  grid-template-columns: 22% 1fr;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    transform: rotateY(-6deg) rotateX(3deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transform: none;
+  }
+}
+
+// Sidebar
+
+.sidebar {
+  background-color: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  padding: 1.2em 0.9em;
+}
+
+.brand {
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  gap: 0.7em;
+  margin-bottom: 0.9em;
+  padding: 0 0.5em 0.9em;
+}
+
+.mark {
+  flex-shrink: 0;
+  height: 2.2em;
+  width: 2.2em;
+}
+
+.wordmark {
+  color: var(--color-primary-text);
+  font-family: var(--font-brand), var(--font-body);
+  font-size: 1.3em;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.navList {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.25em;
+  list-style: none;
+}
+
+.navItem {
+  border-radius: 0.5em;
+  color: var(--color-secondary-text);
+  overflow: hidden;
+  padding: 0.7em 0.8em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navItemActive {
+  background-color: var(--color-hover-overlay);
+  color: var(--color-text-strong);
+}
+
+.user {
+  align-items: center;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  gap: 0.7em;
+  padding: 0.9em 0.4em 0;
+}
+
+.avatar {
+  align-items: center;
+  background-color: var(--color-avatar-fallback-bg);
+  border-radius: 50%;
+  color: var(--color-avatar-fallback-text);
+  display: inline-flex;
+  flex-shrink: 0;
+  font-size: 0.9em;
+  font-weight: 600;
+  height: 2.4em;
+  justify-content: center;
+  width: 2.4em;
+}
+
+.userText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.userName {
+  color: var(--color-primary-text);
+  font-size: 0.9em;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.userEmail {
+  color: var(--color-text-muted);
+  font-size: 0.8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Main column
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.topbar {
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-primary-text);
+  font-size: 1.45em;
+  font-weight: 600;
+  padding: 0.8em 1.1em;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.8em;
+  min-height: 0;
+  padding: 0.9em 1.1em 1.1em;
+}
+
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.8em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  min-height: 0;
+  min-width: 0;
+  padding: 0.9em 1em;
+}
+
+.cardTitle {
+  color: var(--color-primary-text);
+  font-size: 1.05em;
+  font-weight: 600;
+}
+
+.cardDescription {
+  color: var(--color-text-muted);
+  font-size: 0.85em;
+  margin-top: -0.3em;
+}
+
+// KPI cards (StatCard)
+
+.kpis {
+  display: grid;
+  gap: 0.7em;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.stat {
+  gap: 0.3em;
+  padding: 0.8em 0.9em;
+}
+
+.label {
+  color: var(--color-text-muted);
+  font-size: 0.7em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.value {
+  color: var(--color-text-strong);
+  font-size: 2.2em;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.danger {
+  color: var(--color-danger-text);
+}
+
+.success {
+  color: var(--color-success);
+}
+
+.hint {
+  color: var(--color-text-muted);
+  font-size: 0.75em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Charts
+
+.charts {
+  display: grid;
+  flex: 1;
+  gap: 0.7em;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-height: 0;
+}
+
+.donutWrap {
+  flex: 1;
+  margin: 0 auto;
+  min-height: 0;
+  position: relative;
+  width: 62%;
+}
+
+.donut {
+  display: block;
+  height: 100%;
+  transform: none;
+  width: 100%;
+}
+
+.donutCenter {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1em;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.donutTotal {
+  color: var(--color-text-strong);
+  font-size: 1.8em;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.donutCaption {
+  color: var(--color-text-muted);
+  font-size: 0.7em;
+  text-transform: uppercase;
+}
+
+// SVG stroke colors and background fills share the STATUS_COLORS palette.
+circle.completed {
+  stroke: var(--color-success);
+}
+
+circle.inProgress {
+  stroke: var(--color-primary);
+}
+
+circle.notStarted {
+  stroke: var(--color-neutral);
+}
+
+circle.overdue {
+  stroke: var(--color-danger);
+}
+
+.bg_completed {
+  background-color: var(--color-success);
+}
+
+.bg_inProgress {
+  background-color: var(--color-primary);
+}
+
+.bg_notStarted {
+  background-color: var(--color-neutral);
+}
+
+.bg_overdue {
+  background-color: var(--color-danger);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em 1em;
+  list-style: none;
+}
+
+.legendItem {
+  align-items: center;
+  color: var(--color-secondary-text);
+  display: flex;
+  font-size: 0.8em;
+  gap: 0.5em;
+}
+
+.legendValue {
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.dot {
+  border-radius: 999px;
+  height: 0.8em;
+  width: 0.8em;
+}
+
+.bars {
+  align-items: stretch;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--color-border) 0,
+    var(--color-border) 1px,
+    transparent 1px,
+    transparent 33.33%
+  );
+  display: flex;
+  flex: 1;
+  gap: 0.5em;
+  min-height: 0;
+  padding-bottom: 1.4em;
+  position: relative;
+}
+
+.barGroup {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.barPair {
+  align-items: flex-end;
+  display: flex;
+  gap: 0.2em;
+  height: 100%;
+  justify-content: center;
+}
+
+.bar {
+  border-radius: 0.25em 0.25em 0 0;
+  max-width: 1.6em;
+  width: 40%;
+}
+
+.month {
+  bottom: -1.5em;
+  color: var(--color-text-muted);
+  font-size: 0.75em;
+  left: 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+}
+
+// Upcoming deadlines (Table)
+
+.deadlines {
+  gap: 0.2em;
+}
+
+.row {
+  align-items: center;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-secondary-text);
+  display: grid;
+  font-size: 0.85em;
+  gap: 0.8em;
+  grid-template-columns: 1.6fr 0.9fr 1fr 1.2fr;
+  padding: 0.4em 0;
+}
+
+.rowHead {
+  border-top: 0;
+  color: var(--color-text-muted);
+  font-size: 0.7em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.taskName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.people {
+  display: flex;
+}
+
+.person {
+  align-items: center;
+  background-color: var(--color-avatar-fallback-bg);
+  border: 1px solid var(--color-surface);
+  border-radius: 50%;
+  color: var(--color-avatar-fallback-text);
+  display: inline-flex;
+  font-size: 0.7em;
+  font-weight: 600;
+  height: 2.2em;
+  justify-content: center;
+  width: 2.2em;
+
+  & + & {
+    margin-left: -0.6em;
+  }
+}
+
+.date {
+  white-space: nowrap;
+}
+
+.progress {
+  background-color: var(--color-border);
+  border-radius: 999px;
+  height: 1.6em;
+  overflow: hidden;
+  position: relative;
+}
+
+.progressFill {
+  background-color: var(--color-primary);
+  border-radius: 999px;
+  display: block;
+  height: 100%;
+}
+
+.progressLabel {
+  color: var(--color-text-strong);
+  font-size: 0.8em;
+  font-weight: 600;
+  left: 0;
+  line-height: 2em;
+  mix-blend-mode: difference;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 100%;
+}
+
+// Small screens: drop the least important pieces so the rest stays legible.
+@media (max-width: 640px) {
+  .window {
+    font-size: 1.9cqw;
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .deadlines {
+    display: none;
+  }
+
+  .kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .kpis > :nth-child(n + 3) {
+    display: none;
+  }
+}

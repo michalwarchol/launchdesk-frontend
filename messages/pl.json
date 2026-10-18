@@ -1,7 +1,155 @@
 {
-  "HomePage": {
-    "title": "Witaj w LaunchDesk",
-    "description": "To jest minimalna przykładowa strona wyświetlana po polsku. Język możesz zmienić w ustawieniach."
+  "LandingPage": {
+    "meta": {
+      "title": "LaunchDesk - Onboarding pracowników bez chaosu",
+      "description": "Wdrażaj nowych pracowników w jednym miejscu. Szablony zadań, dokumenty, przydziały z terminami i dashboard na żywo, aby każdy nowy pracownik miał udany pierwszy tydzień."
+    },
+    "nav": {
+      "ariaLabel": "Nawigacja główna",
+      "problems": "Problemy",
+      "howItWorks": "Jak to działa",
+      "features": "Funkcje",
+      "faq": "FAQ",
+      "signIn": "Zaloguj się",
+      "signUp": "Zacznij za darmo"
+    },
+    "hero": {
+      "eyebrow": "Onboarding pracowników, uporządkowany",
+      "title": "Onboarding bez chaosu",
+      "subtitle": "Daj każdemu nowemu pracownikowi jasną ścieżkę krok po kroku, a swojemu zespołowi jedno miejsce, z którego ją prowadzi. Zadania, dokumenty, przydziały i postępy - wszystko w LaunchDesk.",
+      "signUp": "Załóż darmowe konto",
+      "signIn": "Zaloguj się",
+      "trust": "Start za darmo. Logowanie przez Google lub GitHub. Bez karty kredytowej."
+    },
+    "preview": {
+      "ariaLabel": "Podgląd dashboardu LaunchDesk",
+      "userName": "Jan Kowalski",
+      "userEmail": "jan@acme.pl",
+      "task1": "Onboarding: Programista frontend",
+      "task2": "Przekazanie sprzętu",
+      "task3": "Szkolenie z bezpieczeństwa"
+    },
+    "problems": {
+      "eyebrow": "Problem",
+      "title": "Onboarding nie powinien być chaosem",
+      "subtitle": "Rozproszone dokumenty, powtarzalne przypomnienia i brak jasnego obrazu, kto co już zrobił. Tak wygląda większość pierwszych tygodni i to widać.",
+      "items": {
+        "visibility": {
+          "title": "Brak kontroli nad procesem",
+          "description": "Trudno sprawdzić, które kroki są ukończone, które utknęły i który nowy pracownik potrzebuje dziś pomocy."
+        },
+        "documents": {
+          "title": "Dokumenty w wielu miejscach",
+          "description": "Umowy, instrukcje i podręczniki leżą w skrzynkach, na dyskach i w czatach, więc nikt nie jest pewien, która wersja jest aktualna."
+        },
+        "repetition": {
+          "title": "Ta sama ręczna praca, za każdym razem",
+          "description": "Ręczne wysyłanie tych samych dokumentów i przypomnień pochłania czas, który powinien iść na powitanie ludzi."
+        },
+        "delays": {
+          "title": "Stanowisko gotowe za późno",
+          "description": "Sprzęt, konta i dostępy są przygotowywane na ostatnią chwilę, a pierwsze dni mijają na czekaniu."
+        }
+      }
+    },
+    "howItWorks": {
+      "eyebrow": "Jak to działa",
+      "title": "Od szablonu do ukończonego onboardingu w czterech krokach",
+      "subtitle": "Zbuduj proces raz, a potem uruchamiaj go dla każdego nowego pracownika kilkoma kliknięciami.",
+      "steps": {
+        "templates": {
+          "title": "Zbuduj szablony zadań",
+          "description": "Podziel onboarding na jasne kroki z opisami, załącznikami i opcjonalnie wymaganymi notatkami."
+        },
+        "invite": {
+          "title": "Zaproś zespół",
+          "description": "Dodaj menedżerów i nowych pracowników przez zaproszenie e-mail. Mogą logować się hasłem, przez Google lub GitHub."
+        },
+        "assign": {
+          "title": "Przydzielaj z terminami",
+          "description": "Przypisz zadanie jednej lub wielu osobom, ustaw termin, a LaunchDesk pilnuje, kto jest na czas, a kto się spóźnia."
+        },
+        "track": {
+          "title": "Śledź postępy na żywo",
+          "description": "Dashboard pokazuje statusy, aktywność w czasie i obciążenie zespołu, więc zawsze wiesz, gdzie zareagować."
+        }
+      }
+    },
+    "features": {
+      "eyebrow": "Funkcje",
+      "title": "Wszystko, czego potrzebujesz do prowadzenia onboardingu",
+      "subtitle": "Bez dodatków i arkuszy obok. Cały proces mieści się w jednym narzędziu.",
+      "items": {
+        "templates": {
+          "title": "Wielokrotnego użytku szablony zadań",
+          "description": "Zdefiniuj kroki raz i używaj ich przy każdym zatrudnieniu. Każdy krok może mieć załączniki i wymagać notatki przed oznaczeniem jako gotowy."
+        },
+        "documents": {
+          "title": "Biblioteka dokumentów z podglądem",
+          "description": "Wgrywaj pliki PDF, Word, arkusze i obrazy. Otwieraj je bezpośrednio w przeglądarce, bez pobierania."
+        },
+        "assignments": {
+          "title": "Przydziały i terminy",
+          "description": "Przypisuj zadania osobom lub grupom, ustawiaj terminy i automatycznie wyróżniaj spóźnioną pracę."
+        },
+        "dashboard": {
+          "title": "Dashboard i raporty",
+          "description": "Wskaźnik ukończenia, podział statusów, utworzone vs. ukończone w czasie oraz obciążenie każdego członka zespołu."
+        },
+        "roles": {
+          "title": "Role i zaproszenia",
+          "description": "Właściciele i administratorzy prowadzą proces, użytkownicy widzą tylko swoje zadania. Zaproś każdego jednym e-mailem."
+        },
+        "player": {
+          "title": "Prowadzony odtwarzacz zadań",
+          "description": "Nowi pracownicy przechodzą swoje kroki jeden po drugim, czytają instrukcje, pobierają pliki i oznaczają postęp."
+        }
+      }
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Najczęstsze pytania",
+      "items": {
+        "free": {
+          "question": "Czy LaunchDesk jest darmowy?",
+          "answer": "Tak. Załóż konto, skonfiguruj organizację i od razu zacznij onboarding. Karta kredytowa nie jest potrzebna."
+        },
+        "oauth": {
+          "question": "Czy mój zespół może logować się przez Google lub GitHub?",
+          "answer": "Tak. Każda zaproszona osoba może logować się hasłem, przez Google lub GitHub, jak woli."
+        },
+        "documents": {
+          "question": "Gdzie przechowywane są wgrane dokumenty?",
+          "answer": "Dokumenty trafiają do bezpiecznego magazynu obiektowego w chmurze i są udostępniane przez krótkotrwałe, podpisane linki, więc otworzą je tylko zalogowani członkowie Twojej organizacji."
+        },
+        "roles": {
+          "question": "Kto co widzi?",
+          "answer": "Właściciele i administratorzy zarządzają użytkownikami, zadaniami, dokumentami i przydziałami. Zwykli użytkownicy widzą tylko przypisane im zadania i własne ustawienia."
+        },
+        "languages": {
+          "question": "Jakie języki są obsługiwane?",
+          "answer": "LaunchDesk jest dostępny po angielsku i po polsku. Każdy członek zespołu wybiera własny język w ustawieniach."
+        },
+        "setup": {
+          "question": "Ile trwa konfiguracja?",
+          "answer": "Kilka minut. Zarejestruj się, nazwij organizację, utwórz pierwszy szablon zadania i zaproś pierwszego nowego pracownika."
+        }
+      }
+    },
+    "finalCta": {
+      "title": "Daj kolejnemu pracownikowi lepszy pierwszy tydzień",
+      "subtitle": "Skonfiguruj LaunchDesk już dziś i poprowadź następny onboarding z jednego miejsca.",
+      "signUp": "Załóż darmowe konto",
+      "signIn": "Zaloguj się"
+    },
+    "footer": {
+      "tagline": "Onboarding pracowników bez chaosu.",
+      "contact": "Kontakt",
+      "signIn": "Zaloguj się",
+      "signUp": "Zarejestruj się",
+      "language": "Język",
+      "copyright": "© {year} LaunchDesk. Wszelkie prawa zastrzeżone."
+    }
   },
   "AuthorizedError": {
     "title": "Coś poszło nie tak",

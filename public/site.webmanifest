@@ -1,6 +1,6 @@
 {
-  "name": "Launchdesk",
-  "short_name": "Launchdesk",
+  "name": "LaunchDesk",
+  "short_name": "LaunchDesk",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#000000",
-  "background_color": "#ffffff",
+  "theme_color": "#121419",
+  "background_color": "#121419",
   "display": "standalone"
 }

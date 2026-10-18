@@ -24,7 +24,12 @@ export const PUBLIC_PATHS = [
   "/reset-password",
 ];
 
+/** The marketing landing page. Only the exact path is public, `/dashboard` and friends stay protected. */
+export const LANDING_PATH = "/";
+
 export function isPublicPath(pathname: string): boolean {
+  if (pathname === LANDING_PATH) return true;
+
   return PUBLIC_PATHS.some((path) => pathname === path || pathname.startsWith(`${path}/`));
 }
 
