@@ -1,0 +1,68 @@
+.steps {
+  counter-reset: steps;
+  display: grid;
+  gap: 32px;
+  grid-template-columns: 1fr;
+  list-style: none;
+  position: relative;
+
+  @media (min-width: 900px) {
+    gap: 24px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    // Connector line behind the numbers.
+    &::before {
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgb(245 194 107 / 35%) 12%,
+        rgb(245 194 107 / 35%) 88%,
+        transparent
+      );
+      content: "";
+      height: 1px;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 24px;
+    }
+  }
+}
+
+.step {
+  display: flex;
+  gap: 20px;
+  position: relative;
+
+  @media (min-width: 900px) {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.number {
+  align-items: center;
+  background-color: var(--color-background);
+  border: 1px solid rgb(245 194 107 / 50%);
+  border-radius: 50%;
+  color: var(--color-primary);
+  display: inline-flex;
+  flex-shrink: 0;
+  font-family: var(--font-brand), var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 700;
+  height: 48px;
+  justify-content: center;
+  width: 48px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 10px;
+
+  @media (min-width: 900px) {
+    padding-top: 0;
+  }
+}

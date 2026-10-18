@@ -1,7 +1,155 @@
 {
-  "HomePage": {
-    "title": "Welcome to LaunchDesk",
-    "description": "This is a minimal example page rendered in English. You can change the language in settings."
+  "LandingPage": {
+    "meta": {
+      "title": "LaunchDesk - Employee onboarding without chaos",
+      "description": "Onboard new employees in one place. Task templates, documents, assignments with due dates and a live dashboard, so every new hire has a great first week."
+    },
+    "nav": {
+      "ariaLabel": "Main navigation",
+      "problems": "Problems",
+      "howItWorks": "How it works",
+      "features": "Features",
+      "faq": "FAQ",
+      "signIn": "Sign in",
+      "signUp": "Get started free"
+    },
+    "hero": {
+      "eyebrow": "Employee onboarding, organized",
+      "title": "Onboarding without chaos",
+      "subtitle": "Give every new hire a clear, step-by-step path and give your team one place to run it. Tasks, documents, assignments and progress, all in LaunchDesk.",
+      "signUp": "Create free account",
+      "signIn": "Sign in",
+      "trust": "Free to start. Sign in with Google or GitHub. No credit card required."
+    },
+    "preview": {
+      "ariaLabel": "Preview of the LaunchDesk dashboard",
+      "userName": "Jane Doe",
+      "userEmail": "jane@acme.com",
+      "task1": "Onboarding: Frontend developer",
+      "task2": "Equipment handover",
+      "task3": "Security training"
+    },
+    "problems": {
+      "eyebrow": "The problem",
+      "title": "Onboarding should not feel like chaos",
+      "subtitle": "Scattered documents, repetitive reminders and no clear picture of who is done with what. That is how most first weeks look, and it shows.",
+      "items": {
+        "visibility": {
+          "title": "No visibility into the process",
+          "description": "It is hard to tell which steps are done, which are stuck and which new hire needs help today."
+        },
+        "documents": {
+          "title": "Documents all over the place",
+          "description": "Contracts, guidelines and handbooks live in inboxes, drives and chats, so nobody is sure which version is current."
+        },
+        "repetition": {
+          "title": "The same manual work, every time",
+          "description": "Sending the same documents and reminders by hand eats time that should go into welcoming people."
+        },
+        "delays": {
+          "title": "Workstations ready too late",
+          "description": "Equipment, accounts and access are prepared at the last minute and the first days are spent waiting."
+        }
+      }
+    },
+    "howItWorks": {
+      "eyebrow": "How it works",
+      "title": "From template to finished onboarding in four steps",
+      "subtitle": "Build the process once, then run it for every new hire with a few clicks.",
+      "steps": {
+        "templates": {
+          "title": "Build task templates",
+          "description": "Break onboarding into clear steps with descriptions, attachments and optional required notes."
+        },
+        "invite": {
+          "title": "Invite your team",
+          "description": "Add managers and new hires by email invite. They can sign in with a password, Google or GitHub."
+        },
+        "assign": {
+          "title": "Assign with due dates",
+          "description": "Assign a task to one or many people, set a due date and LaunchDesk tracks who is on time and who is late."
+        },
+        "track": {
+          "title": "Track progress live",
+          "description": "The dashboard shows status, activity over time and team workload, so you always know where to step in."
+        }
+      }
+    },
+    "features": {
+      "eyebrow": "Features",
+      "title": "Everything you need to run onboarding",
+      "subtitle": "No add-ons, no spreadsheets on the side. The whole process lives in one tool.",
+      "items": {
+        "templates": {
+          "title": "Reusable task templates",
+          "description": "Define steps once, reuse them for every hire. Each step can carry attachments and require a note before it is marked done."
+        },
+        "documents": {
+          "title": "Document library with preview",
+          "description": "Upload PDFs, Word files, spreadsheets and images. Open them right in the browser, no download needed."
+        },
+        "assignments": {
+          "title": "Assignments and due dates",
+          "description": "Assign tasks to individuals or groups, set deadlines and see overdue work highlighted automatically."
+        },
+        "dashboard": {
+          "title": "Dashboard and reports",
+          "description": "Completion rate, status breakdown, created vs. completed over time and workload per team member."
+        },
+        "roles": {
+          "title": "Roles and invitations",
+          "description": "Owners and admins run the process, users see only their own tasks. Invite anyone with a single email."
+        },
+        "player": {
+          "title": "Guided task player",
+          "description": "New hires move through their steps one at a time, read instructions, download files and mark progress."
+        }
+      }
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Questions, answered",
+      "items": {
+        "free": {
+          "question": "Is LaunchDesk free to use?",
+          "answer": "Yes. Create an account, set up your organization and start onboarding right away. No credit card is needed."
+        },
+        "oauth": {
+          "question": "Can my team sign in with Google or GitHub?",
+          "answer": "Yes. Anyone you invite can sign in with a password, Google or GitHub, whichever they prefer."
+        },
+        "documents": {
+          "question": "Where are uploaded documents stored?",
+          "answer": "Documents are stored in secure cloud object storage and served through short-lived, signed links, so only signed-in members of your organization can open them."
+        },
+        "roles": {
+          "question": "Who can see what?",
+          "answer": "Owners and admins manage users, tasks, documents and assignments. Regular users only see the tasks assigned to them and their own settings."
+        },
+        "languages": {
+          "question": "Which languages are supported?",
+          "answer": "LaunchDesk is available in English and Polish. Every member can pick their own language in settings."
+        },
+        "setup": {
+          "question": "How long does setup take?",
+          "answer": "Minutes. Register, name your organization, create your first task template and invite your first new hire."
+        }
+      }
+    },
+    "finalCta": {
+      "title": "Give your next hire a better first week",
+      "subtitle": "Set up LaunchDesk today and run your next onboarding from one place.",
+      "signUp": "Create free account",
+      "signIn": "Sign in"
+    },
+    "footer": {
+      "tagline": "Employee onboarding without chaos.",
+      "contact": "Contact",
+      "signIn": "Sign in",
+      "signUp": "Sign up",
+      "language": "Language",
+      "copyright": "© {year} LaunchDesk. All rights reserved."
+    }
   },
   "AuthorizedError": {
     "title": "Something went wrong",

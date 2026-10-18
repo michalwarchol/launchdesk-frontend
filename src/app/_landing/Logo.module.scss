@@ -1,0 +1,28 @@
+.logo {
+  align-items: center;
+  border-radius: 8px;
+  display: inline-flex;
+  gap: 10px;
+  min-height: 44px;
+  padding: 4px 6px;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+.mark {
+  display: block;
+  flex-shrink: 0;
+  height: 32px;
+  width: 32px;
+}
+
+.wordmark {
+  color: var(--color-text-strong);
+  font-family: var(--font-brand), var(--font-body);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+}

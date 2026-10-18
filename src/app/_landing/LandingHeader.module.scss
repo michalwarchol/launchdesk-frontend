@@ -1,0 +1,79 @@
+.header {
+  backdrop-filter: blur(12px);
+  background-color: rgb(18 20 25 / 80%);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.inner {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  min-height: 64px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+
+.nav {
+  display: none;
+
+  @media (min-width: 900px) {
+    display: block;
+  }
+}
+
+.links {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+}
+
+.link {
+  border-radius: 8px;
+  color: var(--color-secondary-text);
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 500;
+  min-height: 40px;
+  padding: 10px 14px;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease;
+
+  &:hover {
+    background-color: var(--color-hover-overlay);
+    color: var(--color-text-strong);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+.actions {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+// Both CTAs stay visible on every viewport. On very narrow phones the buttons get compact padding
+// and the wordmark gives way so the three elements still fit on one row.
+.signIn {
+  display: inline-flex;
+}
+
+@media (max-width: 419px) {
+  .actions a {
+    font-size: 13px;
+    padding: 0 12px;
+  }
+
+  .inner [data-wordmark] {
+    display: none;
+  }
+}

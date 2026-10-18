@@ -1,9 +1,14 @@
 .page {
-  align-items: center;
-  background-color: red;
+  background-color: var(--color-background);
+  color: var(--color-primary-text);
   display: flex;
   flex: 1;
   flex-direction: column;
-  font-family: sans-serif;
-  justify-content: center;
+  min-height: 100vh;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
