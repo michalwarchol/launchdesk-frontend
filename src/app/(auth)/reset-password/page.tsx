@@ -2,9 +2,16 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
 import Alert from "@/components/Alert";
+import { metadataPageMetadata } from "@/lib/page-metadata";
 
 import ResetPasswordForm from "./ResetPasswordForm";
 import styles from "./ResetPasswordForm.module.scss";
+
+import type { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return metadataPageMetadata("resetPassword");
+}
 
 interface ResetPasswordPageProps {
   searchParams: Promise<{ token?: string }>;

@@ -1,4 +1,12 @@
+import { metadataPageMetadata } from "@/lib/page-metadata";
+
 import MyTaskPlayer from "./MyTaskPlayer";
+
+import type { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return metadataPageMetadata("myTaskDetails");
+}
 
 interface MyTaskPageProps {
   params: Promise<{ id: string }>;

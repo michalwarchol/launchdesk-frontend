@@ -5,10 +5,16 @@ import { apiServer } from "@/lib/api/server";
 import { isManagerRole } from "@/lib/auth/roles";
 import { LOGIN_PATH } from "@/lib/auth/routes";
 import { getSession } from "@/lib/auth/session";
+import { metadataPageMetadata } from "@/lib/page-metadata";
 
 import EditUserForm from "./EditUserForm";
 
 import type { User } from "@/lib/api/types";
+import type { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return metadataPageMetadata("editUser");
+}
 
 interface EditUserPageProps {
   params: Promise<{ id: string }>;

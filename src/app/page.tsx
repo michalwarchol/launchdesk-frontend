@@ -23,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = t("description");
 
   return {
-    // `absolute` skips the layout's `%s | LaunchDesk` template, the title already carries the brand.
+    // `absolute` skips the layout's `%s - LaunchDesk` template, the title already carries the brand.
     title: { absolute: title },
     description,
     alternates: { canonical: "/" },

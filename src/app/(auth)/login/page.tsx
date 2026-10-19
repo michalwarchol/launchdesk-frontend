@@ -1,9 +1,16 @@
 import { redirect } from "next/navigation";
 
 import { API_BASE } from "@/lib/api/config";
+import { metadataPageMetadata } from "@/lib/page-metadata";
 
 import LoginForm from "./LoginForm";
 import { toOAuthCallbackError } from "./schema";
+
+import type { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return metadataPageMetadata("login");
+}
 
 interface LoginPageProps {
   searchParams: Promise<{ code?: string; error?: string; next?: string }>;
