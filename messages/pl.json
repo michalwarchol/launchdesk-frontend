@@ -19,7 +19,7 @@
       "subtitle": "Daj każdemu nowemu pracownikowi jasną ścieżkę krok po kroku, a swojemu zespołowi jedno miejsce, z którego ją prowadzi. Zadania, dokumenty, przydziały i postępy - wszystko w LaunchDesk.",
       "signUp": "Załóż darmowe konto",
       "signIn": "Zaloguj się",
-      "trust": "Start za darmo. Logowanie przez Google lub GitHub. Bez karty kredytowej."
+      "trust": "Start za darmo. Logowanie przez e-mail, Google lub GitHub. Bez karty kredytowej."
     },
     "preview": {
       "ariaLabel": "Podgląd dashboardu LaunchDesk",
@@ -114,9 +114,9 @@
           "question": "Czy LaunchDesk jest darmowy?",
           "answer": "Tak. Załóż konto, skonfiguruj organizację i od razu zacznij onboarding. Karta kredytowa nie jest potrzebna."
         },
-        "oauth": {
-          "question": "Czy mój zespół może logować się przez Google lub GitHub?",
-          "answer": "Tak. Każda zaproszona osoba może logować się hasłem, przez Google lub GitHub, jak woli."
+        "templates": {
+          "question": "Czy mogę używać tego samego onboardingu dla każdego nowego pracownika?",
+          "answer": "Tak. Zbuduj szablon zadania raz, z krokami, załącznikami i opcjonalnie wymaganymi notatkami, a potem przydzielaj go każdemu nowemu pracownikowi kilkoma kliknięciami."
         },
         "documents": {
           "question": "Gdzie przechowywane są wgrane dokumenty?",

@@ -19,7 +19,7 @@
       "subtitle": "Give every new hire a clear, step-by-step path and give your team one place to run it. Tasks, documents, assignments and progress, all in LaunchDesk.",
       "signUp": "Create free account",
       "signIn": "Sign in",
-      "trust": "Free to start. Sign in with Google or GitHub. No credit card required."
+      "trust": "Free to start. Sign in with email, Google or GitHub. No credit card required."
     },
     "preview": {
       "ariaLabel": "Preview of the LaunchDesk dashboard",
@@ -114,9 +114,9 @@
           "question": "Is LaunchDesk free to use?",
           "answer": "Yes. Create an account, set up your organization and start onboarding right away. No credit card is needed."
         },
-        "oauth": {
-          "question": "Can my team sign in with Google or GitHub?",
-          "answer": "Yes. Anyone you invite can sign in with a password, Google or GitHub, whichever they prefer."
+        "templates": {
+          "question": "Can I reuse the same onboarding for every new hire?",
+          "answer": "Yes. Build a task template once, with steps, attachments and optional required notes, then assign it to every new hire in a few clicks."
         },
         "documents": {
           "question": "Where are uploaded documents stored?",
