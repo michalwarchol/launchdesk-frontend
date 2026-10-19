@@ -1,7 +1,15 @@
 import { getTranslations } from "next-intl/server";
 
+import { sidebarPageMetadata } from "@/lib/page-metadata";
+
 import styles from "./page.module.scss";
 import ReportForm from "./ReportForm";
+
+import type { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return sidebarPageMetadata("report");
+}
 
 export default async function ReportPage() {
   const t = await getTranslations("ReportPage");

@@ -2,8 +2,15 @@ import { redirect } from "next/navigation";
 
 import { LOGIN_PATH } from "@/lib/auth/routes";
 import { getSession } from "@/lib/auth/session";
+import { metadataPageMetadata } from "@/lib/page-metadata";
 
 import UserDetailsView from "./UserDetailsView";
+
+import type { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return metadataPageMetadata("userDetails");
+}
 
 interface UserDetailsPageProps {
   params: Promise<{ id: string }>;

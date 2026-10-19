@@ -3,12 +3,19 @@ import { getTranslations } from "next-intl/server";
 
 import { LOGIN_PATH } from "@/lib/auth/routes";
 import { getSession } from "@/lib/auth/session";
+import { sidebarPageMetadata } from "@/lib/page-metadata";
 
 import LanguageSection from "./LanguageSection";
 import OrganizationForm from "./OrganizationForm";
 import styles from "./page.module.scss";
 import PasswordForm from "./PasswordForm";
 import ProfileForm from "./ProfileForm";
+
+import type { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return sidebarPageMetadata("settings");
+}
 
 export default async function SettingsPage() {
   const t = await getTranslations("SettingsPage");

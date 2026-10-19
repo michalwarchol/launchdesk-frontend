@@ -4,9 +4,16 @@ import { getTranslations } from "next-intl/server";
 import Alert from "@/components/Alert";
 import { API_BASE } from "@/lib/api/config";
 import { lookupInvite } from "@/lib/auth/invite";
+import { metadataPageMetadata } from "@/lib/page-metadata";
 
 import styles from "./AcceptInvite.module.scss";
 import AcceptInviteForm from "./AcceptInviteForm";
+
+import type { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return metadataPageMetadata("acceptInvite");
+}
 
 interface AcceptInvitePageProps {
   searchParams: Promise<{ next?: string; token?: string }>;

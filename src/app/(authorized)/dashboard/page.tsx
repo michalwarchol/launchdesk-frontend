@@ -3,6 +3,7 @@ import { getFormatter, getTranslations } from "next-intl/server";
 import Card from "@/components/Card";
 import StatCard from "@/components/StatCard";
 import Topbar from "@/components/Topbar";
+import { sidebarPageMetadata } from "@/lib/page-metadata";
 
 import { getDashboardStats } from "./api";
 import AssignmentActivityChart from "./charts/AssignmentActivityChart";
@@ -12,6 +13,12 @@ import TopTasksChart from "./charts/TopTasksChart";
 import styles from "./page.module.scss";
 import { AssignmentStatus } from "./types";
 import UpcomingDeadlines from "./UpcomingDeadlines";
+
+import type { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return sidebarPageMetadata("dashboard");
+}
 
 export default async function DashboardPage() {
   const t = await getTranslations("DashboardPage");

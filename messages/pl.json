@@ -200,6 +200,23 @@
     "report": "Uzyskaj pomoc",
     "signOut": "Wyloguj się"
   },
+  "Metadata": {
+    "taskDetails": "Szczegóły zadania",
+    "editTask": "Edytuj zadanie",
+    "newTask": "Nowe zadanie",
+    "userDetails": "Szczegóły użytkownika",
+    "editUser": "Edytuj użytkownika",
+    "documentDetails": "Szczegóły dokumentu",
+    "assignmentDetails": "Szczegóły przypisania",
+    "editAssignment": "Edytuj przypisanie",
+    "newAssignment": "Nowe przypisanie",
+    "myTaskDetails": "Moje zadanie",
+    "login": "Logowanie",
+    "register": "Rejestracja",
+    "forgotPassword": "Przypomnij hasło",
+    "resetPassword": "Ustaw nowe hasło",
+    "acceptInvite": "Akceptuj zaproszenie"
+  },
   "ReportPage": {
     "title": "Powiedz nam, co się stało",
     "subtitle": "Opisz, co nie działa, albo co chciałbyś zobaczyć w aplikacji. Im szczegółowiej, tym lepiej.",

@@ -200,6 +200,23 @@
     "report": "Get help",
     "signOut": "Sign out"
   },
+  "Metadata": {
+    "taskDetails": "Task details",
+    "editTask": "Edit task",
+    "newTask": "New task",
+    "userDetails": "User details",
+    "editUser": "Edit user",
+    "documentDetails": "Document details",
+    "assignmentDetails": "Assignment details",
+    "editAssignment": "Edit assignment",
+    "newAssignment": "New assignment",
+    "myTaskDetails": "My task",
+    "login": "Log in",
+    "register": "Register",
+    "forgotPassword": "Forgot password",
+    "resetPassword": "Reset password",
+    "acceptInvite": "Accept invite"
+  },
   "ReportPage": {
     "title": "Tell us what's happened",
     "subtitle": "Tell us what went wrong or what you would like to see next. The more detailed the better.",
