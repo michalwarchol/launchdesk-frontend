@@ -110,7 +110,11 @@ export default function UserAssignmentsTable({
       header: tAssignments("columnProgress"),
       width: showUnassign ? "180px" : "220px",
       sortable: true,
-      render: (row) => <ProgressBar value={row.progress} />,
+      render: (row) => (
+        <ProgressBar
+          value={row.assignees.find((assignee) => assignee.id === userId)?.progress ?? 0}
+        />
+      ),
     },
   ];
 
