@@ -110,6 +110,7 @@ export interface MyAssignment {
   name: string;
   description: string;
   dueDate: string;
+  status: Exclude<AssignmentStatus, "completed">;
 }
 
 export interface MyTaskAttachment {

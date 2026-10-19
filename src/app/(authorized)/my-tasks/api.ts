@@ -66,6 +66,11 @@ export function useSetStepCompletionMutation(id: string) {
     }) => setStepCompletion(id, stepId, completed, notes),
     onSuccess: (task) => {
       queryClient.setQueryData(queryKeys.assignments.mineDetail(id), task);
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.assignments.all,
+        predicate: (query) => query.queryKey[2] !== "detail" || query.queryKey[3] !== id,
+      });
+      queryClient.invalidateQueries({ queryKey: queryKeys.dashboard.stats });
     },
   });
 }

@@ -11,6 +11,8 @@ import { parseISODate } from "@/utils/isoDate";
 import { useMyTasksQuery } from "./api";
 import styles from "./page.module.scss";
 
+import type { MyAssignment } from "@/lib/api/types";
+
 export default function MyTasksPage() {
   const t = useTranslations("MyTasksPage");
   const format = useFormatter();
@@ -22,6 +24,17 @@ export default function MyTasksPage() {
 
     return parsed ? format.dateTime(parsed, { dateStyle: "medium" }) : dueDate;
   };
+
+  const groups = (data?.data ?? []).reduce<
+    { status: MyAssignment["status"]; items: MyAssignment[] }[]
+  >((acc, assignment) => {
+    const last = acc[acc.length - 1];
+
+    if (last && last.status === assignment.status) last.items.push(assignment);
+    else acc.push({ status: assignment.status, items: [assignment] });
+
+    return acc;
+  }, []);
 
   const showPagination = Boolean(data && !error && data.meta.total > data.meta.pageSize);
 
@@ -40,19 +53,24 @@ export default function MyTasksPage() {
       ) : !data || data.data.length === 0 ? (
         <p className={styles.status}>{t("empty")}</p>
       ) : (
-        <ul className={styles.list}>
-          {data.data.map((assignment) => (
-            <li key={assignment.id}>
-              <AssignmentCard
-                href={`/my-tasks/${assignment.id}`}
-                name={assignment.name}
-                description={assignment.description}
-                dueDateLabel={t("dueDateLabel")}
-                dueDate={formatDueDate(assignment.dueDate)}
-              />
-            </li>
-          ))}
-        </ul>
+        groups.map((group) => (
+          <section key={group.status} className={styles.group}>
+            <h2 className={styles.groupTitle}>{t(`groups.${group.status}`)}</h2>
+            <ul className={styles.list}>
+              {group.items.map((assignment) => (
+                <li key={assignment.id}>
+                  <AssignmentCard
+                    href={`/my-tasks/${assignment.id}`}
+                    name={assignment.name}
+                    description={assignment.description}
+                    dueDateLabel={t("dueDateLabel")}
+                    dueDate={formatDueDate(assignment.dueDate)}
+                  />
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
       )}
       {showPagination && data ? (
         <Pagination
