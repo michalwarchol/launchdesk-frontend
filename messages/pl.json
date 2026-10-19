@@ -531,6 +531,11 @@
   },
   "MyTasksPage": {
     "title": "Moje zadania",
+    "groups": {
+      "overdue": "Zaległe",
+      "inProgress": "W trakcie",
+      "notStarted": "Nierozpoczęte"
+    },
     "dueDateLabel": "Termin",
     "empty": "Brak zadań do wyświetlenia",
     "loadError": "Nie udało się wczytać zadań.",

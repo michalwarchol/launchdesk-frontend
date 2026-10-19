@@ -531,6 +531,11 @@
   },
   "MyTasksPage": {
     "title": "My tasks",
+    "groups": {
+      "overdue": "Overdue",
+      "inProgress": "In progress",
+      "notStarted": "Not started"
+    },
     "dueDateLabel": "Due date",
     "empty": "No tasks to display",
     "loadError": "Could not load tasks.",
