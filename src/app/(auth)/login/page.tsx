@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-import { API_BASE } from "@/lib/api/config";
+import { BFF_BASE } from "@/lib/api/config";
 import { metadataPageMetadata } from "@/lib/page-metadata";
 
 import LoginForm from "./LoginForm";
@@ -28,5 +28,5 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
     redirect(`/api/auth/oauth/complete?${complete.toString()}`);
   }
 
-  return <LoginForm apiBase={API_BASE} next={next} initialError={toOAuthCallbackError(error)} />;
+  return <LoginForm apiBase={BFF_BASE} next={next} initialError={toOAuthCallbackError(error)} />;
 }
