@@ -71,7 +71,7 @@ export default function MyTaskPlayer({ assignmentId }: MyTaskPlayerProps) {
   const visibleScreen: Screen = screen.kind === "step" && !step ? { kind: "welcome" } : screen;
 
   const goBack = (notes: string) => {
-    if (visibleScreen.kind !== "step" || !step || step.completed) return;
+    if (visibleScreen.kind !== "step" || !step) return;
 
     setSaveError(false);
 
@@ -81,11 +81,20 @@ export default function MyTaskPlayer({ assignmentId }: MyTaskPlayerProps) {
         return;
       }
 
+      if (data.steps.every((item) => item.completed)) {
+        setOverride({ kind: "finish" });
+        return;
+      }
+
       setOverride({ kind: "welcome" });
     };
 
     void setCompletion
-      .mutateAsync({ stepId: step.id, completed: false, notes })
+      .mutateAsync({
+        stepId: step.id,
+        completed: step.completed,
+        notes,
+      })
       .then(leave)
       .catch(() => setSaveError(true));
   };
@@ -103,6 +112,7 @@ export default function MyTaskPlayer({ assignmentId }: MyTaskPlayerProps) {
           key={step.id}
           assignmentId={data.id}
           step={step}
+          stepIndex={visibleScreen.index}
           isSaving={setCompletion.isPending}
           onBack={goBack}
           onAdvance={() => {
@@ -124,6 +134,11 @@ export default function MyTaskPlayer({ assignmentId }: MyTaskPlayerProps) {
         <section className={styles.panel}>
           <h2 className={styles.stepTitle}>{t("thanksTitle")}</h2>
           <p className={styles.description}>{t("thanksBody")}</p>
+          <div className={styles.actions}>
+            <Button onClick={() => setOverride({ kind: "step", index: 0 })}>
+              {t("reviewSteps")}
+            </Button>
+          </div>
         </section>
       ) : null}
     </div>
@@ -148,6 +163,7 @@ function Welcome({ task, onStart }: { task: MyTask; onStart: () => void }) {
 function StepPanel({
   assignmentId,
   step,
+  stepIndex,
   isSaving,
   onBack,
   onAdvance,
@@ -156,6 +172,7 @@ function StepPanel({
 }: {
   assignmentId: string;
   step: MyTaskStep;
+  stepIndex: number;
   isSaving: boolean;
   onBack: (notes: string) => void;
   onAdvance: () => void;
@@ -187,6 +204,24 @@ function StepPanel({
     }
 
     if (!completed) return;
+
+    onAdvance();
+  };
+
+  const advanceCompleted = async (nextNotes: string) => {
+    setNotesError(false);
+
+    try {
+      await onSave(true, nextNotes);
+    } catch (error) {
+      if (isApiError(error) && error.code === "notesRequired") {
+        setNotesError(true);
+        return;
+      }
+
+      onSaveError();
+      return;
+    }
 
     onAdvance();
   };
@@ -230,7 +265,7 @@ function StepPanel({
         />
       </div>
       <div className={styles.actions}>
-        {!step.completed ? (
+        {step.completed || stepIndex > 0 ? (
           <Button variant="outline" onClick={() => onBack(notes)} disabled={isSaving}>
             {t("back")}
           </Button>
@@ -239,7 +274,11 @@ function StepPanel({
           {step.completed ? t("markNotDone") : t("markDone")}
         </Button>
         {step.completed ? (
-          <Button variant="outline" onClick={onAdvance} disabled={isSaving}>
+          <Button
+            variant="outline"
+            onClick={() => void advanceCompleted(notes)}
+            disabled={isSaving}
+          >
             {t("next")}
           </Button>
         ) : null}

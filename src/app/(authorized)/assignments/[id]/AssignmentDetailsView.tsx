@@ -8,6 +8,7 @@ import {
   useAssignmentQuery,
   useDeleteAssignmentMutation,
 } from "@/app/(authorized)/assignments/api";
+import Accordion, { AccordionItemData } from "@/components/Accordion";
 import Alert from "@/components/Alert";
 import AvatarGroup from "@/components/AvatarGroup";
 import Button from "@/components/Button";
@@ -15,6 +16,8 @@ import Card from "@/components/Card";
 import Modal from "@/components/Modal";
 import PageHeader from "@/components/PageHeader";
 import ProgressBar from "@/components/ProgressBar";
+import { isRichTextEmpty } from "@/components/RichTextEditor/isRichTextEmpty";
+import richTextStyles from "@/components/RichTextEditor/RichTextEditor.module.scss";
 import { isApiError } from "@/lib/api/errors";
 import { deriveAssignmentStatus } from "@/utils/assignmentStatus";
 import { parseISODate } from "@/utils/isoDate";
@@ -48,6 +51,7 @@ export default function AssignmentDetailsView({
   const deleteAssignment = useDeleteAssignmentMutation();
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [deleteError, setDeleteError] = useState<DeleteAssignmentError>();
+  const [expandedAssigneeIds, setExpandedAssigneeIds] = useState<string[]>([]);
 
   if (isPending) {
     return (
@@ -76,6 +80,44 @@ export default function AssignmentDetailsView({
   const assigneeNames = assignment.assignees
     .map((assignee) => `${assignee.firstName} ${assignee.lastName}`)
     .join(", ");
+
+  const assigneeNoteItems: AccordionItemData[] = assignment.assignees
+    .filter((assignee) => assignee.stepNotes && assignee.stepNotes.length > 0)
+    .map((assignee) => ({
+      id: assignee.id,
+      header: (
+        <div className={styles.assigneeNotesHeader}>
+          <span className={styles.assigneeNotesName}>
+            {assignee.firstName} {assignee.lastName}
+          </span>
+          <ProgressBar value={assignee.progress} className={styles.assigneeNotesProgress} />
+        </div>
+      ),
+      content: (
+        <ol className={styles.assigneeNotesSteps}>
+          {assignee.stepNotes!.map((stepNote, index) => (
+            <li key={stepNote.stepId} className={styles.assigneeNotesStep}>
+              <p className={styles.assigneeNotesStepTitle}>
+                <span className={styles.assigneeNotesStepIndex}>{index + 1}</span>
+                {stepNote.stepName}
+              </p>
+              {isRichTextEmpty(stepNote.notes) ? (
+                <p className={styles.assigneeNotesEmpty}>{t("notesEmpty")}</p>
+              ) : (
+                <div className={richTextStyles.editor}>
+                  <div className={richTextStyles.content}>
+                    <div
+                      className="ProseMirror"
+                      dangerouslySetInnerHTML={{ __html: stepNote.notes }}
+                    />
+                  </div>
+                </div>
+              )}
+            </li>
+          ))}
+        </ol>
+      ),
+    }));
 
   const closeDeleteModal = () => {
     if (deleteAssignment.isPending) return;
@@ -166,6 +208,17 @@ export default function AssignmentDetailsView({
           </div>
         </div>
       </Card>
+
+      {assigneeNoteItems.length > 0 ? (
+        <Card title={t("assigneeNotesTitle")}>
+          <Accordion
+            items={assigneeNoteItems}
+            expandedIds={expandedAssigneeIds}
+            onExpandedChange={setExpandedAssigneeIds}
+            allowMultiple
+          />
+        </Card>
+      ) : null}
 
       {isDeleteOpen ? (
         <Modal
