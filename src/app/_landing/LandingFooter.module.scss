@@ -35,13 +35,19 @@
 
 .link {
   align-items: center;
+  appearance: none;
+  background: none;
+  border: none;
   border-radius: 8px;
   color: var(--color-secondary-text);
+  cursor: pointer;
   display: inline-flex;
+  font-family: inherit;
   font-size: 0.95rem;
   gap: 10px;
   min-height: 40px;
   padding: 8px 10px;
+  text-align: inherit;
   transition: color 0.18s ease;
   width: fit-content;
 
