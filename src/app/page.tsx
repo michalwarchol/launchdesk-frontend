@@ -1,9 +1,15 @@
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
+import {
+  ANALYTICS_CONSENT_COOKIE,
+  parseAnalyticsConsent,
+} from "@/lib/analytics/consent";
 import { homePathForRole } from "@/lib/auth/routes";
 import { getSession } from "@/lib/auth/session";
 
+import CookieConsent from "./_landing/CookieConsent";
 import Faq from "./_landing/Faq";
 import Features from "./_landing/Features";
 import FinalCta from "./_landing/FinalCta";
@@ -45,6 +51,12 @@ export default async function Home() {
   // Signed-in visitors have no reason to see the marketing page. Send them into the app.
   if (session) redirect(homePathForRole(session.user.role));
 
+  const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() ?? "";
+  const store = await cookies();
+  const analyticsConsent = parseAnalyticsConsent(
+    store.get(ANALYTICS_CONSENT_COOKIE)?.value,
+  );
+
   return (
     <div className={styles.page}>
       <JsonLd />
@@ -57,7 +69,10 @@ export default async function Home() {
         <Faq />
         <FinalCta />
       </main>
-      <LandingFooter />
+      <LandingFooter showCookieSettings={Boolean(measurementId)} />
+      {measurementId ? (
+        <CookieConsent initialConsent={analyticsConsent} measurementId={measurementId} />
+      ) : null}
     </div>
   );
 }

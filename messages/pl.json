@@ -142,6 +142,12 @@
       "signUp": "Załóż darmowe konto",
       "signIn": "Zaloguj się"
     },
+    "cookies": {
+      "message": "Używamy Google Analytics, aby liczyć odwiedziny tej strony. Usługa zapisuje pliki cookie w Twojej przeglądarce. Możesz zaakceptować lub odrzucić analityczne pliki cookie.",
+      "accept": "Akceptuję",
+      "reject": "Odrzuć",
+      "settings": "Pliki cookie"
+    },
     "footer": {
       "tagline": "Onboarding pracowników bez chaosu.",
       "contact": "Kontakt",

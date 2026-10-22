@@ -142,6 +142,12 @@
       "signUp": "Create free account",
       "signIn": "Sign in"
     },
+    "cookies": {
+      "message": "We use Google Analytics to count visits to this page. It sets cookies on your device. You can accept or reject analytics cookies.",
+      "accept": "Accept",
+      "reject": "Reject",
+      "settings": "Cookies"
+    },
     "footer": {
       "tagline": "Employee onboarding without chaos.",
       "contact": "Contact",
