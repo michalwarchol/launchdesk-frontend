@@ -1,0 +1,46 @@
+.banner {
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  bottom: 0;
+  box-shadow: 0 -8px 32px rgb(0 0 0 / 0.35);
+  left: 0;
+  padding: 16px 0;
+  position: fixed;
+  right: 0;
+  z-index: 100;
+}
+
+.inner {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    gap: 24px;
+    justify-content: space-between;
+  }
+}
+
+.message {
+  color: var(--color-secondary-text);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 720px;
+}
+
+.actions {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    justify-content: flex-end;
+    width: auto;
+  }
+}

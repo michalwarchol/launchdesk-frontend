@@ -6,6 +6,7 @@ import { locales } from "@/i18n/config";
 import { LOGIN_PATH, REGISTER_PATH } from "@/lib/auth/routes";
 import { CONTACT_EMAIL } from "@/lib/site";
 
+import CookieSettingsButton from "./CookieSettingsButton";
 import { MailIcon } from "./icons";
 import shared from "./landing.module.scss";
 import styles from "./LandingFooter.module.scss";
@@ -16,7 +17,11 @@ const LOCALE_LABELS: Record<(typeof locales)[number], string> = {
   pl: "Polski",
 };
 
-export default async function LandingFooter() {
+interface LandingFooterProps {
+  showCookieSettings?: boolean;
+}
+
+export default async function LandingFooter({ showCookieSettings = false }: LandingFooterProps) {
   const t = await getTranslations("LandingPage.footer");
   const activeLocale = await getLocale();
 
@@ -39,6 +44,7 @@ export default async function LandingFooter() {
           <Link href={REGISTER_PATH} className={styles.link}>
             {t("signUp")}
           </Link>
+          {showCookieSettings ? <CookieSettingsButton /> : null}
         </nav>
 
         {/* Server-action form: works with JavaScript disabled and ships no client bundle. */}
