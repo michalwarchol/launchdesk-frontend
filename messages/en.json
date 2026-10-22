@@ -551,7 +551,8 @@
     "groups": {
       "overdue": "Overdue",
       "inProgress": "In progress",
-      "notStarted": "Not started"
+      "notStarted": "Not started",
+      "completed": "Completed"
     },
     "dueDateLabel": "Due date",
     "empty": "No tasks to display",
@@ -566,6 +567,7 @@
     "next": "Next",
     "thanksTitle": "Thanks for participating",
     "thanksBody": "You have reached the end of this task.",
+    "reviewSteps": "Review steps",
     "attachments": "Attachments",
     "notFound": "This task could not be found.",
     "loadError": "Could not load this task.",
@@ -763,6 +765,8 @@
     "statusLabel": "Status",
     "createdAtLabel": "Created",
     "completedAtLabel": "Completed",
+    "assigneeNotesTitle": "Assignee notes",
+    "notesEmpty": "No note for this step.",
     "deleteModalTitle": "Delete assignment",
     "deleteModalBody": "This will permanently delete the assignment for \"{task}\". This cannot be undone.",
     "deleteConfirm": "Delete",

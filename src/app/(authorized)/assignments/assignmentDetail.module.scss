@@ -47,3 +47,68 @@
   line-height: 1.5;
   margin: 0;
 }
+
+.assigneeNotesHeader {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  gap: 16px;
+  min-width: 0;
+}
+
+.assigneeNotesName {
+  color: var(--color-secondary-text);
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.assigneeNotesProgress {
+  flex: 1;
+  max-width: 12rem;
+  min-width: 6rem;
+}
+
+.assigneeNotesSteps {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.assigneeNotesStep {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.assigneeNotesStepTitle {
+  align-items: center;
+  color: var(--color-secondary-text);
+  display: flex;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  gap: 8px;
+  margin: 0;
+}
+
+.assigneeNotesStepIndex {
+  align-items: center;
+  background: var(--color-surface-muted);
+  border-radius: 999px;
+  color: var(--color-text-muted);
+  display: inline-flex;
+  font-size: 0.75rem;
+  font-weight: 600;
+  height: 1.5rem;
+  justify-content: center;
+  min-width: 1.5rem;
+}
+
+.assigneeNotesEmpty {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  font-style: italic;
+  margin: 0;
+}

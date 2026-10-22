@@ -551,7 +551,8 @@
     "groups": {
       "overdue": "Zaległe",
       "inProgress": "W trakcie",
-      "notStarted": "Nierozpoczęte"
+      "notStarted": "Nierozpoczęte",
+      "completed": "Ukończone"
     },
     "dueDateLabel": "Termin",
     "empty": "Brak zadań do wyświetlenia",
@@ -566,6 +567,7 @@
     "next": "Dalej",
     "thanksTitle": "Dziękujemy za udział",
     "thanksBody": "To już koniec tego zadania.",
+    "reviewSteps": "Przejrzyj kroki",
     "attachments": "Załączniki",
     "notFound": "Nie znaleziono tego zadania.",
     "loadError": "Nie udało się wczytać tego zadania.",
@@ -763,6 +765,8 @@
     "statusLabel": "Status",
     "createdAtLabel": "Utworzono",
     "completedAtLabel": "Ukończono",
+    "assigneeNotesTitle": "Notatki przypisanych",
+    "notesEmpty": "Brak notatki do tego kroku.",
     "deleteModalTitle": "Usuń przypisanie",
     "deleteModalBody": "Spowoduje to trwałe usunięcie przypisania do „{task}”. Tej operacji nie można cofnąć.",
     "deleteConfirm": "Usuń",

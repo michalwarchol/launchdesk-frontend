@@ -86,12 +86,19 @@ export interface TaskDetail extends Task {
   steps: TaskStep[];
 }
 
+export interface AssignmentAssigneeStepNote {
+  stepId: string;
+  stepName: string;
+  notes: string;
+}
+
 export interface AssignmentAssignee {
   id: string;
   firstName: string;
   lastName: string;
   avatar?: string;
   progress: number;
+  stepNotes?: AssignmentAssigneeStepNote[];
 }
 
 export interface Assignment {
@@ -110,7 +117,7 @@ export interface MyAssignment {
   name: string;
   description: string;
   dueDate: string;
-  status: Exclude<AssignmentStatus, "completed">;
+  status: AssignmentStatus;
 }
 
 export interface MyTaskAttachment {
