@@ -594,6 +594,10 @@
     "profileTitle": "Profil",
     "profileDescription": "Twoje imię i zdjęcie są widoczne dla wszystkich w organizacji.",
     "profileSaved": "Twój profil został zaktualizowany.",
+    "notificationsTitle": "Powiadomienia",
+    "notificationsDescription": "Wybierz, czy na Twój adres e-mail mają przychodzić wiadomości, gdy ktoś przypisze Cię do assignmentu.",
+    "assignmentNotificationEmailsLabel": "Wysyłaj e-mail, gdy zostanę przypisany do assignmentu",
+    "notificationsSaved": "Ustawienia powiadomień zostały zaktualizowane.",
     "avatarLabel": "Zdjęcie",
     "firstNameLabel": "Imię",
     "firstNamePlaceholder": "Anna",
@@ -639,7 +643,7 @@
       "sameAsCurrent": "Nowe hasło musi różnić się od aktualnego.",
       "oauthOnly": "To konto loguje się przez Google lub GitHub, więc nie ma hasła do zmiany.",
       "nameRequired": "Nazwa organizacji jest wymagana.",
-      "generic": "Nie udało się zaktualizować nazwy organizacji. Spróbuj ponownie."
+      "generic": "Nie udało się zapisać zmian. Spróbuj ponownie."
     }
   },
   "AvatarGroup": {

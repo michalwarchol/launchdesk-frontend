@@ -43,6 +43,7 @@ export interface AuthUser extends User {
   /** `false` for accounts that only ever signed in with Google or GitHub. */
   hasPassword: boolean;
   organizationName: string;
+  assignmentNotificationEmails: boolean;
 }
 
 export interface AuthTokens {

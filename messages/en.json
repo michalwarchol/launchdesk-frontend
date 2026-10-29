@@ -594,6 +594,10 @@
     "profileTitle": "Profile",
     "profileDescription": "Your name and photo are visible to everyone in your organization.",
     "profileSaved": "Your profile has been updated.",
+    "notificationsTitle": "Notifications",
+    "notificationsDescription": "Choose whether you receive email when someone assigns you to an assignment.",
+    "assignmentNotificationEmailsLabel": "Email me when I am assigned to an assignment",
+    "notificationsSaved": "Your notification settings have been updated.",
     "avatarLabel": "Photo",
     "firstNameLabel": "First name",
     "firstNamePlaceholder": "Jane",
@@ -639,7 +643,7 @@
       "sameAsCurrent": "The new password must be different from the current one.",
       "oauthOnly": "This account signs in with Google or GitHub, so it has no password to change.",
       "nameRequired": "Organization name is required.",
-      "generic": "Could not update the organization name. Try again."
+      "generic": "Could not save your changes. Try again."
     }
   },
   "AvatarGroup": {
