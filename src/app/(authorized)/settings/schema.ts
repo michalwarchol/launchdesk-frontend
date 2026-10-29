@@ -17,6 +17,12 @@ export const organizationSchema = z.object({
 
 export type OrganizationFormValues = z.infer<typeof organizationSchema>;
 
+export const notificationsSchema = z.object({
+  assignmentNotificationEmails: z.boolean(),
+});
+
+export type NotificationsFormValues = z.infer<typeof notificationsSchema>;
+
 export const changePasswordSchema = z
   .object({
     currentPassword: z.string().min(1, "currentPasswordRequired"),

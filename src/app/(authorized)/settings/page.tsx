@@ -6,6 +6,7 @@ import { getSession } from "@/lib/auth/session";
 import { sidebarPageMetadata } from "@/lib/page-metadata";
 
 import LanguageSection from "./LanguageSection";
+import NotificationsSection from "./NotificationsSection";
 import OrganizationForm from "./OrganizationForm";
 import styles from "./page.module.scss";
 import PasswordForm from "./PasswordForm";
@@ -34,6 +35,9 @@ export default async function SettingsPage() {
 
       <div className={styles.sections}>
         <ProfileForm user={user} />
+        <NotificationsSection
+          assignmentNotificationEmails={user.assignmentNotificationEmails}
+        />
         {user.role === "owner" ? (
           <OrganizationForm organizationName={user.organizationName} />
         ) : null}

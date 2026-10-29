@@ -10,6 +10,8 @@ export type UpdateProfileError = "notAuthenticated" | "avatarInvalid";
 
 export type UpdateOrganizationError = "notAuthenticated" | "nameRequired" | "generic";
 
+export type UpdateNotificationPreferencesError = "notAuthenticated" | "generic";
+
 export type ChangePasswordError =
   | "notAuthenticated"
   | "oauthOnly"
@@ -129,6 +131,34 @@ export async function updateOrganization({
       return { error: "nameRequired", ok: false };
     }
 
+    return { error: "generic", ok: false };
+  }
+}
+
+interface UpdateNotificationPreferencesInput {
+  assignmentNotificationEmails: boolean;
+}
+
+export async function updateNotificationPreferences({
+  assignmentNotificationEmails,
+}: UpdateNotificationPreferencesInput): Promise<
+  ActionResult<UpdateNotificationPreferencesError>
+> {
+  const session = await getSession();
+
+  if (!session) return { error: "notAuthenticated", ok: false };
+
+  try {
+    await apiServer({
+      path: "/users/me/notifications",
+      method: "PATCH",
+      body: { assignmentNotificationEmails },
+    });
+
+    revalidatePath("/", "layout");
+
+    return { ok: true };
+  } catch {
     return { error: "generic", ok: false };
   }
 }
