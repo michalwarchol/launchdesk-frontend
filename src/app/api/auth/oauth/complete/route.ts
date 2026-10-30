@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { API_BASE } from "@/lib/api/config";
+import { publicOrigin } from "@/lib/auth/public-origin";
 import { homePathForRole, LOGIN_PATH, safeNextPath } from "@/lib/auth/routes";
 import { applyTokenCookies } from "@/lib/auth/tokens";
 
@@ -26,10 +27,7 @@ export async function GET(request: NextRequest) {
   }
 
   const next = homePathForRole(tokens.user.role, requestedNext);
-  const destination = request.nextUrl.clone();
-  const nextUrl = new URL(next, request.url);
-  destination.pathname = nextUrl.pathname;
-  destination.search = nextUrl.search;
+  const destination = new URL(next, publicOrigin(request));
 
   const response = NextResponse.redirect(destination);
   applyTokenCookies(response, tokens);
@@ -55,9 +53,7 @@ async function exchangeCode(code: string): Promise<AuthTokens | null> {
 
 /** An expired or already used code must end on the login page with an error, never loop. */
 function redirectToLogin(request: NextRequest, next: string): NextResponse {
-  const login = request.nextUrl.clone();
-  login.pathname = LOGIN_PATH;
-  login.search = "";
+  const login = new URL(LOGIN_PATH, publicOrigin(request));
   login.searchParams.set("error", "providerFailed");
   login.searchParams.set("next", next);
 
