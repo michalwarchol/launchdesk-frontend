@@ -77,7 +77,7 @@ export default async function ProductPreview() {
       <div className={styles.window} aria-hidden="true">
         <aside className={styles.sidebar}>
           <div className={styles.brand}>
-            <Image src="/favicon-32x32.png" width={32} height={32} alt="" className={styles.mark} />
+            <Image src="/logo.png" width={32} height={32} alt="" className={styles.mark} />
             <span className={styles.wordmark}>LaunchDesk</span>
           </div>
           <ul className={styles.navList}>

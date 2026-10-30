@@ -13,7 +13,7 @@ export default function Logo({ priority = false }: LogoProps) {
   return (
     <Link href="/" className={styles.logo} aria-label={`${SITE_NAME} home`}>
       <Image
-        src="/favicon-32x32.png"
+        src="/logo.png"
         width={32}
         height={32}
         alt=""

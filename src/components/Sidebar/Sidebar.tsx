@@ -81,7 +81,7 @@ export default function Sidebar({ user, role }: SidebarProps) {
       <div className={styles.brand}>
         <Link href={homeHref} className={styles.brandLink}>
           <Image
-            src="/favicon-32x32.png"
+            src="/logo.png"
             width={32}
             height={32}
             alt=""
