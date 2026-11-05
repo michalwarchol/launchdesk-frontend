@@ -561,6 +561,7 @@
       "completed": "Completed"
     },
     "dueDateLabel": "Due date",
+    "searchPlaceholder": "Search your tasks",
     "empty": "No tasks to display",
     "loadError": "Could not load tasks.",
     "loading": "Loading tasks…"

@@ -561,6 +561,7 @@
       "completed": "Ukończone"
     },
     "dueDateLabel": "Termin",
+    "searchPlaceholder": "Szukaj zadania",
     "empty": "Brak zadań do wyświetlenia",
     "loadError": "Nie udało się wczytać zadań.",
     "loading": "Wczytywanie zadań…"

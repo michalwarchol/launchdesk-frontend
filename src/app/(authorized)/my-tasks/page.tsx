@@ -1,11 +1,14 @@
 "use client";
 
 import { useFormatter, useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 
 import AssignmentCard from "@/components/AssignmentCard";
 import { useTableParams } from "@/components/Table";
 import Pagination from "@/components/Table/Pagination";
+import TextField from "@/components/TextField";
 import Topbar from "@/components/Topbar";
+import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { parseISODate } from "@/utils/isoDate";
 
 import { useMyTasksQuery } from "./api";
@@ -16,8 +19,32 @@ import type { MyAssignment } from "@/lib/api/types";
 export default function MyTasksPage() {
   const t = useTranslations("MyTasksPage");
   const format = useFormatter();
-  const { page, pageSize, setPage } = useTableParams();
-  const { data, isPending, isFetching, error } = useMyTasksQuery({ page, pageSize });
+  const { page, pageSize, setPage, filterValues, setFilter } = useTableParams();
+  const searchFromUrl = filterValues.search ?? "";
+  const [searchDraft, setSearchDraft] = useState(searchFromUrl);
+  const [trackedSearchFromUrl, setTrackedSearchFromUrl] = useState(searchFromUrl);
+
+  if (searchFromUrl !== trackedSearchFromUrl) {
+    setTrackedSearchFromUrl(searchFromUrl);
+    setSearchDraft(searchFromUrl);
+  }
+
+  const debouncedSearch = useDebouncedValue(searchDraft, 2000);
+  const trimmedSearch = searchFromUrl.trim();
+
+  useEffect(() => {
+    const next = debouncedSearch.trim();
+
+    if (next !== trimmedSearch) {
+      setFilter("search", next);
+    }
+  }, [debouncedSearch, trimmedSearch, setFilter]);
+
+  const { data, isPending, isFetching, error } = useMyTasksQuery({
+    page,
+    pageSize,
+    ...(trimmedSearch ? { search: trimmedSearch } : {}),
+  });
 
   const formatDueDate = (dueDate: string) => {
     const parsed = parseISODate(dueDate);
@@ -41,6 +68,15 @@ export default function MyTasksPage() {
   return (
     <div>
       <Topbar title={t("title")} />
+      <div className={styles.searchRow}>
+        <TextField
+          id="my-tasks-search"
+          size="sm"
+          placeholder={t("searchPlaceholder")}
+          value={searchDraft}
+          onChange={(event) => setSearchDraft(event.target.value)}
+        />
+      </div>
       {error ? (
         <p className={[styles.status, styles.statusError].join(" ")} role="alert">
           {t("loadError")}
