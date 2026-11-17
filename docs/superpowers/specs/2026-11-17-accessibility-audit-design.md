@@ -52,18 +52,19 @@ Hybrid approach: component-first, then pages, then a criterion checklist pass.
    - **Priority** — Critical, High, Medium or Low.
 
    Rows are sorted by priority (Critical → Low), then by WCAG criterion number.
+
 4. **Not checked** — pages, states or criteria that could not be verified, and why.
 
 ## Priority levels
 
 Priority reflects user impact and where the issue occurs, not only the WCAG level.
 
-| Priority | Meaning | Typical examples |
-|---|---|---|
-| **Critical** | Some users cannot complete a core task at all and there is no workaround. Core tasks: logging in, registering, creating or editing tasks and assignments, uploading documents. | Keyboard trap; a submit control unreachable by keyboard; form errors never exposed to screen readers. |
-| **High** | A serious barrier, or a Level A failure in a frequently used part of the app. A workaround exists but is hard. | Form field without a label; icon-only button without an accessible name; focus not moved into a modal when it opens. |
-| **Medium** | Noticeably harder to use, but a reasonable workaround exists. Usually a Level AA failure, or a Level A failure in a rarely used area. | Insufficient text contrast; layout breaks at 320 px; weak focus indicator; missing or generic page titles. |
-| **Low** | Minor, isolated, or best-practice issues that don't strictly fail a criterion. | Skipped heading levels; redundant ARIA; alt text present but unhelpful. |
+| Priority     | Meaning                                                                                                                                                                        | Typical examples                                                                                                     |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| **Critical** | Some users cannot complete a core task at all and there is no workaround. Core tasks: logging in, registering, creating or editing tasks and assignments, uploading documents. | Keyboard trap; a submit control unreachable by keyboard; form errors never exposed to screen readers.                |
+| **High**     | A serious barrier, or a Level A failure in a frequently used part of the app. A workaround exists but is hard.                                                                 | Form field without a label; icon-only button without an accessible name; focus not moved into a modal when it opens. |
+| **Medium**   | Noticeably harder to use, but a reasonable workaround exists. Usually a Level AA failure, or a Level A failure in a rarely used area.                                          | Insufficient text contrast; layout breaks at 320 px; weak focus indicator; missing or generic page titles.           |
+| **Low**      | Minor, isolated, or best-practice issues that don't strictly fail a criterion.                                                                                                 | Skipped heading levels; redundant ARIA; alt text present but unhelpful.                                              |
 
 When an issue falls between two levels, choose the higher one if it affects a core flow, the lower one otherwise.
 
