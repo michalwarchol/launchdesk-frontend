@@ -15,6 +15,7 @@ export interface RichTextEditorProps {
   value: string;
   onChange: (html: string) => void;
   label: string;
+  required?: boolean;
   hideLabel?: boolean;
   onBlur?: () => void;
   placeholder?: string;
@@ -27,6 +28,7 @@ export default function RichTextEditor({
   value,
   onChange,
   label,
+  required = false,
   hideLabel = false,
   onBlur,
   placeholder,
@@ -45,6 +47,7 @@ export default function RichTextEditor({
       attributes: {
         "aria-labelledby": labelId,
         "aria-multiline": "true",
+        ...(required ? { "aria-required": "true" } : {}),
         ...(error ? { "aria-invalid": "true", "aria-describedby": errorId } : {}),
       },
     },
@@ -81,6 +84,7 @@ export default function RichTextEditor({
     const attributes: Record<string, string> = {
       "aria-labelledby": labelId,
       "aria-multiline": "true",
+      ...(required ? { "aria-required": "true" } : {}),
       ...(error ? { "aria-invalid": "true", "aria-describedby": errorId } : {}),
     };
 
@@ -94,13 +98,13 @@ export default function RichTextEditor({
     // ProseMirror applies `editorProps.attributes` only when the view is created,
     // so keep the live element in sync when the error state changes.
     const dom = editor.view.dom;
-    for (const name of ["aria-invalid", "aria-describedby"]) {
+    for (const name of ["aria-required", "aria-invalid", "aria-describedby"]) {
       if (!attributes[name]) dom.removeAttribute(name);
     }
     for (const [name, value] of Object.entries(attributes)) {
       dom.setAttribute(name, value);
     }
-  }, [editor, error, errorId, labelId]);
+  }, [editor, error, errorId, labelId, required]);
 
   const containerClassName = [
     styles.editor,
@@ -119,6 +123,11 @@ export default function RichTextEditor({
         onClick={() => editor?.commands.focus()}
       >
         {label}
+        {required ? (
+          <span className={styles.requiredMark} aria-hidden="true">
+            *
+          </span>
+        ) : null}
       </span>
       <div className={containerClassName}>
         {editor ? <Toolbar editor={editor} disabled={disabled} /> : null}

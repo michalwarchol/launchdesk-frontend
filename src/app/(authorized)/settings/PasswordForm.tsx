@@ -74,6 +74,7 @@ export default function PasswordForm({ hasPassword }: PasswordFormProps) {
 
           <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
             <TextField
+              required
               label={t("currentPasswordLabel")}
               type="password"
               placeholder={t("currentPasswordPlaceholder")}
@@ -83,6 +84,7 @@ export default function PasswordForm({ hasPassword }: PasswordFormProps) {
             />
 
             <TextField
+              required
               label={t("newPasswordLabel")}
               type="password"
               placeholder={t("newPasswordPlaceholder", { min: MIN_PASSWORD_LENGTH })}
@@ -92,6 +94,7 @@ export default function PasswordForm({ hasPassword }: PasswordFormProps) {
             />
 
             <TextField
+              required
               label={t("confirmNewPasswordLabel")}
               type="password"
               placeholder={t("confirmNewPasswordPlaceholder")}

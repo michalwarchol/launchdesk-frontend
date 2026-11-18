@@ -9,6 +9,7 @@ interface TableBodyProps<T> {
   data: T[];
   columns: Column<T>[];
   getRowId: (row: T) => number | string;
+  getRowLabel?: (row: T) => string;
   onRowClick?: (row: T) => void;
   selection?: TableSelectionState;
   isLoading?: boolean;
@@ -20,6 +21,7 @@ export default function TableBody<T>({
   data,
   columns,
   getRowId,
+  getRowLabel,
   onRowClick,
   selection,
   isLoading,
@@ -68,6 +70,7 @@ export default function TableBody<T>({
             row={row}
             rowId={rowId}
             columns={columns}
+            rowLabel={getRowLabel?.(row)}
             onRowClick={onRowClick}
             selection={selection}
           />

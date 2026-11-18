@@ -155,6 +155,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
 
         <div className={styles.nameRow}>
           <TextField
+            required
             label={t("firstNameLabel")}
             placeholder={t("firstNamePlaceholder")}
             autoComplete="given-name"
@@ -163,6 +164,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
           />
 
           <TextField
+            required
             label={t("lastNameLabel")}
             placeholder={t("lastNamePlaceholder")}
             autoComplete="family-name"

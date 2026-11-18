@@ -16,10 +16,11 @@ export interface SelectProps {
   options: SelectOption[];
   value?: string;
   onChange?: (value: string) => void;
-  label?: string;
+  label: string;
   placeholder?: string;
   size?: "sm" | "md" | "lg";
   error?: string;
+  required?: boolean;
   hideLabel?: boolean;
   name?: string;
   id?: string;
@@ -48,6 +49,7 @@ export default function Select({
   placeholder,
   size = "md",
   error,
+  required = false,
   hideLabel = false,
   name,
   id,
@@ -242,16 +244,17 @@ export default function Select({
 
   return (
     <div ref={rootRef} className={[styles.field, className].filter(Boolean).join(" ")}>
-      {label ? (
-        <label
-          htmlFor={fieldId}
-          className={[styles.label, hideLabel ? styles.visuallyHidden : ""]
-            .filter(Boolean)
-            .join(" ")}
-        >
-          {label}
-        </label>
-      ) : null}
+      <label
+        htmlFor={fieldId}
+        className={[styles.label, hideLabel ? styles.visuallyHidden : ""].filter(Boolean).join(" ")}
+      >
+        {label}
+        {required ? (
+          <span className={styles.requiredMark} aria-hidden="true">
+            *
+          </span>
+        ) : null}
+      </label>
 
       <div className={styles.controlWrapper}>
         <button
@@ -265,6 +268,7 @@ export default function Select({
           aria-haspopup="listbox"
           aria-expanded={isOpen}
           aria-controls={listboxId}
+          aria-required={required || undefined}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
           aria-activedescendant={

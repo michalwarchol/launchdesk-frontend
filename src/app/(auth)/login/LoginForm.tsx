@@ -63,6 +63,7 @@ export default function LoginForm({ apiBase, next, initialError }: LoginFormProp
 
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
         <TextField
+          required
           label={t("emailLabel")}
           type="email"
           placeholder={t("emailPlaceholder")}
@@ -72,6 +73,7 @@ export default function LoginForm({ apiBase, next, initialError }: LoginFormProp
         />
 
         <TextField
+          required
           label={t("passwordLabel")}
           type="password"
           placeholder={t("passwordPlaceholder")}

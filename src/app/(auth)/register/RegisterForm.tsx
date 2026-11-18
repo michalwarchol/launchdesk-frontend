@@ -73,6 +73,7 @@ export default function RegisterForm({ next }: RegisterFormProps) {
 
           <div className={styles.nameRow}>
             <TextField
+              required
               label={t("firstNameLabel")}
               placeholder={t("firstNamePlaceholder")}
               autoComplete="given-name"
@@ -81,6 +82,7 @@ export default function RegisterForm({ next }: RegisterFormProps) {
             />
 
             <TextField
+              required
               label={t("lastNameLabel")}
               placeholder={t("lastNamePlaceholder")}
               autoComplete="family-name"
@@ -90,6 +92,7 @@ export default function RegisterForm({ next }: RegisterFormProps) {
           </div>
 
           <TextField
+            required
             label={t("emailLabel")}
             type="email"
             placeholder={t("emailPlaceholder")}
@@ -99,6 +102,7 @@ export default function RegisterForm({ next }: RegisterFormProps) {
           />
 
           <TextField
+            required
             label={t("passwordLabel")}
             type="password"
             placeholder={t("passwordPlaceholder", { min: MIN_PASSWORD_LENGTH })}
@@ -108,6 +112,7 @@ export default function RegisterForm({ next }: RegisterFormProps) {
           />
 
           <TextField
+            required
             label={t("confirmPasswordLabel")}
             type="password"
             placeholder={t("confirmPasswordPlaceholder")}
@@ -121,6 +126,7 @@ export default function RegisterForm({ next }: RegisterFormProps) {
           <h2 className={styles.sectionTitle}>{t("organizationSectionTitle")}</h2>
 
           <TextField
+            required
             label={t("organizationNameLabel")}
             placeholder={t("organizationNamePlaceholder")}
             autoComplete="organization"

@@ -14,6 +14,11 @@
   text-transform: uppercase;
 }
 
+.requiredMark {
+  color: var(--color-danger-text);
+  margin-left: 4px;
+}
+
 .visuallyHidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -62,6 +67,11 @@
   &:has(.trigger:focus-visible) {
     border-color: #e5484d;
     box-shadow: 0 0 0 2px rgb(229 72 77 / 20%);
+  }
+
+  &:has(.trigger:focus-visible) {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 }
 

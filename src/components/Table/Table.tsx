@@ -21,6 +21,7 @@ export interface TableProps<T> {
   columns: Column<T>[];
   data: T[];
   getRowId: (row: T) => number | string;
+  getRowLabel?: (row: T) => string;
   className?: string;
   sort?: SortState;
   onSortChange?: (key: string, direction: SortDirection) => void;
@@ -40,6 +41,7 @@ export default function Table<T>({
   columns,
   data,
   getRowId,
+  getRowLabel,
   className,
   sort,
   onSortChange,
@@ -97,6 +99,7 @@ export default function Table<T>({
             data={data}
             columns={columns}
             getRowId={getRowId}
+            getRowLabel={getRowLabel}
             onRowClick={isInteractionDisabled ? undefined : onRowClick}
             selection={selection}
             isLoading={isLoading}

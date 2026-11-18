@@ -15,9 +15,10 @@ interface AutocompleteBaseProps<T> {
   onInputValueChange: (value: string) => void;
   renderOption?: (option: T) => React.ReactNode;
   renderValue?: (option: T) => React.ReactNode;
-  label?: string;
+  label: string;
   placeholder?: string;
   error?: string;
+  required?: boolean;
   hideLabel?: boolean;
   disabled?: boolean;
   isLoading?: boolean;
@@ -53,6 +54,7 @@ export default function Autocomplete<T>({
   label,
   placeholder,
   error,
+  required = false,
   hideLabel = false,
   disabled,
   isLoading,
@@ -132,10 +134,14 @@ export default function Autocomplete<T>({
   const removeValue = (option: T) => {
     if (!multiple) {
       onChange(null);
-      return;
+    } else {
+      onChange(
+        selectedValues.filter((selected) => getOptionKey(selected) !== getOptionKey(option)),
+      );
     }
 
-    onChange(selectedValues.filter((selected) => getOptionKey(selected) !== getOptionKey(option)));
+    // The button that held focus is about to unmount, so return it to the text field.
+    inputRef.current?.focus();
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -230,16 +236,17 @@ export default function Autocomplete<T>({
 
   return (
     <div ref={rootRef} className={[styles.field, className].filter(Boolean).join(" ")}>
-      {label ? (
-        <label
-          htmlFor={fieldId}
-          className={[styles.label, hideLabel ? styles.visuallyHidden : ""]
-            .filter(Boolean)
-            .join(" ")}
-        >
-          {label}
-        </label>
-      ) : null}
+      <label
+        htmlFor={fieldId}
+        className={[styles.label, hideLabel ? styles.visuallyHidden : ""].filter(Boolean).join(" ")}
+      >
+        {label}
+        {required ? (
+          <span className={styles.requiredMark} aria-hidden="true">
+            *
+          </span>
+        ) : null}
+      </label>
 
       <div className={controlClassName} onMouseDown={handleControlMouseDown}>
         {multiple && selectedValues.length > 0 ? (
@@ -281,8 +288,11 @@ export default function Autocomplete<T>({
           onKeyDown={handleKeyDown}
           autoComplete="off"
           aria-expanded={isOpen}
-          aria-controls={listboxId}
+          aria-controls={
+            isOpen && !isLoading && visibleOptions.length > 0 ? listboxId : undefined
+          }
           aria-autocomplete="list"
+          aria-required={required || undefined}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
           aria-activedescendant={
@@ -307,34 +317,48 @@ export default function Autocomplete<T>({
         ) : null}
       </div>
 
-      {isOpen ? (
+      {isOpen && !isLoading && visibleOptions.length > 0 ? (
         <ul id={listboxId} role="listbox" className={styles.listbox}>
-          {isLoading ? (
-            <li className={styles.status}>{t("loading")}</li>
-          ) : visibleOptions.length === 0 ? (
-            <li className={styles.status}>{t("noOptions")}</li>
-          ) : (
-            visibleOptions.map((option, index) => (
-              <li
-                key={getOptionKey(option)}
-                id={`${listboxId}-option-${index}`}
-                role="option"
-                aria-selected={index === clampedActiveIndex}
-                className={[styles.option, index === clampedActiveIndex ? styles.optionActive : ""]
-                  .filter(Boolean)
-                  .join(" ")}
-                onMouseDown={(event) => {
-                  event.preventDefault();
-                  selectOption(option);
-                }}
-                onMouseEnter={() => setActiveIndex(index)}
-              >
-                {renderOption ? renderOption(option) : getOptionLabel(option)}
-              </li>
-            ))
-          )}
+          {visibleOptions.map((option, index) => (
+            <li
+              key={getOptionKey(option)}
+              id={`${listboxId}-option-${index}`}
+              role="option"
+              aria-selected={index === clampedActiveIndex}
+              className={[styles.option, index === clampedActiveIndex ? styles.optionActive : ""]
+                .filter(Boolean)
+                .join(" ")}
+              onMouseDown={(event) => {
+                event.preventDefault();
+                selectOption(option);
+              }}
+              onMouseEnter={() => setActiveIndex(index)}
+            >
+              {renderOption ? renderOption(option) : getOptionLabel(option)}
+            </li>
+          ))}
         </ul>
       ) : null}
+
+      {/* Kept outside the listbox: a listbox may only contain options, and these messages
+          have to be announced even though they are not selectable. */}
+      <div
+        role="status"
+        aria-live="polite"
+        className={
+          isOpen && (isLoading || visibleOptions.length === 0)
+            ? styles.status
+            : styles.visuallyHidden
+        }
+      >
+        {isOpen
+          ? isLoading
+            ? t("loading")
+            : visibleOptions.length === 0
+              ? t("noOptions")
+              : ""
+          : ""}
+      </div>
 
       {error ? (
         <p id={errorId} role="alert" className={styles.error}>

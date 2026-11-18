@@ -10,6 +10,7 @@ interface TableRowProps<T> {
   row: T;
   rowId: number | string;
   columns: Column<T>[];
+  rowLabel?: string;
   onRowClick?: (row: T) => void;
   selection?: TableSelectionState;
 }
@@ -24,6 +25,7 @@ export default function TableRow<T>({
   row,
   rowId,
   columns,
+  rowLabel,
   onRowClick,
   selection,
 }: TableRowProps<T>) {
@@ -51,7 +53,11 @@ export default function TableRow<T>({
     <tr className={rowClassName}>
       {selection ? (
         <td className={[styles.cell, styles.selectionCell].join(" ")}>
-          <Checkbox checked={isSelected} ariaLabel={t("selectRow")} onChange={handleToggleSelect} />
+          <Checkbox
+            checked={isSelected}
+            ariaLabel={rowLabel ? t("selectRowNamed", { name: rowLabel }) : t("selectRow")}
+            onChange={handleToggleSelect}
+          />
         </td>
       ) : null}
       {columns.map((column, index) => {

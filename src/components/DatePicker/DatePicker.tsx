@@ -23,9 +23,10 @@ import styles from "./DatePicker.module.scss";
 export interface DatePickerProps {
   value: string | null;
   onChange: (value: string | null) => void;
-  label?: string;
+  label: string;
   placeholder?: string;
   error?: string;
+  required?: boolean;
   hideLabel?: boolean;
   disabled?: boolean;
   min?: string;
@@ -65,6 +66,7 @@ export default function DatePicker({
   label,
   placeholder,
   error,
+  required = false,
   hideLabel = false,
   disabled,
   min,
@@ -244,19 +246,26 @@ export default function DatePicker({
       className={[styles.field, className].filter(Boolean).join(" ")}
       onKeyDown={handleRootKeyDown}
     >
-      {label ? (
-        <label
-          id={labelId}
-          htmlFor={fieldId}
-          className={[styles.label, hideLabel ? styles.visuallyHidden : ""]
-            .filter(Boolean)
-            .join(" ")}
-        >
-          {label}
-        </label>
-      ) : null}
+      <label
+        id={labelId}
+        htmlFor={fieldId}
+        className={[styles.label, hideLabel ? styles.visuallyHidden : ""].filter(Boolean).join(" ")}
+      >
+        {label}
+        {required ? (
+          <>
+            <span className={styles.requiredMark} aria-hidden="true">
+              *
+            </span>
+            {/* `aria-required` is not allowed on a button, so the requirement is part of the label. */}
+            <span className={styles.visuallyHidden}>{t("required")}</span>
+          </>
+        ) : null}
+      </label>
 
       <div className={controlClassName}>
+        {/* This button stands in for the date value, so the required and invalid states belong on it. */}
+        {/* eslint-disable-next-line jsx-a11y/role-supports-aria-props */}
         <button
           ref={triggerRef}
           id={fieldId}
@@ -271,7 +280,8 @@ export default function DatePicker({
           aria-haspopup="dialog"
           aria-expanded={isOpen}
           aria-controls={isOpen ? dialogId : undefined}
-          aria-labelledby={label ? `${labelId} ${fieldId}` : undefined}
+          aria-labelledby={`${labelId} ${fieldId}`}
+          aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
         >
           {selectedDate ? triggerFormatter.format(selectedDate) : (placeholder ?? t("empty"))}
@@ -286,6 +296,8 @@ export default function DatePicker({
             onClick={() => {
               onChange(null);
               onBlur?.();
+              // The clear button unmounts with the value, so hand focus back to the trigger.
+              triggerRef.current?.focus();
             }}
             aria-label={t("clear")}
           >

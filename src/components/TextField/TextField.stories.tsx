@@ -61,9 +61,26 @@ export const Email: Story = {
   },
 };
 
+export const LargeWithError: Story = {
+  args: {
+    label: "Task name",
+    size: "lg",
+    error: "Task name is required",
+    defaultValue: "Untitled",
+  },
+};
+
+export const Required: Story = {
+  args: {
+    label: "Task name",
+    required: true,
+  },
+};
+
 export const WithError: Story = {
   args: {
     label: "Task name",
+    required: true,
     error: "Task name is required",
   },
 };

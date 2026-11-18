@@ -13,6 +13,11 @@
   text-transform: uppercase;
 }
 
+.requiredMark {
+  color: var(--color-danger-text);
+  margin-left: 4px;
+}
+
 .visuallyHidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -49,6 +54,8 @@
   &:focus-within {
     border-color: #e5484d;
     box-shadow: 0 0 0 2px rgb(229 72 77 / 20%);
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 }
 
@@ -110,12 +117,12 @@
   position: relative;
 
   &::after {
-    content: "";
-    position: absolute;
-    inset-inline: -1px;
-    top: 50%;
-    height: 1px;
     background: currentColor;
+    content: "";
+    height: 1px;
+    inset-inline: -1px;
+    position: absolute;
+    top: 50%;
   }
 }
 

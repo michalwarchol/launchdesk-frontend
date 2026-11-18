@@ -204,7 +204,8 @@
     "assignments": "Przypisania",
     "settings": "Ustawienia",
     "report": "Uzyskaj pomoc",
-    "signOut": "Wyloguj się"
+    "signOut": "Wyloguj się",
+    "menu": "Menu"
   },
   "Metadata": {
     "taskDetails": "Szczegóły zadania",
@@ -378,7 +379,10 @@
     "prev": "Poprzednia",
     "next": "Następna",
     "selectAll": "Zaznacz wszystkie wiersze na tej stronie",
-    "selectRow": "Zaznacz wiersz"
+    "selectRow": "Zaznacz wiersz",
+    "selectRowNamed": "Zaznacz: {name}",
+    "paginationLabel": "Paginacja",
+    "goToPage": "Strona {page}"
   },
   "Modal": {
     "cancel": "Anuluj",
@@ -389,7 +393,10 @@
     "hint": "Przeciągnij i upuść pliki tutaj",
     "hintDragActive": "Upuść pliki, aby je dodać",
     "browse": "lub kliknij, aby wybrać",
-    "remove": "Usuń plik",
+    "remove": "Usuń plik {name}",
+    "rejected": "Odrzucono: {names}. Akceptowane formaty: {formats}.",
+    "acceptedFormats": "Akceptowane formaty: {formats}",
+    "singleFile": "Możesz dodać tylko jeden plik",
     "selectedFiles": "Wybrane pliki"
   },
   "UsersPage": {
@@ -561,6 +568,7 @@
       "completed": "Ukończone"
     },
     "dueDateLabel": "Termin",
+    "searchLabel": "Szukaj zadania",
     "searchPlaceholder": "Szukaj zadania",
     "empty": "Brak zadań do wyświetlenia",
     "loadError": "Nie udało się wczytać zadań.",
@@ -663,13 +671,15 @@
     "empty": "Nie wybrano daty",
     "previousMonth": "Poprzedni miesiąc",
     "nextMonth": "Następny miesiąc",
-    "clear": "Wyczyść datę"
+    "clear": "Wyczyść datę",
+    "required": "pole wymagane"
   },
   "PageHeader": {
     "back": "Wróć"
   },
   "Accordion": {
-    "remove": "Usuń"
+    "remove": "Usuń",
+    "hasErrors": "zawiera błędy"
   },
   "RichTextEditor": {
     "toolbar": "Formatowanie tekstu",
@@ -697,7 +707,8 @@
   },
   "Attachments": {
     "addAttachments": "Dodaj załączniki",
-    "remove": "Usuń załącznik",
+    "remove": "Usuń załącznik {name}",
+    "filtersLabel": "Typ dokumentu",
     "newBadge": "Nowy",
     "pickerTitle": "Dodaj załączniki",
     "add": "Dodaj",

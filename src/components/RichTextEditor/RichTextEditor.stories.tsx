@@ -58,6 +58,7 @@ export const WithError: Story = {
         value={value}
         onChange={setValue}
         placeholder="Describe this step in detail…"
+        required
         error="Description is invalid"
       />
     );

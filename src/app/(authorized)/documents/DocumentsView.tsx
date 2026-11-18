@@ -196,6 +196,7 @@ export default function DocumentsView({ canManage }: DocumentsViewProps) {
         data={documents}
         columns={columns}
         getRowId={(row) => row.id}
+        getRowLabel={(row) => row.name}
         onRowClick={(row) => router.push(`/documents/${row.id}`)}
         selection={canManage ? { selectedIds, onSelectedIdsChange: setSelectedIds } : undefined}
         emptyMessage={t("empty")}

@@ -64,6 +64,7 @@ export default function AcceptInviteForm({ token, email, apiBase, next }: Accept
         <TextField label={t("emailLabel")} type="email" defaultValue={email} disabled />
 
         <TextField
+          required
           label={t("passwordLabel")}
           type="password"
           placeholder={t("passwordPlaceholder", { min: MIN_PASSWORD_LENGTH })}
@@ -73,6 +74,7 @@ export default function AcceptInviteForm({ token, email, apiBase, next }: Accept
         />
 
         <TextField
+          required
           label={t("confirmPasswordLabel")}
           type="password"
           placeholder={t("confirmPasswordPlaceholder")}

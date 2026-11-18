@@ -22,11 +22,7 @@ import styles from "./EditUserForm.module.scss";
 import type { UserRole } from "@/lib/api/types";
 
 type SaveUserError =
-  | "forbidden"
-  | "cannotAssignOwner"
-  | "cannotModifyOwner"
-  | "lastOwner"
-  | "generic";
+  "forbidden" | "cannotAssignOwner" | "cannotModifyOwner" | "lastOwner" | "generic";
 
 function toSaveUserError(error: unknown): SaveUserError {
   if (isApiError(error)) {
@@ -131,11 +127,13 @@ export default function EditUserForm({ userId, actorRole, lockRole }: EditUserFo
         <div className={styles.fields}>
           {formError ? <Alert variant="error">{t(`saveErrors.${formError}`)}</Alert> : null}
           <TextField
+            required
             label={t("firstNameLabel")}
             error={errorText(errors.firstName?.message)}
             {...register("firstName")}
           />
           <TextField
+            required
             label={t("lastNameLabel")}
             error={errorText(errors.lastName?.message)}
             {...register("lastName")}

@@ -14,6 +14,11 @@
   text-transform: uppercase;
 }
 
+.requiredMark {
+  color: var(--color-danger-text);
+  margin-left: 4px;
+}
+
 .visuallyHidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -63,6 +68,11 @@
   &:has(.input:focus) {
     border-color: #e5484d;
     box-shadow: 0 0 0 2px rgb(229 72 77 / 20%);
+  }
+
+  &:has(.input:focus) {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 }
 
@@ -193,9 +203,18 @@
 }
 
 .status {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 12px 24px rgb(0 0 0 / 40%);
   color: var(--color-text-muted);
   font-size: 13px;
+  margin-top: 4px;
   padding: 8px 10px;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  z-index: 10;
 }
 
 .error {

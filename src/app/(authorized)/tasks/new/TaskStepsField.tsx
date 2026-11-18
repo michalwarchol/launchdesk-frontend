@@ -56,6 +56,7 @@ export default function TaskStepsField({
       content: (
         <div className={styles.stepContent}>
           <TextField
+            required
             label={t("stepNameLabel")}
             placeholder={t("stepNamePlaceholder")}
             size="md"

@@ -210,6 +210,7 @@ export default function EditAssignmentForm({ assignmentId }: EditAssignmentFormP
             name="assignees"
             render={({ field }) => (
               <Autocomplete<AssigneeOption>
+                required
                 multiple
                 label={tNew("assigneesLabel")}
                 placeholder={tNew("assigneesPlaceholder")}

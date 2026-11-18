@@ -13,6 +13,11 @@
   text-transform: uppercase;
 }
 
+.requiredMark {
+  color: var(--color-danger-text);
+  margin-left: 4px;
+}
+
 .visuallyHidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -77,6 +82,7 @@ textarea.control {
 .lg {
   background-color: transparent;
   border: none;
+  border-bottom: 1px solid var(--color-border-input);
   border-radius: 0;
   font-size: 26px;
   font-weight: 600;
@@ -87,12 +93,10 @@ textarea.control {
     opacity: 0.7;
   }
 
-  &:hover {
-    border: none;
-  }
-
+  &:hover,
   &:focus {
     border: none;
+    border-bottom: 1px solid var(--color-border-input);
     box-shadow: none;
   }
 
@@ -115,11 +119,24 @@ textarea.sm {
     border-color: #e5484d;
     box-shadow: 0 0 0 2px rgb(229 72 77 / 20%);
   }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 }
 
 .lg.invalid {
   border: none;
+  border-bottom: 1px solid var(--color-danger);
   box-shadow: none;
+
+  &:hover,
+  &:focus {
+    border: none;
+    border-bottom: 1px solid var(--color-danger);
+    box-shadow: none;
+  }
 }
 
 .error {

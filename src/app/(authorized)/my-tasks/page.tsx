@@ -71,6 +71,8 @@ export default function MyTasksPage() {
       <div className={styles.searchRow}>
         <TextField
           id="my-tasks-search"
+          label={t("searchLabel")}
+          hideLabel
           size="sm"
           placeholder={t("searchPlaceholder")}
           value={searchDraft}

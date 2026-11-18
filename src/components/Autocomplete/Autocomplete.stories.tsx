@@ -180,6 +180,7 @@ function WithErrorDemo() {
       onInputValueChange={setInputValue}
       value={value}
       onChange={setValue}
+      required
       error="Task is required"
     />
   );
@@ -239,6 +240,29 @@ export const WithAvatars: Story = {
 
 export const WithError: Story = {
   render: () => <WithErrorDemo />,
+};
+
+function NoOptionsDemo() {
+  const [inputValue, setInputValue] = useState("zzzz");
+  const [value, setValue] = useState<TaskOption | null>(null);
+
+  return (
+    <Autocomplete<TaskOption>
+      label="Task"
+      placeholder="Search for a task"
+      options={[]}
+      getOptionLabel={(task) => task.name}
+      getOptionKey={(task) => task.id}
+      inputValue={inputValue}
+      onInputValueChange={setInputValue}
+      value={value}
+      onChange={setValue}
+    />
+  );
+}
+
+export const NoOptions: Story = {
+  render: () => <NoOptionsDemo />,
 };
 
 export const Loading: Story = {

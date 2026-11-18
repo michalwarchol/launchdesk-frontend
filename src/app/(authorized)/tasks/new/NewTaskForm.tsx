@@ -91,6 +91,7 @@ export default function NewTaskForm() {
           {createTask.isError ? <Alert>{t("submitError")}</Alert> : null}
 
           <TextField
+            required
             label={t("nameLabel")}
             hideLabel
             size="lg"
@@ -100,6 +101,7 @@ export default function NewTaskForm() {
           />
 
           <TextField
+            required
             label={t("descriptionLabel")}
             multiline
             rows={3}

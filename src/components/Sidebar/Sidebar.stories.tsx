@@ -22,7 +22,16 @@ export default meta;
 
 type Story = StoryObj<typeof Sidebar>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+      navigation: {
+        pathname: "/dashboard",
+      },
+    },
+  },
+};
 
 export const WithoutPhoto: Story = {
   args: {

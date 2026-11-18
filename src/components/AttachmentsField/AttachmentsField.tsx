@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { formatFileSize } from "@/utils/formatFileSize";
 import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRestore";
@@ -26,6 +26,21 @@ export default function AttachmentsField({
 }: AttachmentsFieldProps) {
   const t = useTranslations("Attachments");
   const [isPickerOpen, setIsPickerOpen] = useState(false);
+  const addButtonRef = useRef<HTMLButtonElement>(null);
+  const removeButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const pendingFocusIndex = useRef<number | null>(null);
+
+  useEffect(() => {
+    const index = pendingFocusIndex.current;
+    if (index === null) return;
+
+    pendingFocusIndex.current = null;
+    const target =
+      removeButtonRefs.current[index] ??
+      removeButtonRefs.current[index - 1] ??
+      addButtonRef.current;
+    target?.focus();
+  }, [value]);
 
   const addAttachments = (attachments: Attachment[]) => {
     const existingIds = new Set(value.map((attachment) => attachment.id));
@@ -37,6 +52,7 @@ export default function AttachmentsField({
   };
 
   const removeAttachment = (id: string) => {
+    pendingFocusIndex.current = value.findIndex((attachment) => attachment.id === id);
     onChange(value.filter((attachment) => attachment.id !== id));
   };
 
@@ -44,7 +60,7 @@ export default function AttachmentsField({
     <div className={[styles.field, className].filter(Boolean).join(" ")}>
       {value.length > 0 ? (
         <ul className={styles.list}>
-          {value.map((attachment) => (
+          {value.map((attachment, index) => (
             <li key={attachment.id} className={styles.tile}>
               <FileTypeIcon type={attachment.documentType} className={styles.tileIcon} />
               <span className={styles.tileName}>{attachment.name}</span>
@@ -53,10 +69,13 @@ export default function AttachmentsField({
                 <span className={styles.newBadge}>{t("newBadge")}</span>
               ) : null}
               <button
+                ref={(node) => {
+                  removeButtonRefs.current[index] = node;
+                }}
                 type="button"
                 className={styles.removeButton}
                 onClick={() => removeAttachment(attachment.id)}
-                aria-label={t("remove")}
+                aria-label={t("remove", { name: attachment.name })}
                 disabled={disabled}
                 {...preventFirefoxDisabledRestore}
               >
@@ -68,6 +87,7 @@ export default function AttachmentsField({
       ) : null}
 
       <button
+        ref={addButtonRef}
         type="button"
         className={styles.addButton}
         onClick={() => setIsPickerOpen(true)}

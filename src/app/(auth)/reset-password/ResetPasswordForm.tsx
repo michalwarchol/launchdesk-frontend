@@ -66,6 +66,7 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
           {formError ? <Alert>{t(`errors.${formError}`)}</Alert> : null}
 
           <TextField
+            required
             label={t("passwordLabel")}
             type="password"
             placeholder={t("passwordPlaceholder", { min: MIN_PASSWORD_LENGTH })}
@@ -75,6 +76,7 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
           />
 
           <TextField
+            required
             label={t("confirmPasswordLabel")}
             type="password"
             placeholder={t("confirmPasswordPlaceholder")}

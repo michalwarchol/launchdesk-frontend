@@ -50,6 +50,7 @@ export default function ForgotPasswordForm() {
       ) : (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
           <TextField
+            required
             label={t("emailLabel")}
             type="email"
             placeholder={t("emailPlaceholder")}

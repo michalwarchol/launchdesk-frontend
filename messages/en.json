@@ -204,7 +204,8 @@
     "assignments": "Assignments",
     "settings": "Settings",
     "report": "Get help",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "menu": "Menu"
   },
   "Metadata": {
     "taskDetails": "Task details",
@@ -378,7 +379,10 @@
     "prev": "Prev",
     "next": "Next",
     "selectAll": "Select all rows on this page",
-    "selectRow": "Select row"
+    "selectRow": "Select row",
+    "selectRowNamed": "Select: {name}",
+    "paginationLabel": "Pagination",
+    "goToPage": "Page {page}"
   },
   "Modal": {
     "cancel": "Cancel",
@@ -389,7 +393,10 @@
     "hint": "Drag and drop files here",
     "hintDragActive": "Drop the files to add them",
     "browse": "or click to browse",
-    "remove": "Remove file",
+    "remove": "Remove file {name}",
+    "rejected": "Rejected: {names}. Accepted formats: {formats}.",
+    "acceptedFormats": "Accepted formats: {formats}",
+    "singleFile": "You can add only one file",
     "selectedFiles": "Selected files"
   },
   "UsersPage": {
@@ -561,6 +568,7 @@
       "completed": "Completed"
     },
     "dueDateLabel": "Due date",
+    "searchLabel": "Search tasks",
     "searchPlaceholder": "Search your tasks",
     "empty": "No tasks to display",
     "loadError": "Could not load tasks.",
@@ -663,13 +671,15 @@
     "empty": "No date selected",
     "previousMonth": "Previous month",
     "nextMonth": "Next month",
-    "clear": "Clear date"
+    "clear": "Clear date",
+    "required": "required"
   },
   "PageHeader": {
     "back": "Go back"
   },
   "Accordion": {
-    "remove": "Remove"
+    "remove": "Remove",
+    "hasErrors": "contains errors"
   },
   "RichTextEditor": {
     "toolbar": "Text formatting",
@@ -697,7 +707,8 @@
   },
   "Attachments": {
     "addAttachments": "Add attachments",
-    "remove": "Remove attachment",
+    "remove": "Remove attachment {name}",
+    "filtersLabel": "Document type",
     "newBadge": "New",
     "pickerTitle": "Add attachments",
     "add": "Add",

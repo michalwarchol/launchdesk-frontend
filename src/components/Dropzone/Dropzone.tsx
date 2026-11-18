@@ -1,8 +1,9 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
+import Alert from "@/components/Alert";
 import { formatFileSize } from "@/utils/formatFileSize";
 import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRestore";
 
@@ -44,13 +45,43 @@ export default function Dropzone({
   disabled,
 }: DropzoneProps) {
   const t = useTranslations("Dropzone");
+  const hintId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
+  const zoneRef = useRef<HTMLDivElement>(null);
+  const removeButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const pendingFocusIndex = useRef<number | null>(null);
   const [isDragActive, setIsDragActive] = useState(false);
+  const [rejectedNames, setRejectedNames] = useState<string[]>([]);
+
+  const acceptedFormats = accept
+    ?.split(",")
+    .map((token) => token.trim())
+    .filter(Boolean)
+    .join(", ");
+
+  const instructions = [
+    acceptedFormats ? t("acceptedFormats", { formats: acceptedFormats }) : null,
+    multiple ? null : t("singleFile"),
+  ].filter((instruction): instruction is string => Boolean(instruction));
+
+  useEffect(() => {
+    const index = pendingFocusIndex.current;
+    if (index === null) return;
+
+    pendingFocusIndex.current = null;
+    const target =
+      removeButtonRefs.current[index] ?? removeButtonRefs.current[index - 1] ?? zoneRef.current;
+    target?.focus();
+  }, [files]);
 
   const addFiles = (incoming: FileList | null) => {
     if (!incoming) return;
 
-    const accepted = Array.from(incoming).filter((file) => matchesAccept(file, accept));
+    const incomingFiles = Array.from(incoming);
+    const accepted = incomingFiles.filter((file) => matchesAccept(file, accept));
+    setRejectedNames(
+      incomingFiles.filter((file) => !matchesAccept(file, accept)).map((file) => file.name),
+    );
     if (accepted.length === 0) return;
 
     onFilesChange(multiple ? [...files, ...accepted] : accepted.slice(0, 1));
@@ -85,6 +116,7 @@ export default function Dropzone({
   };
 
   const removeFile = (index: number) => {
+    pendingFocusIndex.current = index;
     onFilesChange(files.filter((_, fileIndex) => fileIndex !== index));
   };
 
@@ -99,10 +131,12 @@ export default function Dropzone({
   return (
     <div className={styles.dropzone}>
       <div
+        ref={zoneRef}
         className={zoneClassName}
         role="button"
         tabIndex={disabled ? -1 : 0}
         aria-disabled={disabled}
+        aria-describedby={instructions.length > 0 ? hintId : undefined}
         onClick={openFilePicker}
         onKeyDown={handleKeyDown}
         onDrop={handleDrop}
@@ -112,6 +146,11 @@ export default function Dropzone({
       >
         <p className={styles.hint}>{isDragActive ? t("hintDragActive") : t("hint")}</p>
         <span className={styles.browse}>{t("browse")}</span>
+        {instructions.length > 0 ? (
+          <p id={hintId} className={styles.instructions}>
+            {instructions.join(" ")}
+          </p>
+        ) : null}
         <input
           ref={inputRef}
           type="file"
@@ -126,6 +165,15 @@ export default function Dropzone({
         />
       </div>
 
+      {rejectedNames.length > 0 ? (
+        <Alert>
+          {t("rejected", {
+            names: rejectedNames.join(", "),
+            formats: acceptedFormats ?? "",
+          })}
+        </Alert>
+      ) : null}
+
       {files.length > 0 ? (
         <div className={styles.fileList}>
           <span className={styles.fileListLabel}>{t("selectedFiles")}</span>
@@ -135,10 +183,13 @@ export default function Dropzone({
                 <span className={styles.fileName}>{file.name}</span>
                 <span className={styles.fileSize}>{formatFileSize(file.size)}</span>
                 <button
+                  ref={(node) => {
+                    removeButtonRefs.current[index] = node;
+                  }}
                   type="button"
                   className={styles.removeButton}
                   onClick={() => removeFile(index)}
-                  aria-label={t("remove")}
+                  aria-label={t("remove", { name: file.name })}
                   disabled={disabled}
                   {...preventFirefoxDisabledRestore}
                 >

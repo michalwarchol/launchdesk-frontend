@@ -108,6 +108,7 @@ function WithErrorDemo() {
       options={ROLES}
       value={value}
       onChange={setValue}
+      required
       error="Role is required"
     />
   );

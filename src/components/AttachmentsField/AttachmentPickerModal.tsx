@@ -187,11 +187,12 @@ export default function AttachmentPickerModal({
               aria-label={t("searchPlaceholder")}
             />
 
-            <div className={styles.filters}>
+            <div className={styles.filters} role="group" aria-label={t("filtersLabel")}>
               {TYPE_FILTERS.map((filter) => (
                 <button
                   key={filter}
                   type="button"
+                  aria-pressed={typeFilter === filter}
                   className={[styles.filter, typeFilter === filter ? styles.filterActive : ""]
                     .filter(Boolean)
                     .join(" ")}
@@ -225,6 +226,7 @@ export default function AttachmentPickerModal({
                           className={styles.docCheckbox}
                           checked={checked}
                           disabled={alreadyAdded}
+                          ariaLabel={document.name}
                           onChange={() => toggleDoc(document.id)}
                         />
                         <FileTypeIcon type={document.type} className={styles.docIcon} />

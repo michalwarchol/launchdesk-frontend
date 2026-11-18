@@ -157,6 +157,7 @@ export default function EditTaskForm({ taskId }: EditTaskFormProps) {
           {formError ? <Alert variant="error">{t(`saveErrors.${formError}`)}</Alert> : null}
 
           <TextField
+            required
             label={tNew("nameLabel")}
             hideLabel
             size="lg"
@@ -166,6 +167,7 @@ export default function EditTaskForm({ taskId }: EditTaskFormProps) {
           />
 
           <TextField
+            required
             label={tNew("descriptionLabel")}
             multiline
             rows={3}
@@ -176,9 +178,7 @@ export default function EditTaskForm({ taskId }: EditTaskFormProps) {
 
           <TaskStepsField
             fields={fields}
-            expandedIds={
-              expandedIds.length > 0 ? expandedIds : fields.map((field) => field.key)
-            }
+            expandedIds={expandedIds.length > 0 ? expandedIds : fields.map((field) => field.key)}
             onExpandedChange={setExpandedIds}
             onAddStep={addStep}
             onRemoveStep={removeStep}

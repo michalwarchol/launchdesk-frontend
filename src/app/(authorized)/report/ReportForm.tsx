@@ -68,6 +68,7 @@ export default function ReportForm() {
           name="purpose"
           render={({ field }) => (
             <Select
+              required
               label={t("purposeLabel")}
               options={REPORT_PURPOSES.map((purpose) => ({
                 value: purpose,
@@ -81,6 +82,7 @@ export default function ReportForm() {
           )}
         />
         <TextField
+          required
           label={t("descriptionLabel")}
           placeholder={t("descriptionPlaceholder")}
           multiline

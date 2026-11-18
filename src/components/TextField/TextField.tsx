@@ -5,13 +5,14 @@ import { useId } from "react";
 import styles from "./TextField.module.scss";
 
 export interface TextFieldProps {
-  label?: string;
+  label: string;
   placeholder?: string;
   size?: "sm" | "md" | "lg";
   type?: "text" | "email" | "password";
   multiline?: boolean;
   rows?: number;
   error?: string;
+  required?: boolean;
   hideLabel?: boolean;
   name?: string;
   id?: string;
@@ -33,6 +34,7 @@ export default function TextField({
   multiline = false,
   rows = 4,
   error,
+  required = false,
   hideLabel = false,
   name,
   id,
@@ -62,6 +64,7 @@ export default function TextField({
     defaultValue,
     onChange,
     onBlur,
+    required,
     "aria-invalid": error ? true : undefined,
     "aria-describedby": error ? errorId : undefined,
     className: controlClassName,
@@ -69,16 +72,17 @@ export default function TextField({
 
   return (
     <div className={[styles.field, className].filter(Boolean).join(" ")}>
-      {label ? (
-        <label
-          htmlFor={fieldId}
-          className={[styles.label, hideLabel ? styles.visuallyHidden : ""]
-            .filter(Boolean)
-            .join(" ")}
-        >
-          {label}
-        </label>
-      ) : null}
+      <label
+        htmlFor={fieldId}
+        className={[styles.label, hideLabel ? styles.visuallyHidden : ""].filter(Boolean).join(" ")}
+      >
+        {label}
+        {required ? (
+          <span className={styles.requiredMark} aria-hidden="true">
+            *
+          </span>
+        ) : null}
+      </label>
 
       {multiline ? (
         <textarea {...sharedProps} rows={rows} ref={ref as React.Ref<HTMLTextAreaElement>} />
