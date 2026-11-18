@@ -198,6 +198,10 @@ export const Error: Story = {
   ),
 };
 
+export const WithCaption: Story = {
+  render: () => <Table columns={columns} data={USERS} getRowId={(row) => row.id} caption="Users" />,
+};
+
 export const Empty: Story = {
   render: () => (
     <Table columns={columns} data={[]} getRowId={(row) => row.id} emptyMessage="No users found" />

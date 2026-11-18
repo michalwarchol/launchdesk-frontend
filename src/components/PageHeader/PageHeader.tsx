@@ -8,15 +8,19 @@ import styles from "./PageHeader.module.scss";
 export interface PageHeaderProps {
   title: string;
   subtitle?: string;
+  headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
   backHref?: string;
   onBack?: () => void;
   children?: React.ReactNode;
   className?: string;
 }
 
+const HEADINGS = { 1: "h1", 2: "h2", 3: "h3", 4: "h4", 5: "h5", 6: "h6" } as const;
+
 export default function PageHeader({
   title,
   subtitle,
+  headingLevel = 1,
   backHref,
   onBack,
   children,
@@ -40,6 +44,7 @@ export default function PageHeader({
   };
 
   const headerClassName = [styles.header, className].filter(Boolean).join(" ");
+  const Heading = HEADINGS[headingLevel];
 
   return (
     <header className={headerClassName}>
@@ -66,7 +71,7 @@ export default function PageHeader({
           </svg>
         </button>
         <div className={styles.titles}>
-          <h1 className={styles.title}>{title}</h1>
+          <Heading className={styles.title}>{title}</Heading>
           {subtitle ? <p className={styles.subtitle}>{subtitle}</p> : null}
         </div>
       </div>

@@ -45,6 +45,21 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 2s;
+  }
+}
+
+.caption {
+  caption-side: top;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 0 0 8px;
+  text-align: left;
+}
+
 .visuallyHidden {
   border: 0;
   clip: rect(0 0 0 0);

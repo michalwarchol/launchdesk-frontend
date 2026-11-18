@@ -1,3 +1,5 @@
+@use "../../styles/focus" as focus;
+
 .field {
   display: flex;
   flex-direction: column;
@@ -115,11 +117,23 @@
   height: 20px;
   justify-content: center;
   line-height: 1;
+  position: relative;
   width: 20px;
+
+  // Grows the hit area to 44px without changing the visible control.
+  &::after {
+    content: "";
+    inset: -12px;
+    position: absolute;
+  }
 
   &:hover {
     background-color: var(--color-active-overlay);
     color: var(--color-text-strong);
+  }
+
+  &:focus-visible {
+    @include focus.focus-ring;
   }
 
   &:disabled {
@@ -166,6 +180,10 @@
   &:hover {
     background-color: var(--color-hover-overlay);
     color: var(--color-text-strong);
+  }
+
+  &:focus-visible {
+    @include focus.focus-ring;
   }
 
   &:disabled {

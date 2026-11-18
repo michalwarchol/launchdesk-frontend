@@ -199,6 +199,8 @@ export default function DocumentsView({ canManage }: DocumentsViewProps) {
         getRowLabel={(row) => row.name}
         onRowClick={(row) => router.push(`/documents/${row.id}`)}
         selection={canManage ? { selectedIds, onSelectedIdsChange: setSelectedIds } : undefined}
+        caption={t("title")}
+        hideCaption
         emptyMessage={t("empty")}
         isLoading={isPending}
         error={error ? t("loadError") : undefined}

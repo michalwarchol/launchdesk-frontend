@@ -1,6 +1,9 @@
 .group {
   align-items: center;
   display: inline-flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .item {
@@ -16,6 +19,7 @@
 .overflow {
   align-items: center;
   background-color: var(--color-avatar-fallback-bg);
+  border-radius: 50%;
   color: var(--color-avatar-fallback-text);
   display: flex;
   font-weight: 600;

@@ -52,6 +52,8 @@ export default function Dropzone({
   const pendingFocusIndex = useRef<number | null>(null);
   const [isDragActive, setIsDragActive] = useState(false);
   const [rejectedNames, setRejectedNames] = useState<string[]>([]);
+  const [announcement, setAnnouncement] = useState("");
+  const listLabelId = `${hintId}-files`;
 
   const acceptedFormats = accept
     ?.split(",")
@@ -84,7 +86,9 @@ export default function Dropzone({
     );
     if (accepted.length === 0) return;
 
-    onFilesChange(multiple ? [...files, ...accepted] : accepted.slice(0, 1));
+    const added = multiple ? accepted : accepted.slice(0, 1);
+    setAnnouncement(t("added", { count: added.length }));
+    onFilesChange(multiple ? [...files, ...added] : added);
   };
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
@@ -117,6 +121,7 @@ export default function Dropzone({
 
   const removeFile = (index: number) => {
     pendingFocusIndex.current = index;
+    setAnnouncement(t("removed", { name: files[index].name }));
     onFilesChange(files.filter((_, fileIndex) => fileIndex !== index));
   };
 
@@ -176,8 +181,10 @@ export default function Dropzone({
 
       {files.length > 0 ? (
         <div className={styles.fileList}>
-          <span className={styles.fileListLabel}>{t("selectedFiles")}</span>
-          <ul className={styles.files}>
+          <span id={listLabelId} className={styles.fileListLabel}>
+            {t("selectedFiles")}
+          </span>
+          <ul className={styles.files} aria-labelledby={listLabelId}>
             {files.map((file, index) => (
               <li key={`${file.name}-${index}`} className={styles.file}>
                 <span className={styles.fileName}>{file.name}</span>
@@ -200,6 +207,10 @@ export default function Dropzone({
           </ul>
         </div>
       ) : null}
+
+      <p className={styles.visuallyHidden} role="status">
+        {announcement}
+      </p>
     </div>
   );
 }

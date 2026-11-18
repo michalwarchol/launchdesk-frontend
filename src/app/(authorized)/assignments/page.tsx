@@ -85,6 +85,8 @@ export default function Assignments() {
         columns={columns}
         getRowId={(row) => row.id}
         onRowClick={(row) => router.push(`/assignments/${row.id}`)}
+        caption={t("title")}
+        hideCaption
         emptyMessage={t("empty")}
         isLoading={isPending}
         error={error ? t("loadError") : undefined}

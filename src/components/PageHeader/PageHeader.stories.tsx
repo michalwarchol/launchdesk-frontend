@@ -25,6 +25,14 @@ export const Default: Story = {
   },
 };
 
+export const CustomHeadingLevel: Story = {
+  args: {
+    title: "Create new task",
+    headingLevel: 2,
+    onBack: () => {},
+  },
+};
+
 export const WithSubtitle: Story = {
   args: {
     title: "Create new task",

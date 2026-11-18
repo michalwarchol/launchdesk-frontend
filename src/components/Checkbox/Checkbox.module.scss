@@ -21,13 +21,12 @@
 .input {
   appearance: none;
   cursor: pointer;
-  height: 100%;
-  left: 0;
+  height: auto;
+  inset: -14px;
   margin: 0;
   opacity: 0;
   position: absolute;
-  top: 0;
-  width: 100%;
+  width: auto;
   z-index: 1;
 
   &:focus {

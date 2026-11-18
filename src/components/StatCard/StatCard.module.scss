@@ -6,6 +6,24 @@
   flex-direction: column;
   gap: 8px;
   padding: 20px 24px;
+
+  dt,
+  dd {
+    margin: 0;
+  }
+}
+
+.visuallyHidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
 
 .label {
@@ -17,10 +35,17 @@
 }
 
 .value {
+  align-items: center;
   color: var(--color-text-strong);
+  display: flex;
   font-size: 28px;
   font-weight: 700;
+  gap: 8px;
   line-height: 1.1;
+}
+
+.toneIcon {
+  flex-shrink: 0;
 }
 
 .hint {

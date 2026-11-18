@@ -38,7 +38,7 @@ export default function Avatar({
   const content = (
     <>
       {src ? (
-        <img className={styles.photo} src={src} alt={alt ?? title} />
+        <img className={styles.photo} src={src} alt={hideText ? (alt ?? title) : ""} />
       ) : (
         <span className={styles.fallback} aria-hidden="true">
           {title.charAt(0).toUpperCase()}

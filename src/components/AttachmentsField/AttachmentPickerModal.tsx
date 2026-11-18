@@ -8,6 +8,7 @@ import { ACCEPTED_EXTENSIONS } from "@/app/(authorized)/documents/constants";
 import Checkbox from "@/components/Checkbox";
 import Dropzone from "@/components/Dropzone";
 import Modal from "@/components/Modal";
+import TextField from "@/components/TextField";
 import { DocumentType } from "@/lib/api/types";
 import { formatFileSize } from "@/utils/formatFileSize";
 
@@ -178,13 +179,12 @@ export default function AttachmentPickerModal({
       <div id={panelId} role="tabpanel" aria-labelledby={activeTabId}>
         {tab === "library" ? (
           <div className={styles.library}>
-            <input
-              type="search"
-              className={styles.search}
+            <TextField
+              label={t("searchLabel")}
+              hideLabel
               placeholder={t("searchPlaceholder")}
               value={search}
               onChange={(event) => setSearch(event.target.value)}
-              aria-label={t("searchPlaceholder")}
             />
 
             <div className={styles.filters} role="group" aria-label={t("filtersLabel")}>
@@ -204,11 +204,17 @@ export default function AttachmentPickerModal({
             </div>
 
             {isPending && isOpen ? (
-              <p className={styles.empty}>{t("libraryLoading")}</p>
+              <p className={styles.empty} role="status">
+                {t("libraryLoading")}
+              </p>
             ) : error ? (
-              <p className={styles.empty}>{t("libraryError")}</p>
+              <p className={styles.empty} role="alert">
+                {t("libraryError")}
+              </p>
             ) : filteredDocuments.length === 0 ? (
-              <p className={styles.empty}>{t("libraryEmpty")}</p>
+              <p className={styles.empty} role="status">
+                {t("libraryEmpty")}
+              </p>
             ) : (
               <ul className={styles.docList}>
                 {filteredDocuments.map((document) => {
@@ -241,6 +247,10 @@ export default function AttachmentPickerModal({
                 })}
               </ul>
             )}
+
+            <p className={styles.visuallyHidden} role="status">
+              {!isPending && !error ? t("libraryResults", { count: filteredDocuments.length }) : ""}
+            </p>
           </div>
         ) : (
           <Dropzone

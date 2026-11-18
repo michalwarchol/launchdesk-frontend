@@ -34,6 +34,8 @@ export default function Tasks() {
         columns={columns}
         getRowId={(row) => row.id}
         onRowClick={(row) => router.push(`/tasks/${row.id}`)}
+        caption={t("title")}
+        hideCaption
         emptyMessage={t("empty")}
         isLoading={isPending}
         error={error ? t("loadError") : undefined}

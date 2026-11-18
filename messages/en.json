@@ -381,6 +381,10 @@
     "selectAll": "Select all rows on this page",
     "selectRow": "Select row",
     "selectRowNamed": "Select: {name}",
+    "resultsStatus": "Showing {shown, plural, one {# result} other {# results}} of {total}",
+    "resultsStatusSorted": "Showing {shown, plural, one {# result} other {# results}} of {total}, sorted by {column}, {direction}",
+    "sortAscending": "ascending",
+    "sortDescending": "descending",
     "paginationLabel": "Pagination",
     "goToPage": "Page {page}"
   },
@@ -397,7 +401,9 @@
     "rejected": "Rejected: {names}. Accepted formats: {formats}.",
     "acceptedFormats": "Accepted formats: {formats}",
     "singleFile": "You can add only one file",
-    "selectedFiles": "Selected files"
+    "selectedFiles": "Selected files",
+    "added": "{count, plural, one {Added # file} other {Added # files}}",
+    "removed": "Removed file {name}"
   },
   "UsersPage": {
     "title": "Users",
@@ -656,13 +662,16 @@
     }
   },
   "AvatarGroup": {
-    "moreLabel": "{count} more"
+    "moreLabel": "and {count, plural, one {# more person} other {# more people}}",
+    "groupLabel": "Assigned people"
   },
   "Autocomplete": {
     "noOptions": "No options found",
     "loading": "Loading…",
     "clear": "Clear selection",
-    "removeOption": "Remove {name}"
+    "removeOption": "Remove {name}",
+    "selected": "Selected",
+    "resultsCount": "{count, plural, one {# result} other {# results}}"
   },
   "Select": {
     "noOptions": "No options available"
@@ -687,11 +696,11 @@
     "italic": "Italic",
     "strike": "Strikethrough",
     "code": "Inline code",
-    "heading1": "Heading 1",
-    "heading2": "Heading 2",
-    "heading3": "Heading 3",
+    "heading1": "H1, Heading 1",
+    "heading2": "H2, Heading 2",
+    "heading3": "H3, Heading 3",
     "bulletList": "Bullet list",
-    "orderedList": "Numbered list",
+    "orderedList": "1., Numbered list",
     "blockquote": "Quote",
     "codeBlock": "Code block",
     "link": "Link",
@@ -701,6 +710,14 @@
     "linkTextLabel": "Display text",
     "linkTextPlaceholder": "Text shown in the editor",
     "linkRemove": "Remove link"
+  },
+  "Alert": {
+    "errorPrefix": "Error: ",
+    "infoPrefix": "Information: "
+  },
+  "StatCard": {
+    "danger": "needs attention",
+    "success": "positive result"
   },
   "ProgressBar": {
     "progressOf": "Progress: {name}"
@@ -716,6 +733,8 @@
     "tabUpload": "Upload new",
     "tabsLabel": "Attachment source",
     "searchPlaceholder": "Search documents",
+    "searchLabel": "Search documents",
+    "libraryResults": "{count, plural, one {# document} other {# documents}}",
     "libraryEmpty": "No documents found",
     "alreadyAdded": "Added",
     "filter": {

@@ -382,7 +382,11 @@
     "selectRow": "Zaznacz wiersz",
     "selectRowNamed": "Zaznacz: {name}",
     "paginationLabel": "Paginacja",
-    "goToPage": "Strona {page}"
+    "goToPage": "Strona {page}",
+    "resultsStatus": "Wyświetlono {shown, plural, one {# wynik} few {# wyniki} many {# wyników} other {# wyników}} z {total}",
+    "resultsStatusSorted": "Wyświetlono {shown, plural, one {# wynik} few {# wyniki} many {# wyników} other {# wyników}} z {total}, sortowanie: {column}, {direction}",
+    "sortAscending": "rosnąco",
+    "sortDescending": "malejąco"
   },
   "Modal": {
     "cancel": "Anuluj",
@@ -397,7 +401,9 @@
     "rejected": "Odrzucono: {names}. Akceptowane formaty: {formats}.",
     "acceptedFormats": "Akceptowane formaty: {formats}",
     "singleFile": "Możesz dodać tylko jeden plik",
-    "selectedFiles": "Wybrane pliki"
+    "selectedFiles": "Wybrane pliki",
+    "added": "{count, plural, one {Dodano # plik} few {Dodano # pliki} many {Dodano # plików} other {Dodano # plików}}",
+    "removed": "Usunięto plik {name}"
   },
   "UsersPage": {
     "title": "Użytkownicy",
@@ -656,13 +662,16 @@
     }
   },
   "AvatarGroup": {
-    "moreLabel": "Jeszcze {count}"
+    "moreLabel": "i jeszcze {count, plural, one {# osoba} few {# osoby} many {# osób} other {# osób}}",
+    "groupLabel": "Przypisane osoby"
   },
   "Autocomplete": {
     "noOptions": "Nie znaleziono opcji",
     "loading": "Ładowanie…",
     "clear": "Wyczyść wybór",
-    "removeOption": "Usuń {name}"
+    "removeOption": "Usuń {name}",
+    "selected": "Wybrane",
+    "resultsCount": "{count, plural, one {# wynik} few {# wyniki} many {# wyników} other {# wyników}}"
   },
   "Select": {
     "noOptions": "Brak dostępnych opcji"
@@ -687,11 +696,11 @@
     "italic": "Kursywa",
     "strike": "Przekreślenie",
     "code": "Kod w linii",
-    "heading1": "Nagłówek 1",
-    "heading2": "Nagłówek 2",
-    "heading3": "Nagłówek 3",
+    "heading1": "H1, Nagłówek 1",
+    "heading2": "H2, Nagłówek 2",
+    "heading3": "H3, Nagłówek 3",
     "bulletList": "Lista punktowana",
-    "orderedList": "Lista numerowana",
+    "orderedList": "1., Lista numerowana",
     "blockquote": "Cytat",
     "codeBlock": "Blok kodu",
     "link": "Link",
@@ -701,6 +710,14 @@
     "linkTextLabel": "Wyświetlany tekst",
     "linkTextPlaceholder": "Tekst widoczny w edytorze",
     "linkRemove": "Usuń link"
+  },
+  "Alert": {
+    "errorPrefix": "Błąd: ",
+    "infoPrefix": "Informacja: "
+  },
+  "StatCard": {
+    "danger": "wymaga uwagi",
+    "success": "pozytywny wynik"
   },
   "ProgressBar": {
     "progressOf": "Postęp: {name}"
@@ -716,6 +733,8 @@
     "tabUpload": "Wgraj nowy",
     "tabsLabel": "Źródło załączników",
     "searchPlaceholder": "Szukaj dokumentów",
+    "searchLabel": "Szukaj dokumentów",
+    "libraryResults": "{count, plural, one {# dokument} few {# dokumenty} many {# dokumentów} other {# dokumentów}}",
     "libraryEmpty": "Nie znaleziono dokumentów",
     "alreadyAdded": "Dodano",
     "filter": {

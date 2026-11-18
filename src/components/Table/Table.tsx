@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useEffect, useRef, useState } from "react";
 
 import Pagination from "./Pagination";
 import styles from "./Table.module.scss";
@@ -22,6 +23,8 @@ export interface TableProps<T> {
   data: T[];
   getRowId: (row: T) => number | string;
   getRowLabel?: (row: T) => string;
+  caption?: string;
+  hideCaption?: boolean;
   className?: string;
   sort?: SortState;
   onSortChange?: (key: string, direction: SortDirection) => void;
@@ -42,6 +45,8 @@ export default function Table<T>({
   data,
   getRowId,
   getRowLabel,
+  caption,
+  hideCaption = false,
   className,
   sort,
   onSortChange,
@@ -59,6 +64,31 @@ export default function Table<T>({
   const t = useTranslations("Table");
   const wrapperClassName = [styles.wrapper, className].filter(Boolean).join(" ");
   const showLoadingOverlay = Boolean(isLoading && !error);
+  const [statusMessage, setStatusMessage] = useState("");
+  const isFirstStatus = useRef(true);
+  const total = pagination?.total ?? data.length;
+  const sortColumn = sort ? columns.find((column) => column.key === sort.key)?.header : undefined;
+  const statusKey = `${data.length}|${total}|${pagination?.page ?? ""}|${sort?.key ?? ""}|${sort?.direction ?? ""}`;
+
+  useEffect(() => {
+    if (isFirstStatus.current) {
+      isFirstStatus.current = false;
+      return;
+    }
+
+    setStatusMessage(
+      sortColumn
+        ? t("resultsStatusSorted", {
+            shown: data.length,
+            total,
+            column: sortColumn,
+            direction: t(sort?.direction === "asc" ? "sortAscending" : "sortDescending"),
+          })
+        : t("resultsStatus", { shown: data.length, total }),
+    );
+    // The message is derived from this signature so it is announced only when results change.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [statusKey]);
   const isInteractionDisabled = showLoadingOverlay;
 
   const tableContainerClassName = [
@@ -86,6 +116,11 @@ export default function Table<T>({
           </div>
         ) : null}
         <table className={styles.table}>
+          {caption ? (
+            <caption className={hideCaption ? styles.visuallyHidden : styles.caption}>
+              {caption}
+            </caption>
+          ) : null}
           <TableHead
             columns={columns}
             data={data}
@@ -115,6 +150,9 @@ export default function Table<T>({
           disabled={isInteractionDisabled}
         />
       ) : null}
+      <div className={styles.visuallyHidden} role="status">
+        {statusMessage}
+      </div>
     </div>
   );
 }

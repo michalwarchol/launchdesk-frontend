@@ -1,3 +1,5 @@
+@use "../../styles/focus" as focus;
+
 .field {
   display: flex;
   flex-direction: column;
@@ -116,6 +118,10 @@
     color: var(--color-text-strong);
   }
 
+  &:focus-visible {
+    @include focus.focus-ring;
+  }
+
   &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
@@ -160,6 +166,10 @@
     background-color: var(--color-hover-overlay);
   }
 
+  &:focus-visible {
+    @include focus.focus-ring;
+  }
+
   &:disabled {
     cursor: not-allowed;
     opacity: 0.4;
@@ -185,6 +195,10 @@
   padding: 4px 0;
   text-transform: uppercase;
   width: 36px;
+
+  abbr {
+    text-decoration: none;
+  }
 }
 
 .dayCell {
@@ -222,7 +236,7 @@
 }
 
 .dayToday {
-  box-shadow: inset 0 0 0 1px var(--color-border);
+  box-shadow: inset 0 0 0 2px var(--color-primary);
 }
 
 .daySelected {

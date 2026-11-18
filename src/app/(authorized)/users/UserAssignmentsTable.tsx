@@ -185,6 +185,8 @@ export default function UserAssignmentsTable({
         columns={columns}
         getRowId={(row) => row.id}
         onRowClick={(row) => router.push(`/assignments/${row.id}`)}
+        caption={sectionTitle}
+        hideCaption
         emptyMessage={emptyMessage}
         isLoading={isPending}
         error={error ? loadErrorMessage : undefined}

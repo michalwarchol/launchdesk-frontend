@@ -1,3 +1,5 @@
+@use "../../styles/focus" as focus;
+
 .menuBar {
   display: none;
 }
@@ -77,6 +79,10 @@
   &:hover {
     background-color: var(--color-hover-overlay);
   }
+
+  &:focus-visible {
+    @include focus.focus-ring;
+  }
 }
 
 .mark {
@@ -107,6 +113,7 @@
   flex-direction: column;
   gap: 4px;
   list-style: none;
+  margin-top: 4px
 }
 
 .navItem {
@@ -117,16 +124,21 @@
   cursor: pointer;
   display: block;
   font-size: 14px;
+  margin-left: 4px;
+  margin-right: 4px;
   padding: 10px 12px;
   text-align: left;
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
-  width: 100%;
 
   &:hover {
     background-color: var(--color-hover-overlay);
     color: var(--color-text-strong);
+  }
+
+  &:focus-visible {
+    @include focus.focus-ring;
   }
 }
 
@@ -163,6 +175,10 @@
   &:hover {
     background-color: var(--color-hover-overlay);
     color: var(--color-text-strong);
+  }
+
+  &:focus-visible {
+    @include focus.focus-ring;
   }
 }
 

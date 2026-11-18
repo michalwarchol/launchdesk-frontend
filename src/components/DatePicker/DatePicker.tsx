@@ -103,13 +103,15 @@ export default function DatePicker({
   const weekStartsOn = useMemo(() => getWeekStartsOn(locale), [locale]);
 
   const weekdayLabels = useMemo(() => {
-    const formatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
+    const shortFormatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
+    const longFormatter = new Intl.DateTimeFormat(locale, { weekday: "long" });
     // 2024-01-01 was a Monday, so any week start lands inside a stable reference week.
     const firstWeekday = startOfWeek(new Date(2024, 0, 1), weekStartsOn);
 
-    return Array.from({ length: DAYS_IN_WEEK }, (_, index) =>
-      formatter.format(addDays(firstWeekday, index)),
-    );
+    return Array.from({ length: DAYS_IN_WEEK }, (_, index) => {
+      const day = addDays(firstWeekday, index);
+      return { short: shortFormatter.format(day), long: longFormatter.format(day) };
+    });
   }, [locale, weekStartsOn]);
 
   const monthFormatter = useMemo(
@@ -226,6 +228,17 @@ export default function DatePicker({
     closeCalendar();
   };
 
+  const handleFocusOut = (event: React.FocusEvent<HTMLDivElement>) => {
+    if (!isOpen) return;
+
+    const next = event.relatedTarget;
+    if (next && rootRef.current?.contains(next)) return;
+
+    // Tab moved past the calendar. Close it without pulling focus back to the trigger.
+    setIsOpen(false);
+    onBlur?.();
+  };
+
   const controlClassName = [
     styles.control,
     error ? styles.invalid : "",
@@ -245,6 +258,7 @@ export default function DatePicker({
       ref={rootRef}
       className={[styles.field, className].filter(Boolean).join(" ")}
       onKeyDown={handleRootKeyDown}
+      onBlur={handleFocusOut}
     >
       <label
         id={labelId}
@@ -346,8 +360,13 @@ export default function DatePicker({
             <thead>
               <tr>
                 {weekdayLabels.map((weekday) => (
-                  <th key={weekday} scope="col" className={styles.weekday}>
-                    {weekday}
+                  <th
+                    key={weekday.long}
+                    scope="col"
+                    className={styles.weekday}
+                    aria-label={weekday.long}
+                  >
+                    <abbr title={weekday.long}>{weekday.short}</abbr>
                   </th>
                 ))}
               </tr>

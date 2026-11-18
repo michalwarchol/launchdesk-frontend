@@ -144,6 +144,7 @@ export default function Accordion({
                     item.onRemove?.();
                   }}
                   aria-label={t("remove")}
+                  aria-describedby={headerId}
                 >
                   <svg
                     width="16"

@@ -39,7 +39,7 @@
 
   &:focus-visible {
     outline: 2px solid var(--color-primary);
-    outline-offset: -2px;
+    outline-offset: -4px;
   }
 }
 
@@ -77,9 +77,8 @@
   font-size: 15px;
   font-weight: 600;
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .removeButton {
