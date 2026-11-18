@@ -95,10 +95,8 @@ export default function Sidebar({ user, role }: SidebarProps) {
         <ul className={styles.navList}>
           {items.map((item) => (
             <li key={item.label}>
-              <Link href={item.href}>
-                <button type="button" className={styles.navItem}>
-                  {item.label}
-                </button>
+              <Link href={item.href} className={styles.navItem}>
+                {item.label}
               </Link>
             </li>
           ))}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useFormatter } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 
 import AvatarGroup from "@/components/AvatarGroup";
 import ProgressBar from "@/components/ProgressBar";
@@ -29,6 +29,7 @@ export default function UpcomingDeadlines({
 }: UpcomingDeadlinesProps) {
   const format = useFormatter();
   const router = useRouter();
+  const tProgress = useTranslations("ProgressBar");
 
   const formatDueDate = (dueDate: string) => {
     const parsed = parseISODate(dueDate);
@@ -61,7 +62,9 @@ export default function UpcomingDeadlines({
       key: "progress",
       header: columnProgress,
       width: "220px",
-      render: (row) => <ProgressBar value={row.progress} />,
+      render: (row) => (
+        <ProgressBar value={row.progress} label={tProgress("progressOf", { name: row.taskName })} />
+      ),
     },
   ];
 

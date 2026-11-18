@@ -692,6 +692,9 @@
     "linkTextPlaceholder": "Tekst widoczny w edytorze",
     "linkRemove": "Usuń link"
   },
+  "ProgressBar": {
+    "progressOf": "Postęp: {name}"
+  },
   "Attachments": {
     "addAttachments": "Dodaj załączniki",
     "remove": "Usuń załącznik",
@@ -700,6 +703,7 @@
     "add": "Dodaj",
     "tabLibrary": "Biblioteka",
     "tabUpload": "Wgraj nowy",
+    "tabsLabel": "Źródło załączników",
     "searchPlaceholder": "Szukaj dokumentów",
     "libraryEmpty": "Nie znaleziono dokumentów",
     "alreadyAdded": "Dodano",

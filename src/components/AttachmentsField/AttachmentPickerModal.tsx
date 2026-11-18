@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useMemo, useState } from "react";
+import { useId, useMemo, useRef, useState } from "react";
 
 import { useDocumentsQuery } from "@/app/(authorized)/documents/api";
 import { ACCEPTED_EXTENSIONS } from "@/app/(authorized)/documents/constants";
@@ -35,6 +35,12 @@ export default function AttachmentPickerModal({
   existingIds,
 }: AttachmentPickerModalProps) {
   const t = useTranslations("Attachments");
+  const baseId = useId();
+  const libraryTabId = `${baseId}-library-tab`;
+  const uploadTabId = `${baseId}-upload-tab`;
+  const panelId = `${baseId}-panel`;
+  const tabRefs = useRef<Partial<Record<Tab, HTMLButtonElement>>>({});
+  const tabs: Tab[] = ["library", "upload"];
   const {
     data: documentsResponse,
     isPending,
@@ -111,6 +117,28 @@ export default function AttachmentPickerModal({
 
   const isConfirmDisabled = selectedDocIds.length === 0 && uploadFiles.length === 0;
 
+  const focusTab = (next: Tab) => {
+    setTab(next);
+    tabRefs.current[next]?.focus();
+  };
+
+  const handleTabListKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const currentIndex = tabs.indexOf(tab);
+    const nextIndex: Record<string, number> = {
+      ArrowRight: (currentIndex + 1) % tabs.length,
+      ArrowLeft: (currentIndex - 1 + tabs.length) % tabs.length,
+      Home: 0,
+      End: tabs.length - 1,
+    };
+    const index = nextIndex[event.key];
+    if (index === undefined) return;
+
+    event.preventDefault();
+    focusTab(tabs[index]);
+  };
+
+  const activeTabId = tab === "library" ? libraryTabId : uploadTabId;
+
   return (
     <Modal
       isOpen={isOpen}
@@ -121,98 +149,105 @@ export default function AttachmentPickerModal({
       isSubmitDisabled={isConfirmDisabled}
       className={styles.modal}
     >
-      <div className={styles.tabs} role="tablist">
-        <button
-          type="button"
-          role="tab"
-          aria-selected={tab === "library"}
-          className={[styles.tab, tab === "library" ? styles.tabActive : ""]
-            .filter(Boolean)
-            .join(" ")}
-          onClick={() => setTab("library")}
-        >
-          {t("tabLibrary")}
-        </button>
-        <button
-          type="button"
-          role="tab"
-          aria-selected={tab === "upload"}
-          className={[styles.tab, tab === "upload" ? styles.tabActive : ""]
-            .filter(Boolean)
-            .join(" ")}
-          onClick={() => setTab("upload")}
-        >
-          {t("tabUpload")}
-        </button>
+      <div
+        className={styles.tabs}
+        role="tablist"
+        aria-label={t("tabsLabel")}
+        onKeyDown={handleTabListKeyDown}
+      >
+        {tabs.map((item) => (
+          <button
+            key={item}
+            ref={(node) => {
+              tabRefs.current[item] = node ?? undefined;
+            }}
+            id={item === "library" ? libraryTabId : uploadTabId}
+            type="button"
+            role="tab"
+            aria-selected={tab === item}
+            aria-controls={panelId}
+            tabIndex={tab === item ? 0 : -1}
+            className={[styles.tab, tab === item ? styles.tabActive : ""].filter(Boolean).join(" ")}
+            onClick={() => setTab(item)}
+          >
+            {t(item === "library" ? "tabLibrary" : "tabUpload")}
+          </button>
+        ))}
       </div>
 
-      {tab === "library" ? (
-        <div className={styles.library}>
-          <input
-            type="search"
-            className={styles.search}
-            placeholder={t("searchPlaceholder")}
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            aria-label={t("searchPlaceholder")}
-          />
+      <div id={panelId} role="tabpanel" aria-labelledby={activeTabId}>
+        {tab === "library" ? (
+          <div className={styles.library}>
+            <input
+              type="search"
+              className={styles.search}
+              placeholder={t("searchPlaceholder")}
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              aria-label={t("searchPlaceholder")}
+            />
 
-          <div className={styles.filters}>
-            {TYPE_FILTERS.map((filter) => (
-              <button
-                key={filter}
-                type="button"
-                className={[styles.filter, typeFilter === filter ? styles.filterActive : ""]
-                  .filter(Boolean)
-                  .join(" ")}
-                onClick={() => setTypeFilter(filter)}
-              >
-                {t(`filter.${filter}`)}
-              </button>
-            ))}
+            <div className={styles.filters}>
+              {TYPE_FILTERS.map((filter) => (
+                <button
+                  key={filter}
+                  type="button"
+                  className={[styles.filter, typeFilter === filter ? styles.filterActive : ""]
+                    .filter(Boolean)
+                    .join(" ")}
+                  onClick={() => setTypeFilter(filter)}
+                >
+                  {t(`filter.${filter}`)}
+                </button>
+              ))}
+            </div>
+
+            {isPending && isOpen ? (
+              <p className={styles.empty}>{t("libraryLoading")}</p>
+            ) : error ? (
+              <p className={styles.empty}>{t("libraryError")}</p>
+            ) : filteredDocuments.length === 0 ? (
+              <p className={styles.empty}>{t("libraryEmpty")}</p>
+            ) : (
+              <ul className={styles.docList}>
+                {filteredDocuments.map((document) => {
+                  const alreadyAdded = existingIds.includes(document.id);
+                  const checked = alreadyAdded || selectedDocIds.includes(document.id);
+
+                  return (
+                    <li key={document.id}>
+                      <label
+                        className={[styles.docRow, alreadyAdded ? styles.docRowDisabled : ""]
+                          .filter(Boolean)
+                          .join(" ")}
+                      >
+                        <Checkbox
+                          className={styles.docCheckbox}
+                          checked={checked}
+                          disabled={alreadyAdded}
+                          onChange={() => toggleDoc(document.id)}
+                        />
+                        <FileTypeIcon type={document.type} className={styles.docIcon} />
+                        <span className={styles.docName}>{document.name}</span>
+                        <span className={styles.docSize}>{formatFileSize(document.size)}</span>
+                        {alreadyAdded ? (
+                          <span className={styles.addedBadge}>{t("alreadyAdded")}</span>
+                        ) : null}
+                      </label>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </div>
-
-          {isPending && isOpen ? (
-            <p className={styles.empty}>{t("libraryLoading")}</p>
-          ) : error ? (
-            <p className={styles.empty}>{t("libraryError")}</p>
-          ) : filteredDocuments.length === 0 ? (
-            <p className={styles.empty}>{t("libraryEmpty")}</p>
-          ) : (
-            <ul className={styles.docList}>
-              {filteredDocuments.map((document) => {
-                const alreadyAdded = existingIds.includes(document.id);
-                const checked = alreadyAdded || selectedDocIds.includes(document.id);
-
-                return (
-                  <li key={document.id}>
-                    <label
-                      className={[styles.docRow, alreadyAdded ? styles.docRowDisabled : ""]
-                        .filter(Boolean)
-                        .join(" ")}
-                    >
-                      <Checkbox
-                        className={styles.docCheckbox}
-                        checked={checked}
-                        disabled={alreadyAdded}
-                        onChange={() => toggleDoc(document.id)}
-                      />
-                      <FileTypeIcon type={document.type} className={styles.docIcon} />
-                      <span className={styles.docName}>{document.name}</span>
-                      <span className={styles.docSize}>{formatFileSize(document.size)}</span>
-                      {alreadyAdded ? (
-                        <span className={styles.addedBadge}>{t("alreadyAdded")}</span>
-                      ) : null}
-                    </label>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </div>
-      ) : (
-        <Dropzone files={uploadFiles} onFilesChange={setUploadFiles} accept={ACCEPTED_EXTENSIONS} />
-      )}
+        ) : (
+          <Dropzone
+            files={uploadFiles}
+            onFilesChange={setUploadFiles}
+            accept={ACCEPTED_EXTENSIONS}
+          />
+        )}
+      </div>
     </Modal>
   );
 }

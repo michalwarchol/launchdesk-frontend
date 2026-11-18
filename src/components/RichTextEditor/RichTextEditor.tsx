@@ -14,6 +14,8 @@ import Toolbar from "./Toolbar";
 export interface RichTextEditorProps {
   value: string;
   onChange: (html: string) => void;
+  label: string;
+  hideLabel?: boolean;
   onBlur?: () => void;
   placeholder?: string;
   error?: string;
@@ -24,6 +26,8 @@ export interface RichTextEditorProps {
 export default function RichTextEditor({
   value,
   onChange,
+  label,
+  hideLabel = false,
   onBlur,
   placeholder,
   error,
@@ -31,11 +35,19 @@ export default function RichTextEditor({
   className,
 }: RichTextEditorProps) {
   const generatedId = useId();
+  const labelId = `${generatedId}-label`;
   const errorId = `${generatedId}-error`;
 
   const editor = useEditor({
     immediatelyRender: false,
     editable: !disabled,
+    editorProps: {
+      attributes: {
+        "aria-labelledby": labelId,
+        "aria-multiline": "true",
+        ...(error ? { "aria-invalid": "true", "aria-describedby": errorId } : {}),
+      },
+    },
     extensions: [
       StarterKit.configure({
         heading: { levels: [1, 2, 3] },
@@ -63,6 +75,33 @@ export default function RichTextEditor({
     editor?.setEditable(!disabled);
   }, [editor, disabled]);
 
+  useEffect(() => {
+    if (!editor) return;
+
+    const attributes: Record<string, string> = {
+      "aria-labelledby": labelId,
+      "aria-multiline": "true",
+      ...(error ? { "aria-invalid": "true", "aria-describedby": errorId } : {}),
+    };
+
+    editor.setOptions({
+      editorProps: {
+        ...editor.options.editorProps,
+        attributes,
+      },
+    });
+
+    // ProseMirror applies `editorProps.attributes` only when the view is created,
+    // so keep the live element in sync when the error state changes.
+    const dom = editor.view.dom;
+    for (const name of ["aria-invalid", "aria-describedby"]) {
+      if (!attributes[name]) dom.removeAttribute(name);
+    }
+    for (const [name, value] of Object.entries(attributes)) {
+      dom.setAttribute(name, value);
+    }
+  }, [editor, error, errorId, labelId]);
+
   const containerClassName = [
     styles.editor,
     error ? styles.invalid : "",
@@ -74,11 +113,14 @@ export default function RichTextEditor({
 
   return (
     <div className={styles.wrapper}>
-      <div
-        className={containerClassName}
-        aria-invalid={error ? true : undefined}
-        aria-describedby={error ? errorId : undefined}
+      <span
+        id={labelId}
+        className={[styles.label, hideLabel ? styles.visuallyHidden : ""].filter(Boolean).join(" ")}
+        onClick={() => editor?.commands.focus()}
       >
+        {label}
+      </span>
+      <div className={containerClassName}>
         {editor ? <Toolbar editor={editor} disabled={disabled} /> : null}
         <EditorContent editor={editor} className={styles.content} />
       </div>

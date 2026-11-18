@@ -19,6 +19,7 @@ export const Default: Story = {
 
     return (
       <RichTextEditor
+        label="Description"
         value={value}
         onChange={setValue}
         placeholder="Describe this step in detail…"
@@ -33,7 +34,7 @@ export const WithContent: Story = {
       "<h2>Prepare the environment</h2><p>Follow these steps:</p><ul><li>Install dependencies</li><li>Configure the <strong>API keys</strong></li></ul><blockquote>Remember to double-check the credentials.</blockquote>",
     );
 
-    return <RichTextEditor value={value} onChange={setValue} />;
+    return <RichTextEditor label="Description" value={value} onChange={setValue} />;
   },
 };
 
@@ -43,7 +44,7 @@ export const WithLinkInCodeBlock: Story = {
       '<pre><code>curl <a href="https://example.com">https://example.com</a></code></pre><p>Zobacz <code><a href="https://example.com">API</a></code>.</p>',
     );
 
-    return <RichTextEditor value={value} onChange={setValue} />;
+    return <RichTextEditor label="Description" value={value} onChange={setValue} />;
   },
 };
 
@@ -53,6 +54,7 @@ export const WithError: Story = {
 
     return (
       <RichTextEditor
+        label="Description"
         value={value}
         onChange={setValue}
         placeholder="Describe this step in detail…"
@@ -66,6 +68,6 @@ export const Disabled: Story = {
   render: function DisabledStory() {
     const [value, setValue] = useState("<p>This content cannot be edited.</p>");
 
-    return <RichTextEditor value={value} onChange={setValue} disabled />;
+    return <RichTextEditor label="Description" value={value} onChange={setValue} disabled />;
   },
 };

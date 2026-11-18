@@ -692,6 +692,9 @@
     "linkTextPlaceholder": "Text shown in the editor",
     "linkRemove": "Remove link"
   },
+  "ProgressBar": {
+    "progressOf": "Progress: {name}"
+  },
   "Attachments": {
     "addAttachments": "Add attachments",
     "remove": "Remove attachment",
@@ -700,6 +703,7 @@
     "add": "Add",
     "tabLibrary": "Library",
     "tabUpload": "Upload new",
+    "tabsLabel": "Attachment source",
     "searchPlaceholder": "Search documents",
     "libraryEmpty": "No documents found",
     "alreadyAdded": "Added",

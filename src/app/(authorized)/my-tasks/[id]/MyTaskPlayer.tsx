@@ -38,6 +38,7 @@ function resumeScreen(task: MyTask): Screen {
 
 export default function MyTaskPlayer({ assignmentId }: MyTaskPlayerProps) {
   const t = useTranslations("MyTaskPlayer");
+  const tProgress = useTranslations("ProgressBar");
   const { data, isPending, error } = useMyTaskQuery(assignmentId);
   const setCompletion = useSetStepCompletionMutation(assignmentId);
   const [override, setOverride] = useState<Screen | null>(null);
@@ -102,7 +103,7 @@ export default function MyTaskPlayer({ assignmentId }: MyTaskPlayerProps) {
   return (
     <div className={styles.page}>
       <PageHeader title={data.name} backHref="/my-tasks" />
-      <ProgressBar value={data.progress} />
+      <ProgressBar value={data.progress} label={tProgress("progressOf", { name: data.name })} />
       {saveError ? <Alert variant="error">{t("saveError")}</Alert> : null}
       {visibleScreen.kind === "welcome" ? (
         <Welcome task={data} onStart={() => setOverride({ kind: "step", index: 0 })} />
@@ -252,8 +253,8 @@ function StepPanel({
         </div>
       ) : null}
       <div className={styles.notes}>
-        <span className={styles.attachmentsTitle}>{t("notesLabel")}</span>
         <RichTextEditor
+          label={t("notesLabel")}
           value={notes}
           onChange={(value) => {
             setNotes(value);

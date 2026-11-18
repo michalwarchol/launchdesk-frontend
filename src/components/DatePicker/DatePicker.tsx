@@ -78,6 +78,7 @@ export default function DatePicker({
   const locale = useLocale();
   const generatedId = useId();
   const fieldId = id ?? generatedId;
+  const labelId = `${fieldId}-label`;
   const errorId = `${fieldId}-error`;
   const dialogId = `${fieldId}-dialog`;
   const monthLabelId = `${fieldId}-month`;
@@ -245,6 +246,7 @@ export default function DatePicker({
     >
       {label ? (
         <label
+          id={labelId}
           htmlFor={fieldId}
           className={[styles.label, hideLabel ? styles.visuallyHidden : ""]
             .filter(Boolean)
@@ -269,6 +271,7 @@ export default function DatePicker({
           aria-haspopup="dialog"
           aria-expanded={isOpen}
           aria-controls={isOpen ? dialogId : undefined}
+          aria-labelledby={label ? `${labelId} ${fieldId}` : undefined}
           aria-describedby={error ? errorId : undefined}
         >
           {selectedDate ? triggerFormatter.format(selectedDate) : (placeholder ?? t("empty"))}

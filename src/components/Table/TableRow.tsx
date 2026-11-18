@@ -47,43 +47,33 @@ export default function TableRow<T>({
     onSelectedIdsChange([...selectedIds, rowId]);
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLTableRowElement>) => {
-    if (!onRowClick) return;
-
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      onRowClick(row);
-    }
-  };
-
   return (
-    <tr
-      className={rowClassName}
-      onClick={onRowClick ? () => onRowClick(row) : undefined}
-      onKeyDown={onRowClick ? handleKeyDown : undefined}
-      role={onRowClick ? "button" : undefined}
-      tabIndex={onRowClick ? 0 : undefined}
-    >
+    <tr className={rowClassName}>
       {selection ? (
         <td className={[styles.cell, styles.selectionCell].join(" ")}>
-          <Checkbox
-            checked={isSelected}
-            ariaLabel={t("selectRow")}
-            onClick={(event) => event.stopPropagation()}
-            onChange={handleToggleSelect}
-          />
+          <Checkbox checked={isSelected} ariaLabel={t("selectRow")} onChange={handleToggleSelect} />
         </td>
       ) : null}
-      {columns.map((column) => (
-        <td
-          key={column.key}
-          className={[styles.cell, alignClassName(column.align)].filter(Boolean).join(" ")}
-        >
-          {column.render
-            ? column.render(row)
-            : String((row as Record<string, unknown>)[column.key] ?? "")}
-        </td>
-      ))}
+      {columns.map((column, index) => {
+        const content = column.render
+          ? column.render(row)
+          : String((row as Record<string, unknown>)[column.key] ?? "");
+
+        return (
+          <td
+            key={column.key}
+            className={[styles.cell, alignClassName(column.align)].filter(Boolean).join(" ")}
+          >
+            {onRowClick && index === 0 ? (
+              <button type="button" className={styles.rowAction} onClick={() => onRowClick(row)}>
+                {content}
+              </button>
+            ) : (
+              content
+            )}
+          </td>
+        );
+      })}
     </tr>
   );
 }

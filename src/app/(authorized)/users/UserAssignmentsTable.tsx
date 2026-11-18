@@ -4,7 +4,10 @@ import { useRouter } from "next/navigation";
 import { useFormatter, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 
-import { useAssignmentsQuery, useUnassignUserFromAssignmentMutation } from "@/app/(authorized)/assignments/api";
+import {
+  useAssignmentsQuery,
+  useUnassignUserFromAssignmentMutation,
+} from "@/app/(authorized)/assignments/api";
 import {
   Assignment,
   AssignmentQueryParams,
@@ -51,6 +54,7 @@ export default function UserAssignmentsTable({
   loadErrorMessage,
 }: UserAssignmentsTableProps) {
   const tAssignments = useTranslations("AssignmentsPage");
+  const tProgress = useTranslations("ProgressBar");
   const tEdit = useTranslations("EditUserPage");
   const format = useFormatter();
   const router = useRouter();
@@ -113,6 +117,7 @@ export default function UserAssignmentsTable({
       render: (row) => (
         <ProgressBar
           value={row.assignees.find((assignee) => assignee.id === userId)?.progress ?? 0}
+          label={tProgress("progressOf", { name: row.taskName })}
         />
       ),
     },

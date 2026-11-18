@@ -17,6 +17,7 @@ const FILTER_KEYS = ["status"] as const;
 
 export default function Assignments() {
   const t = useTranslations("AssignmentsPage");
+  const tProgress = useTranslations("ProgressBar");
   const format = useFormatter();
   const router = useRouter();
   const { params, getTableProps } = useTableQueryParams(FILTER_KEYS);
@@ -64,7 +65,9 @@ export default function Assignments() {
       header: t("columnProgress"),
       width: "220px",
       sortable: true,
-      render: (row) => <ProgressBar value={row.progress} />,
+      render: (row) => (
+        <ProgressBar value={row.progress} label={tProgress("progressOf", { name: row.taskName })} />
+      ),
     },
   ];
 

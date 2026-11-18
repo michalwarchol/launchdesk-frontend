@@ -12,17 +12,17 @@ export default meta;
 type Story = StoryObj<typeof ProgressBar>;
 
 export const Empty: Story = {
-  args: { value: 0 },
+  args: { value: 0, label: "Task progress" },
 };
 
 export const Partial: Story = {
-  args: { value: 0.45 },
+  args: { value: 0.45, label: "Task progress" },
 };
 
 export const AlmostDone: Story = {
-  args: { value: 0.9 },
+  args: { value: 0.9, label: "Task progress" },
 };
 
 export const Complete: Story = {
-  args: { value: 1 },
+  args: { value: 1, label: "Task progress" },
 };

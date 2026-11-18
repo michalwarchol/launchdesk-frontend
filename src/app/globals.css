@@ -3,6 +3,7 @@
   --color-avatar-fallback-bg: #3a3f4b;
   --color-avatar-fallback-text: #e4e6eb;
   --color-border: rgb(255 255 255 / 8%);
+  --color-border-input: #7a808a;
   --color-hover-overlay: rgb(255 255 255 / 8%);
   --color-primary: #f5c26b;
   --color-primary-active: #d99f3f;
@@ -40,6 +41,7 @@ body {
 }
 
 body {
+  color: var(--color-primary-text);
   display: flex;
   flex-direction: column;
   font-family: var(--font-body);

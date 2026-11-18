@@ -64,12 +64,12 @@ export default function TaskStepsField({
           />
 
           <div className={styles.stepField}>
-            <span className={styles.stepFieldLabel}>{t("stepDescriptionLabel")}</span>
             <Controller
               control={control}
               name={`steps.${index}.description`}
               render={({ field: descriptionField }) => (
                 <RichTextEditor
+                  label={t("stepDescriptionLabel")}
                   value={descriptionField.value}
                   onChange={descriptionField.onChange}
                   onBlur={descriptionField.onBlur}

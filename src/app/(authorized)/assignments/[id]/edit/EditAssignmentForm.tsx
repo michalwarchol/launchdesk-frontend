@@ -22,11 +22,7 @@ import ProgressBar from "@/components/ProgressBar";
 import { isApiError } from "@/lib/api/errors";
 
 import styles from "./EditAssignmentForm.module.scss";
-import {
-  AssigneeOption,
-  EditAssignmentFormValues,
-  editAssignmentSchema,
-} from "./schema";
+import { AssigneeOption, EditAssignmentFormValues, editAssignmentSchema } from "./schema";
 
 import type { AssignmentAssignee } from "@/lib/api/types";
 
@@ -66,6 +62,7 @@ export default function EditAssignmentForm({ assignmentId }: EditAssignmentFormP
   const t = useTranslations("EditAssignmentPage");
   const tNew = useTranslations("NewAssignmentPage");
   const tAssignments = useTranslations("AssignmentsPage");
+  const tProgress = useTranslations("ProgressBar");
   const router = useRouter();
   const { data: assignment, isPending, error } = useAssignmentQuery(assignmentId);
   const updateAssignment = useUpdateAssignmentMutation(assignmentId);
@@ -202,7 +199,10 @@ export default function EditAssignmentForm({ assignmentId }: EditAssignmentFormP
 
           <div className={styles.readOnlyField}>
             <span className={styles.fieldLabel}>{tAssignments("columnProgress")}</span>
-            <ProgressBar value={assignment.progress} />
+            <ProgressBar
+              value={assignment.progress}
+              label={tProgress("progressOf", { name: assignment.taskName })}
+            />
           </div>
 
           <Controller

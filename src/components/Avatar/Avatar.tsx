@@ -32,6 +32,9 @@ export default function Avatar({
     .filter(Boolean)
     .join(" ");
 
+  // The initial is decorative. Without a photo or visible name, the root itself carries the name.
+  const nameWhenHidden = hideText && !src ? title : undefined;
+
   const content = (
     <>
       {src ? (
@@ -52,15 +55,26 @@ export default function Avatar({
 
   if (onClick) {
     return (
-      <button type="button" className={rootClassName} onClick={onClick} title={title}>
+      <button
+        type="button"
+        className={rootClassName}
+        onClick={onClick}
+        title={title}
+        aria-label={nameWhenHidden}
+      >
         {content}
       </button>
     );
   }
 
   return (
-    <div className={rootClassName} title={title}>
+    <span
+      className={rootClassName}
+      title={title}
+      role={nameWhenHidden ? "img" : undefined}
+      aria-label={nameWhenHidden}
+    >
       {content}
-    </div>
+    </span>
   );
 }

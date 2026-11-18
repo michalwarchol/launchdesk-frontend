@@ -1,6 +1,9 @@
 import { useState } from "react";
 
+import Autocomplete from "@/components/Autocomplete";
 import Button from "@/components/Button";
+import DatePicker from "@/components/DatePicker";
+import Select from "@/components/Select";
 
 import Modal from "./Modal";
 
@@ -76,6 +79,46 @@ export const WithLongContent: Story = {
               height.
             </p>
           ))}
+        </Modal>
+      </div>
+    );
+  },
+};
+
+const POPUP_OPTIONS = [
+  { value: "alpha", label: "Alpha" },
+  { value: "beta", label: "Beta" },
+];
+
+export const WithPopups: Story = {
+  render: function WithPopupsStory() {
+    const [isOpen, setIsOpen] = useState(false);
+    const [role, setRole] = useState("");
+    const [person, setPerson] = useState<(typeof POPUP_OPTIONS)[number] | null>(null);
+    const [query, setQuery] = useState("");
+    const [date, setDate] = useState<string | null>(null);
+
+    return (
+      <div>
+        <Button onClick={() => setIsOpen(true)}>Open modal</Button>
+        <Modal
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          title="Fields with popups"
+          onSubmit={() => setIsOpen(false)}
+        >
+          <Select label="Role" options={POPUP_OPTIONS} value={role} onChange={setRole} />
+          <Autocomplete
+            label="Person"
+            options={POPUP_OPTIONS}
+            getOptionLabel={(option) => option.label}
+            getOptionKey={(option) => option.value}
+            value={person}
+            onChange={setPerson}
+            inputValue={query}
+            onInputValueChange={setQuery}
+          />
+          <DatePicker label="Due date" value={date} onChange={setDate} />
         </Modal>
       </div>
     );

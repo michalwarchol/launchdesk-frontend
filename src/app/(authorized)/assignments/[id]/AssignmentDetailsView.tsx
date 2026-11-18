@@ -45,6 +45,7 @@ export default function AssignmentDetailsView({
 }: AssignmentDetailsViewProps) {
   const t = useTranslations("AssignmentDetailsPage");
   const tAssignments = useTranslations("AssignmentsPage");
+  const tProgress = useTranslations("ProgressBar");
   const format = useFormatter();
   const router = useRouter();
   const { data: assignment, isPending, error } = useAssignmentQuery(assignmentId);
@@ -90,7 +91,13 @@ export default function AssignmentDetailsView({
           <span className={styles.assigneeNotesName}>
             {assignee.firstName} {assignee.lastName}
           </span>
-          <ProgressBar value={assignee.progress} className={styles.assigneeNotesProgress} />
+          <ProgressBar
+            value={assignee.progress}
+            label={tProgress("progressOf", {
+              name: `${assignee.firstName} ${assignee.lastName}`,
+            })}
+            className={styles.assigneeNotesProgress}
+          />
         </div>
       ),
       content: (
@@ -191,7 +198,10 @@ export default function AssignmentDetailsView({
           ) : null}
           <div style={{ gridColumn: "1 / -1" }}>
             <p className={styles.fieldLabel}>{tAssignments("columnProgress")}</p>
-            <ProgressBar value={assignment.progress} />
+            <ProgressBar
+              value={assignment.progress}
+              label={tProgress("progressOf", { name: assignment.taskName })}
+            />
           </div>
           <div style={{ gridColumn: "1 / -1" }}>
             <p className={styles.fieldLabel}>{tAssignments("columnAssignees")}</p>
@@ -225,15 +235,11 @@ export default function AssignmentDetailsView({
           isOpen
           onClose={closeDeleteModal}
           title={t("deleteModalTitle")}
-          submitLabel={
-            deleteAssignment.isPending ? t("deleteSubmitting") : t("deleteConfirm")
-          }
+          submitLabel={deleteAssignment.isPending ? t("deleteSubmitting") : t("deleteConfirm")}
           onSubmit={() => void confirmDelete()}
           isSubmitDisabled={deleteAssignment.isPending}
         >
-          {deleteError ? (
-            <Alert variant="error">{t(`deleteErrors.${deleteError}`)}</Alert>
-          ) : null}
+          {deleteError ? <Alert variant="error">{t(`deleteErrors.${deleteError}`)}</Alert> : null}
           <p>{t("deleteModalBody", { task: assignment.taskName })}</p>
         </Modal>
       ) : null}
