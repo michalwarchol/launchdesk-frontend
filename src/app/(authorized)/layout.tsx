@@ -1,6 +1,5 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
 
 import Providers from "@/app/providers";
 import Sidebar from "@/components/Sidebar";
@@ -37,7 +36,6 @@ export default async function RootLayout({
   }
 
   const { user } = session;
-  const t = await getTranslations("Common");
   const headerStore = await headers();
   const pathname = headerStore.get(PATHNAME_HEADER);
 

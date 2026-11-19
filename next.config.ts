@@ -7,9 +7,12 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   sassOptions: {},
   experimental: {
+    // Production only. Inlines route CSS into the HTML so the landing page has no
+    // render-blocking stylesheet request.
+    inlineCss: true,
     turbopackServerFastRefresh: false,
     turbopackFileSystemCacheForDev: false,
-  }
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();
