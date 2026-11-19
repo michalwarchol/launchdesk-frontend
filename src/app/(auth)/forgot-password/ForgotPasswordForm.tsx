@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { requestPasswordReset } from "@/app/actions/auth";
@@ -17,6 +17,11 @@ import { ForgotPasswordFormValues, forgotPasswordSchema } from "./schema";
 export default function ForgotPasswordForm() {
   const t = useTranslations("ForgotPasswordPage");
   const [sentTo, setSentTo] = useState<string>();
+  const successRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (sentTo) successRef.current?.focus();
+  }, [sentTo]);
 
   const {
     register,
@@ -46,7 +51,9 @@ export default function ForgotPasswordForm() {
       </header>
 
       {sentTo ? (
-        <Alert variant="info">{t("sent", { email: sentTo })}</Alert>
+        <Alert ref={successRef} tabIndex={-1} variant="info">
+          {t("sent", { email: sentTo })}
+        </Alert>
       ) : (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
           <TextField

@@ -2,6 +2,11 @@
   max-height: calc(100vh - 200px);
   overflow: auto;
 
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
   :global(.docx-wrapper) {
     gap: 28px;
   }
@@ -23,6 +28,11 @@
   border-radius: 12px;
   max-height: calc(100vh - 240px);
   overflow: auto;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 }
 
 .image {
@@ -91,8 +101,10 @@
 }
 
 .tabActive {
+  background-color: var(--color-active-overlay);
   border-color: var(--color-primary);
   color: var(--color-primary-text);
+  font-weight: 600;
 }
 
 .table {
@@ -132,4 +144,9 @@
   padding: 20px 24px;
   white-space: pre-wrap;
   word-break: break-word;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 }

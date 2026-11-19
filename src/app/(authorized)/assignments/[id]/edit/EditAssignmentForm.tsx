@@ -16,6 +16,7 @@ import Autocomplete from "@/components/Autocomplete";
 import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
 import DatePicker from "@/components/DatePicker";
+import LoadingStatus from "@/components/LoadingStatus";
 import Modal from "@/components/Modal";
 import PageHeader from "@/components/PageHeader";
 import ProgressBar from "@/components/ProgressBar";
@@ -60,6 +61,7 @@ interface EditAssignmentFormProps {
 
 export default function EditAssignmentForm({ assignmentId }: EditAssignmentFormProps) {
   const t = useTranslations("EditAssignmentPage");
+  const tCommon = useTranslations("Common");
   const tNew = useTranslations("NewAssignmentPage");
   const tAssignments = useTranslations("AssignmentsPage");
   const tProgress = useTranslations("ProgressBar");
@@ -166,7 +168,8 @@ export default function EditAssignmentForm({ assignmentId }: EditAssignmentFormP
   if (isPending) {
     return (
       <div className={styles.page}>
-        <PageHeader title="…" backHref={`/assignments/${assignmentId}`} />
+        <PageHeader title={tCommon("loading")} backHref={`/assignments/${assignmentId}`} />
+        <LoadingStatus />
       </div>
     );
   }

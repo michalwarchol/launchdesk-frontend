@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { updateProfile, UpdateProfileError } from "@/app/actions/settings";
@@ -40,6 +40,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
   "use no memo";
 
   const t = useTranslations("SettingsPage");
+  const avatarLabelId = useId();
   const [files, setFiles] = useState<File[]>([]);
   const [pendingAvatar, setPendingAvatar] = useState<string>();
   const [avatarError, setAvatarError] = useState<string>();
@@ -126,7 +127,9 @@ export default function ProfileForm({ user }: ProfileFormProps) {
 
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className={styles.avatarField}>
-          <span className={styles.label}>{t("avatarLabel")}</span>
+          <span id={avatarLabelId} className={styles.label}>
+            {t("avatarLabel")}
+          </span>
 
           <div className={styles.avatarRow}>
             <Avatar
@@ -143,12 +146,10 @@ export default function ProfileForm({ user }: ProfileFormProps) {
                 accept="image/*"
                 multiple={false}
                 disabled={isSubmitting}
+                ariaLabelledby={avatarLabelId}
+                maxSize={MAX_AVATAR_BYTES}
+                error={errorText(avatarError)}
               />
-              {avatarError ? (
-                <p role="alert" className={styles.error}>
-                  {errorText(avatarError)}
-                </p>
-              ) : null}
             </div>
           </div>
         </div>

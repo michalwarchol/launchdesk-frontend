@@ -15,6 +15,11 @@ export interface DropzoneProps {
   accept?: string;
   multiple?: boolean;
   disabled?: boolean;
+  /** Id of a visible label that names this drop zone. */
+  ariaLabelledby?: string;
+  /** Maximum file size in bytes, announced in the instructions before a file is chosen. */
+  maxSize?: number;
+  error?: string;
 }
 
 function matchesAccept(file: File, accept?: string): boolean {
@@ -43,9 +48,13 @@ export default function Dropzone({
   accept,
   multiple = true,
   disabled,
+  ariaLabelledby,
+  maxSize,
+  error,
 }: DropzoneProps) {
   const t = useTranslations("Dropzone");
   const hintId = useId();
+  const errorId = `${hintId}-error`;
   const inputRef = useRef<HTMLInputElement>(null);
   const zoneRef = useRef<HTMLDivElement>(null);
   const removeButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -63,8 +72,13 @@ export default function Dropzone({
 
   const instructions = [
     acceptedFormats ? t("acceptedFormats", { formats: acceptedFormats }) : null,
+    maxSize ? t("maxSize", { size: formatFileSize(maxSize) }) : null,
     multiple ? null : t("singleFile"),
   ].filter((instruction): instruction is string => Boolean(instruction));
+
+  const describedBy = [instructions.length > 0 ? hintId : undefined, error ? errorId : undefined]
+    .filter(Boolean)
+    .join(" ");
 
   useEffect(() => {
     const index = pendingFocusIndex.current;
@@ -141,7 +155,8 @@ export default function Dropzone({
         role="button"
         tabIndex={disabled ? -1 : 0}
         aria-disabled={disabled}
-        aria-describedby={instructions.length > 0 ? hintId : undefined}
+        aria-labelledby={ariaLabelledby}
+        aria-describedby={describedBy || undefined}
         onClick={openFilePicker}
         onKeyDown={handleKeyDown}
         onDrop={handleDrop}
@@ -169,6 +184,12 @@ export default function Dropzone({
           }}
         />
       </div>
+
+      {error ? (
+        <p id={errorId} role="alert" className={styles.error}>
+          {error}
+        </p>
+      ) : null}
 
       {rejectedNames.length > 0 ? (
         <Alert>

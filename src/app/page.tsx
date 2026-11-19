@@ -55,9 +55,9 @@ export default async function Home() {
 
   return (
     <div className={styles.page}>
-      <a className={styles.skipLink} href="#main-content">
-        {t("skipToContent")}
-      </a>
+      {measurementId ? (
+        <CookieConsent initialConsent={analyticsConsent} measurementId={measurementId} />
+      ) : null}
       <JsonLd />
       <LandingHeader />
       <main id="main-content" className={styles.main} tabIndex={-1}>
@@ -69,9 +69,6 @@ export default async function Home() {
         <FinalCta />
       </main>
       <LandingFooter showCookieSettings={Boolean(measurementId)} />
-      {measurementId ? (
-        <CookieConsent initialConsent={analyticsConsent} measurementId={measurementId} />
-      ) : null}
     </div>
   );
 }

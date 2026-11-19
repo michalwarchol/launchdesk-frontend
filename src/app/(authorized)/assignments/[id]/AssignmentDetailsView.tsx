@@ -13,6 +13,7 @@ import Alert from "@/components/Alert";
 import AvatarGroup from "@/components/AvatarGroup";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
+import LoadingStatus from "@/components/LoadingStatus";
 import Modal from "@/components/Modal";
 import PageHeader from "@/components/PageHeader";
 import ProgressBar from "@/components/ProgressBar";
@@ -44,6 +45,7 @@ export default function AssignmentDetailsView({
   canManage,
 }: AssignmentDetailsViewProps) {
   const t = useTranslations("AssignmentDetailsPage");
+  const tCommon = useTranslations("Common");
   const tAssignments = useTranslations("AssignmentsPage");
   const tProgress = useTranslations("ProgressBar");
   const format = useFormatter();
@@ -57,7 +59,8 @@ export default function AssignmentDetailsView({
   if (isPending) {
     return (
       <div className={styles.page}>
-        <PageHeader title="…" backHref="/assignments" />
+        <PageHeader title={tCommon("loading")} backHref="/assignments" />
+        <LoadingStatus />
       </div>
     );
   }

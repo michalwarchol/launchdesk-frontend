@@ -10,6 +10,7 @@ import Alert from "@/components/Alert";
 import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
+import LoadingStatus from "@/components/LoadingStatus";
 import Modal from "@/components/Modal";
 import PageHeader from "@/components/PageHeader";
 import { isApiError } from "@/lib/api/errors";
@@ -21,11 +22,7 @@ import styles from "../userDetail.module.scss";
 import type { UserRole } from "@/lib/api/types";
 
 type DeleteUserError =
-  | "cannotDeleteSelf"
-  | "cannotModifyOwner"
-  | "lastOwner"
-  | "forbidden"
-  | "generic";
+  "cannotDeleteSelf" | "cannotModifyOwner" | "lastOwner" | "forbidden" | "generic";
 
 function toDeleteUserError(error: unknown): DeleteUserError {
   if (isApiError(error)) {
@@ -46,6 +43,7 @@ interface UserDetailsViewProps {
 
 export default function UserDetailsView({ userId, actorRole, isSelf }: UserDetailsViewProps) {
   const t = useTranslations("UserDetailsPage");
+  const tCommon = useTranslations("Common");
   const tUsers = useTranslations("UsersPage");
   const format = useFormatter();
   const router = useRouter();
@@ -57,7 +55,8 @@ export default function UserDetailsView({ userId, actorRole, isSelf }: UserDetai
   if (isPending) {
     return (
       <div className={styles.page}>
-        <PageHeader title="…" backHref="/users" />
+        <PageHeader title={tCommon("loading")} backHref="/users" />
+        <LoadingStatus />
       </div>
     );
   }

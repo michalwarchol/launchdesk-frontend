@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 import { formatFileSize } from "@/utils/formatFileSize";
 import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRestore";
@@ -16,6 +16,8 @@ export interface AttachmentsFieldProps {
   onChange: (next: Attachment[]) => void;
   disabled?: boolean;
   className?: string;
+  /** Id of a visible label that names this field. */
+  ariaLabelledby?: string;
 }
 
 export default function AttachmentsField({
@@ -23,8 +25,10 @@ export default function AttachmentsField({
   onChange,
   disabled,
   className,
+  ariaLabelledby,
 }: AttachmentsFieldProps) {
   const t = useTranslations("Attachments");
+  const addButtonId = useId();
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const addButtonRef = useRef<HTMLButtonElement>(null);
   const removeButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -59,7 +63,7 @@ export default function AttachmentsField({
   return (
     <div className={[styles.field, className].filter(Boolean).join(" ")}>
       {value.length > 0 ? (
-        <ul className={styles.list}>
+        <ul className={styles.list} aria-labelledby={ariaLabelledby}>
           {value.map((attachment, index) => (
             <li key={attachment.id} className={styles.tile}>
               <FileTypeIcon type={attachment.documentType} className={styles.tileIcon} />
@@ -88,8 +92,10 @@ export default function AttachmentsField({
 
       <button
         ref={addButtonRef}
+        id={addButtonId}
         type="button"
         className={styles.addButton}
+        aria-labelledby={ariaLabelledby ? `${ariaLabelledby} ${addButtonId}` : undefined}
         onClick={() => setIsPickerOpen(true)}
         disabled={disabled}
         {...preventFirefoxDisabledRestore}

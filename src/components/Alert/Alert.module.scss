@@ -7,6 +7,11 @@
   gap: 8px;
   line-height: 1.5;
   padding: 10px 12px;
+
+  &:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 }
 
 .icon {

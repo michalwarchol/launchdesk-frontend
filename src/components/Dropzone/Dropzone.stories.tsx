@@ -45,6 +45,27 @@ export const SingleFile: Story = {
   },
 };
 
+export const WithLimitAndError: Story = {
+  render: function WithLimitAndErrorStory() {
+    const [files, setFiles] = useState<File[]>([]);
+
+    return (
+      <>
+        <span id="avatar-label">Photo</span>
+        <Dropzone
+          files={files}
+          onFilesChange={setFiles}
+          accept="image/*"
+          multiple={false}
+          maxSize={2 * 1024 * 1024}
+          error="Choose an image smaller than 2 MB"
+          ariaLabelledby="avatar-label"
+        />
+      </>
+    );
+  },
+};
+
 export const Disabled: Story = {
   render: function DisabledStory() {
     const [files, setFiles] = useState<File[]>([createFile("team-photo.png", 5_600_000)]);

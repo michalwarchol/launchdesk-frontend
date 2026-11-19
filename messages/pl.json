@@ -1,6 +1,6 @@
 {
   "Common": {
-    "skipToContent": "Przejdź do treści"
+    "loading": "Ładowanie…"
   },
   "LandingPage": {
     "meta": {
@@ -290,7 +290,7 @@
     "emailLabel": "E-mail",
     "emailPlaceholder": "ty@firma.com",
     "passwordLabel": "Hasło",
-    "passwordPlaceholder": "Co najmniej {min} znaków",
+    "passwordHint": "Co najmniej {min} znaków",
     "confirmPasswordLabel": "Potwierdź hasło",
     "confirmPasswordPlaceholder": "Powtórz hasło",
     "organizationNameLabel": "Nazwa organizacji",
@@ -318,7 +318,7 @@
     "subtitle": "Wybierz hasło, aby zakończyć konfigurację konta.",
     "emailLabel": "E-mail",
     "passwordLabel": "Hasło",
-    "passwordPlaceholder": "Co najmniej {min} znaków",
+    "passwordHint": "Co najmniej {min} znaków",
     "confirmPasswordLabel": "Potwierdź hasło",
     "confirmPasswordPlaceholder": "Powtórz hasło",
     "submit": "Ustaw hasło i kontynuuj",
@@ -356,7 +356,7 @@
     "subtitle": "Wpisz nowe hasło do swojego konta.",
     "successSubtitle": "Możesz zalogować się nowym hasłem.",
     "passwordLabel": "Nowe hasło",
-    "passwordPlaceholder": "Co najmniej {min} znaków",
+    "passwordHint": "Co najmniej {min} znaków",
     "confirmPasswordLabel": "Potwierdź hasło",
     "confirmPasswordPlaceholder": "Powtórz hasło",
     "submit": "Zapisz hasło",
@@ -406,6 +406,7 @@
     "rejected": "Odrzucono: {names}. Akceptowane formaty: {formats}.",
     "acceptedFormats": "Akceptowane formaty: {formats}",
     "singleFile": "Możesz dodać tylko jeden plik",
+    "maxSize": "Maksymalny rozmiar: {size}",
     "selectedFiles": "Wybrane pliki",
     "added": "{count, plural, one {Dodano # plik} few {Dodano # pliki} many {Dodano # plików} other {Dodano # plików}}",
     "removed": "Usunięto plik {name}"
@@ -482,6 +483,8 @@
     "assignmentsLoadError": "Nie udało się wczytać przypisań.",
     "cancel": "Anuluj",
     "unassign": "Usuń z przypisania",
+    "unassignFrom": "Odepnij od zadania {task}",
+    "unassignedStatus": "Odpięto od zadania {task}",
     "unassignModalTitle": "Usuń z przypisania",
     "unassignModalBody": "Usunąć użytkownika {name} z przypisania „{task}”?",
     "unassignConfirm": "Usuń z przypisania",
@@ -529,7 +532,8 @@
     "deleteModalBodyMany": "Spowoduje to trwałe usunięcie {count} dokumentów oraz usunięcie ich ze wszystkich zadań, w których są używane. Tej operacji nie można cofnąć.",
     "deleteConfirm": "Usuń",
     "deleteSubmitting": "Usuwanie…",
-    "deleteError": "Nie udało się usunąć dokumentów. Spróbuj ponownie."
+    "deleteError": "Nie udało się usunąć dokumentów. Spróbuj ponownie.",
+    "deletedStatus": "{count, plural, one {Usunięto # dokument} few {Usunięto # dokumenty} many {Usunięto # dokumentów} other {Usunięto # dokumentów}}"
   },
   "DocumentReaderPage": {
     "loading": "Wczytywanie podglądu…",
@@ -541,6 +545,8 @@
     "unsupported": "Nie można wyświetlić podglądu tego typu pliku.",
     "emptySheet": "Ten arkusz jest pusty.",
     "sheetTab": "Arkusz {name}",
+    "tabsLabel": "Arkusze",
+    "previewRegion": "Podgląd: {name}",
     "download": "Pobierz"
   },
   "TasksPage": {
@@ -583,7 +589,9 @@
     "searchPlaceholder": "Szukaj zadania",
     "empty": "Brak zadań do wyświetlenia",
     "loadError": "Nie udało się wczytać zadań.",
-    "loading": "Wczytywanie zadań…"
+    "loading": "Wczytywanie zadań…",
+    "resultsStatus": "{count, plural, one {Znaleziono # zadanie} few {Znaleziono # zadania} many {Znaleziono # zadań} other {Znaleziono # zadań}}",
+    "emptySearchStatus": "Brak zadań dla „{search}”"
   },
   "MyTaskPlayer": {
     "welcomeTitle": "Zanim zaczniesz",
@@ -634,7 +642,7 @@
     "currentPasswordLabel": "Aktualne hasło",
     "currentPasswordPlaceholder": "Twoje aktualne hasło",
     "newPasswordLabel": "Nowe hasło",
-    "newPasswordPlaceholder": "Co najmniej {min} znaków",
+    "newPasswordHint": "Co najmniej {min} znaków",
     "confirmNewPasswordLabel": "Potwierdź nowe hasło",
     "confirmNewPasswordPlaceholder": "Powtórz nowe hasło",
     "passwordSubmit": "Zmień hasło",

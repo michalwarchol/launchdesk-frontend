@@ -77,6 +77,25 @@ export const Required: Story = {
   },
 };
 
+export const HiddenLabelRequired: Story = {
+  args: {
+    label: "Task name",
+    size: "lg",
+    hideLabel: true,
+    required: true,
+    showRequiredMark: true,
+    placeholder: "Untitled task",
+  },
+};
+
+export const WithHint: Story = {
+  args: {
+    label: "Password",
+    type: "password",
+    hint: "At least 8 characters",
+  },
+};
+
 export const WithError: Story = {
   args: {
     label: "Task name",

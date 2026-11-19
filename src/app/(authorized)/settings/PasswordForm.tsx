@@ -87,7 +87,7 @@ export default function PasswordForm({ hasPassword }: PasswordFormProps) {
               required
               label={t("newPasswordLabel")}
               type="password"
-              placeholder={t("newPasswordPlaceholder", { min: MIN_PASSWORD_LENGTH })}
+              hint={t("newPasswordHint", { min: MIN_PASSWORD_LENGTH })}
               autoComplete="new-password"
               error={errorText(errors.newPassword?.message)}
               {...register("newPassword")}

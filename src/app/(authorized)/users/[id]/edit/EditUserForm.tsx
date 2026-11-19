@@ -11,6 +11,7 @@ import { EditUserFormValues, editUserSchema } from "@/app/(authorized)/users/sch
 import UserAssignmentsTable from "@/app/(authorized)/users/UserAssignmentsTable";
 import Alert from "@/components/Alert";
 import Button from "@/components/Button";
+import LoadingStatus from "@/components/LoadingStatus";
 import PageHeader from "@/components/PageHeader";
 import Select from "@/components/Select";
 import TextField from "@/components/TextField";
@@ -45,6 +46,7 @@ export default function EditUserForm({ userId, actorRole, lockRole }: EditUserFo
   "use no memo";
 
   const t = useTranslations("EditUserPage");
+  const tCommon = useTranslations("Common");
   const tUsers = useTranslations("UsersPage");
   const router = useRouter();
   const { data: user, isPending, error } = useUserQuery(userId);
@@ -78,7 +80,8 @@ export default function EditUserForm({ userId, actorRole, lockRole }: EditUserFo
   if (isPending) {
     return (
       <div className={styles.page}>
-        <PageHeader title="…" backHref={`/users/${userId}`} />
+        <PageHeader title={tCommon("loading")} backHref={`/users/${userId}`} />
+        <LoadingStatus />
       </div>
     );
   }

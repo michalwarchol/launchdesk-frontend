@@ -105,7 +105,7 @@ export default function RegisterForm({ next }: RegisterFormProps) {
             required
             label={t("passwordLabel")}
             type="password"
-            placeholder={t("passwordPlaceholder", { min: MIN_PASSWORD_LENGTH })}
+            hint={t("passwordHint", { min: MIN_PASSWORD_LENGTH })}
             autoComplete="new-password"
             error={errorText(errors.password?.message)}
             {...register("password")}

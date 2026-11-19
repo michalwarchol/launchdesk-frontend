@@ -94,6 +94,7 @@ export default function NewTaskForm() {
             required
             label={t("nameLabel")}
             hideLabel
+            showRequiredMark
             size="lg"
             placeholder={t("namePlaceholder")}
             error={errorText(errors.name?.message)}

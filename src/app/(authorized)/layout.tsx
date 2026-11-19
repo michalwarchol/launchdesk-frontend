@@ -48,9 +48,6 @@ export default async function RootLayout({
   return (
     <Providers>
       <div className={styles.page}>
-        <a className={styles.skipLink} href="#main-content">
-          {t("skipToContent")}
-        </a>
         <Sidebar
           role={user.role}
           user={{

@@ -7,15 +7,24 @@ interface AlertProps {
   variant?: "error" | "info";
   role?: "alert" | "status";
   className?: string;
+  tabIndex?: number;
+  ref?: React.Ref<HTMLDivElement>;
 }
 
-export default function Alert({ children, variant = "error", role, className }: AlertProps) {
+export default function Alert({
+  children,
+  variant = "error",
+  role,
+  className,
+  tabIndex,
+  ref,
+}: AlertProps) {
   const t = useTranslations("Alert");
   const alertRole = role ?? (variant === "info" ? "status" : "alert");
   const alertClassName = [styles.alert, styles[variant], className].filter(Boolean).join(" ");
 
   return (
-    <div role={alertRole} className={alertClassName}>
+    <div ref={ref} role={alertRole} tabIndex={tabIndex} className={alertClassName}>
       {variant === "info" ? (
         <svg
           className={styles.icon}

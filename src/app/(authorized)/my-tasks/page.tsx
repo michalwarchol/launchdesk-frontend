@@ -29,7 +29,7 @@ export default function MyTasksPage() {
     setSearchDraft(searchFromUrl);
   }
 
-  const debouncedSearch = useDebouncedValue(searchDraft, 2000);
+  const debouncedSearch = useDebouncedValue(searchDraft, 500);
   const trimmedSearch = searchFromUrl.trim();
 
   useEffect(() => {
@@ -64,6 +64,19 @@ export default function MyTasksPage() {
   }, []);
 
   const showPagination = Boolean(data && !error && data.meta.total > data.meta.pageSize);
+  const [resultsMessage, setResultsMessage] = useState("");
+
+  useEffect(() => {
+    if (isPending || isFetching || error || !data) return;
+
+    // Announced only after the query settles, so a reader hears the new count once.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setResultsMessage(
+      data.meta.total === 0 && trimmedSearch
+        ? t("emptySearchStatus", { search: trimmedSearch })
+        : t("resultsStatus", { count: data.meta.total }),
+    );
+  }, [data, error, isFetching, isPending, t, trimmedSearch]);
 
   return (
     <div>
@@ -110,6 +123,9 @@ export default function MyTasksPage() {
           </section>
         ))
       )}
+      <p className={styles.visuallyHidden} role="status">
+        {resultsMessage}
+      </p>
       {showPagination && data ? (
         <Pagination
           pagination={{

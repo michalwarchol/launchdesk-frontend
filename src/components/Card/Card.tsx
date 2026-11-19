@@ -7,6 +7,8 @@ export interface CardProps {
   children?: React.ReactNode;
   className?: string;
   bodyClassName?: string;
+  /** When set, the heading becomes the focus target after a view change. */
+  headingRef?: React.Ref<HTMLHeadingElement>;
 }
 
 const HEADINGS = { 1: "h1", 2: "h2", 3: "h3", 4: "h4", 5: "h5", 6: "h6" } as const;
@@ -18,6 +20,7 @@ export default function Card({
   children,
   className,
   bodyClassName,
+  headingRef,
 }: CardProps) {
   const rootClassName = [styles.card, className].filter(Boolean).join(" ");
   const innerClassName = [styles.body, bodyClassName].filter(Boolean).join(" ");
@@ -27,7 +30,15 @@ export default function Card({
     <section className={rootClassName}>
       {title || description ? (
         <header className={styles.header}>
-          {title ? <Heading className={styles.title}>{title}</Heading> : null}
+          {title ? (
+            <Heading
+              ref={headingRef}
+              className={styles.title}
+              tabIndex={headingRef ? -1 : undefined}
+            >
+              {title}
+            </Heading>
+          ) : null}
           {description ? <p className={styles.description}>{description}</p> : null}
         </header>
       ) : null}

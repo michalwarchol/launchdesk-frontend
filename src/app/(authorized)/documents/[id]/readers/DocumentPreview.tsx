@@ -27,11 +27,11 @@ export default function DocumentPreview({ document, blob }: DocumentPreviewProps
   }
 
   if (extension === "txt") {
-    return <TextReader blob={blob} />;
+    return <TextReader blob={blob} documentName={document.name} />;
   }
 
   if (extension === "docx") {
-    return <DocxReader blob={blob} />;
+    return <DocxReader blob={blob} documentName={document.name} />;
   }
 
   if (IMAGE_EXTENSIONS.has(extension)) {
@@ -39,7 +39,7 @@ export default function DocumentPreview({ document, blob }: DocumentPreviewProps
   }
 
   if (SPREADSHEET_EXTENSIONS.has(extension)) {
-    return <SpreadsheetReader blob={blob} extension={extension} />;
+    return <SpreadsheetReader blob={blob} extension={extension} documentName={document.name} />;
   }
 
   return <Alert variant="error">{t("unsupported")}</Alert>;

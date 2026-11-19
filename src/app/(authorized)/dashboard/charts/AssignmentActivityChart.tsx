@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 import { MonthlyActivityItem } from "../types";
@@ -23,6 +24,7 @@ export default function AssignmentActivityChart({
   createdLabel,
   completedLabel,
 }: AssignmentActivityChartProps) {
+  const patternId = `completed-hatch-${useId().replace(/:/g, "")}`;
   const chartData = data.map((item) => ({
     monthKey: item.monthKey,
     month: item.monthLabel,
@@ -42,6 +44,18 @@ export default function AssignmentActivityChart({
             barCategoryGap="20%"
             margin={{ top: 8, right: 8, left: -16, bottom: 0 }}
           >
+            <defs>
+              <pattern
+                id={patternId}
+                width="6"
+                height="6"
+                patternUnits="userSpaceOnUse"
+                patternTransform="rotate(45)"
+              >
+                <rect width="6" height="6" fill={CHART_COLORS.success} />
+                <line x1="0" y1="0" x2="0" y2="6" stroke={CHART_COLORS.surface} strokeWidth="2" />
+              </pattern>
+            </defs>
             <CartesianGrid stroke={CHART_COLORS.border} vertical={false} />
             <XAxis dataKey="month" tick={AXIS_TICK} tickLine={false} axisLine={false} />
             <YAxis
@@ -62,7 +76,7 @@ export default function AssignmentActivityChart({
             <Bar
               dataKey="completed"
               name={completedLabel}
-              fill={CHART_COLORS.success}
+              fill={`url(#${patternId})`}
               radius={[3, 3, 0, 0]}
               maxBarSize={28}
             />
@@ -96,7 +110,13 @@ export default function AssignmentActivityChart({
           <span className={styles.legendLabel}>{createdLabel}</span>
         </li>
         <li className={styles.legendItem}>
-          <span className={styles.legendDot} style={{ backgroundColor: CHART_COLORS.success }} />
+          <span
+            className={styles.legendDot}
+            style={{
+              backgroundColor: CHART_COLORS.success,
+              backgroundImage: `repeating-linear-gradient(45deg, ${CHART_COLORS.surface} 0 2px, transparent 2px 6px)`,
+            }}
+          />
           <span className={styles.legendLabel}>{completedLabel}</span>
         </li>
       </ul>

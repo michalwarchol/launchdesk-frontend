@@ -7,6 +7,7 @@ import styles from "../page.module.scss";
 
 interface DocxReaderProps {
   blob: Blob;
+  documentName: string;
 }
 
 type Phase = "loading" | "ready" | "error";
@@ -73,7 +74,7 @@ function paginateDocx(root: ParentNode) {
   }
 }
 
-export default function DocxReader({ blob }: DocxReaderProps) {
+export default function DocxReader({ blob, documentName }: DocxReaderProps) {
   const t = useTranslations("DocumentReaderPage");
   const containerRef = useRef<HTMLDivElement>(null);
   const [phase, setPhase] = useState<Phase>("loading");
@@ -124,7 +125,14 @@ export default function DocxReader({ blob }: DocxReaderProps) {
         </p>
       ) : null}
       {phase === "error" ? <Alert variant="error">{t("previewError")}</Alert> : null}
-      <div ref={containerRef} className={styles.docx} hidden={phase === "error"} />
+      <div
+        ref={containerRef}
+        className={styles.docx}
+        hidden={phase === "error"}
+        tabIndex={0}
+        role="region"
+        aria-label={t("previewRegion", { name: documentName })}
+      />
     </div>
   );
 }

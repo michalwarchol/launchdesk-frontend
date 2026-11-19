@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { resetPassword, ResetPasswordError } from "@/app/actions/auth";
@@ -22,6 +22,11 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   const t = useTranslations("ResetPasswordPage");
   const [formError, setFormError] = useState<ResetPasswordError>();
   const [done, setDone] = useState(false);
+  const successRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (done) successRef.current?.focus();
+  }, [done]);
 
   const {
     register,
@@ -60,7 +65,9 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
       </header>
 
       {done ? (
-        <Alert variant="info">{t("success")}</Alert>
+        <Alert ref={successRef} tabIndex={-1} variant="info">
+          {t("success")}
+        </Alert>
       ) : (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
           {formError ? <Alert>{t(`errors.${formError}`)}</Alert> : null}
@@ -69,7 +76,7 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
             required
             label={t("passwordLabel")}
             type="password"
-            placeholder={t("passwordPlaceholder", { min: MIN_PASSWORD_LENGTH })}
+            hint={t("passwordHint", { min: MIN_PASSWORD_LENGTH })}
             autoComplete="new-password"
             error={errorText(errors.password?.message)}
             {...register("password")}

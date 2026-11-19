@@ -1,6 +1,6 @@
 {
   "Common": {
-    "skipToContent": "Skip to content"
+    "loading": "Loading…"
   },
   "LandingPage": {
     "meta": {
@@ -290,7 +290,7 @@
     "emailLabel": "Email",
     "emailPlaceholder": "you@company.com",
     "passwordLabel": "Password",
-    "passwordPlaceholder": "At least {min} characters",
+    "passwordHint": "At least {min} characters",
     "confirmPasswordLabel": "Confirm password",
     "confirmPasswordPlaceholder": "Repeat your password",
     "organizationNameLabel": "Organization name",
@@ -318,7 +318,7 @@
     "subtitle": "Choose a password to finish setting up your account.",
     "emailLabel": "Email",
     "passwordLabel": "Password",
-    "passwordPlaceholder": "At least {min} characters",
+    "passwordHint": "At least {min} characters",
     "confirmPasswordLabel": "Confirm password",
     "confirmPasswordPlaceholder": "Repeat your password",
     "submit": "Set password and continue",
@@ -356,7 +356,7 @@
     "subtitle": "Enter a new password for your account.",
     "successSubtitle": "You can sign in with your new password.",
     "passwordLabel": "New password",
-    "passwordPlaceholder": "At least {min} characters",
+    "passwordHint": "At least {min} characters",
     "confirmPasswordLabel": "Confirm password",
     "confirmPasswordPlaceholder": "Repeat your password",
     "submit": "Save password",
@@ -406,6 +406,7 @@
     "rejected": "Rejected: {names}. Accepted formats: {formats}.",
     "acceptedFormats": "Accepted formats: {formats}",
     "singleFile": "You can add only one file",
+    "maxSize": "Maximum size: {size}",
     "selectedFiles": "Selected files",
     "added": "{count, plural, one {Added # file} other {Added # files}}",
     "removed": "Removed file {name}"
@@ -482,6 +483,8 @@
     "assignmentsLoadError": "Could not load assignments.",
     "cancel": "Cancel",
     "unassign": "Unassign",
+    "unassignFrom": "Unassign from {task}",
+    "unassignedStatus": "Removed from \"{task}\"",
     "unassignModalTitle": "Remove from assignment",
     "unassignModalBody": "Remove {name} from \"{task}\"?",
     "unassignConfirm": "Unassign",
@@ -529,7 +532,8 @@
     "deleteModalBodyMany": "This will permanently delete {count} documents and remove them from every task that uses them. This cannot be undone.",
     "deleteConfirm": "Delete",
     "deleteSubmitting": "Deleting…",
-    "deleteError": "Could not delete the documents. Try again."
+    "deleteError": "Could not delete the documents. Try again.",
+    "deletedStatus": "{count, plural, one {Deleted # document} other {Deleted # documents}}"
   },
   "DocumentReaderPage": {
     "loading": "Loading preview…",
@@ -541,6 +545,8 @@
     "unsupported": "This file type cannot be previewed.",
     "emptySheet": "This sheet is empty.",
     "sheetTab": "Sheet {name}",
+    "tabsLabel": "Sheets",
+    "previewRegion": "Preview: {name}",
     "download": "Download"
   },
   "TasksPage": {
@@ -583,7 +589,9 @@
     "searchPlaceholder": "Search your tasks",
     "empty": "No tasks to display",
     "loadError": "Could not load tasks.",
-    "loading": "Loading tasks…"
+    "loading": "Loading tasks…",
+    "resultsStatus": "{count, plural, one {Found # task} other {Found # tasks}}",
+    "emptySearchStatus": "No tasks for \"{search}\""
   },
   "MyTaskPlayer": {
     "welcomeTitle": "Before you start",
@@ -634,7 +642,7 @@
     "currentPasswordLabel": "Current password",
     "currentPasswordPlaceholder": "Your current password",
     "newPasswordLabel": "New password",
-    "newPasswordPlaceholder": "At least {min} characters",
+    "newPasswordHint": "At least {min} characters",
     "confirmNewPasswordLabel": "Confirm new password",
     "confirmNewPasswordPlaceholder": "Repeat your new password",
     "passwordSubmit": "Change password",

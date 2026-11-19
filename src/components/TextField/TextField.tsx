@@ -12,8 +12,12 @@ export interface TextFieldProps {
   multiline?: boolean;
   rows?: number;
   error?: string;
+  /** Persistent instruction rendered under the field and linked with `aria-describedby`. */
+  hint?: string;
   required?: boolean;
   hideLabel?: boolean;
+  /** Shows the required asterisk next to the control when the label itself is visually hidden. */
+  showRequiredMark?: boolean;
   name?: string;
   id?: string;
   value?: string;
@@ -34,8 +38,10 @@ export default function TextField({
   multiline = false,
   rows = 4,
   error,
+  hint,
   required = false,
   hideLabel = false,
+  showRequiredMark = false,
   name,
   id,
   value,
@@ -50,6 +56,10 @@ export default function TextField({
   const generatedId = useId();
   const fieldId = id ?? generatedId;
   const errorId = `${fieldId}-error`;
+  const hintId = `${fieldId}-hint`;
+  const describedBy = [hint ? hintId : undefined, error ? errorId : undefined]
+    .filter(Boolean)
+    .join(" ");
 
   const controlClassName = [styles.control, styles[size], error ? styles.invalid : ""]
     .filter(Boolean)
@@ -66,7 +76,7 @@ export default function TextField({
     onBlur,
     required,
     "aria-invalid": error ? true : undefined,
-    "aria-describedby": error ? errorId : undefined,
+    "aria-describedby": describedBy || undefined,
     className: controlClassName,
   };
 
@@ -84,16 +94,29 @@ export default function TextField({
         ) : null}
       </label>
 
-      {multiline ? (
-        <textarea {...sharedProps} rows={rows} ref={ref as React.Ref<HTMLTextAreaElement>} />
-      ) : (
-        <input
-          {...sharedProps}
-          type={type}
-          autoComplete={autoComplete ?? (disabled ? "off" : undefined)}
-          ref={ref as React.Ref<HTMLInputElement>}
-        />
-      )}
+      <div className={styles.controlRow}>
+        {multiline ? (
+          <textarea {...sharedProps} rows={rows} ref={ref as React.Ref<HTMLTextAreaElement>} />
+        ) : (
+          <input
+            {...sharedProps}
+            type={type}
+            autoComplete={autoComplete ?? (disabled ? "off" : undefined)}
+            ref={ref as React.Ref<HTMLInputElement>}
+          />
+        )}
+        {showRequiredMark && hideLabel && required ? (
+          <span className={styles.requiredMark} aria-hidden="true">
+            *
+          </span>
+        ) : null}
+      </div>
+
+      {hint ? (
+        <p id={hintId} className={styles.hint}>
+          {hint}
+        </p>
+      ) : null}
 
       {error ? (
         <p id={errorId} role="alert" className={styles.error}>
