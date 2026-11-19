@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 // The file name has no comma on purpose: Next emits the preload hint URL-encoded and the
 // @font-face URL raw, so a comma makes the browser download the same font twice.
 const brand = localFont({
-  src: "../fonts/Pliant-Variable.ttf",
+  src: "../fonts/Pliant-Latin.woff2",
   variable: "--font-brand",
   weight: "100 900",
   display: "swap",

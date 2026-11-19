@@ -48,7 +48,6 @@ export default async function Home() {
   // Signed-in visitors have no reason to see the marketing page. Send them into the app.
   if (session) redirect(homePathForRole(session.user.role));
 
-  const t = await getTranslations("Common");
   const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() ?? "";
   const store = await cookies();
   const analyticsConsent = parseAnalyticsConsent(store.get(ANALYTICS_CONSENT_COOKIE)?.value);

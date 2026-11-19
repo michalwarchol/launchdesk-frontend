@@ -217,8 +217,10 @@ export default async function ProductPreview() {
                     ))}
                   </span>
                   <span className={styles.date}>{dueDate(row.dayOffset)}</span>
-                  <span className={styles.progress}>
-                    <span className={styles.progressFill} style={{ width: `${row.progress}%` }} />
+                  <span className={styles.progressCell}>
+                    <span className={styles.progress}>
+                      <span className={styles.progressFill} style={{ width: `${row.progress}%` }} />
+                    </span>
                     <span className={styles.progressLabel}>{row.progress}%</span>
                   </span>
                 </div>

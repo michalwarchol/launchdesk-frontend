@@ -448,12 +448,20 @@ circle.overdue {
   white-space: nowrap;
 }
 
+.progressCell {
+  align-items: center;
+  display: flex;
+  gap: 0.45em;
+  min-width: 0;
+}
+
 .progress {
   background-color: var(--color-border);
   border-radius: 999px;
+  flex: 1;
   height: 1.6em;
+  min-width: 0;
   overflow: hidden;
-  position: relative;
 }
 
 .progressFill {
@@ -465,15 +473,10 @@ circle.overdue {
 
 .progressLabel {
   color: var(--color-text-strong);
+  flex: none;
   font-size: 0.8em;
   font-weight: 600;
-  left: 0;
-  line-height: 2em;
-  mix-blend-mode: difference;
-  position: absolute;
-  text-align: center;
-  top: 0;
-  width: 100%;
+  white-space: nowrap;
 }
 
 // Small screens: drop the least important pieces so the rest stays legible.
