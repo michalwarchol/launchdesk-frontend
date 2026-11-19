@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 
 import { useMyTaskQuery, useSetStepCompletionMutation } from "@/app/(authorized)/my-tasks/api";
 import Alert from "@/components/Alert";
@@ -43,6 +43,24 @@ export default function MyTaskPlayer({ assignmentId }: MyTaskPlayerProps) {
   const setCompletion = useSetStepCompletionMutation(assignmentId);
   const [override, setOverride] = useState<Screen | null>(null);
   const [saveError, setSaveError] = useState(false);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+
+  const screen = data ? (override ?? resumeScreen(data)) : null;
+  const step = screen?.kind === "step" ? data?.steps[screen.index] : undefined;
+  const visibleScreen: Screen | null =
+    screen === null ? null : screen.kind === "step" && !step ? { kind: "welcome" } : screen;
+  const screenKey =
+    visibleScreen === null
+      ? "pending"
+      : visibleScreen.kind === "step"
+        ? `step-${visibleScreen.index}`
+        : visibleScreen.kind;
+
+  useEffect(() => {
+    if (screenKey === "pending") return;
+
+    headingRef.current?.focus();
+  }, [screenKey]);
 
   if (isPending) {
     return (
@@ -56,7 +74,7 @@ export default function MyTaskPlayer({ assignmentId }: MyTaskPlayerProps) {
     );
   }
 
-  if (error || !data) {
+  if (error || !data || !visibleScreen) {
     const notFound = isApiError(error) && error.status === 404;
 
     return (
@@ -66,10 +84,6 @@ export default function MyTaskPlayer({ assignmentId }: MyTaskPlayerProps) {
       </div>
     );
   }
-
-  const screen = override ?? resumeScreen(data);
-  const step = screen.kind === "step" ? data.steps[screen.index] : undefined;
-  const visibleScreen: Screen = screen.kind === "step" && !step ? { kind: "welcome" } : screen;
 
   const goBack = (notes: string) => {
     if (visibleScreen.kind !== "step" || !step) return;
@@ -106,11 +120,16 @@ export default function MyTaskPlayer({ assignmentId }: MyTaskPlayerProps) {
       <ProgressBar value={data.progress} label={tProgress("progressOf", { name: data.name })} />
       {saveError ? <Alert variant="error">{t("saveError")}</Alert> : null}
       {visibleScreen.kind === "welcome" ? (
-        <Welcome task={data} onStart={() => setOverride({ kind: "step", index: 0 })} />
+        <Welcome
+          headingRef={headingRef}
+          task={data}
+          onStart={() => setOverride({ kind: "step", index: 0 })}
+        />
       ) : null}
       {visibleScreen.kind === "step" && step ? (
         <StepPanel
           key={step.id}
+          headingRef={headingRef}
           assignmentId={data.id}
           step={step}
           stepIndex={visibleScreen.index}
@@ -133,7 +152,9 @@ export default function MyTaskPlayer({ assignmentId }: MyTaskPlayerProps) {
       ) : null}
       {visibleScreen.kind === "finish" ? (
         <section className={styles.panel}>
-          <h2 className={styles.stepTitle}>{t("thanksTitle")}</h2>
+          <h2 ref={headingRef} className={styles.stepTitle} tabIndex={-1}>
+            {t("thanksTitle")}
+          </h2>
           <p className={styles.description}>{t("thanksBody")}</p>
           <div className={styles.actions}>
             <Button onClick={() => setOverride({ kind: "step", index: 0 })}>
@@ -146,11 +167,22 @@ export default function MyTaskPlayer({ assignmentId }: MyTaskPlayerProps) {
   );
 }
 
-function Welcome({ task, onStart }: { task: MyTask; onStart: () => void }) {
+function Welcome({
+  task,
+  headingRef,
+  onStart,
+}: {
+  task: MyTask;
+  headingRef: RefObject<HTMLHeadingElement | null>;
+  onStart: () => void;
+}) {
   const t = useTranslations("MyTaskPlayer");
 
   return (
     <section className={styles.panel}>
+      <h2 ref={headingRef} className={styles.stepTitle} tabIndex={-1}>
+        {t("welcomeTitle")}
+      </h2>
       <p className={styles.description}>{task.description}</p>
       <div className={styles.actions}>
         <Button onClick={onStart} disabled={task.steps.length === 0}>
@@ -163,6 +195,7 @@ function Welcome({ task, onStart }: { task: MyTask; onStart: () => void }) {
 
 function StepPanel({
   assignmentId,
+  headingRef,
   step,
   stepIndex,
   isSaving,
@@ -172,6 +205,7 @@ function StepPanel({
   onSaveError,
 }: {
   assignmentId: string;
+  headingRef: RefObject<HTMLHeadingElement | null>;
   step: MyTaskStep;
   stepIndex: number;
   isSaving: boolean;
@@ -229,7 +263,9 @@ function StepPanel({
 
   return (
     <section className={styles.panel}>
-      <h2 className={styles.stepTitle}>{step.name}</h2>
+      <h2 ref={headingRef} className={styles.stepTitle} tabIndex={-1}>
+        {step.name}
+      </h2>
       <div className={richTextStyles.editor}>
         <div className={richTextStyles.content}>
           <div className="ProseMirror" dangerouslySetInnerHTML={{ __html: step.description }} />

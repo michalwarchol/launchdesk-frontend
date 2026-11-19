@@ -1,4 +1,7 @@
 {
+  "Common": {
+    "skipToContent": "Przejdź do treści"
+  },
   "LandingPage": {
     "meta": {
       "title": "LaunchDesk - Onboarding pracowników bez chaosu",
@@ -188,6 +191,8 @@
     "legendCompleted": "Ukończone",
     "legendCount": "Przypisania",
     "legendActiveCount": "Aktywne przypisania",
+    "columnMonth": "Miesiąc",
+    "columnPerson": "Osoba",
     "deadlinesTitle": "Nadchodzące terminy",
     "deadlinesEmpty": "Brak nadchodzących terminów",
     "columnTask": "Zadanie",
@@ -581,6 +586,7 @@
     "loading": "Wczytywanie zadań…"
   },
   "MyTaskPlayer": {
+    "welcomeTitle": "Zanim zaczniesz",
     "letsStart": "Zaczynamy!",
     "markDone": "Oznacz jako ukończone",
     "markNotDone": "Oznacz jako nieukończone",

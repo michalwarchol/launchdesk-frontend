@@ -10,27 +10,34 @@ import ChartTooltip from "./ChartTooltip";
 
 interface AssignmentActivityChartProps {
   data: MonthlyActivityItem[];
+  title: string;
+  monthLabel: string;
   createdLabel: string;
   completedLabel: string;
 }
 
 export default function AssignmentActivityChart({
   data,
+  title,
+  monthLabel,
   createdLabel,
   completedLabel,
 }: AssignmentActivityChartProps) {
   const chartData = data.map((item) => ({
+    monthKey: item.monthKey,
     month: item.monthLabel,
     created: item.created,
     completed: item.completed,
   }));
 
   return (
-    <div>
-      <div className={styles.chartContainer}>
+    <figure className={styles.figure}>
+      <figcaption className={styles.visuallyHidden}>{title}</figcaption>
+      <div className={styles.chartContainer} aria-hidden="true">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={chartData}
+            accessibilityLayer={false}
             barGap={4}
             barCategoryGap="20%"
             margin={{ top: 8, right: 8, left: -16, bottom: 0 }}
@@ -62,6 +69,27 @@ export default function AssignmentActivityChart({
           </BarChart>
         </ResponsiveContainer>
       </div>
+      <div className={styles.visuallyHidden}>
+        <table>
+          <caption>{title}</caption>
+          <thead>
+            <tr>
+              <th scope="col">{monthLabel}</th>
+              <th scope="col">{createdLabel}</th>
+              <th scope="col">{completedLabel}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {chartData.map((item) => (
+              <tr key={item.monthKey}>
+                <th scope="row">{item.month}</th>
+                <td>{item.created}</td>
+                <td>{item.completed}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <ul className={styles.legend}>
         <li className={styles.legendItem}>
           <span className={styles.legendDot} style={{ backgroundColor: CHART_COLORS.primary }} />
@@ -72,6 +100,6 @@ export default function AssignmentActivityChart({
           <span className={styles.legendLabel}>{completedLabel}</span>
         </li>
       </ul>
-    </div>
+    </figure>
   );
 }

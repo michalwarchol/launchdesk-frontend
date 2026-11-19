@@ -1,6 +1,28 @@
+.figure {
+  margin: 0;
+}
+
 .chartContainer {
   height: 260px;
   width: 100%;
+}
+
+.chartGraphic {
+  height: 100%;
+  width: 100%;
+}
+
+.visuallyHidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
 
 .donutWrapper {
