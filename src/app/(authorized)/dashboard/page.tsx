@@ -127,6 +127,7 @@ export default async function DashboardPage() {
             columnDueDate={t("columnDueDate")}
             columnProgress={t("columnProgress")}
             emptyMessage={t("deadlinesEmpty")}
+            caption={t("deadlinesTitle")}
           />
         </Card>
       </section>

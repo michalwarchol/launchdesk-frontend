@@ -17,6 +17,7 @@ interface UpcomingDeadlinesProps {
   columnDueDate: string;
   columnProgress: string;
   emptyMessage: string;
+  caption: string;
 }
 
 export default function UpcomingDeadlines({
@@ -26,6 +27,7 @@ export default function UpcomingDeadlines({
   columnDueDate,
   columnProgress,
   emptyMessage,
+  caption,
 }: UpcomingDeadlinesProps) {
   const format = useFormatter();
   const router = useRouter();
@@ -73,6 +75,8 @@ export default function UpcomingDeadlines({
       data={data}
       columns={columns}
       getRowId={(row) => row.id}
+      caption={caption}
+      hideCaption
       onRowClick={(row) => router.push(`/assignments/${row.id}`)}
       emptyMessage={emptyMessage}
     />

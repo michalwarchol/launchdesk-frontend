@@ -14,6 +14,7 @@ import Modal from "@/components/Modal";
 import PageHeader from "@/components/PageHeader";
 import richTextStyles from "@/components/RichTextEditor/RichTextEditor.module.scss";
 import { isApiError } from "@/lib/api/errors";
+import { shiftHeadingLevels } from "@/utils/shiftHeadingLevels";
 
 import formStyles from "../new/NewTaskForm.module.scss";
 import stepStyles from "../new/TaskStepsField.module.scss";
@@ -135,7 +136,10 @@ export default function TaskDetailsView({ taskId, canManage }: TaskDetailsViewPr
           <span className={stepStyles.stepFieldLabel}>{tNew("stepDescriptionLabel")}</span>
           <div className={richTextStyles.editor}>
             <div className={richTextStyles.content}>
-              <div className="ProseMirror" dangerouslySetInnerHTML={{ __html: step.description }} />
+              <div
+                className="ProseMirror"
+                dangerouslySetInnerHTML={{ __html: shiftHeadingLevels(step.description, 3) }}
+              />
             </div>
           </div>
         </div>
@@ -174,10 +178,12 @@ export default function TaskDetailsView({ taskId, canManage }: TaskDetailsViewPr
       </PageHeader>
 
       <div className={formStyles.body}>
-        <div>
-          <p className={pageStyles.fieldLabel}>{tNew("descriptionLabel")}</p>
-          <p className={pageStyles.fieldValue}>{task.description}</p>
-        </div>
+        <dl className={pageStyles.details}>
+          <div>
+            <dt className={pageStyles.fieldLabel}>{tNew("descriptionLabel")}</dt>
+            <dd className={pageStyles.fieldValue}>{task.description}</dd>
+          </div>
+        </dl>
 
         <div className={stepStyles.wrapper} role="group" aria-labelledby={stepsTitleId}>
           <div className={stepStyles.sectionHeader}>

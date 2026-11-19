@@ -18,6 +18,19 @@ interface SheetData {
 
 type Phase = "loading" | "ready" | "error";
 
+function columnLabel(index: number): string {
+  let n = index + 1;
+  let label = "";
+
+  while (n > 0) {
+    n -= 1;
+    label = String.fromCharCode(65 + (n % 26)) + label;
+    n = Math.floor(n / 26);
+  }
+
+  return label;
+}
+
 function cellText(value: unknown): string {
   if (value === null || value === undefined) return "";
   return String(value);
@@ -187,7 +200,19 @@ export default function SpreadsheetReader({
             role="region"
             aria-label={t("previewRegion", { name: documentName })}
           >
-            <table className={styles.table}>
+            <table className={styles.table} aria-label={t("sheetLabel", { name: activeSheet.name })}>
+              <thead>
+                <tr>
+                  {Array.from(
+                    { length: Math.max(...activeSheet.rows.map((row) => row.length), 0) },
+                    (_, columnIndex) => (
+                      <th key={columnIndex} scope="col">
+                        {columnLabel(columnIndex)}
+                      </th>
+                    ),
+                  )}
+                </tr>
+              </thead>
               <tbody>
                 {activeSheet.rows.map((row, rowIndex) => (
                   <tr key={rowIndex}>

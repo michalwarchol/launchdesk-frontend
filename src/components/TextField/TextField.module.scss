@@ -59,6 +59,11 @@
     cursor: not-allowed;
     opacity: 0.5;
   }
+
+  &:read-only {
+    background-color: var(--color-surface);
+    cursor: default;
+  }
 }
 
 textarea.control {

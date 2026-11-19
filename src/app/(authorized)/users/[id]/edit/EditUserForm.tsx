@@ -150,6 +150,7 @@ export default function EditUserForm({ userId, actorRole, lockRole }: EditUserFo
                 value={field.value}
                 onChange={field.onChange}
                 disabled={lockRole}
+                hint={lockRole ? t("roleLockedHint") : undefined}
                 options={roleOptions}
               />
             )}

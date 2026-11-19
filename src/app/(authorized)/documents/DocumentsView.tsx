@@ -149,7 +149,8 @@ export default function DocumentsView({ canManage }: DocumentsViewProps) {
     },
     {
       key: "download",
-      header: "",
+      header: t("columnDownload"),
+      hideHeader: true,
       align: "center",
       width: "64px",
       render: (row) => (

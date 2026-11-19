@@ -11,6 +11,8 @@ export type AvatarProps = {
   subtitle?: string;
   size?: AvatarSize;
   hideText?: boolean;
+  /** Hides the avatar from assistive tech when the same name is shown as text beside it. */
+  decorative?: boolean;
   onClick?: () => void;
 };
 
@@ -21,6 +23,7 @@ export default function Avatar({
   subtitle,
   size = "md",
   hideText = false,
+  decorative = false,
   onClick,
 }: AvatarProps) {
   const rootClassName = [
@@ -33,12 +36,16 @@ export default function Avatar({
     .join(" ");
 
   // The initial is decorative. Without a photo or visible name, the root itself carries the name.
-  const nameWhenHidden = hideText && !src ? title : undefined;
+  const nameWhenHidden = !decorative && hideText && !src ? title : undefined;
 
   const content = (
     <>
       {src ? (
-        <img className={styles.photo} src={src} alt={hideText ? (alt ?? title) : ""} />
+        <img
+          className={styles.photo}
+          src={src}
+          alt={decorative ? "" : hideText ? (alt ?? title) : ""}
+        />
       ) : (
         <span className={styles.fallback} aria-hidden="true">
           {title.charAt(0).toUpperCase()}
@@ -59,8 +66,9 @@ export default function Avatar({
         type="button"
         className={rootClassName}
         onClick={onClick}
-        title={title}
+        title={decorative ? undefined : title}
         aria-label={nameWhenHidden}
+        aria-hidden={decorative || undefined}
       >
         {content}
       </button>
@@ -70,9 +78,10 @@ export default function Avatar({
   return (
     <span
       className={rootClassName}
-      title={title}
+      title={decorative ? undefined : title}
       role={nameWhenHidden ? "img" : undefined}
       aria-label={nameWhenHidden}
+      aria-hidden={decorative || undefined}
     >
       {content}
     </span>

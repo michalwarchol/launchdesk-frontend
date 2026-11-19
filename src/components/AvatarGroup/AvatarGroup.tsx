@@ -17,6 +17,8 @@ export interface AvatarGroupProps {
   max?: number;
   size?: AvatarSize;
   ariaLabel?: string;
+  /** Hides the group when the same names are written out next to it. */
+  decorative?: boolean;
   className?: string;
 }
 
@@ -25,6 +27,7 @@ export default function AvatarGroup({
   max = 3,
   size = "sm",
   ariaLabel,
+  decorative = false,
   className,
 }: AvatarGroupProps) {
   const t = useTranslations("AvatarGroup");
@@ -35,22 +38,23 @@ export default function AvatarGroup({
 
   return (
     <ul
-      role="list"
-      aria-label={ariaLabel ?? t("groupLabel")}
+      role={decorative ? undefined : "list"}
+      aria-label={decorative ? undefined : (ariaLabel ?? t("groupLabel"))}
+      aria-hidden={decorative || undefined}
       className={[styles.group, className].filter(Boolean).join(" ")}
     >
       {visibleItems.map((item) => (
         <li key={item.id} className={styles.item}>
-          <Avatar src={item.src} title={item.name} size={size} hideText />
+          <Avatar src={item.src} title={item.name} size={size} hideText decorative={decorative} />
         </li>
       ))}
       {overflowCount > 0 ? (
         <li className={styles.item}>
           <div
             className={[styles.overflow, styles[size]].filter(Boolean).join(" ")}
-            role="img"
-            aria-label={overflowLabel}
-            title={overflowLabel}
+            role={decorative ? undefined : "img"}
+            aria-label={decorative ? undefined : overflowLabel}
+            title={decorative ? undefined : overflowLabel}
           >
             +{overflowCount}
           </div>

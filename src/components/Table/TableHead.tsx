@@ -88,6 +88,12 @@ export default function TableHead<T>({
             .filter(Boolean)
             .join(" ");
 
+          const headerLabel = column.hideHeader ? (
+            <span className={styles.visuallyHidden}>{column.header}</span>
+          ) : (
+            column.header
+          );
+
           return (
             <th
               key={column.key}
@@ -103,7 +109,7 @@ export default function TableHead<T>({
                   {...preventFirefoxDisabledRestore}
                   onClick={() => handleSortClick(column)}
                 >
-                  {column.header}
+                  {headerLabel}
                   {isActive ? (
                     <span className={styles.sortIndicator} aria-hidden="true">
                       {sort?.direction === "asc" ? "▲" : "▼"}
@@ -111,7 +117,7 @@ export default function TableHead<T>({
                   ) : null}
                 </button>
               ) : (
-                column.header
+                headerLabel
               )}
             </th>
           );

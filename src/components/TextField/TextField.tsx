@@ -23,6 +23,8 @@ export interface TextFieldProps {
   value?: string;
   defaultValue?: string;
   disabled?: boolean;
+  /** Keeps the value in the tab order. Use this instead of `disabled` for values the user can read but not edit. */
+  readOnly?: boolean;
   autoComplete?: string;
   className?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
@@ -47,6 +49,7 @@ export default function TextField({
   value,
   defaultValue,
   disabled,
+  readOnly = false,
   autoComplete,
   className,
   onChange,
@@ -70,6 +73,7 @@ export default function TextField({
     name,
     placeholder,
     disabled,
+    readOnly: readOnly || undefined,
     value,
     defaultValue,
     onChange,

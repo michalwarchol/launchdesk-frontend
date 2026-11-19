@@ -137,7 +137,8 @@ export default function UserAssignmentsTable({
   if (showUnassign) {
     columns.push({
       key: "actions",
-      header: "",
+      header: tEdit("columnActions"),
+      hideHeader: true,
       width: "140px",
       align: "right",
       render: (row) => (

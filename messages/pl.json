@@ -151,8 +151,12 @@
       "reject": "Odrzuć",
       "settings": "Pliki cookie"
     },
+    "logo": {
+      "home": "LaunchDesk – strona główna"
+    },
     "footer": {
       "tagline": "Onboarding pracowników bez chaosu.",
+      "navLabel": "Stopka",
       "contact": "Kontakt",
       "signIn": "Zaloguj się",
       "signUp": "Zarejestruj się",
@@ -478,7 +482,9 @@
     "firstNameLabel": "Imię",
     "lastNameLabel": "Nazwisko",
     "roleLabel": "Rola",
+    "roleLockedHint": "Ostatni właściciel organizacji nie może zmienić własnej roli.",
     "assignmentsTitle": "Przypisania",
+    "columnActions": "Akcje",
     "assignmentsEmpty": "Brak przypisań dla tego użytkownika.",
     "assignmentsLoadError": "Nie udało się wczytać przypisań.",
     "cancel": "Anuluj",
@@ -515,6 +521,7 @@
     "columnType": "Typ",
     "columnExtension": "Rozszerzenie",
     "columnSize": "Rozmiar",
+    "columnDownload": "Pobierz",
     "download": "Pobierz {name}",
     "fileMissing": "Plik \"{name}\" nie jest już dostępny w magazynie.",
     "downloadError": "Nie udało się pobrać pliku \"{name}\". Spróbuj ponownie.",
@@ -544,6 +551,7 @@
     "downloadError": "Nie udało się pobrać pliku \"{name}\". Spróbuj ponownie.",
     "unsupported": "Nie można wyświetlić podglądu tego typu pliku.",
     "emptySheet": "Ten arkusz jest pusty.",
+    "sheetLabel": "Arkusz {name}",
     "sheetTab": "Arkusz {name}",
     "tabsLabel": "Arkusze",
     "previewRegion": "Podgląd: {name}",
@@ -595,6 +603,7 @@
   },
   "MyTaskPlayer": {
     "welcomeTitle": "Zanim zaczniesz",
+    "stepPosition": "Krok {current} z {total}",
     "letsStart": "Zaczynamy!",
     "markDone": "Oznacz jako ukończone",
     "markNotDone": "Oznacz jako nieukończone",

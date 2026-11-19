@@ -4,6 +4,7 @@ import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import AssignmentCard from "@/components/AssignmentCard";
+import LoadingStatus from "@/components/LoadingStatus";
 import { useTableParams } from "@/components/Table";
 import Pagination from "@/components/Table/Pagination";
 import TextField from "@/components/TextField";
@@ -97,10 +98,7 @@ export default function MyTasksPage() {
           {t("loadError")}
         </p>
       ) : isPending ? (
-        <div className={styles.status} role="status">
-          <span className={styles.spinner} aria-hidden="true" />
-          <span className={styles.visuallyHidden}>{t("loading")}</span>
-        </div>
+        <LoadingStatus message={t("loading")} />
       ) : !data || data.data.length === 0 ? (
         <p className={styles.status}>{t("empty")}</p>
       ) : (

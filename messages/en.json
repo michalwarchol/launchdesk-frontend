@@ -151,8 +151,12 @@
       "reject": "Reject",
       "settings": "Cookies"
     },
+    "logo": {
+      "home": "LaunchDesk home"
+    },
     "footer": {
       "tagline": "Employee onboarding without chaos.",
+      "navLabel": "Footer",
       "contact": "Contact",
       "signIn": "Sign in",
       "signUp": "Sign up",
@@ -478,7 +482,9 @@
     "firstNameLabel": "First name",
     "lastNameLabel": "Last name",
     "roleLabel": "Role",
+    "roleLockedHint": "The last owner of the organization cannot change their own role.",
     "assignmentsTitle": "Assignments",
+    "columnActions": "Actions",
     "assignmentsEmpty": "No assignments for this user.",
     "assignmentsLoadError": "Could not load assignments.",
     "cancel": "Cancel",
@@ -515,6 +521,7 @@
     "columnType": "Type",
     "columnExtension": "Extension",
     "columnSize": "Size",
+    "columnDownload": "Download",
     "download": "Download {name}",
     "fileMissing": "The file \"{name}\" is no longer available in storage.",
     "downloadError": "Could not download \"{name}\". Try again.",
@@ -544,6 +551,7 @@
     "downloadError": "Could not download \"{name}\". Try again.",
     "unsupported": "This file type cannot be previewed.",
     "emptySheet": "This sheet is empty.",
+    "sheetLabel": "Sheet {name}",
     "sheetTab": "Sheet {name}",
     "tabsLabel": "Sheets",
     "previewRegion": "Preview: {name}",
@@ -595,6 +603,7 @@
   },
   "MyTaskPlayer": {
     "welcomeTitle": "Before you start",
+    "stepPosition": "Step {current} of {total}",
     "letsStart": "Let's start!",
     "markDone": "Mark as done",
     "markNotDone": "Mark as not done",

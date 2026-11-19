@@ -134,18 +134,20 @@ export default function UserDetailsView({ userId, actorRole, isSelf }: UserDetai
           <div className={styles.profileAvatar}>
             <Avatar src={user.avatar} title={displayName} size="lg" />
           </div>
-          <div>
-            <p className={styles.fieldLabel}>{t("emailLabel")}</p>
-            <p className={styles.fieldValue}>{user.email}</p>
-          </div>
-          <div>
-            <p className={styles.fieldLabel}>{t("roleLabel")}</p>
-            <p className={styles.fieldValue}>{tUsers(`role.${user.role}`)}</p>
-          </div>
-          <div>
-            <p className={styles.fieldLabel}>{t("createdAtLabel")}</p>
-            <p className={styles.fieldValue}>{createdLabel}</p>
-          </div>
+          <dl className={styles.profileFields}>
+            <div>
+              <dt className={styles.fieldLabel}>{t("emailLabel")}</dt>
+              <dd className={styles.fieldValue}>{user.email}</dd>
+            </div>
+            <div>
+              <dt className={styles.fieldLabel}>{t("roleLabel")}</dt>
+              <dd className={styles.fieldValue}>{tUsers(`role.${user.role}`)}</dd>
+            </div>
+            <div>
+              <dt className={styles.fieldLabel}>{t("createdAtLabel")}</dt>
+              <dd className={styles.fieldValue}>{createdLabel}</dd>
+            </div>
+          </dl>
         </div>
       </Card>
 

@@ -174,10 +174,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
           />
         </div>
 
-        <div className={styles.emailField}>
-          <TextField label={t("emailLabel")} value={user.email} disabled />
-          <p className={styles.hint}>{t("emailLockedHint")}</p>
-        </div>
+        <TextField label={t("emailLabel")} value={user.email} readOnly hint={t("emailLockedHint")} />
 
         <Button type="submit" className={styles.submit} disabled={isSubmitting}>
           {isSubmitting ? t("saving") : t("save")}

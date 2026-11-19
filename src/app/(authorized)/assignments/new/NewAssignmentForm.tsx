@@ -139,12 +139,13 @@ export default function NewAssignmentForm() {
               )}
               renderValue={(user) => (
                 <>
-                  <Avatar
-                    src={user.avatar}
-                    title={`${user.firstName} ${user.lastName}`}
-                    size="sm"
-                    hideText
-                  />
+                    <Avatar
+                      src={user.avatar}
+                      title={`${user.firstName} ${user.lastName}`}
+                      size="sm"
+                      hideText
+                      decorative
+                    />
                   {user.firstName} {user.lastName}
                 </>
               )}

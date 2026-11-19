@@ -33,7 +33,7 @@ export default async function LandingFooter({ showCookieSettings = false }: Land
           <p className={styles.tagline}>{t("tagline")}</p>
         </div>
 
-        <nav className={styles.links} aria-label={t("contact")}>
+        <nav className={styles.links} aria-label={t("navLabel")}>
           <a href={`mailto:${CONTACT_EMAIL}`} className={styles.link}>
             <MailIcon size={18} />
             {CONTACT_EMAIL}

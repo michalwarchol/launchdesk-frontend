@@ -1,3 +1,5 @@
+@use "../../../styles/focus" as focus;
+
 .login {
   display: flex;
   flex-direction: column;
@@ -37,6 +39,10 @@
     text-decoration: underline;
     text-underline-offset: 3px;
   }
+
+  &:focus-visible {
+    @include focus.focus-ring;
+  }
 }
 
 .submit {
@@ -74,5 +80,9 @@
 
   &:hover {
     color: var(--color-primary-hover);
+  }
+
+  &:focus-visible {
+    @include focus.focus-ring;
   }
 }

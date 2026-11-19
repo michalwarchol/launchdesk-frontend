@@ -6,6 +6,7 @@ import { useEffect, useRef, useState, type RefObject } from "react";
 import { useMyTaskQuery, useSetStepCompletionMutation } from "@/app/(authorized)/my-tasks/api";
 import Alert from "@/components/Alert";
 import Button from "@/components/Button";
+import LoadingStatus from "@/components/LoadingStatus";
 import PageHeader from "@/components/PageHeader";
 import ProgressBar from "@/components/ProgressBar";
 import RichTextEditor from "@/components/RichTextEditor";
@@ -13,6 +14,7 @@ import { isRichTextEmpty } from "@/components/RichTextEditor/isRichTextEmpty";
 import richTextStyles from "@/components/RichTextEditor/RichTextEditor.module.scss";
 import { BFF_BASE } from "@/lib/api/config";
 import { isApiError } from "@/lib/api/errors";
+import { shiftHeadingLevels } from "@/utils/shiftHeadingLevels";
 
 import styles from "./MyTaskPlayer.module.scss";
 
@@ -66,10 +68,7 @@ export default function MyTaskPlayer({ assignmentId }: MyTaskPlayerProps) {
     return (
       <div className={styles.page}>
         <PageHeader title="…" backHref="/my-tasks" />
-        <div className={styles.status} role="status">
-          <span className={styles.spinner} aria-hidden="true" />
-          <span className={styles.visuallyHidden}>{t("loading")}</span>
-        </div>
+        <LoadingStatus message={t("loading")} />
       </div>
     );
   }
@@ -133,6 +132,7 @@ export default function MyTaskPlayer({ assignmentId }: MyTaskPlayerProps) {
           assignmentId={data.id}
           step={step}
           stepIndex={visibleScreen.index}
+          stepCount={data.steps.length}
           isSaving={setCompletion.isPending}
           onBack={goBack}
           onAdvance={() => {
@@ -198,6 +198,7 @@ function StepPanel({
   headingRef,
   step,
   stepIndex,
+  stepCount,
   isSaving,
   onBack,
   onAdvance,
@@ -208,6 +209,7 @@ function StepPanel({
   headingRef: RefObject<HTMLHeadingElement | null>;
   step: MyTaskStep;
   stepIndex: number;
+  stepCount: number;
   isSaving: boolean;
   onBack: (notes: string) => void;
   onAdvance: () => void;
@@ -264,11 +266,18 @@ function StepPanel({
   return (
     <section className={styles.panel}>
       <h2 ref={headingRef} className={styles.stepTitle} tabIndex={-1}>
+        <span className={styles.stepPosition}>
+          {t("stepPosition", { current: stepIndex + 1, total: stepCount })}
+        </span>
+        <br />
         {step.name}
       </h2>
       <div className={richTextStyles.editor}>
         <div className={richTextStyles.content}>
-          <div className="ProseMirror" dangerouslySetInnerHTML={{ __html: step.description }} />
+          <div
+            className="ProseMirror"
+            dangerouslySetInnerHTML={{ __html: shiftHeadingLevels(step.description, 3) }}
+          />
         </div>
       </div>
       {step.attachments.length > 0 ? (

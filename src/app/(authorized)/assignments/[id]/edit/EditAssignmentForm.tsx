@@ -195,18 +195,22 @@ export default function EditAssignmentForm({ assignmentId }: EditAssignmentFormP
         <div className={styles.fields}>
           {formError ? <Alert variant="error">{t(`saveErrors.${formError}`)}</Alert> : null}
 
-          <div className={styles.readOnlyField}>
-            <span className={styles.fieldLabel}>{tNew("taskLabel")}</span>
-            <p className={styles.fieldValue}>{assignment.taskName}</p>
-          </div>
+          <dl className={styles.readOnlyFields}>
+            <div className={styles.readOnlyField}>
+              <dt className={styles.fieldLabel}>{tNew("taskLabel")}</dt>
+              <dd className={styles.fieldValue}>{assignment.taskName}</dd>
+            </div>
 
-          <div className={styles.readOnlyField}>
-            <span className={styles.fieldLabel}>{tAssignments("columnProgress")}</span>
-            <ProgressBar
-              value={assignment.progress}
-              label={tProgress("progressOf", { name: assignment.taskName })}
-            />
-          </div>
+            <div className={styles.readOnlyField}>
+              <dt className={styles.fieldLabel}>{tAssignments("columnProgress")}</dt>
+              <dd className={styles.fieldValue}>
+                <ProgressBar
+                  value={assignment.progress}
+                  label={tProgress("progressOf", { name: assignment.taskName })}
+                />
+              </dd>
+            </div>
+          </dl>
 
           <Controller
             control={control}
@@ -240,6 +244,7 @@ export default function EditAssignmentForm({ assignmentId }: EditAssignmentFormP
                       title={`${user.firstName} ${user.lastName}`}
                       size="sm"
                       hideText
+                      decorative
                     />
                     {user.firstName} {user.lastName}
                   </>
@@ -253,6 +258,7 @@ export default function EditAssignmentForm({ assignmentId }: EditAssignmentFormP
             name="dueDate"
             render={({ field }) => (
               <DatePicker
+                required
                 label={tNew("dueDateLabel")}
                 placeholder={tNew("dueDatePlaceholder")}
                 value={field.value}
