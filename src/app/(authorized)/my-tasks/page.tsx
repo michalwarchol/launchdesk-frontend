@@ -4,6 +4,7 @@ import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import AssignmentCard from "@/components/AssignmentCard";
+import LoadingStatus from "@/components/LoadingStatus";
 import { useTableParams } from "@/components/Table";
 import Pagination from "@/components/Table/Pagination";
 import TextField from "@/components/TextField";
@@ -29,7 +30,7 @@ export default function MyTasksPage() {
     setSearchDraft(searchFromUrl);
   }
 
-  const debouncedSearch = useDebouncedValue(searchDraft, 2000);
+  const debouncedSearch = useDebouncedValue(searchDraft, 500);
   const trimmedSearch = searchFromUrl.trim();
 
   useEffect(() => {
@@ -64,6 +65,19 @@ export default function MyTasksPage() {
   }, []);
 
   const showPagination = Boolean(data && !error && data.meta.total > data.meta.pageSize);
+  const [resultsMessage, setResultsMessage] = useState("");
+
+  useEffect(() => {
+    if (isPending || isFetching || error || !data) return;
+
+    // Announced only after the query settles, so a reader hears the new count once.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setResultsMessage(
+      data.meta.total === 0 && trimmedSearch
+        ? t("emptySearchStatus", { search: trimmedSearch })
+        : t("resultsStatus", { count: data.meta.total }),
+    );
+  }, [data, error, isFetching, isPending, t, trimmedSearch]);
 
   return (
     <div>
@@ -71,6 +85,8 @@ export default function MyTasksPage() {
       <div className={styles.searchRow}>
         <TextField
           id="my-tasks-search"
+          label={t("searchLabel")}
+          hideLabel
           size="sm"
           placeholder={t("searchPlaceholder")}
           value={searchDraft}
@@ -82,10 +98,7 @@ export default function MyTasksPage() {
           {t("loadError")}
         </p>
       ) : isPending ? (
-        <div className={styles.status} role="status">
-          <span className={styles.spinner} aria-hidden="true" />
-          <span className={styles.visuallyHidden}>{t("loading")}</span>
-        </div>
+        <LoadingStatus message={t("loading")} />
       ) : !data || data.data.length === 0 ? (
         <p className={styles.status}>{t("empty")}</p>
       ) : (
@@ -108,6 +121,9 @@ export default function MyTasksPage() {
           </section>
         ))
       )}
+      <p className={styles.visuallyHidden} role="status">
+        {resultsMessage}
+      </p>
       {showPagination && data ? (
         <Pagination
           pagination={{

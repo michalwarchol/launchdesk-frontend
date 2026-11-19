@@ -24,6 +24,14 @@ export const WithTitle: Story = {
   },
 };
 
+export const CustomHeadingLevel: Story = {
+  args: {
+    title: "Nested section",
+    headingLevel: 3,
+    children: "Details.",
+  },
+};
+
 export const WithTitleAndDescription: Story = {
   args: {
     title: "Team workload",

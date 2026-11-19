@@ -4,21 +4,22 @@ import { useEffect, useId, useRef } from "react";
 
 import styles from "./Checkbox.module.scss";
 
-export interface CheckboxProps {
-  label?: React.ReactNode;
+interface CheckboxBaseProps {
   checked?: boolean;
   defaultChecked?: boolean;
   indeterminate?: boolean;
   disabled?: boolean;
   name?: string;
   id?: string;
-  ariaLabel?: string;
   className?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onClick?: React.MouseEventHandler<HTMLInputElement>;
   ref?: React.Ref<HTMLInputElement>;
 }
+
+export type CheckboxProps = CheckboxBaseProps &
+  ({ label: React.ReactNode; ariaLabel?: never } | { label?: undefined; ariaLabel: string });
 
 export default function Checkbox({
   label,

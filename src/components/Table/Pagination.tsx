@@ -20,7 +20,7 @@ export default function Pagination({ pagination, onPageChange, disabled }: Pagin
   const pageNumbers = Array.from({ length: pageCount }, (_, index) => index + 1);
 
   return (
-    <div className={styles.pagination}>
+    <nav className={styles.pagination} aria-label={t("paginationLabel")}>
       <span className={styles.pageInfo}>{t("pageInfo", { page, pageCount })}</span>
       <button
         type="button"
@@ -46,6 +46,8 @@ export default function Pagination({ pagination, onPageChange, disabled }: Pagin
             className={pageButtonClassName}
             disabled={disabled}
             {...preventFirefoxDisabledRestore}
+            aria-current={pageNumber === page ? "page" : undefined}
+            aria-label={t("goToPage", { page: pageNumber })}
             onClick={() => onPageChange?.(pageNumber)}
           >
             {pageNumber}
@@ -61,6 +63,6 @@ export default function Pagination({ pagination, onPageChange, disabled }: Pagin
       >
         {t("next")}
       </button>
-    </div>
+    </nav>
   );
 }

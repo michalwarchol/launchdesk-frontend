@@ -10,6 +10,7 @@ import Alert from "@/components/Alert";
 import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
+import LoadingStatus from "@/components/LoadingStatus";
 import Modal from "@/components/Modal";
 import PageHeader from "@/components/PageHeader";
 import { isApiError } from "@/lib/api/errors";
@@ -21,11 +22,7 @@ import styles from "../userDetail.module.scss";
 import type { UserRole } from "@/lib/api/types";
 
 type DeleteUserError =
-  | "cannotDeleteSelf"
-  | "cannotModifyOwner"
-  | "lastOwner"
-  | "forbidden"
-  | "generic";
+  "cannotDeleteSelf" | "cannotModifyOwner" | "lastOwner" | "forbidden" | "generic";
 
 function toDeleteUserError(error: unknown): DeleteUserError {
   if (isApiError(error)) {
@@ -46,6 +43,7 @@ interface UserDetailsViewProps {
 
 export default function UserDetailsView({ userId, actorRole, isSelf }: UserDetailsViewProps) {
   const t = useTranslations("UserDetailsPage");
+  const tCommon = useTranslations("Common");
   const tUsers = useTranslations("UsersPage");
   const format = useFormatter();
   const router = useRouter();
@@ -57,7 +55,8 @@ export default function UserDetailsView({ userId, actorRole, isSelf }: UserDetai
   if (isPending) {
     return (
       <div className={styles.page}>
-        <PageHeader title="…" backHref="/users" />
+        <PageHeader title={tCommon("loading")} backHref="/users" />
+        <LoadingStatus />
       </div>
     );
   }
@@ -135,18 +134,20 @@ export default function UserDetailsView({ userId, actorRole, isSelf }: UserDetai
           <div className={styles.profileAvatar}>
             <Avatar src={user.avatar} title={displayName} size="lg" />
           </div>
-          <div>
-            <p className={styles.fieldLabel}>{t("emailLabel")}</p>
-            <p className={styles.fieldValue}>{user.email}</p>
-          </div>
-          <div>
-            <p className={styles.fieldLabel}>{t("roleLabel")}</p>
-            <p className={styles.fieldValue}>{tUsers(`role.${user.role}`)}</p>
-          </div>
-          <div>
-            <p className={styles.fieldLabel}>{t("createdAtLabel")}</p>
-            <p className={styles.fieldValue}>{createdLabel}</p>
-          </div>
+          <dl className={styles.profileFields}>
+            <div>
+              <dt className={styles.fieldLabel}>{t("emailLabel")}</dt>
+              <dd className={styles.fieldValue}>{user.email}</dd>
+            </div>
+            <div>
+              <dt className={styles.fieldLabel}>{t("roleLabel")}</dt>
+              <dd className={styles.fieldValue}>{tUsers(`role.${user.role}`)}</dd>
+            </div>
+            <div>
+              <dt className={styles.fieldLabel}>{t("createdAtLabel")}</dt>
+              <dd className={styles.fieldValue}>{createdLabel}</dd>
+            </div>
+          </dl>
         </div>
       </Card>
 

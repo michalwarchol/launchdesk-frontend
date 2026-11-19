@@ -19,6 +19,10 @@
   grid-row: span 3;
 }
 
+.profileFields {
+  display: contents;
+}
+
 .fieldLabel {
   color: var(--color-text-muted);
   font-size: 0.8125rem;

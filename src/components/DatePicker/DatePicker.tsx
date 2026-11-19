@@ -23,9 +23,10 @@ import styles from "./DatePicker.module.scss";
 export interface DatePickerProps {
   value: string | null;
   onChange: (value: string | null) => void;
-  label?: string;
+  label: string;
   placeholder?: string;
   error?: string;
+  required?: boolean;
   hideLabel?: boolean;
   disabled?: boolean;
   min?: string;
@@ -65,6 +66,7 @@ export default function DatePicker({
   label,
   placeholder,
   error,
+  required = false,
   hideLabel = false,
   disabled,
   min,
@@ -78,6 +80,7 @@ export default function DatePicker({
   const locale = useLocale();
   const generatedId = useId();
   const fieldId = id ?? generatedId;
+  const labelId = `${fieldId}-label`;
   const errorId = `${fieldId}-error`;
   const dialogId = `${fieldId}-dialog`;
   const monthLabelId = `${fieldId}-month`;
@@ -100,13 +103,15 @@ export default function DatePicker({
   const weekStartsOn = useMemo(() => getWeekStartsOn(locale), [locale]);
 
   const weekdayLabels = useMemo(() => {
-    const formatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
+    const shortFormatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
+    const longFormatter = new Intl.DateTimeFormat(locale, { weekday: "long" });
     // 2024-01-01 was a Monday, so any week start lands inside a stable reference week.
     const firstWeekday = startOfWeek(new Date(2024, 0, 1), weekStartsOn);
 
-    return Array.from({ length: DAYS_IN_WEEK }, (_, index) =>
-      formatter.format(addDays(firstWeekday, index)),
-    );
+    return Array.from({ length: DAYS_IN_WEEK }, (_, index) => {
+      const day = addDays(firstWeekday, index);
+      return { short: shortFormatter.format(day), long: longFormatter.format(day) };
+    });
   }, [locale, weekStartsOn]);
 
   const monthFormatter = useMemo(
@@ -223,6 +228,17 @@ export default function DatePicker({
     closeCalendar();
   };
 
+  const handleFocusOut = (event: React.FocusEvent<HTMLDivElement>) => {
+    if (!isOpen) return;
+
+    const next = event.relatedTarget;
+    if (next && rootRef.current?.contains(next)) return;
+
+    // Tab moved past the calendar. Close it without pulling focus back to the trigger.
+    setIsOpen(false);
+    onBlur?.();
+  };
+
   const controlClassName = [
     styles.control,
     error ? styles.invalid : "",
@@ -242,19 +258,28 @@ export default function DatePicker({
       ref={rootRef}
       className={[styles.field, className].filter(Boolean).join(" ")}
       onKeyDown={handleRootKeyDown}
+      onBlur={handleFocusOut}
     >
-      {label ? (
-        <label
-          htmlFor={fieldId}
-          className={[styles.label, hideLabel ? styles.visuallyHidden : ""]
-            .filter(Boolean)
-            .join(" ")}
-        >
-          {label}
-        </label>
-      ) : null}
+      <label
+        id={labelId}
+        htmlFor={fieldId}
+        className={[styles.label, hideLabel ? styles.visuallyHidden : ""].filter(Boolean).join(" ")}
+      >
+        {label}
+        {required ? (
+          <>
+            <span className={styles.requiredMark} aria-hidden="true">
+              *
+            </span>
+            {/* `aria-required` is not allowed on a button, so the requirement is part of the label. */}
+            <span className={styles.visuallyHidden}>{t("required")}</span>
+          </>
+        ) : null}
+      </label>
 
       <div className={controlClassName}>
+        {/* This button stands in for the date value, so the required and invalid states belong on it. */}
+        {/* eslint-disable-next-line jsx-a11y/role-supports-aria-props */}
         <button
           ref={triggerRef}
           id={fieldId}
@@ -269,6 +294,8 @@ export default function DatePicker({
           aria-haspopup="dialog"
           aria-expanded={isOpen}
           aria-controls={isOpen ? dialogId : undefined}
+          aria-labelledby={`${labelId} ${fieldId}`}
+          aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
         >
           {selectedDate ? triggerFormatter.format(selectedDate) : (placeholder ?? t("empty"))}
@@ -283,6 +310,8 @@ export default function DatePicker({
             onClick={() => {
               onChange(null);
               onBlur?.();
+              // The clear button unmounts with the value, so hand focus back to the trigger.
+              triggerRef.current?.focus();
             }}
             aria-label={t("clear")}
           >
@@ -331,8 +360,13 @@ export default function DatePicker({
             <thead>
               <tr>
                 {weekdayLabels.map((weekday) => (
-                  <th key={weekday} scope="col" className={styles.weekday}>
-                    {weekday}
+                  <th
+                    key={weekday.long}
+                    scope="col"
+                    className={styles.weekday}
+                    aria-label={weekday.long}
+                  >
+                    <abbr title={weekday.long}>{weekday.short}</abbr>
                   </th>
                 ))}
               </tr>

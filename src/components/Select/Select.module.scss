@@ -18,6 +18,11 @@
   text-transform: uppercase;
 }
 
+.requiredMark {
+  color: var(--color-danger-text);
+  margin-left: 4px;
+}
+
 .visuallyHidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -33,7 +38,7 @@
 .control {
   align-items: center;
   background-color: var(--color-background);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-input);
   border-radius: 8px;
   color: var(--color-primary-text);
   cursor: pointer;
@@ -116,6 +121,11 @@
   &:focus-visible {
     border-color: #e5484d;
     box-shadow: 0 0 0 2px rgb(229 72 77 / 20%);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 }
 
@@ -212,6 +222,12 @@
   color: var(--color-text-muted);
   font-size: 13px;
   padding: 8px 10px;
+}
+
+.hint {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  margin: 0;
 }
 
 .error {

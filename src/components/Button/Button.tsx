@@ -2,14 +2,10 @@ import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRes
 
 import styles from "./Button.module.scss";
 
-interface ButtonProps {
-  children: React.ReactNode;
-  className?: string;
-  disabled?: boolean;
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "sm" | "md" | "lg";
   variant?: "primary" | "outline" | "link";
-  type?: "button" | "submit" | "reset";
-  onClick?: () => void;
+  ref?: React.Ref<HTMLButtonElement>;
 }
 
 export default function Button({
@@ -20,6 +16,8 @@ export default function Button({
   variant = "primary",
   type = "button",
   className,
+  ref,
+  ...rest
 }: ButtonProps) {
   const buttonClassName = [styles.button, styles[size], styles[variant], className]
     .filter(Boolean)
@@ -27,6 +25,8 @@ export default function Button({
 
   return (
     <button
+      {...rest}
+      ref={ref}
       onClick={onClick}
       disabled={disabled}
       type={type}

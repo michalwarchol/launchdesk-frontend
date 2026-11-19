@@ -1,3 +1,5 @@
+@use "../../styles/focus" as focus;
+
 .field {
   display: flex;
   flex-direction: column;
@@ -12,6 +14,11 @@
   font-weight: 600;
   letter-spacing: 0.02em;
   text-transform: uppercase;
+}
+
+.requiredMark {
+  color: var(--color-danger-text);
+  margin-left: 4px;
 }
 
 .visuallyHidden {
@@ -29,7 +36,7 @@
 .control {
   align-items: center;
   background-color: var(--color-background);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-input);
   border-radius: 8px;
   display: flex;
   gap: 6px;
@@ -62,6 +69,11 @@
   &:has(.trigger:focus-visible) {
     border-color: #e5484d;
     box-shadow: 0 0 0 2px rgb(229 72 77 / 20%);
+  }
+
+  &:has(.trigger:focus-visible) {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 }
 
@@ -104,6 +116,10 @@
   &:hover {
     background-color: var(--color-hover-overlay);
     color: var(--color-text-strong);
+  }
+
+  &:focus-visible {
+    @include focus.focus-ring;
   }
 
   &:disabled {
@@ -150,6 +166,10 @@
     background-color: var(--color-hover-overlay);
   }
 
+  &:focus-visible {
+    @include focus.focus-ring;
+  }
+
   &:disabled {
     cursor: not-allowed;
     opacity: 0.4;
@@ -175,6 +195,10 @@
   padding: 4px 0;
   text-transform: uppercase;
   width: 36px;
+
+  abbr {
+    text-decoration: none;
+  }
 }
 
 .dayCell {
@@ -212,7 +236,7 @@
 }
 
 .dayToday {
-  box-shadow: inset 0 0 0 1px var(--color-border);
+  box-shadow: inset 0 0 0 2px var(--color-primary);
 }
 
 .daySelected {

@@ -16,10 +16,13 @@ export interface SelectProps {
   options: SelectOption[];
   value?: string;
   onChange?: (value: string) => void;
-  label?: string;
+  label: string;
   placeholder?: string;
   size?: "sm" | "md" | "lg";
   error?: string;
+  /** Persistent instruction rendered under the field and linked with `aria-describedby`. */
+  hint?: string;
+  required?: boolean;
   hideLabel?: boolean;
   name?: string;
   id?: string;
@@ -48,6 +51,8 @@ export default function Select({
   placeholder,
   size = "md",
   error,
+  hint,
+  required = false,
   hideLabel = false,
   name,
   id,
@@ -59,6 +64,10 @@ export default function Select({
   const generatedId = useId();
   const fieldId = id ?? generatedId;
   const errorId = `${fieldId}-error`;
+  const hintId = `${fieldId}-hint`;
+  const describedBy = [hint ? hintId : undefined, error ? errorId : undefined]
+    .filter(Boolean)
+    .join(" ");
   const listboxId = `${fieldId}-listbox`;
 
   const rootRef = useRef<HTMLDivElement>(null);
@@ -242,16 +251,17 @@ export default function Select({
 
   return (
     <div ref={rootRef} className={[styles.field, className].filter(Boolean).join(" ")}>
-      {label ? (
-        <label
-          htmlFor={fieldId}
-          className={[styles.label, hideLabel ? styles.visuallyHidden : ""]
-            .filter(Boolean)
-            .join(" ")}
-        >
-          {label}
-        </label>
-      ) : null}
+      <label
+        htmlFor={fieldId}
+        className={[styles.label, hideLabel ? styles.visuallyHidden : ""].filter(Boolean).join(" ")}
+      >
+        {label}
+        {required ? (
+          <span className={styles.requiredMark} aria-hidden="true">
+            *
+          </span>
+        ) : null}
+      </label>
 
       <div className={styles.controlWrapper}>
         <button
@@ -265,8 +275,9 @@ export default function Select({
           aria-haspopup="listbox"
           aria-expanded={isOpen}
           aria-controls={listboxId}
+          aria-required={required || undefined}
           aria-invalid={error ? true : undefined}
-          aria-describedby={error ? errorId : undefined}
+          aria-describedby={describedBy || undefined}
           aria-activedescendant={
             isOpen && activeIndex >= 0 ? `${listboxId}-option-${activeIndex}` : undefined
           }
@@ -352,6 +363,12 @@ export default function Select({
 
       {/* Keeps the field readable by a plain form submission, since there is no native control. */}
       {name ? <input type="hidden" name={name} value={value ?? ""} /> : null}
+
+      {hint ? (
+        <p id={hintId} className={styles.hint}>
+          {hint}
+        </p>
+      ) : null}
 
       {error ? (
         <p id={errorId} role="alert" className={styles.error}>

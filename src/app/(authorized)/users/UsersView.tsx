@@ -60,6 +60,8 @@ export default function UsersView({ actorRole }: UsersViewProps) {
         columns={columns}
         getRowId={(row) => row.id}
         onRowClick={(row) => router.push(`/users/${row.id}`)}
+        caption={t("title")}
+        hideCaption
         emptyMessage={t("empty")}
         isLoading={isPending}
         error={error ? t("loadError") : undefined}

@@ -1,9 +1,35 @@
 .alert {
+  align-items: flex-start;
   border: 1px solid transparent;
   border-radius: 8px;
+  display: flex;
   font-size: 13px;
+  gap: 8px;
   line-height: 1.5;
   padding: 10px 12px;
+
+  &:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.visuallyHidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
 
 .error {

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
 import { SITE_NAME } from "@/lib/site";
 
@@ -9,9 +10,11 @@ interface LogoProps {
   priority?: boolean;
 }
 
-export default function Logo({ priority = false }: LogoProps) {
+export default async function Logo({ priority = false }: LogoProps) {
+  const t = await getTranslations("LandingPage.logo");
+
   return (
-    <Link href="/" className={styles.logo} aria-label={`${SITE_NAME} home`}>
+    <Link href="/" className={styles.logo} aria-label={t("home")}>
       <Image
         src="/logo.png"
         width={32}

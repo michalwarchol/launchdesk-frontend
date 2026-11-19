@@ -95,15 +95,27 @@ export default async function DashboardPage() {
         <Card title={t("chartActivityTitle")} description={t("chartActivityDescription")}>
           <AssignmentActivityChart
             data={stats.monthlyActivity}
+            title={t("chartActivityTitle")}
+            monthLabel={t("columnMonth")}
             createdLabel={t("legendCreated")}
             completedLabel={t("legendCompleted")}
           />
         </Card>
         <Card title={t("chartTopTasksTitle")}>
-          <TopTasksChart data={stats.topTasks} countLabel={t("legendCount")} />
+          <TopTasksChart
+            data={stats.topTasks}
+            title={t("chartTopTasksTitle")}
+            taskLabel={t("columnTask")}
+            countLabel={t("legendCount")}
+          />
         </Card>
         <Card title={t("chartWorkloadTitle")} description={t("chartWorkloadDescription")}>
-          <TeamWorkloadChart data={stats.workload} countLabel={t("legendActiveCount")} />
+          <TeamWorkloadChart
+            data={stats.workload}
+            title={t("chartWorkloadTitle")}
+            personLabel={t("columnPerson")}
+            countLabel={t("legendActiveCount")}
+          />
         </Card>
       </section>
       <section className={styles.deadlines}>
@@ -115,6 +127,7 @@ export default async function DashboardPage() {
             columnDueDate={t("columnDueDate")}
             columnProgress={t("columnProgress")}
             emptyMessage={t("deadlinesEmpty")}
+            caption={t("deadlinesTitle")}
           />
         </Card>
       </section>

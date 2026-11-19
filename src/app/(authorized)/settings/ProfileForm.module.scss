@@ -74,17 +74,6 @@
   }
 }
 
-.emailField {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.hint {
-  color: var(--color-text-muted);
-  font-size: 12px;
-}
-
 .error {
   color: #ff6369;
   font-size: 13px;

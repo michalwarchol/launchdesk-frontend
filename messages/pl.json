@@ -1,4 +1,7 @@
 {
+  "Common": {
+    "loading": "Ładowanie…"
+  },
   "LandingPage": {
     "meta": {
       "title": "LaunchDesk - Onboarding pracowników bez chaosu",
@@ -148,8 +151,12 @@
       "reject": "Odrzuć",
       "settings": "Pliki cookie"
     },
+    "logo": {
+      "home": "LaunchDesk – strona główna"
+    },
     "footer": {
       "tagline": "Onboarding pracowników bez chaosu.",
+      "navLabel": "Stopka",
       "contact": "Kontakt",
       "signIn": "Zaloguj się",
       "signUp": "Zarejestruj się",
@@ -188,6 +195,8 @@
     "legendCompleted": "Ukończone",
     "legendCount": "Przypisania",
     "legendActiveCount": "Aktywne przypisania",
+    "columnMonth": "Miesiąc",
+    "columnPerson": "Osoba",
     "deadlinesTitle": "Nadchodzące terminy",
     "deadlinesEmpty": "Brak nadchodzących terminów",
     "columnTask": "Zadanie",
@@ -204,7 +213,8 @@
     "assignments": "Przypisania",
     "settings": "Ustawienia",
     "report": "Uzyskaj pomoc",
-    "signOut": "Wyloguj się"
+    "signOut": "Wyloguj się",
+    "menu": "Menu"
   },
   "Metadata": {
     "taskDetails": "Szczegóły zadania",
@@ -284,7 +294,7 @@
     "emailLabel": "E-mail",
     "emailPlaceholder": "ty@firma.com",
     "passwordLabel": "Hasło",
-    "passwordPlaceholder": "Co najmniej {min} znaków",
+    "passwordHint": "Co najmniej {min} znaków",
     "confirmPasswordLabel": "Potwierdź hasło",
     "confirmPasswordPlaceholder": "Powtórz hasło",
     "organizationNameLabel": "Nazwa organizacji",
@@ -312,7 +322,7 @@
     "subtitle": "Wybierz hasło, aby zakończyć konfigurację konta.",
     "emailLabel": "E-mail",
     "passwordLabel": "Hasło",
-    "passwordPlaceholder": "Co najmniej {min} znaków",
+    "passwordHint": "Co najmniej {min} znaków",
     "confirmPasswordLabel": "Potwierdź hasło",
     "confirmPasswordPlaceholder": "Powtórz hasło",
     "submit": "Ustaw hasło i kontynuuj",
@@ -350,7 +360,7 @@
     "subtitle": "Wpisz nowe hasło do swojego konta.",
     "successSubtitle": "Możesz zalogować się nowym hasłem.",
     "passwordLabel": "Nowe hasło",
-    "passwordPlaceholder": "Co najmniej {min} znaków",
+    "passwordHint": "Co najmniej {min} znaków",
     "confirmPasswordLabel": "Potwierdź hasło",
     "confirmPasswordPlaceholder": "Powtórz hasło",
     "submit": "Zapisz hasło",
@@ -378,7 +388,14 @@
     "prev": "Poprzednia",
     "next": "Następna",
     "selectAll": "Zaznacz wszystkie wiersze na tej stronie",
-    "selectRow": "Zaznacz wiersz"
+    "selectRow": "Zaznacz wiersz",
+    "selectRowNamed": "Zaznacz: {name}",
+    "paginationLabel": "Paginacja",
+    "goToPage": "Strona {page}",
+    "resultsStatus": "Wyświetlono {shown, plural, one {# wynik} few {# wyniki} many {# wyników} other {# wyników}} z {total}",
+    "resultsStatusSorted": "Wyświetlono {shown, plural, one {# wynik} few {# wyniki} many {# wyników} other {# wyników}} z {total}, sortowanie: {column}, {direction}",
+    "sortAscending": "rosnąco",
+    "sortDescending": "malejąco"
   },
   "Modal": {
     "cancel": "Anuluj",
@@ -389,8 +406,14 @@
     "hint": "Przeciągnij i upuść pliki tutaj",
     "hintDragActive": "Upuść pliki, aby je dodać",
     "browse": "lub kliknij, aby wybrać",
-    "remove": "Usuń plik",
-    "selectedFiles": "Wybrane pliki"
+    "remove": "Usuń plik {name}",
+    "rejected": "Odrzucono: {names}. Akceptowane formaty: {formats}.",
+    "acceptedFormats": "Akceptowane formaty: {formats}",
+    "singleFile": "Możesz dodać tylko jeden plik",
+    "maxSize": "Maksymalny rozmiar: {size}",
+    "selectedFiles": "Wybrane pliki",
+    "added": "{count, plural, one {Dodano # plik} few {Dodano # pliki} many {Dodano # plików} other {Dodano # plików}}",
+    "removed": "Usunięto plik {name}"
   },
   "UsersPage": {
     "title": "Użytkownicy",
@@ -459,11 +482,15 @@
     "firstNameLabel": "Imię",
     "lastNameLabel": "Nazwisko",
     "roleLabel": "Rola",
+    "roleLockedHint": "Ostatni właściciel organizacji nie może zmienić własnej roli.",
     "assignmentsTitle": "Przypisania",
+    "columnActions": "Akcje",
     "assignmentsEmpty": "Brak przypisań dla tego użytkownika.",
     "assignmentsLoadError": "Nie udało się wczytać przypisań.",
     "cancel": "Anuluj",
     "unassign": "Usuń z przypisania",
+    "unassignFrom": "Odepnij od zadania {task}",
+    "unassignedStatus": "Odpięto od zadania {task}",
     "unassignModalTitle": "Usuń z przypisania",
     "unassignModalBody": "Usunąć użytkownika {name} z przypisania „{task}”?",
     "unassignConfirm": "Usuń z przypisania",
@@ -494,6 +521,7 @@
     "columnType": "Typ",
     "columnExtension": "Rozszerzenie",
     "columnSize": "Rozmiar",
+    "columnDownload": "Pobierz",
     "download": "Pobierz {name}",
     "fileMissing": "Plik \"{name}\" nie jest już dostępny w magazynie.",
     "downloadError": "Nie udało się pobrać pliku \"{name}\". Spróbuj ponownie.",
@@ -511,7 +539,8 @@
     "deleteModalBodyMany": "Spowoduje to trwałe usunięcie {count} dokumentów oraz usunięcie ich ze wszystkich zadań, w których są używane. Tej operacji nie można cofnąć.",
     "deleteConfirm": "Usuń",
     "deleteSubmitting": "Usuwanie…",
-    "deleteError": "Nie udało się usunąć dokumentów. Spróbuj ponownie."
+    "deleteError": "Nie udało się usunąć dokumentów. Spróbuj ponownie.",
+    "deletedStatus": "{count, plural, one {Usunięto # dokument} few {Usunięto # dokumenty} many {Usunięto # dokumentów} other {Usunięto # dokumentów}}"
   },
   "DocumentReaderPage": {
     "loading": "Wczytywanie podglądu…",
@@ -522,7 +551,10 @@
     "downloadError": "Nie udało się pobrać pliku \"{name}\". Spróbuj ponownie.",
     "unsupported": "Nie można wyświetlić podglądu tego typu pliku.",
     "emptySheet": "Ten arkusz jest pusty.",
+    "sheetLabel": "Arkusz {name}",
     "sheetTab": "Arkusz {name}",
+    "tabsLabel": "Arkusze",
+    "previewRegion": "Podgląd: {name}",
     "download": "Pobierz"
   },
   "TasksPage": {
@@ -561,12 +593,17 @@
       "completed": "Ukończone"
     },
     "dueDateLabel": "Termin",
+    "searchLabel": "Szukaj zadania",
     "searchPlaceholder": "Szukaj zadania",
     "empty": "Brak zadań do wyświetlenia",
     "loadError": "Nie udało się wczytać zadań.",
-    "loading": "Wczytywanie zadań…"
+    "loading": "Wczytywanie zadań…",
+    "resultsStatus": "{count, plural, one {Znaleziono # zadanie} few {Znaleziono # zadania} many {Znaleziono # zadań} other {Znaleziono # zadań}}",
+    "emptySearchStatus": "Brak zadań dla „{search}”"
   },
   "MyTaskPlayer": {
+    "welcomeTitle": "Zanim zaczniesz",
+    "stepPosition": "Krok {current} z {total}",
     "letsStart": "Zaczynamy!",
     "markDone": "Oznacz jako ukończone",
     "markNotDone": "Oznacz jako nieukończone",
@@ -614,7 +651,7 @@
     "currentPasswordLabel": "Aktualne hasło",
     "currentPasswordPlaceholder": "Twoje aktualne hasło",
     "newPasswordLabel": "Nowe hasło",
-    "newPasswordPlaceholder": "Co najmniej {min} znaków",
+    "newPasswordHint": "Co najmniej {min} znaków",
     "confirmNewPasswordLabel": "Potwierdź nowe hasło",
     "confirmNewPasswordPlaceholder": "Powtórz nowe hasło",
     "passwordSubmit": "Zmień hasło",
@@ -648,13 +685,16 @@
     }
   },
   "AvatarGroup": {
-    "moreLabel": "Jeszcze {count}"
+    "moreLabel": "i jeszcze {count, plural, one {# osoba} few {# osoby} many {# osób} other {# osób}}",
+    "groupLabel": "Przypisane osoby"
   },
   "Autocomplete": {
     "noOptions": "Nie znaleziono opcji",
     "loading": "Ładowanie…",
     "clear": "Wyczyść wybór",
-    "removeOption": "Usuń {name}"
+    "removeOption": "Usuń {name}",
+    "selected": "Wybrane",
+    "resultsCount": "{count, plural, one {# wynik} few {# wyniki} many {# wyników} other {# wyników}}"
   },
   "Select": {
     "noOptions": "Brak dostępnych opcji"
@@ -663,13 +703,15 @@
     "empty": "Nie wybrano daty",
     "previousMonth": "Poprzedni miesiąc",
     "nextMonth": "Następny miesiąc",
-    "clear": "Wyczyść datę"
+    "clear": "Wyczyść datę",
+    "required": "pole wymagane"
   },
   "PageHeader": {
     "back": "Wróć"
   },
   "Accordion": {
-    "remove": "Usuń"
+    "remove": "Usuń",
+    "hasErrors": "zawiera błędy"
   },
   "RichTextEditor": {
     "toolbar": "Formatowanie tekstu",
@@ -677,11 +719,11 @@
     "italic": "Kursywa",
     "strike": "Przekreślenie",
     "code": "Kod w linii",
-    "heading1": "Nagłówek 1",
-    "heading2": "Nagłówek 2",
-    "heading3": "Nagłówek 3",
+    "heading1": "H1, Nagłówek 1",
+    "heading2": "H2, Nagłówek 2",
+    "heading3": "H3, Nagłówek 3",
     "bulletList": "Lista punktowana",
-    "orderedList": "Lista numerowana",
+    "orderedList": "1., Lista numerowana",
     "blockquote": "Cytat",
     "codeBlock": "Blok kodu",
     "link": "Link",
@@ -692,15 +734,30 @@
     "linkTextPlaceholder": "Tekst widoczny w edytorze",
     "linkRemove": "Usuń link"
   },
+  "Alert": {
+    "errorPrefix": "Błąd: ",
+    "infoPrefix": "Informacja: "
+  },
+  "StatCard": {
+    "danger": "wymaga uwagi",
+    "success": "pozytywny wynik"
+  },
+  "ProgressBar": {
+    "progressOf": "Postęp: {name}"
+  },
   "Attachments": {
     "addAttachments": "Dodaj załączniki",
-    "remove": "Usuń załącznik",
+    "remove": "Usuń załącznik {name}",
+    "filtersLabel": "Typ dokumentu",
     "newBadge": "Nowy",
     "pickerTitle": "Dodaj załączniki",
     "add": "Dodaj",
     "tabLibrary": "Biblioteka",
     "tabUpload": "Wgraj nowy",
+    "tabsLabel": "Źródło załączników",
     "searchPlaceholder": "Szukaj dokumentów",
+    "searchLabel": "Szukaj dokumentów",
+    "libraryResults": "{count, plural, one {# dokument} few {# dokumenty} many {# dokumentów} other {# dokumentów}}",
     "libraryEmpty": "Nie znaleziono dokumentów",
     "alreadyAdded": "Dodano",
     "filter": {

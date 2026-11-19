@@ -1,3 +1,5 @@
+@use "../../../../styles/focus" as focus;
+
 .page {
   display: flex;
   flex-direction: column;
@@ -19,6 +21,11 @@
   font-size: 20px;
   font-weight: 600;
   margin: 0;
+
+  &:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 }
 
 .description {
@@ -47,6 +54,16 @@
 .attachment {
   color: var(--color-primary);
   font-size: 14px;
+
+  &:focus-visible {
+    @include focus.focus-ring;
+  }
+}
+
+.stepPosition {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .notes {
@@ -61,36 +78,3 @@
   gap: 8px;
 }
 
-.status {
-  color: var(--color-text-muted);
-  padding: 32px 16px;
-  text-align: center;
-}
-
-.spinner {
-  animation: myTaskSpinner 0.7s linear infinite;
-  border: 3px solid var(--color-border);
-  border-radius: 50%;
-  border-top-color: var(--color-primary);
-  display: inline-block;
-  height: 32px;
-  width: 32px;
-}
-
-.visuallyHidden {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-@keyframes myTaskSpinner {
-  to {
-    transform: rotate(360deg);
-  }
-}

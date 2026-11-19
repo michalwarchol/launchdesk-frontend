@@ -61,18 +61,20 @@ export default function AcceptInviteForm({ token, email, apiBase, next }: Accept
       {formError ? <Alert>{t(`errors.${formError}`)}</Alert> : null}
 
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
-        <TextField label={t("emailLabel")} type="email" defaultValue={email} disabled />
+        <TextField label={t("emailLabel")} type="email" defaultValue={email} readOnly />
 
         <TextField
+          required
           label={t("passwordLabel")}
           type="password"
-          placeholder={t("passwordPlaceholder", { min: MIN_PASSWORD_LENGTH })}
+          hint={t("passwordHint", { min: MIN_PASSWORD_LENGTH })}
           autoComplete="new-password"
           error={errorText(errors.password?.message)}
           {...register("password")}
         />
 
         <TextField
+          required
           label={t("confirmPasswordLabel")}
           type="password"
           placeholder={t("confirmPasswordPlaceholder")}

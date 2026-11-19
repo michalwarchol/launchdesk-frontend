@@ -39,7 +39,7 @@
 
   &:focus-visible {
     outline: 2px solid var(--color-primary);
-    outline-offset: -2px;
+    outline-offset: -4px;
   }
 }
 
@@ -55,14 +55,30 @@
   transform: rotate(90deg);
 }
 
+.errorIcon {
+  color: var(--color-danger-text);
+  flex-shrink: 0;
+}
+
+.visuallyHidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 .header {
   flex: 1;
   font-size: 15px;
   font-weight: 600;
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .removeButton {
@@ -94,6 +110,7 @@
 }
 
 .panelInner {
+  color: var(--color-primary-text);
   padding: 16px;
 }
 

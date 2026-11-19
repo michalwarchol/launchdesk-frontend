@@ -16,17 +16,14 @@ import Autocomplete from "@/components/Autocomplete";
 import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
 import DatePicker from "@/components/DatePicker";
+import LoadingStatus from "@/components/LoadingStatus";
 import Modal from "@/components/Modal";
 import PageHeader from "@/components/PageHeader";
 import ProgressBar from "@/components/ProgressBar";
 import { isApiError } from "@/lib/api/errors";
 
 import styles from "./EditAssignmentForm.module.scss";
-import {
-  AssigneeOption,
-  EditAssignmentFormValues,
-  editAssignmentSchema,
-} from "./schema";
+import { AssigneeOption, EditAssignmentFormValues, editAssignmentSchema } from "./schema";
 
 import type { AssignmentAssignee } from "@/lib/api/types";
 
@@ -64,8 +61,10 @@ interface EditAssignmentFormProps {
 
 export default function EditAssignmentForm({ assignmentId }: EditAssignmentFormProps) {
   const t = useTranslations("EditAssignmentPage");
+  const tCommon = useTranslations("Common");
   const tNew = useTranslations("NewAssignmentPage");
   const tAssignments = useTranslations("AssignmentsPage");
+  const tProgress = useTranslations("ProgressBar");
   const router = useRouter();
   const { data: assignment, isPending, error } = useAssignmentQuery(assignmentId);
   const updateAssignment = useUpdateAssignmentMutation(assignmentId);
@@ -169,7 +168,8 @@ export default function EditAssignmentForm({ assignmentId }: EditAssignmentFormP
   if (isPending) {
     return (
       <div className={styles.page}>
-        <PageHeader title="…" backHref={`/assignments/${assignmentId}`} />
+        <PageHeader title={tCommon("loading")} backHref={`/assignments/${assignmentId}`} />
+        <LoadingStatus />
       </div>
     );
   }
@@ -195,21 +195,29 @@ export default function EditAssignmentForm({ assignmentId }: EditAssignmentFormP
         <div className={styles.fields}>
           {formError ? <Alert variant="error">{t(`saveErrors.${formError}`)}</Alert> : null}
 
-          <div className={styles.readOnlyField}>
-            <span className={styles.fieldLabel}>{tNew("taskLabel")}</span>
-            <p className={styles.fieldValue}>{assignment.taskName}</p>
-          </div>
+          <dl className={styles.readOnlyFields}>
+            <div className={styles.readOnlyField}>
+              <dt className={styles.fieldLabel}>{tNew("taskLabel")}</dt>
+              <dd className={styles.fieldValue}>{assignment.taskName}</dd>
+            </div>
 
-          <div className={styles.readOnlyField}>
-            <span className={styles.fieldLabel}>{tAssignments("columnProgress")}</span>
-            <ProgressBar value={assignment.progress} />
-          </div>
+            <div className={styles.readOnlyField}>
+              <dt className={styles.fieldLabel}>{tAssignments("columnProgress")}</dt>
+              <dd className={styles.fieldValue}>
+                <ProgressBar
+                  value={assignment.progress}
+                  label={tProgress("progressOf", { name: assignment.taskName })}
+                />
+              </dd>
+            </div>
+          </dl>
 
           <Controller
             control={control}
             name="assignees"
             render={({ field }) => (
               <Autocomplete<AssigneeOption>
+                required
                 multiple
                 label={tNew("assigneesLabel")}
                 placeholder={tNew("assigneesPlaceholder")}
@@ -236,6 +244,7 @@ export default function EditAssignmentForm({ assignmentId }: EditAssignmentFormP
                       title={`${user.firstName} ${user.lastName}`}
                       size="sm"
                       hideText
+                      decorative
                     />
                     {user.firstName} {user.lastName}
                   </>
@@ -249,6 +258,7 @@ export default function EditAssignmentForm({ assignmentId }: EditAssignmentFormP
             name="dueDate"
             render={({ field }) => (
               <DatePicker
+                required
                 label={tNew("dueDateLabel")}
                 placeholder={tNew("dueDatePlaceholder")}
                 value={field.value}

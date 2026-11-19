@@ -5,9 +5,10 @@ import styles from "../page.module.scss";
 
 interface TextReaderProps {
   blob: Blob;
+  documentName: string;
 }
 
-export default function TextReader({ blob }: TextReaderProps) {
+export default function TextReader({ blob, documentName }: TextReaderProps) {
   const t = useTranslations("DocumentReaderPage");
   const [text, setText] = useState<string | null>(null);
 
@@ -31,5 +32,14 @@ export default function TextReader({ blob }: TextReaderProps) {
     );
   }
 
-  return <pre className={styles.text}>{text}</pre>;
+  return (
+    <pre
+      className={styles.text}
+      tabIndex={0}
+      role="region"
+      aria-label={t("previewRegion", { name: documentName })}
+    >
+      {text}
+    </pre>
+  );
 }

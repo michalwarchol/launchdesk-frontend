@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useId } from "react";
+import { useEffect, useId, useRef } from "react";
 
 import styles from "./Accordion.module.scss";
 
@@ -32,6 +32,24 @@ export default function Accordion({
 }: AccordionProps) {
   const t = useTranslations("Accordion");
   const baseId = useId();
+  const headerRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const footerRef = useRef<HTMLDivElement>(null);
+  const pendingRemovalIndex = useRef<number | null>(null);
+  const previousCount = useRef(items.length);
+
+  useEffect(() => {
+    if (items.length < previousCount.current && pendingRemovalIndex.current !== null) {
+      const index = pendingRemovalIndex.current;
+      pendingRemovalIndex.current = null;
+      const nextHeader = headerRefs.current[index] ?? headerRefs.current[index - 1];
+      const footerTarget = footerRef.current?.querySelector<HTMLElement>(
+        "button, a, input, select, textarea",
+      );
+      (nextHeader ?? footerTarget)?.focus();
+    }
+
+    previousCount.current = items.length;
+  }, [items]);
 
   const toggle = (id: string) => {
     const isExpanded = expandedIds.includes(id);
@@ -50,6 +68,7 @@ export default function Accordion({
         const isExpanded = expandedIds.includes(item.id);
         const headerId = `${baseId}-${index}-header`;
         const panelId = `${baseId}-${index}-panel`;
+        const errorId = `${baseId}-${index}-error`;
 
         const itemClassName = [styles.item, item.hasError ? styles.itemError : ""]
           .filter(Boolean)
@@ -59,11 +78,15 @@ export default function Accordion({
           <div key={item.id} className={itemClassName}>
             <div className={styles.headerRow}>
               <button
+                ref={(node) => {
+                  headerRefs.current[index] = node;
+                }}
                 type="button"
                 id={headerId}
                 className={styles.trigger}
                 aria-expanded={isExpanded}
                 aria-controls={panelId}
+                aria-describedby={item.hasError ? errorId : undefined}
                 onClick={() => toggle(item.id)}
               >
                 <span
@@ -86,7 +109,30 @@ export default function Accordion({
                   </svg>
                 </span>
                 <span className={styles.header}>{item.header}</span>
+                {item.hasError ? (
+                  <svg
+                    className={styles.errorIcon}
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                  </svg>
+                ) : null}
               </button>
+              {item.hasError ? (
+                <span id={errorId} className={styles.visuallyHidden}>
+                  {t("hasErrors")}
+                </span>
+              ) : null}
 
               {item.onRemove ? (
                 <button
@@ -94,9 +140,11 @@ export default function Accordion({
                   className={styles.removeButton}
                   onClick={(event) => {
                     event.stopPropagation();
+                    pendingRemovalIndex.current = index;
                     item.onRemove?.();
                   }}
                   aria-label={t("remove")}
+                  aria-describedby={headerId}
                 >
                   <svg
                     width="16"
@@ -131,7 +179,11 @@ export default function Accordion({
         );
       })}
 
-      {footer ? <div className={styles.footer}>{footer}</div> : null}
+      {footer ? (
+        <div ref={footerRef} className={styles.footer}>
+          {footer}
+        </div>
+      ) : null}
     </div>
   );
 }

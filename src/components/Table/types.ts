@@ -10,6 +10,8 @@ export type ColumnAlign = "center" | "left" | "right";
 export type Column<T> = {
   key: string;
   header: string;
+  /** Keeps the header name for screen readers while hiding it visually. */
+  hideHeader?: boolean;
   sortable?: boolean;
   align?: ColumnAlign;
   width?: string;

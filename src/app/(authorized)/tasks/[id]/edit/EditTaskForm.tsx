@@ -9,6 +9,7 @@ import { FormProvider, SubmitErrorHandler, useFieldArray, useForm } from "react-
 import { useTaskQuery, useUpdateTaskMutation } from "@/app/(authorized)/tasks/api";
 import Alert from "@/components/Alert";
 import Button from "@/components/Button";
+import LoadingStatus from "@/components/LoadingStatus";
 import PageHeader from "@/components/PageHeader";
 import TextField from "@/components/TextField";
 import { isApiError } from "@/lib/api/errors";
@@ -36,6 +37,7 @@ export default function EditTaskForm({ taskId }: EditTaskFormProps) {
   "use no memo";
 
   const t = useTranslations("EditTaskPage");
+  const tCommon = useTranslations("Common");
   const tNew = useTranslations("NewTaskPage");
   const router = useRouter();
   const { data: task, isPending, error } = useTaskQuery(taskId);
@@ -107,7 +109,8 @@ export default function EditTaskForm({ taskId }: EditTaskFormProps) {
   if (isPending) {
     return (
       <div className={pageStyles.page}>
-        <PageHeader title="…" backHref={`/tasks/${taskId}`} />
+        <PageHeader title={tCommon("loading")} backHref={`/tasks/${taskId}`} />
+        <LoadingStatus />
       </div>
     );
   }
@@ -157,8 +160,10 @@ export default function EditTaskForm({ taskId }: EditTaskFormProps) {
           {formError ? <Alert variant="error">{t(`saveErrors.${formError}`)}</Alert> : null}
 
           <TextField
+            required
             label={tNew("nameLabel")}
             hideLabel
+            showRequiredMark
             size="lg"
             placeholder={tNew("namePlaceholder")}
             error={errorText(errors.name?.message)}
@@ -166,6 +171,7 @@ export default function EditTaskForm({ taskId }: EditTaskFormProps) {
           />
 
           <TextField
+            required
             label={tNew("descriptionLabel")}
             multiline
             rows={3}
@@ -176,9 +182,7 @@ export default function EditTaskForm({ taskId }: EditTaskFormProps) {
 
           <TaskStepsField
             fields={fields}
-            expandedIds={
-              expandedIds.length > 0 ? expandedIds : fields.map((field) => field.key)
-            }
+            expandedIds={expandedIds.length > 0 ? expandedIds : fields.map((field) => field.key)}
             onExpandedChange={setExpandedIds}
             onAddStep={addStep}
             onRemoveStep={removeStep}

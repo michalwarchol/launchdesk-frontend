@@ -134,6 +134,7 @@ export const WithSelection: Story = {
           columns={columns}
           data={USERS}
           getRowId={(row) => row.id}
+          getRowLabel={(row) => row.name}
           selection={{ selectedIds, onSelectedIdsChange: setSelectedIds }}
         />
         <p>Selected ids: {selectedIds.length ? selectedIds.join(", ") : "none"}</p>
@@ -181,19 +182,24 @@ export const Loading: Story = {
 
 export const LoadingWithData: Story = {
   render: () => (
-    <Table columns={columns} data={USERS} getRowId={(row) => row.id} isLoading onRowClick={() => {}} />
+    <Table
+      columns={columns}
+      data={USERS}
+      getRowId={(row) => row.id}
+      isLoading
+      onRowClick={() => {}}
+    />
   ),
 };
 
 export const Error: Story = {
   render: () => (
-    <Table
-      columns={columns}
-      data={USERS}
-      getRowId={(row) => row.id}
-      error="Could not load data."
-    />
+    <Table columns={columns} data={USERS} getRowId={(row) => row.id} error="Could not load data." />
   ),
+};
+
+export const WithCaption: Story = {
+  render: () => <Table columns={columns} data={USERS} getRowId={(row) => row.id} caption="Users" />,
 };
 
 export const Empty: Story = {

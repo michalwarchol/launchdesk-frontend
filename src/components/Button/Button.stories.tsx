@@ -26,6 +26,13 @@ const cellStyle: React.CSSProperties = {
   verticalAlign: "middle",
 };
 
+export const IconOnly: Story = {
+  args: {
+    "aria-label": "Close",
+    children: "×",
+  },
+};
+
 export const Overview: Story = {
   render: () => (
     <table style={{ borderCollapse: "collapse" }}>

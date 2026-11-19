@@ -91,8 +91,10 @@ export default function NewTaskForm() {
           {createTask.isError ? <Alert>{t("submitError")}</Alert> : null}
 
           <TextField
+            required
             label={t("nameLabel")}
             hideLabel
+            showRequiredMark
             size="lg"
             placeholder={t("namePlaceholder")}
             error={errorText(errors.name?.message)}
@@ -100,6 +102,7 @@ export default function NewTaskForm() {
           />
 
           <TextField
+            required
             label={t("descriptionLabel")}
             multiline
             rows={3}

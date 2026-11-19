@@ -36,7 +36,12 @@ const uploadAttachment: Attachment = {
 export const Empty: Story = {
   render: function EmptyStory() {
     const [value, setValue] = useState<Attachment[]>([]);
-    return <AttachmentsField value={value} onChange={setValue} />;
+    return (
+      <>
+        <span id="attachments-label">Attachments</span>
+        <AttachmentsField value={value} onChange={setValue} ariaLabelledby="attachments-label" />
+      </>
+    );
   },
 };
 

@@ -2,21 +2,60 @@
 
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useId, useState } from "react";
 
 import { useDeleteTaskMutation, useTaskQuery } from "@/app/(authorized)/tasks/api";
 import Accordion, { AccordionItemData } from "@/components/Accordion";
 import Alert from "@/components/Alert";
 import AttachmentsField from "@/components/AttachmentsField";
 import Button from "@/components/Button";
+import LoadingStatus from "@/components/LoadingStatus";
 import Modal from "@/components/Modal";
 import PageHeader from "@/components/PageHeader";
 import richTextStyles from "@/components/RichTextEditor/RichTextEditor.module.scss";
 import { isApiError } from "@/lib/api/errors";
+import { shiftHeadingLevels } from "@/utils/shiftHeadingLevels";
 
 import formStyles from "../new/NewTaskForm.module.scss";
 import stepStyles from "../new/TaskStepsField.module.scss";
 import pageStyles from "../taskDetail.module.scss";
+
+function StepAttachments({
+  label,
+  documents,
+}: {
+  label: string;
+  documents: {
+    id: string;
+    name: string;
+    size: number;
+    extension: string;
+    type: "text" | "spreadsheet" | "image";
+  }[];
+}) {
+  const labelId = useId();
+
+  return (
+    <div className={stepStyles.stepField}>
+      <span id={labelId} className={stepStyles.stepFieldLabel}>
+        {label}
+      </span>
+      <AttachmentsField
+        value={documents.map((document) => ({
+          kind: "document",
+          id: document.id,
+          name: document.name,
+          size: document.size,
+          extension: document.extension,
+          documentType: document.type,
+        }))}
+        onChange={() => {}}
+        disabled
+        ariaLabelledby={labelId}
+      />
+    </div>
+  );
+}
 
 type DeleteTaskError = "forbidden" | "generic";
 
@@ -35,6 +74,8 @@ interface TaskDetailsViewProps {
 
 export default function TaskDetailsView({ taskId, canManage }: TaskDetailsViewProps) {
   const t = useTranslations("TaskDetailsPage");
+  const tCommon = useTranslations("Common");
+  const stepsTitleId = useId();
   const tNew = useTranslations("NewTaskPage");
   const router = useRouter();
   const { data: task, isPending, error } = useTaskQuery(taskId);
@@ -46,7 +87,8 @@ export default function TaskDetailsView({ taskId, canManage }: TaskDetailsViewPr
   if (isPending) {
     return (
       <div className={pageStyles.page}>
-        <PageHeader title="…" backHref="/tasks" />
+        <PageHeader title={tCommon("loading")} backHref="/tasks" />
+        <LoadingStatus />
       </div>
     );
   }
@@ -96,28 +138,14 @@ export default function TaskDetailsView({ taskId, canManage }: TaskDetailsViewPr
             <div className={richTextStyles.content}>
               <div
                 className="ProseMirror"
-                dangerouslySetInnerHTML={{ __html: step.description }}
+                dangerouslySetInnerHTML={{ __html: shiftHeadingLevels(step.description, 3) }}
               />
             </div>
           </div>
         </div>
 
         {step.attachments.length > 0 ? (
-          <div className={stepStyles.stepField}>
-            <span className={stepStyles.stepFieldLabel}>{tNew("stepAttachmentsLabel")}</span>
-            <AttachmentsField
-              value={step.attachments.map((document) => ({
-                kind: "document",
-                id: document.id,
-                name: document.name,
-                size: document.size,
-                extension: document.extension,
-                documentType: document.type,
-              }))}
-              onChange={() => {}}
-              disabled
-            />
-          </div>
+          <StepAttachments label={tNew("stepAttachmentsLabel")} documents={step.attachments} />
         ) : null}
       </div>
     ),
@@ -150,14 +178,18 @@ export default function TaskDetailsView({ taskId, canManage }: TaskDetailsViewPr
       </PageHeader>
 
       <div className={formStyles.body}>
-        <div>
-          <p className={pageStyles.fieldLabel}>{tNew("descriptionLabel")}</p>
-          <p className={pageStyles.fieldValue}>{task.description}</p>
-        </div>
+        <dl className={pageStyles.details}>
+          <div>
+            <dt className={pageStyles.fieldLabel}>{tNew("descriptionLabel")}</dt>
+            <dd className={pageStyles.fieldValue}>{task.description}</dd>
+          </div>
+        </dl>
 
-        <div className={stepStyles.wrapper}>
+        <div className={stepStyles.wrapper} role="group" aria-labelledby={stepsTitleId}>
           <div className={stepStyles.sectionHeader}>
-            <span className={stepStyles.sectionTitle}>{tNew("stepsTitle")}</span>
+            <span id={stepsTitleId} className={stepStyles.sectionTitle}>
+              {tNew("stepsTitle")}
+            </span>
           </div>
           <Accordion
             items={stepItems}

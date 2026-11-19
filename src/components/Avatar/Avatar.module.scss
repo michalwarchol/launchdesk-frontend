@@ -1,3 +1,5 @@
+@use "../../styles/focus" as focus;
+
 .avatar {
   align-items: center;
   background: none;
@@ -25,6 +27,10 @@
 
   &:active {
     background-color: var(--color-active-overlay);
+  }
+
+  &:focus-visible {
+    @include focus.focus-ring;
   }
 }
 

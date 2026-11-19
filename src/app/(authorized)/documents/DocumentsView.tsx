@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Alert from "@/components/Alert";
 import Button from "@/components/Button";
@@ -38,6 +38,15 @@ export default function DocumentsView({ canManage }: DocumentsViewProps) {
   const upload = useUploadDocumentsMutation();
   const deleteDocuments = useDeleteDocumentsMutation();
   const [downloadError, setDownloadError] = useState<string | null>(null);
+  const [statusMessage, setStatusMessage] = useState("");
+  const [focusRequest, setFocusRequest] = useState(0);
+  const uploadButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (focusRequest === 0) return;
+
+    uploadButtonRef.current?.focus();
+  }, [focusRequest]);
 
   const documents = data?.data ?? [];
   const selectedIdStrings = selectedIds.map((id) => String(id));
@@ -110,8 +119,11 @@ export default function DocumentsView({ canManage }: DocumentsViewProps) {
       return;
     }
 
+    const deletedCount = selectedIdStrings.length;
+    setStatusMessage(t("deletedStatus", { count: deletedCount }));
     setSelectedIds([]);
     setIsDeleteOpen(false);
+    setFocusRequest((current) => current + 1);
   };
 
   const uploadErrorKey =
@@ -137,7 +149,8 @@ export default function DocumentsView({ canManage }: DocumentsViewProps) {
     },
     {
       key: "download",
-      header: "",
+      header: t("columnDownload"),
+      hideHeader: true,
       align: "center",
       width: "64px",
       render: (row) => (
@@ -184,7 +197,12 @@ export default function DocumentsView({ canManage }: DocumentsViewProps) {
                 {t("delete")}
               </Button>
             ) : null}
-            <Button type="button" variant="primary" onClick={() => setIsUploadOpen(true)}>
+            <Button
+              ref={uploadButtonRef}
+              type="button"
+              variant="primary"
+              onClick={() => setIsUploadOpen(true)}
+            >
               {t("upload")}
             </Button>
           </div>
@@ -196,8 +214,11 @@ export default function DocumentsView({ canManage }: DocumentsViewProps) {
         data={documents}
         columns={columns}
         getRowId={(row) => row.id}
+        getRowLabel={(row) => row.name}
         onRowClick={(row) => router.push(`/documents/${row.id}`)}
         selection={canManage ? { selectedIds, onSelectedIdsChange: setSelectedIds } : undefined}
+        caption={t("title")}
+        hideCaption
         emptyMessage={t("empty")}
         isLoading={isPending}
         error={error ? t("loadError") : undefined}
@@ -226,6 +247,9 @@ export default function DocumentsView({ canManage }: DocumentsViewProps) {
           <p>{getDeleteModalBody()}</p>
         </Modal>
       ) : null}
+      <p className={styles.visuallyHidden} role="status">
+        {statusMessage}
+      </p>
     </div>
   );
 }

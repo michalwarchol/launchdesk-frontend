@@ -95,18 +95,21 @@ export default function InviteUserModal({ isOpen, actorRole, onClose }: InviteUs
         {formError ? <Alert>{t(`inviteErrors.${formError}`)}</Alert> : null}
 
         <TextField
+          required
           label={t("firstNameLabel")}
           autoComplete="off"
           error={errorText(errors.firstName?.message)}
           {...register("firstName")}
         />
         <TextField
+          required
           label={t("lastNameLabel")}
           autoComplete="off"
           error={errorText(errors.lastName?.message)}
           {...register("lastName")}
         />
         <TextField
+          required
           label={t("emailLabel")}
           type="email"
           autoComplete="off"
@@ -118,6 +121,7 @@ export default function InviteUserModal({ isOpen, actorRole, onClose }: InviteUs
           name="role"
           render={({ field }) => (
             <Select
+              required
               label={t("roleLabel")}
               options={assignableRoles(actorRole).map((role) => ({
                 value: role,

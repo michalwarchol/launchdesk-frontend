@@ -64,6 +64,7 @@ export default function OrganizationForm({ organizationName }: OrganizationFormP
 
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
         <TextField
+          required
           label={t("organizationNameLabel")}
           error={errorText(errors.name?.message)}
           {...register("name")}

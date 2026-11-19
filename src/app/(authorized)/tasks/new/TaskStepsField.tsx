@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useId } from "react";
 import { Controller, FieldArrayWithId, useFormContext } from "react-hook-form";
 
 import Accordion, { AccordionItemData } from "@/components/Accordion";
@@ -12,6 +13,31 @@ import TextField from "@/components/TextField";
 
 import { NewTaskFormValues } from "./schema";
 import styles from "./TaskStepsField.module.scss";
+
+function StepAttachments({ index }: { index: number }) {
+  const t = useTranslations("NewTaskPage");
+  const labelId = useId();
+  const { control } = useFormContext<NewTaskFormValues>();
+
+  return (
+    <div className={styles.stepField}>
+      <span id={labelId} className={styles.stepFieldLabel}>
+        {t("stepAttachmentsLabel")}
+      </span>
+      <Controller
+        control={control}
+        name={`steps.${index}.attachments`}
+        render={({ field: attachmentsField }) => (
+          <AttachmentsField
+            value={attachmentsField.value}
+            onChange={attachmentsField.onChange}
+            ariaLabelledby={labelId}
+          />
+        )}
+      />
+    </div>
+  );
+}
 
 interface TaskStepsFieldProps {
   fields: FieldArrayWithId<NewTaskFormValues, "steps", "id">[];
@@ -29,6 +55,8 @@ export default function TaskStepsField({
   onRemoveStep,
 }: TaskStepsFieldProps) {
   const t = useTranslations("NewTaskPage");
+  const stepsTitleId = useId();
+  const stepsErrorId = useId();
   const {
     control,
     register,
@@ -56,6 +84,7 @@ export default function TaskStepsField({
       content: (
         <div className={styles.stepContent}>
           <TextField
+            required
             label={t("stepNameLabel")}
             placeholder={t("stepNamePlaceholder")}
             size="md"
@@ -64,12 +93,12 @@ export default function TaskStepsField({
           />
 
           <div className={styles.stepField}>
-            <span className={styles.stepFieldLabel}>{t("stepDescriptionLabel")}</span>
             <Controller
               control={control}
               name={`steps.${index}.description`}
               render={({ field: descriptionField }) => (
                 <RichTextEditor
+                  label={t("stepDescriptionLabel")}
                   value={descriptionField.value}
                   onChange={descriptionField.onChange}
                   onBlur={descriptionField.onBlur}
@@ -79,19 +108,7 @@ export default function TaskStepsField({
             />
           </div>
 
-          <div className={styles.stepField}>
-            <span className={styles.stepFieldLabel}>{t("stepAttachmentsLabel")}</span>
-            <Controller
-              control={control}
-              name={`steps.${index}.attachments`}
-              render={({ field: attachmentsField }) => (
-                <AttachmentsField
-                  value={attachmentsField.value}
-                  onChange={attachmentsField.onChange}
-                />
-              )}
-            />
-          </div>
+          <StepAttachments index={index} />
 
           <Controller
             control={control}
@@ -110,13 +127,22 @@ export default function TaskStepsField({
     };
   });
 
+  const stepsError = typeof errors.steps?.message === "string" ? errors.steps.message : undefined;
+
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={styles.wrapper}
+      role="group"
+      aria-labelledby={stepsTitleId}
+      aria-describedby={stepsError ? stepsErrorId : undefined}
+    >
       <div className={styles.sectionHeader}>
-        <span className={styles.sectionTitle}>{t("stepsTitle")}</span>
-        {typeof errors.steps?.message === "string" ? (
-          <span className={styles.sectionError} role="alert">
-            {errorText(errors.steps.message)}
+        <span id={stepsTitleId} className={styles.sectionTitle}>
+          {t("stepsTitle")}
+        </span>
+        {stepsError ? (
+          <span id={stepsErrorId} className={styles.sectionError} role="alert">
+            {errorText(stepsError)}
           </span>
         ) : null}
       </div>

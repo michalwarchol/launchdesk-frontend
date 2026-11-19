@@ -11,6 +11,7 @@ import { EditUserFormValues, editUserSchema } from "@/app/(authorized)/users/sch
 import UserAssignmentsTable from "@/app/(authorized)/users/UserAssignmentsTable";
 import Alert from "@/components/Alert";
 import Button from "@/components/Button";
+import LoadingStatus from "@/components/LoadingStatus";
 import PageHeader from "@/components/PageHeader";
 import Select from "@/components/Select";
 import TextField from "@/components/TextField";
@@ -22,11 +23,7 @@ import styles from "./EditUserForm.module.scss";
 import type { UserRole } from "@/lib/api/types";
 
 type SaveUserError =
-  | "forbidden"
-  | "cannotAssignOwner"
-  | "cannotModifyOwner"
-  | "lastOwner"
-  | "generic";
+  "forbidden" | "cannotAssignOwner" | "cannotModifyOwner" | "lastOwner" | "generic";
 
 function toSaveUserError(error: unknown): SaveUserError {
   if (isApiError(error)) {
@@ -49,6 +46,7 @@ export default function EditUserForm({ userId, actorRole, lockRole }: EditUserFo
   "use no memo";
 
   const t = useTranslations("EditUserPage");
+  const tCommon = useTranslations("Common");
   const tUsers = useTranslations("UsersPage");
   const router = useRouter();
   const { data: user, isPending, error } = useUserQuery(userId);
@@ -82,7 +80,8 @@ export default function EditUserForm({ userId, actorRole, lockRole }: EditUserFo
   if (isPending) {
     return (
       <div className={styles.page}>
-        <PageHeader title="…" backHref={`/users/${userId}`} />
+        <PageHeader title={tCommon("loading")} backHref={`/users/${userId}`} />
+        <LoadingStatus />
       </div>
     );
   }
@@ -131,11 +130,13 @@ export default function EditUserForm({ userId, actorRole, lockRole }: EditUserFo
         <div className={styles.fields}>
           {formError ? <Alert variant="error">{t(`saveErrors.${formError}`)}</Alert> : null}
           <TextField
+            required
             label={t("firstNameLabel")}
             error={errorText(errors.firstName?.message)}
             {...register("firstName")}
           />
           <TextField
+            required
             label={t("lastNameLabel")}
             error={errorText(errors.lastName?.message)}
             {...register("lastName")}
@@ -149,6 +150,7 @@ export default function EditUserForm({ userId, actorRole, lockRole }: EditUserFo
                 value={field.value}
                 onChange={field.onChange}
                 disabled={lockRole}
+                hint={lockRole ? t("roleLockedHint") : undefined}
                 options={roleOptions}
               />
             )}

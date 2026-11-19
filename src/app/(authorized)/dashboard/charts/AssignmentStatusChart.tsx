@@ -30,25 +30,27 @@ export default function AssignmentStatusChart({
   return (
     <div>
       <div className={styles.donutWrapper}>
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie
-              data={chartData}
-              dataKey="count"
-              nameKey="label"
-              innerRadius="62%"
-              outerRadius="92%"
-              paddingAngle={2}
-              stroke={CHART_COLORS.surface}
-              strokeWidth={2}
-            >
-              {chartData.map((entry) => (
-                <Cell key={entry.status} fill={STATUS_COLORS[entry.status]} />
-              ))}
-            </Pie>
-            <Tooltip content={<ChartTooltip />} />
-          </PieChart>
-        </ResponsiveContainer>
+        <div className={styles.chartGraphic} aria-hidden="true">
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart accessibilityLayer={false}>
+              <Pie
+                data={chartData}
+                dataKey="count"
+                nameKey="label"
+                innerRadius="62%"
+                outerRadius="92%"
+                paddingAngle={2}
+                stroke={CHART_COLORS.surface}
+                strokeWidth={2}
+              >
+                {chartData.map((entry) => (
+                  <Cell key={entry.status} fill={STATUS_COLORS[entry.status]} />
+                ))}
+              </Pie>
+              <Tooltip content={<ChartTooltip />} />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
         <div className={styles.donutCenter}>
           <span className={styles.donutTotal}>{total}</span>
           <span className={styles.donutCaption}>{totalLabel}</span>

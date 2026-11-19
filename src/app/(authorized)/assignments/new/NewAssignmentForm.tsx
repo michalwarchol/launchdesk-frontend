@@ -100,6 +100,7 @@ export default function NewAssignmentForm() {
           name="task"
           render={({ field }) => (
             <Autocomplete<TaskOption>
+              required
               label={t("taskLabel")}
               placeholder={t("taskPlaceholder")}
               options={taskOptions}
@@ -120,6 +121,7 @@ export default function NewAssignmentForm() {
           name="assignees"
           render={({ field }) => (
             <Autocomplete<AssigneeOption>
+              required
               multiple
               label={t("assigneesLabel")}
               placeholder={t("assigneesPlaceholder")}
@@ -137,12 +139,13 @@ export default function NewAssignmentForm() {
               )}
               renderValue={(user) => (
                 <>
-                  <Avatar
-                    src={user.avatar}
-                    title={`${user.firstName} ${user.lastName}`}
-                    size="sm"
-                    hideText
-                  />
+                    <Avatar
+                      src={user.avatar}
+                      title={`${user.firstName} ${user.lastName}`}
+                      size="sm"
+                      hideText
+                      decorative
+                    />
                   {user.firstName} {user.lastName}
                 </>
               )}
@@ -155,6 +158,7 @@ export default function NewAssignmentForm() {
           name="dueDate"
           render={({ field }) => (
             <DatePicker
+              required
               label={t("dueDateLabel")}
               placeholder={t("dueDatePlaceholder")}
               value={field.value}

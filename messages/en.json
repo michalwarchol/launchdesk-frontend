@@ -1,4 +1,7 @@
 {
+  "Common": {
+    "loading": "Loading…"
+  },
   "LandingPage": {
     "meta": {
       "title": "LaunchDesk - Employee onboarding without chaos",
@@ -148,8 +151,12 @@
       "reject": "Reject",
       "settings": "Cookies"
     },
+    "logo": {
+      "home": "LaunchDesk home"
+    },
     "footer": {
       "tagline": "Employee onboarding without chaos.",
+      "navLabel": "Footer",
       "contact": "Contact",
       "signIn": "Sign in",
       "signUp": "Sign up",
@@ -188,6 +195,8 @@
     "legendCompleted": "Completed",
     "legendCount": "Assignments",
     "legendActiveCount": "Active assignments",
+    "columnMonth": "Month",
+    "columnPerson": "Person",
     "deadlinesTitle": "Upcoming deadlines",
     "deadlinesEmpty": "No upcoming deadlines",
     "columnTask": "Task",
@@ -204,7 +213,8 @@
     "assignments": "Assignments",
     "settings": "Settings",
     "report": "Get help",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "menu": "Menu"
   },
   "Metadata": {
     "taskDetails": "Task details",
@@ -284,7 +294,7 @@
     "emailLabel": "Email",
     "emailPlaceholder": "you@company.com",
     "passwordLabel": "Password",
-    "passwordPlaceholder": "At least {min} characters",
+    "passwordHint": "At least {min} characters",
     "confirmPasswordLabel": "Confirm password",
     "confirmPasswordPlaceholder": "Repeat your password",
     "organizationNameLabel": "Organization name",
@@ -312,7 +322,7 @@
     "subtitle": "Choose a password to finish setting up your account.",
     "emailLabel": "Email",
     "passwordLabel": "Password",
-    "passwordPlaceholder": "At least {min} characters",
+    "passwordHint": "At least {min} characters",
     "confirmPasswordLabel": "Confirm password",
     "confirmPasswordPlaceholder": "Repeat your password",
     "submit": "Set password and continue",
@@ -350,7 +360,7 @@
     "subtitle": "Enter a new password for your account.",
     "successSubtitle": "You can sign in with your new password.",
     "passwordLabel": "New password",
-    "passwordPlaceholder": "At least {min} characters",
+    "passwordHint": "At least {min} characters",
     "confirmPasswordLabel": "Confirm password",
     "confirmPasswordPlaceholder": "Repeat your password",
     "submit": "Save password",
@@ -378,7 +388,14 @@
     "prev": "Prev",
     "next": "Next",
     "selectAll": "Select all rows on this page",
-    "selectRow": "Select row"
+    "selectRow": "Select row",
+    "selectRowNamed": "Select: {name}",
+    "resultsStatus": "Showing {shown, plural, one {# result} other {# results}} of {total}",
+    "resultsStatusSorted": "Showing {shown, plural, one {# result} other {# results}} of {total}, sorted by {column}, {direction}",
+    "sortAscending": "ascending",
+    "sortDescending": "descending",
+    "paginationLabel": "Pagination",
+    "goToPage": "Page {page}"
   },
   "Modal": {
     "cancel": "Cancel",
@@ -389,8 +406,14 @@
     "hint": "Drag and drop files here",
     "hintDragActive": "Drop the files to add them",
     "browse": "or click to browse",
-    "remove": "Remove file",
-    "selectedFiles": "Selected files"
+    "remove": "Remove file {name}",
+    "rejected": "Rejected: {names}. Accepted formats: {formats}.",
+    "acceptedFormats": "Accepted formats: {formats}",
+    "singleFile": "You can add only one file",
+    "maxSize": "Maximum size: {size}",
+    "selectedFiles": "Selected files",
+    "added": "{count, plural, one {Added # file} other {Added # files}}",
+    "removed": "Removed file {name}"
   },
   "UsersPage": {
     "title": "Users",
@@ -459,11 +482,15 @@
     "firstNameLabel": "First name",
     "lastNameLabel": "Last name",
     "roleLabel": "Role",
+    "roleLockedHint": "The last owner of the organization cannot change their own role.",
     "assignmentsTitle": "Assignments",
+    "columnActions": "Actions",
     "assignmentsEmpty": "No assignments for this user.",
     "assignmentsLoadError": "Could not load assignments.",
     "cancel": "Cancel",
     "unassign": "Unassign",
+    "unassignFrom": "Unassign from {task}",
+    "unassignedStatus": "Removed from \"{task}\"",
     "unassignModalTitle": "Remove from assignment",
     "unassignModalBody": "Remove {name} from \"{task}\"?",
     "unassignConfirm": "Unassign",
@@ -494,6 +521,7 @@
     "columnType": "Type",
     "columnExtension": "Extension",
     "columnSize": "Size",
+    "columnDownload": "Download",
     "download": "Download {name}",
     "fileMissing": "The file \"{name}\" is no longer available in storage.",
     "downloadError": "Could not download \"{name}\". Try again.",
@@ -511,7 +539,8 @@
     "deleteModalBodyMany": "This will permanently delete {count} documents and remove them from every task that uses them. This cannot be undone.",
     "deleteConfirm": "Delete",
     "deleteSubmitting": "Deleting…",
-    "deleteError": "Could not delete the documents. Try again."
+    "deleteError": "Could not delete the documents. Try again.",
+    "deletedStatus": "{count, plural, one {Deleted # document} other {Deleted # documents}}"
   },
   "DocumentReaderPage": {
     "loading": "Loading preview…",
@@ -522,7 +551,10 @@
     "downloadError": "Could not download \"{name}\". Try again.",
     "unsupported": "This file type cannot be previewed.",
     "emptySheet": "This sheet is empty.",
+    "sheetLabel": "Sheet {name}",
     "sheetTab": "Sheet {name}",
+    "tabsLabel": "Sheets",
+    "previewRegion": "Preview: {name}",
     "download": "Download"
   },
   "TasksPage": {
@@ -561,12 +593,17 @@
       "completed": "Completed"
     },
     "dueDateLabel": "Due date",
+    "searchLabel": "Search tasks",
     "searchPlaceholder": "Search your tasks",
     "empty": "No tasks to display",
     "loadError": "Could not load tasks.",
-    "loading": "Loading tasks…"
+    "loading": "Loading tasks…",
+    "resultsStatus": "{count, plural, one {Found # task} other {Found # tasks}}",
+    "emptySearchStatus": "No tasks for \"{search}\""
   },
   "MyTaskPlayer": {
+    "welcomeTitle": "Before you start",
+    "stepPosition": "Step {current} of {total}",
     "letsStart": "Let's start!",
     "markDone": "Mark as done",
     "markNotDone": "Mark as not done",
@@ -614,7 +651,7 @@
     "currentPasswordLabel": "Current password",
     "currentPasswordPlaceholder": "Your current password",
     "newPasswordLabel": "New password",
-    "newPasswordPlaceholder": "At least {min} characters",
+    "newPasswordHint": "At least {min} characters",
     "confirmNewPasswordLabel": "Confirm new password",
     "confirmNewPasswordPlaceholder": "Repeat your new password",
     "passwordSubmit": "Change password",
@@ -648,13 +685,16 @@
     }
   },
   "AvatarGroup": {
-    "moreLabel": "{count} more"
+    "moreLabel": "and {count, plural, one {# more person} other {# more people}}",
+    "groupLabel": "Assigned people"
   },
   "Autocomplete": {
     "noOptions": "No options found",
     "loading": "Loading…",
     "clear": "Clear selection",
-    "removeOption": "Remove {name}"
+    "removeOption": "Remove {name}",
+    "selected": "Selected",
+    "resultsCount": "{count, plural, one {# result} other {# results}}"
   },
   "Select": {
     "noOptions": "No options available"
@@ -663,13 +703,15 @@
     "empty": "No date selected",
     "previousMonth": "Previous month",
     "nextMonth": "Next month",
-    "clear": "Clear date"
+    "clear": "Clear date",
+    "required": "required"
   },
   "PageHeader": {
     "back": "Go back"
   },
   "Accordion": {
-    "remove": "Remove"
+    "remove": "Remove",
+    "hasErrors": "contains errors"
   },
   "RichTextEditor": {
     "toolbar": "Text formatting",
@@ -677,11 +719,11 @@
     "italic": "Italic",
     "strike": "Strikethrough",
     "code": "Inline code",
-    "heading1": "Heading 1",
-    "heading2": "Heading 2",
-    "heading3": "Heading 3",
+    "heading1": "H1, Heading 1",
+    "heading2": "H2, Heading 2",
+    "heading3": "H3, Heading 3",
     "bulletList": "Bullet list",
-    "orderedList": "Numbered list",
+    "orderedList": "1., Numbered list",
     "blockquote": "Quote",
     "codeBlock": "Code block",
     "link": "Link",
@@ -692,15 +734,30 @@
     "linkTextPlaceholder": "Text shown in the editor",
     "linkRemove": "Remove link"
   },
+  "Alert": {
+    "errorPrefix": "Error: ",
+    "infoPrefix": "Information: "
+  },
+  "StatCard": {
+    "danger": "needs attention",
+    "success": "positive result"
+  },
+  "ProgressBar": {
+    "progressOf": "Progress: {name}"
+  },
   "Attachments": {
     "addAttachments": "Add attachments",
-    "remove": "Remove attachment",
+    "remove": "Remove attachment {name}",
+    "filtersLabel": "Document type",
     "newBadge": "New",
     "pickerTitle": "Add attachments",
     "add": "Add",
     "tabLibrary": "Library",
     "tabUpload": "Upload new",
+    "tabsLabel": "Attachment source",
     "searchPlaceholder": "Search documents",
+    "searchLabel": "Search documents",
+    "libraryResults": "{count, plural, one {# document} other {# documents}}",
     "libraryEmpty": "No documents found",
     "alreadyAdded": "Added",
     "filter": {

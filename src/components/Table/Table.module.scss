@@ -45,6 +45,21 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 2s;
+  }
+}
+
+.caption {
+  caption-side: top;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 0 0 8px;
+  text-align: left;
+}
+
 .visuallyHidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -77,9 +92,11 @@
 .cell.selectionCell {
   padding-left: 16px;
   padding-right: 16px;
+  position: relative;
   text-align: left;
   vertical-align: middle;
   width: 44px;
+  z-index: 1;
 }
 
 .alignCenter {
@@ -139,6 +156,7 @@
 
 .clickableRow {
   cursor: pointer;
+  position: relative;
 
   &:hover {
     background-color: var(--color-hover-overlay);
@@ -148,9 +166,29 @@
     background-color: var(--color-active-overlay);
   }
 
-  &:focus-visible {
+  &:focus-within {
     outline: 2px solid var(--color-primary);
     outline-offset: -2px;
+  }
+}
+
+.rowAction {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  text-align: inherit;
+
+  &::after {
+    content: "";
+    inset: 0;
+    position: absolute;
+  }
+
+  &:focus {
+    outline: none;
   }
 }
 
@@ -232,11 +270,11 @@
 .pageButtonActive {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
-  color: var(--color-primary-text);
+  color: var(--color-background);
 
   &:hover:not(:disabled) {
     background-color: var(--color-primary-hover);
     border-color: var(--color-primary-hover);
-    color: var(--color-primary-text);
+    color: var(--color-background);
   }
 }

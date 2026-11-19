@@ -61,9 +61,45 @@ export const Email: Story = {
   },
 };
 
+export const LargeWithError: Story = {
+  args: {
+    label: "Task name",
+    size: "lg",
+    error: "Task name is required",
+    defaultValue: "Untitled",
+  },
+};
+
+export const Required: Story = {
+  args: {
+    label: "Task name",
+    required: true,
+  },
+};
+
+export const HiddenLabelRequired: Story = {
+  args: {
+    label: "Task name",
+    size: "lg",
+    hideLabel: true,
+    required: true,
+    showRequiredMark: true,
+    placeholder: "Untitled task",
+  },
+};
+
+export const WithHint: Story = {
+  args: {
+    label: "Password",
+    type: "password",
+    hint: "At least 8 characters",
+  },
+};
+
 export const WithError: Story = {
   args: {
     label: "Task name",
+    required: true,
     error: "Task name is required",
   },
 };

@@ -2,9 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import { useFormatter, useTranslations } from "next-intl";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
-import { useAssignmentsQuery, useUnassignUserFromAssignmentMutation } from "@/app/(authorized)/assignments/api";
+import {
+  useAssignmentsQuery,
+  useUnassignUserFromAssignmentMutation,
+} from "@/app/(authorized)/assignments/api";
 import {
   Assignment,
   AssignmentQueryParams,
@@ -19,6 +22,8 @@ import ProgressBar from "@/components/ProgressBar";
 import Table, { Column, FilterConfig, useTableQueryParams } from "@/components/Table";
 import { isApiError } from "@/lib/api/errors";
 import { parseISODate } from "@/utils/isoDate";
+
+import styles from "./UserAssignmentsTable.module.scss";
 
 const STATUSES: AssignmentStatus[] = ["notStarted", "inProgress", "overdue", "completed"];
 const FILTER_KEYS = ["status"] as const;
@@ -51,6 +56,7 @@ export default function UserAssignmentsTable({
   loadErrorMessage,
 }: UserAssignmentsTableProps) {
   const tAssignments = useTranslations("AssignmentsPage");
+  const tProgress = useTranslations("ProgressBar");
   const tEdit = useTranslations("EditUserPage");
   const format = useFormatter();
   const router = useRouter();
@@ -64,6 +70,15 @@ export default function UserAssignmentsTable({
 
   const [pendingUnassign, setPendingUnassign] = useState<Assignment | null>(null);
   const [unassignError, setUnassignError] = useState<UnassignError>();
+  const [statusMessage, setStatusMessage] = useState("");
+  const [focusRequest, setFocusRequest] = useState(0);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    if (focusRequest === 0) return;
+
+    headingRef.current?.focus();
+  }, [focusRequest]);
 
   const filters: FilterConfig[] = [
     {
@@ -113,6 +128,7 @@ export default function UserAssignmentsTable({
       render: (row) => (
         <ProgressBar
           value={row.assignees.find((assignee) => assignee.id === userId)?.progress ?? 0}
+          label={tProgress("progressOf", { name: row.taskName })}
         />
       ),
     },
@@ -121,7 +137,8 @@ export default function UserAssignmentsTable({
   if (showUnassign) {
     columns.push({
       key: "actions",
-      header: "",
+      header: tEdit("columnActions"),
+      hideHeader: true,
       width: "140px",
       align: "right",
       render: (row) => (
@@ -134,6 +151,7 @@ export default function UserAssignmentsTable({
             type="button"
             variant="outline"
             size="sm"
+            aria-label={tEdit("unassignFrom", { task: row.taskName })}
             onClick={() => {
               setUnassignError(undefined);
               setPendingUnassign(row);
@@ -168,11 +186,14 @@ export default function UserAssignmentsTable({
       return;
     }
 
+    const taskName = pendingUnassign.taskName;
     setPendingUnassign(null);
+    setStatusMessage(tEdit("unassignedStatus", { task: taskName }));
+    setFocusRequest((current) => current + 1);
   };
 
   return (
-    <Card title={sectionTitle}>
+    <Card title={sectionTitle} headingRef={showUnassign ? headingRef : undefined}>
       <Table
         {...getTableProps(data?.meta.total)}
         filters={filters}
@@ -180,6 +201,8 @@ export default function UserAssignmentsTable({
         columns={columns}
         getRowId={(row) => row.id}
         onRowClick={(row) => router.push(`/assignments/${row.id}`)}
+        caption={sectionTitle}
+        hideCaption
         emptyMessage={emptyMessage}
         isLoading={isPending}
         error={error ? loadErrorMessage : undefined}
@@ -206,6 +229,9 @@ export default function UserAssignmentsTable({
           </p>
         </Modal>
       ) : null}
+      <p className={styles.visuallyHidden} role="status">
+        {statusMessage}
+      </p>
     </Card>
   );
 }

@@ -2,7 +2,7 @@
 
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import Button from "@/components/Button/Button";
 import {
@@ -24,6 +24,32 @@ export default function CookieConsent({ initialConsent, measurementId }: CookieC
   const t = useTranslations("LandingPage.cookies");
   const [consent, setConsent] = useState<AnalyticsConsent | undefined>(initialConsent);
   const [bannerOpen, setBannerOpen] = useState(initialConsent === undefined);
+  const bannerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const banner = bannerRef.current;
+
+    if (!bannerOpen || !banner) {
+      document.documentElement.style.setProperty("--cookie-banner-height", "0px");
+      return;
+    }
+
+    const publishHeight = () => {
+      document.documentElement.style.setProperty(
+        "--cookie-banner-height",
+        `${banner.offsetHeight}px`,
+      );
+    };
+
+    publishHeight();
+    const observer = new ResizeObserver(publishHeight);
+    observer.observe(banner);
+
+    return () => {
+      observer.disconnect();
+      document.documentElement.style.setProperty("--cookie-banner-height", "0px");
+    };
+  }, [bannerOpen]);
 
   useEffect(() => {
     const onOpen = () => setBannerOpen(true);
@@ -53,9 +79,11 @@ export default function CookieConsent({ initialConsent, measurementId }: CookieC
     <>
       {consent === "granted" ? <GoogleAnalytics gaId={measurementId} /> : null}
       {bannerOpen ? (
-        <div className={styles.banner} role="dialog" aria-labelledby="cookie-consent-message">
+        <section ref={bannerRef} className={styles.banner} aria-labelledby="cookie-consent-message">
           <div className={`${shared.container} ${styles.inner}`}>
-            <p id="cookie-consent-message" className={styles.message}>{t("message")}</p>
+            <p id="cookie-consent-message" className={styles.message}>
+              {t("message")}
+            </p>
             <div className={styles.actions}>
               <Button variant="outline" size="sm" onClick={() => applyChoice("denied")}>
                 {t("reject")}
@@ -65,7 +93,7 @@ export default function CookieConsent({ initialConsent, measurementId }: CookieC
               </Button>
             </div>
           </div>
-        </div>
+        </section>
       ) : null}
     </>
   );

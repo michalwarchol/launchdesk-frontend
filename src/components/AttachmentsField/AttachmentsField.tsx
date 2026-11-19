@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 import { formatFileSize } from "@/utils/formatFileSize";
 import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRestore";
@@ -16,6 +16,8 @@ export interface AttachmentsFieldProps {
   onChange: (next: Attachment[]) => void;
   disabled?: boolean;
   className?: string;
+  /** Id of a visible label that names this field. */
+  ariaLabelledby?: string;
 }
 
 export default function AttachmentsField({
@@ -23,9 +25,26 @@ export default function AttachmentsField({
   onChange,
   disabled,
   className,
+  ariaLabelledby,
 }: AttachmentsFieldProps) {
   const t = useTranslations("Attachments");
+  const addButtonId = useId();
   const [isPickerOpen, setIsPickerOpen] = useState(false);
+  const addButtonRef = useRef<HTMLButtonElement>(null);
+  const removeButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const pendingFocusIndex = useRef<number | null>(null);
+
+  useEffect(() => {
+    const index = pendingFocusIndex.current;
+    if (index === null) return;
+
+    pendingFocusIndex.current = null;
+    const target =
+      removeButtonRefs.current[index] ??
+      removeButtonRefs.current[index - 1] ??
+      addButtonRef.current;
+    target?.focus();
+  }, [value]);
 
   const addAttachments = (attachments: Attachment[]) => {
     const existingIds = new Set(value.map((attachment) => attachment.id));
@@ -37,14 +56,15 @@ export default function AttachmentsField({
   };
 
   const removeAttachment = (id: string) => {
+    pendingFocusIndex.current = value.findIndex((attachment) => attachment.id === id);
     onChange(value.filter((attachment) => attachment.id !== id));
   };
 
   return (
     <div className={[styles.field, className].filter(Boolean).join(" ")}>
       {value.length > 0 ? (
-        <ul className={styles.list}>
-          {value.map((attachment) => (
+        <ul className={styles.list} aria-labelledby={ariaLabelledby}>
+          {value.map((attachment, index) => (
             <li key={attachment.id} className={styles.tile}>
               <FileTypeIcon type={attachment.documentType} className={styles.tileIcon} />
               <span className={styles.tileName}>{attachment.name}</span>
@@ -53,10 +73,13 @@ export default function AttachmentsField({
                 <span className={styles.newBadge}>{t("newBadge")}</span>
               ) : null}
               <button
+                ref={(node) => {
+                  removeButtonRefs.current[index] = node;
+                }}
                 type="button"
                 className={styles.removeButton}
                 onClick={() => removeAttachment(attachment.id)}
-                aria-label={t("remove")}
+                aria-label={t("remove", { name: attachment.name })}
                 disabled={disabled}
                 {...preventFirefoxDisabledRestore}
               >
@@ -68,8 +91,11 @@ export default function AttachmentsField({
       ) : null}
 
       <button
+        ref={addButtonRef}
+        id={addButtonId}
         type="button"
         className={styles.addButton}
+        aria-labelledby={ariaLabelledby ? `${ariaLabelledby} ${addButtonId}` : undefined}
         onClick={() => setIsPickerOpen(true)}
         disabled={disabled}
         {...preventFirefoxDisabledRestore}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { preventFirefoxDisabledRestore } from "@/utils/preventFirefoxDisabledRestore";
 
@@ -19,11 +19,21 @@ interface ToolbarButtonProps {
   label: string;
   isActive?: boolean;
   disabled?: boolean;
+  tabIndex: number;
+  onFocus: () => void;
   onClick: () => void;
   children: React.ReactNode;
 }
 
-function ToolbarButton({ label, isActive, disabled, onClick, children }: ToolbarButtonProps) {
+function ToolbarButton({
+  label,
+  isActive,
+  disabled,
+  tabIndex,
+  onFocus,
+  onClick,
+  children,
+}: ToolbarButtonProps) {
   const className = [styles.toolbarButton, isActive ? styles.toolbarButtonActive : ""]
     .filter(Boolean)
     .join(" ");
@@ -33,8 +43,10 @@ function ToolbarButton({ label, isActive, disabled, onClick, children }: Toolbar
       type="button"
       className={className}
       onClick={onClick}
+      onFocus={onFocus}
       disabled={disabled}
       {...preventFirefoxDisabledRestore}
+      tabIndex={tabIndex}
       aria-pressed={isActive}
       aria-label={label}
       title={label}
@@ -47,6 +59,8 @@ function ToolbarButton({ label, isActive, disabled, onClick, children }: Toolbar
 export default function Toolbar({ editor, disabled }: ToolbarProps) {
   const t = useTranslations("RichTextEditor");
 
+  const toolbarRef = useRef<HTMLDivElement>(null);
+  const [focusedIndex, setFocusedIndex] = useState(0);
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
   const [linkValues, setLinkValues] = useState<LinkModalValues>({ url: "", text: "" });
   const hasExistingLink = editor.isActive("link");
@@ -106,13 +120,62 @@ export default function Toolbar({ editor, disabled }: ToolbarProps) {
     closeLinkModal();
   };
 
+  const focusButton = (index: number) => {
+    const buttons = toolbarRef.current?.querySelectorAll("button");
+    if (!buttons || buttons.length === 0) return;
+
+    const next = (index + buttons.length) % buttons.length;
+    setFocusedIndex(next);
+    buttons[next]?.focus();
+  };
+
+  const handleToolbarKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const count = toolbarRef.current?.querySelectorAll("button").length ?? 0;
+    if (count === 0) return;
+
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      focusButton(focusedIndex + 1);
+      return;
+    }
+
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      focusButton(focusedIndex - 1);
+      return;
+    }
+
+    if (event.key === "Home") {
+      event.preventDefault();
+      focusButton(0);
+      return;
+    }
+
+    if (event.key === "End") {
+      event.preventDefault();
+      focusButton(count - 1);
+    }
+  };
+
+  const buttonProps = (index: number) => ({
+    tabIndex: index === focusedIndex ? 0 : -1,
+    onFocus: () => setFocusedIndex(index),
+  });
+
   return (
     <>
-      <div className={styles.toolbar} role="toolbar" aria-label={t("toolbar")}>
+      <div
+        ref={toolbarRef}
+        className={styles.toolbar}
+        role="toolbar"
+        aria-label={t("toolbar")}
+        onKeyDown={handleToolbarKeyDown}
+      >
         <ToolbarButton
           label={t("bold")}
           isActive={editor.isActive("bold")}
           disabled={disabled}
+          {...buttonProps(0)}
           onClick={() => editor.chain().focus().toggleBold().run()}
         >
           <strong>B</strong>
@@ -121,6 +184,7 @@ export default function Toolbar({ editor, disabled }: ToolbarProps) {
           label={t("italic")}
           isActive={editor.isActive("italic")}
           disabled={disabled}
+          {...buttonProps(1)}
           onClick={() => editor.chain().focus().toggleItalic().run()}
         >
           <em>I</em>
@@ -129,6 +193,7 @@ export default function Toolbar({ editor, disabled }: ToolbarProps) {
           label={t("strike")}
           isActive={editor.isActive("strike")}
           disabled={disabled}
+          {...buttonProps(2)}
           onClick={() => editor.chain().focus().toggleStrike().run()}
         >
           <span className={styles.strikeIcon}>S</span>
@@ -137,6 +202,7 @@ export default function Toolbar({ editor, disabled }: ToolbarProps) {
           label={t("code")}
           isActive={editor.isActive("code")}
           disabled={disabled}
+          {...buttonProps(3)}
           onClick={() => editor.chain().focus().toggleCode().run()}
         >
           {"</>"}
@@ -148,6 +214,7 @@ export default function Toolbar({ editor, disabled }: ToolbarProps) {
           label={t("heading1")}
           isActive={editor.isActive("heading", { level: 1 })}
           disabled={disabled}
+          {...buttonProps(4)}
           onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         >
           H1
@@ -156,6 +223,7 @@ export default function Toolbar({ editor, disabled }: ToolbarProps) {
           label={t("heading2")}
           isActive={editor.isActive("heading", { level: 2 })}
           disabled={disabled}
+          {...buttonProps(5)}
           onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
         >
           H2
@@ -164,6 +232,7 @@ export default function Toolbar({ editor, disabled }: ToolbarProps) {
           label={t("heading3")}
           isActive={editor.isActive("heading", { level: 3 })}
           disabled={disabled}
+          {...buttonProps(6)}
           onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
         >
           H3
@@ -175,6 +244,7 @@ export default function Toolbar({ editor, disabled }: ToolbarProps) {
           label={t("bulletList")}
           isActive={editor.isActive("bulletList")}
           disabled={disabled}
+          {...buttonProps(7)}
           onClick={() => editor.chain().focus().toggleBulletList().run()}
         >
           &bull; &mdash;
@@ -183,6 +253,7 @@ export default function Toolbar({ editor, disabled }: ToolbarProps) {
           label={t("orderedList")}
           isActive={editor.isActive("orderedList")}
           disabled={disabled}
+          {...buttonProps(8)}
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
         >
           1.
@@ -191,6 +262,7 @@ export default function Toolbar({ editor, disabled }: ToolbarProps) {
           label={t("blockquote")}
           isActive={editor.isActive("blockquote")}
           disabled={disabled}
+          {...buttonProps(9)}
           onClick={() => editor.chain().focus().toggleBlockquote().run()}
         >
           &ldquo;
@@ -199,6 +271,7 @@ export default function Toolbar({ editor, disabled }: ToolbarProps) {
           label={t("codeBlock")}
           isActive={editor.isActive("codeBlock")}
           disabled={disabled}
+          {...buttonProps(10)}
           onClick={() => editor.chain().focus().toggleCodeBlock().run()}
         >
           {"{ }"}
@@ -207,6 +280,7 @@ export default function Toolbar({ editor, disabled }: ToolbarProps) {
           label={t("link")}
           isActive={hasExistingLink}
           disabled={disabled}
+          {...buttonProps(11)}
           onClick={openLinkModal}
         >
           &#128279;

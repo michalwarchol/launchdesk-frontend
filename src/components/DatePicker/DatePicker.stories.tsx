@@ -38,6 +38,7 @@ function WithErrorDemo() {
       placeholder="Select a date"
       value={value}
       onChange={setValue}
+      required
       error="Due date is required"
     />
   );

@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 import Alert from "@/components/Alert";
 
@@ -8,6 +8,7 @@ import styles from "../page.module.scss";
 interface SpreadsheetReaderProps {
   blob: Blob;
   extension: string;
+  documentName: string;
 }
 
 interface SheetData {
@@ -16,6 +17,19 @@ interface SheetData {
 }
 
 type Phase = "loading" | "ready" | "error";
+
+function columnLabel(index: number): string {
+  let n = index + 1;
+  let label = "";
+
+  while (n > 0) {
+    n -= 1;
+    label = String.fromCharCode(65 + (n % 26)) + label;
+    n = Math.floor(n / 26);
+  }
+
+  return label;
+}
 
 function cellText(value: unknown): string {
   if (value === null || value === undefined) return "";
@@ -61,8 +75,14 @@ async function readSheets(blob: Blob, extension: string): Promise<SheetData[]> {
   });
 }
 
-export default function SpreadsheetReader({ blob, extension }: SpreadsheetReaderProps) {
+export default function SpreadsheetReader({
+  blob,
+  extension,
+  documentName,
+}: SpreadsheetReaderProps) {
   const t = useTranslations("DocumentReaderPage");
+  const baseId = useId();
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [phase, setPhase] = useState<Phase>("loading");
   const [sheets, setSheets] = useState<SheetData[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -113,20 +133,52 @@ export default function SpreadsheetReader({ blob, extension }: SpreadsheetReader
     return <p className={styles.status}>{t("emptySheet")}</p>;
   }
 
+  const panelId = `${baseId}-panel`;
+
+  const focusTab = (index: number) => {
+    setActiveIndex(index);
+    tabRefs.current[index]?.focus();
+  };
+
+  const handleTabListKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const nextIndex: Record<string, number> = {
+      ArrowRight: (activeIndex + 1) % sheets.length,
+      ArrowLeft: (activeIndex - 1 + sheets.length) % sheets.length,
+      Home: 0,
+      End: sheets.length - 1,
+    };
+    const index = nextIndex[event.key];
+
+    if (index === undefined) return;
+
+    event.preventDefault();
+    focusTab(index);
+  };
+
   return (
     <div className={styles.preview}>
       {sheets.length > 1 ? (
-        <div className={styles.tabs} role="tablist">
+        <div
+          className={styles.tabs}
+          role="tablist"
+          aria-label={t("tabsLabel")}
+          onKeyDown={handleTabListKeyDown}
+        >
           {sheets.map((sheet, index) => (
             <button
               key={`${sheet.name}-${index}`}
+              ref={(node) => {
+                tabRefs.current[index] = node;
+              }}
+              id={`${baseId}-tab-${index}`}
               type="button"
               role="tab"
               className={[styles.tab, index === activeIndex ? styles.tabActive : ""]
                 .filter(Boolean)
                 .join(" ")}
               aria-selected={index === activeIndex}
-              aria-label={t("sheetTab", { name: sheet.name })}
+              aria-controls={panelId}
+              tabIndex={index === activeIndex ? 0 : -1}
               onClick={() => setActiveIndex(index)}
             >
               {sheet.name}
@@ -134,23 +186,46 @@ export default function SpreadsheetReader({ blob, extension }: SpreadsheetReader
           ))}
         </div>
       ) : null}
-      {activeSheet.rows.length === 0 ? (
-        <p className={styles.status}>{t("emptySheet")}</p>
-      ) : (
-        <div className={styles.grid}>
-          <table className={styles.table}>
-            <tbody>
-              {activeSheet.rows.map((row, rowIndex) => (
-                <tr key={rowIndex}>
-                  {row.map((cell, columnIndex) => (
-                    <td key={columnIndex}>{cell}</td>
-                  ))}
+      <div
+        id={sheets.length > 1 ? panelId : undefined}
+        role={sheets.length > 1 ? "tabpanel" : undefined}
+        aria-labelledby={sheets.length > 1 ? `${baseId}-tab-${activeIndex}` : undefined}
+      >
+        {activeSheet.rows.length === 0 ? (
+          <p className={styles.status}>{t("emptySheet")}</p>
+        ) : (
+          <div
+            className={styles.grid}
+            tabIndex={0}
+            role="region"
+            aria-label={t("previewRegion", { name: documentName })}
+          >
+            <table className={styles.table} aria-label={t("sheetLabel", { name: activeSheet.name })}>
+              <thead>
+                <tr>
+                  {Array.from(
+                    { length: Math.max(...activeSheet.rows.map((row) => row.length), 0) },
+                    (_, columnIndex) => (
+                      <th key={columnIndex} scope="col">
+                        {columnLabel(columnIndex)}
+                      </th>
+                    ),
+                  )}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+              </thead>
+              <tbody>
+                {activeSheet.rows.map((row, rowIndex) => (
+                  <tr key={rowIndex}>
+                    {row.map((cell, columnIndex) => (
+                      <td key={columnIndex}>{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

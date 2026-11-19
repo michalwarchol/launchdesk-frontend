@@ -13,6 +13,7 @@ import Alert from "@/components/Alert";
 import AvatarGroup from "@/components/AvatarGroup";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
+import LoadingStatus from "@/components/LoadingStatus";
 import Modal from "@/components/Modal";
 import PageHeader from "@/components/PageHeader";
 import ProgressBar from "@/components/ProgressBar";
@@ -21,6 +22,7 @@ import richTextStyles from "@/components/RichTextEditor/RichTextEditor.module.sc
 import { isApiError } from "@/lib/api/errors";
 import { deriveAssignmentStatus } from "@/utils/assignmentStatus";
 import { parseISODate } from "@/utils/isoDate";
+import { shiftHeadingLevels } from "@/utils/shiftHeadingLevels";
 
 import styles from "../assignmentDetail.module.scss";
 
@@ -44,7 +46,9 @@ export default function AssignmentDetailsView({
   canManage,
 }: AssignmentDetailsViewProps) {
   const t = useTranslations("AssignmentDetailsPage");
+  const tCommon = useTranslations("Common");
   const tAssignments = useTranslations("AssignmentsPage");
+  const tProgress = useTranslations("ProgressBar");
   const format = useFormatter();
   const router = useRouter();
   const { data: assignment, isPending, error } = useAssignmentQuery(assignmentId);
@@ -56,7 +60,8 @@ export default function AssignmentDetailsView({
   if (isPending) {
     return (
       <div className={styles.page}>
-        <PageHeader title="…" backHref="/assignments" />
+        <PageHeader title={tCommon("loading")} backHref="/assignments" />
+        <LoadingStatus />
       </div>
     );
   }
@@ -90,17 +95,23 @@ export default function AssignmentDetailsView({
           <span className={styles.assigneeNotesName}>
             {assignee.firstName} {assignee.lastName}
           </span>
-          <ProgressBar value={assignee.progress} className={styles.assigneeNotesProgress} />
+          <ProgressBar
+            value={assignee.progress}
+            label={tProgress("progressOf", {
+              name: `${assignee.firstName} ${assignee.lastName}`,
+            })}
+            className={styles.assigneeNotesProgress}
+          />
         </div>
       ),
       content: (
         <ol className={styles.assigneeNotesSteps}>
           {assignee.stepNotes!.map((stepNote, index) => (
             <li key={stepNote.stepId} className={styles.assigneeNotesStep}>
-              <p className={styles.assigneeNotesStepTitle}>
+              <h3 className={styles.assigneeNotesStepTitle}>
                 <span className={styles.assigneeNotesStepIndex}>{index + 1}</span>
                 {stepNote.stepName}
-              </p>
+              </h3>
               {isRichTextEmpty(stepNote.notes) ? (
                 <p className={styles.assigneeNotesEmpty}>{t("notesEmpty")}</p>
               ) : (
@@ -108,7 +119,9 @@ export default function AssignmentDetailsView({
                   <div className={richTextStyles.content}>
                     <div
                       className="ProseMirror"
-                      dangerouslySetInnerHTML={{ __html: stepNote.notes }}
+                      dangerouslySetInnerHTML={{
+                        __html: shiftHeadingLevels(stepNote.notes, 4),
+                      }}
                     />
                   </div>
                 </div>
@@ -166,37 +179,43 @@ export default function AssignmentDetailsView({
       </PageHeader>
 
       <Card title={t("detailsTitle")}>
-        <div className={styles.detailsGrid}>
+        <dl className={styles.detailsGrid}>
           <div>
-            <p className={styles.fieldLabel}>{tAssignments("columnTask")}</p>
-            <p className={styles.fieldValue}>{assignment.taskName}</p>
+            <dt className={styles.fieldLabel}>{tAssignments("columnTask")}</dt>
+            <dd className={styles.fieldValue}>{assignment.taskName}</dd>
           </div>
           <div>
-            <p className={styles.fieldLabel}>{t("statusLabel")}</p>
-            <p className={styles.fieldValue}>{tAssignments(`status.${status}`)}</p>
+            <dt className={styles.fieldLabel}>{t("statusLabel")}</dt>
+            <dd className={styles.fieldValue}>{tAssignments(`status.${status}`)}</dd>
           </div>
           <div>
-            <p className={styles.fieldLabel}>{tAssignments("columnDueDate")}</p>
-            <p className={styles.fieldValue}>{formatDate(assignment.dueDate)}</p>
+            <dt className={styles.fieldLabel}>{tAssignments("columnDueDate")}</dt>
+            <dd className={styles.fieldValue}>{formatDate(assignment.dueDate)}</dd>
           </div>
           <div>
-            <p className={styles.fieldLabel}>{t("createdAtLabel")}</p>
-            <p className={styles.fieldValue}>{formatDate(assignment.createdAt)}</p>
+            <dt className={styles.fieldLabel}>{t("createdAtLabel")}</dt>
+            <dd className={styles.fieldValue}>{formatDate(assignment.createdAt)}</dd>
           </div>
           {assignment.completedAt ? (
             <div>
-              <p className={styles.fieldLabel}>{t("completedAtLabel")}</p>
-              <p className={styles.fieldValue}>{formatDate(assignment.completedAt)}</p>
+              <dt className={styles.fieldLabel}>{t("completedAtLabel")}</dt>
+              <dd className={styles.fieldValue}>{formatDate(assignment.completedAt)}</dd>
             </div>
           ) : null}
           <div style={{ gridColumn: "1 / -1" }}>
-            <p className={styles.fieldLabel}>{tAssignments("columnProgress")}</p>
-            <ProgressBar value={assignment.progress} />
+            <dt className={styles.fieldLabel}>{tAssignments("columnProgress")}</dt>
+            <dd className={styles.fieldValue}>
+              <ProgressBar
+                value={assignment.progress}
+                label={tProgress("progressOf", { name: assignment.taskName })}
+              />
+            </dd>
           </div>
           <div style={{ gridColumn: "1 / -1" }}>
-            <p className={styles.fieldLabel}>{tAssignments("columnAssignees")}</p>
-            <div className={styles.assigneesValue}>
+            <dt className={styles.fieldLabel}>{tAssignments("columnAssignees")}</dt>
+            <dd className={styles.assigneesValue}>
               <AvatarGroup
+                decorative
                 items={assignment.assignees.map((assignee) => ({
                   id: assignee.id,
                   name: `${assignee.firstName} ${assignee.lastName}`,
@@ -204,9 +223,9 @@ export default function AssignmentDetailsView({
                 }))}
               />
               <p className={styles.assigneeNames}>{assigneeNames}</p>
-            </div>
+            </dd>
           </div>
-        </div>
+        </dl>
       </Card>
 
       {assigneeNoteItems.length > 0 ? (
@@ -225,15 +244,11 @@ export default function AssignmentDetailsView({
           isOpen
           onClose={closeDeleteModal}
           title={t("deleteModalTitle")}
-          submitLabel={
-            deleteAssignment.isPending ? t("deleteSubmitting") : t("deleteConfirm")
-          }
+          submitLabel={deleteAssignment.isPending ? t("deleteSubmitting") : t("deleteConfirm")}
           onSubmit={() => void confirmDelete()}
           isSubmitDisabled={deleteAssignment.isPending}
         >
-          {deleteError ? (
-            <Alert variant="error">{t(`deleteErrors.${deleteError}`)}</Alert>
-          ) : null}
+          {deleteError ? <Alert variant="error">{t(`deleteErrors.${deleteError}`)}</Alert> : null}
           <p>{t("deleteModalBody", { task: assignment.taskName })}</p>
         </Modal>
       ) : null}
